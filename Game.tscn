@@ -1,19 +1,20 @@
 [gd_scene load_steps=6 format=1]
 
-[ext_resource path="res://Player.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Player.gd" type="Script" id=2]
+[ext_resource path="res://Game.gd" type="Script" id=1]
+[ext_resource path="res://Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Health.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Obstacle.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Board.tscn" type="PackedScene" id=5]
 
 [node name="Game" type="Node2D"]
 
-[node name="Player" parent="." instance=ExtResource( 1 )]
+script/script = ExtResource( 1 )
 
-script/script = ExtResource( 2 )
-health = NodePath("../Health Player")
+[node name="Player" parent="." instance=ExtResource( 2 )]
 
-[node name="Health Player" parent="." instance=ExtResource( 3 )]
+health_label = NodePath("../PlayerHealth")
+
+[node name="PlayerHealth" parent="." instance=ExtResource( 3 )]
 
 margin/left = 464.0
 margin/top = 281.0
@@ -24,9 +25,9 @@ target = NodePath("../Player")
 [node name="Obstacle" parent="." instance=ExtResource( 4 )]
 
 transform/pos = Vector2( 260, 540 )
-health_label = NodePath("../Health Obstacle")
+health_label = NodePath("../ObstacleHealth")
 
-[node name="Health Obstacle" parent="." instance=ExtResource( 3 )]
+[node name="ObstacleHealth" parent="." instance=ExtResource( 3 )]
 
 margin/left = 255.0
 margin/top = 564.0

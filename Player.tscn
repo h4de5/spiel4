@@ -1,77 +1,22 @@
 [gd_scene load_steps=7 format=1]
 
-[ext_resource path="res://friend.png" type="Texture" id=1]
+[ext_resource path="res://Player.gd" type="Script" id=1]
+[ext_resource path="res://friend.png" type="Texture" id=2]
 
-[sub_resource type="ConvexPolygonShape2D" id=1]
+[sub_resource type="ConvexPolygonShape2D" id=6]
 
 custom_solver_bias = 0.0
 points = Vector2Array( 6.38995, -5.991, 2.31183, 4.31168, -5.84442, -14.5765, 2.31183, -22.3035 )
 
-[sub_resource type="ConvexPolygonShape2D" id=2]
+[sub_resource type="ConvexPolygonShape2D" id=7]
 
 custom_solver_bias = 0.0
 points = Vector2Array( 42.02, -15.4351, 37.0833, 1.0921, 28.5707, -5.3548, 34.5076, -25.0938 )
 
-[sub_resource type="ConvexPolygonShape2D" id=3]
+[sub_resource type="ConvexPolygonShape2D" id=8]
 
 custom_solver_bias = 0.0
 points = Vector2Array( 6.38995, -5.991, 2.31183, -22.3035, 7.46317, -56.2165, 15.8341, -69.7387, 30.2149, -51.9237, 34.5076, -25.0938, 28.5707, -5.3548 )
-
-[sub_resource type="GDScript" id=4]
-
-script/source = "extends RigidBody2D
-
-var multi_forward = 50;
-var multi_rot = 200;
-export (NodePath) var health_label;
-
-func _ready():
-	# Called every time the node is added to the scene.
-	# Initialization here
-	set_fixed_process(true)
-	set_max_contacts_reported(1)
-	
-	connect(\"body_enter\", self, \"processCollision\")
-	pass
-
-func _fixed_process(delta):
-	#print(\"_fixed_process\", get_colliding_bodies())
-	processInput(delta)
-
-func processCollision(obstacle):
-	print(\"processCollision \", obstacle.get_name())
-
-func processInput(delta):
-	var speed = 0
-	var rot = 0;
-	
-	# get input from keyboard
-	if Input.is_action_pressed(\"ui_left\"): rot -= delta*multi_rot
-	if Input.is_action_pressed(\"ui_right\"): rot += delta*multi_rot
-	if Input.is_action_pressed(\"ui_up\"): speed -= delta*multi_forward
-	if Input.is_action_pressed(\"ui_down\"): speed += delta*multi_forward
-	
-	# rotate only if there is something to rotate
-	if rot != 0 :
-		set_angular_velocity(rot)
-	
-	# calculate vecotr from current rotation, if speed is set
-	if speed != 0 :
-		var direction = Vector2(sin(get_rot()), cos(get_rot()))
-		apply_impulse(Vector2(0,0), direction * multi_forward * delta * speed)
-	
-	\"\"\"
-	var movevector = Vector2(0,0)
-	if Input.is_action_pressed(\"ui_left\"): movevector.x -= delta*multi
-	if Input.is_action_pressed(\"ui_right\"): movevector.x += delta*multi
-	if Input.is_action_pressed(\"ui_up\"): movevector.y -= delta*multi
-	if Input.is_action_pressed(\"ui_down\"): movevector.y += delta*multi
-	
-	if(movevector != Vector2(0,0)):
-		#add_force( get_pos(), movevector )
-		apply_impulse(Vector2(0,0), movevector)
-	\"\"\"
-"
 
 [sub_resource type="ColorRamp" id=5]
 
@@ -82,13 +27,13 @@ colors = ColorArray( 0.765625, 0.972534, 1, 1, 1, 0.867188, 0, 1, 0, 0, 0, 1, 0.
 
 transform/pos = Vector2( 469, 257 )
 input/pickable = false
-shapes/0/shape = SubResource( 1 )
+shapes/0/shape = SubResource( 6 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, -19.2097, 41.7596 )
 shapes/0/trigger = false
-shapes/1/shape = SubResource( 2 )
+shapes/1/shape = SubResource( 7 )
 shapes/1/transform = Matrix32( 1, 0, 0, 1, -19.2097, 41.7596 )
 shapes/1/trigger = false
-shapes/2/shape = SubResource( 3 )
+shapes/2/shape = SubResource( 8 )
 shapes/2/transform = Matrix32( 1, 0, 0, 1, -19.2097, 41.7596 )
 shapes/2/trigger = false
 collision/layers = 1
@@ -106,9 +51,9 @@ sleeping = false
 can_sleep = true
 velocity/linear = Vector2( 0, 0 )
 velocity/angular = 0.0
-damp_override/linear = 0.0
-damp_override/angular = 5.0
-script/script = SubResource( 4 )
+damp_override/linear = 2.0
+damp_override/angular = 3.0
+script/script = ExtResource( 1 )
 health_label = null
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -116,7 +61,7 @@ health_label = null
 transform/pos = Vector2( 0, 20 )
 transform/rot = -90.0
 transform/scale = Vector2( 0.188028, 0.188028 )
-texture = ExtResource( 1 )
+texture = ExtResource( 2 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 
@@ -131,6 +76,7 @@ trigger = false
 transform/pos = Vector2( -0.650269, 41.8745 )
 config/amount = 32
 config/lifetime = 0.2
+config/emitting = false
 config/process_mode = 1
 config/half_extents = Vector2( 10, 0 )
 config/local_space = false

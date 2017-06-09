@@ -4,9 +4,9 @@ extends RigidBody2D
 # var a = 2
 # var b = "textvar"
 var delta_count = 0;
-var delta_max = 0.3
+var delta_max = 0.2
 var speed = 1;
-export (NodePath) var health_label;
+export (NodePath) var health_label
 
 func _ready():
 	# Called every time the node is added to the scene.
@@ -14,14 +14,20 @@ func _ready():
 	set_fixed_process(true)
 	randomize();
 	speed = rand_range(2,5)
+	add_to_group("enemy")
+	
+	var screensize = Vector2(Globals.get("display/width"),Globals.get("display/height"))
+	var angle = rand_range(0, 2*PI)
+	set_pos((screensize / 2) +  (Vector2(sin(angle), cos(angle)) * 200) )
+	set_rot(angle - PI * rand_range(1,3)/2)
 	
 	#print ("lerp", lerp(2, 5, speed))
 	#get_node("Sprite").set_modulate(Color(lerp(2, 5, speed), 0, 0))
 
 func _fixed_process(delta):
-	processInput(delta)
+	processMovement(delta)
 
-func processInput(delta):
+func processMovement(delta):
 	
 	delta_count += delta
 	if delta_count > delta_max :
@@ -32,21 +38,21 @@ func processInput(delta):
 		var obstaclepos = get_pos();
 		var obstaclerot = get_rot();
 		
-		#get_transform().rotated()
-		#print ("drehung: ", get_rot(), "cos: ", cos(get_rot()), "sin: ", sin(get_rot()))
-		
-		var forwardvec = Vector2(sin(get_rot()), cos(get_rot()))*-1
+		var forwardvec = Vector2(sin(get_rot()), cos(get_rot()))*-1 * speed/5
 		var playervec = (playerpos - obstaclepos).normalized()
 		
 		var angle = playervec.angle_to(forwardvec)
 		set_angular_velocity(angle);
-		#apply_impulse(Vector2(0,0),(playerpos - obstaclepos).normalized()*
-		
-		#set_angular_velocity(
 		apply_impulse(Vector2(0,0), forwardvec);
-		
-		
-		#delta_count -= delta_max
-	
 	#add_force( get_pos(), movevector )
 	#apply_impulse(Vector2(0,0), movevector)
+
+
+func processCollision(impact):
+	
+	#print("processCollision ", obstacle.get_name(), obstacle_vel, get_linear_velocity(), impact)
+	if health_label != "" and get_node(health_label) != null: 
+		get_node(health_label).changeHealth(-abs(impact) / 30000);
+		if get_node(health_label).getHealth() <= 0 :
+			free()
+	
