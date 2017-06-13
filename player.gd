@@ -21,6 +21,10 @@ func _ready():
 	health_node.target_obj = self
 	health_obj = health_node
 	
+	var camera_scn = load("res://Camera.tscn")
+	var camera_node = camera_scn.instance()
+	add_child(camera_node)
+	
 	connect("body_enter", self, "processCollision")
 	pass
 
