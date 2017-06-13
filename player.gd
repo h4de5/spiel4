@@ -2,7 +2,7 @@ extends RigidBody2D
 
 var multi_forward = 60
 var multi_rot = 100
-export (NodePath) var health_label
+var health_obj
 
 func _ready():
 	# Called every time the node is added to the scene.
@@ -14,6 +14,12 @@ func _ready():
 	
 	var screensize = Vector2(Globals.get("display/width"),Globals.get("display/height"))
 	set_pos(screensize / 2)
+	
+	var health_scn = load("res://Health.tscn")
+	var health_node = health_scn.instance()
+	get_parent().add_child(health_node, true)
+	health_node.target_obj = self
+	health_obj = health_node
 	
 	connect("body_enter", self, "processCollision")
 	pass
@@ -28,9 +34,9 @@ func processCollision(obstacle):
 		var obstacle_vel = obstacle.get_linear_velocity()
 		var impact = get_linear_velocity().dot(obstacle_vel);
 		#print("processCollision ", obstacle.get_name(), obstacle_vel, get_linear_velocity(), impact)
-		get_node(health_label).changeHealth(-abs(impact) / 20000);
+		health_obj.changeHealth(-abs(impact) / 20000);
 		
-		if get_node(health_label).getHealth() <= 0: 
+		if health_obj.getHealth() <= 0: 
 			get_tree().change_scene("res://GameOver.tscn")
 		# process impact on obstacle
 		obstacle.processCollision(impact)

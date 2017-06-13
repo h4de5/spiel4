@@ -11,17 +11,16 @@ func _ready():
 	print ("reset everything - new game")
 	
 	var enemy_scn = load("res://Obstacle.tscn")
-	var enemyhealth_scn = load("res://Health.tscn")
+	var player_scn = load("res://Player.tscn")
+	#var enemyhealth_scn = load("res://Health.tscn")
+	
+	var player_node = player_scn.instance()
+	add_child(player_node, true)
 	
 	var enemy_node = enemy_scn.instance()
-	var enemyhealth_node = enemyhealth_scn.instance()
-	add_child(enemyhealth_node, true)
 	add_child(enemy_node, true)
-	
-	enemyhealth_node.target = get_path_to(enemy_node)
-	enemy_node.health_label = get_path_to(enemyhealth_node)
-	
-	
+	enemy_node = enemy_scn.instance()
+	add_child(enemy_node, true)
 	
 	
 	pass

@@ -3,10 +3,11 @@ extends RigidBody2D
 # class member variables go here, for example:
 # var a = 2
 # var b = "textvar"
-var delta_count = 0;
+var delta_count = 0
 var delta_max = 0.2
-var speed = 1;
-export (NodePath) var health_label
+var speed = 1
+#export (NodePath) var health_label
+var health_obj
 
 func _ready():
 	# Called every time the node is added to the scene.
@@ -20,6 +21,12 @@ func _ready():
 	var angle = rand_range(0, 2*PI)
 	set_pos((screensize / 2) +  (Vector2(sin(angle), cos(angle)) * 200) )
 	set_rot(angle - PI * rand_range(1,3)/2)
+	
+	var health_scn = load("res://Health.tscn")
+	var health_node = health_scn.instance()
+	get_parent().add_child(health_node, true)
+	health_node.target_obj = self
+	health_obj = health_node
 	
 	#print ("lerp", lerp(2, 5, speed))
 	#get_node("Sprite").set_modulate(Color(lerp(2, 5, speed), 0, 0))
@@ -51,8 +58,13 @@ func processMovement(delta):
 func processCollision(impact):
 	
 	#print("processCollision ", obstacle.get_name(), obstacle_vel, get_linear_velocity(), impact)
-	if health_label != "" and get_node(health_label) != null: 
-		get_node(health_label).changeHealth(-abs(impact) / 30000);
-		if get_node(health_label).getHealth() <= 0 :
+	#if health_label != "" and get_node(health_label) != null: 
+	#	get_node(health_label).changeHealth(-abs(impact) / 30000);
+	#	if get_node(health_label).getHealth() <= 0 :
+	#		free()
+	if health_obj != null: 
+		health_obj.changeHealth(-abs(impact) / 30000);
+		if health_obj.getHealth() <= 0 :
 			free()
+	
 	

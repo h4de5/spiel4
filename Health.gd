@@ -4,6 +4,7 @@ extends Control
 # var a = 2
 # var b = "textvar"
 export (NodePath) var target
+var target_obj
 
 func _ready():
 	# Called every time the node is added to the scene.
@@ -17,8 +18,10 @@ func _ready():
 
 
 func _fixed_process(delta):
-	if target != "" and get_node(target) != null:
-		set_pos(get_node(target).get_pos());
+	#if target != "" and get_node(target) != null:
+	#	set_pos(get_node(target).get_pos());
+	#if target_obj != null:
+	set_pos(target_obj.get_pos());
 
 func changeHealth(value):
 	var progressbar = get_node("ProgressBar")
