@@ -24,7 +24,7 @@ scroll/base_offset = Vector2( 0, 0 )
 scroll/base_scale = Vector2( 1, 1 )
 scroll/limit_begin = Vector2( 0, 0 )
 scroll/limit_end = Vector2( 0, 0 )
-scroll/ignore_camera_zoom = false
+scroll/ignore_camera_zoom = true
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
 
@@ -39,7 +39,7 @@ texture = ExtResource( 1 )
 
 [node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
 
-visibility/opacity = 0.59
+visibility/opacity = 0.4
 z/z = 2
 motion/scale = Vector2( 1, 1 )
 motion/offset = Vector2( 0, 0 )
