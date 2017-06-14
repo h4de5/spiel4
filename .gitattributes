@@ -1,3 +1,5 @@
 background/* linguist-vendored
 *.cfg linguist-vendored
 *.tscn linguist-vendored
+*.tex linguist-vendored
+*.inc linguist-vendored
