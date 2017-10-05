@@ -24,7 +24,8 @@ func _ready():
 	
 	var health_scn = load("res://Health.tscn")
 	var health_node = health_scn.instance()
-	get_parent().add_child(health_node, true)
+	get_parent().call_deferred("add_child", health_node, true)
+	
 	health_node.target_obj = self
 	health_obj = health_node
 	
@@ -40,8 +41,14 @@ func processMovement(delta):
 	if delta_count > delta_max :
 		var tree = get_tree()
 		var scene = tree.get_current_scene()
-		var player = scene.get_node("/root/Game/Player")
-		var playerpos = player.get_pos()
+		var player 
+		var playerpos 
+		if scene.has_node("/root/Game/Player") :
+			player = scene.get_node("/root/Game/Player")
+			playerpos = player.get_pos()
+		else :
+			playerpos = Vector2(0,0)
+		
 		var obstaclepos = get_pos();
 		var obstaclerot = get_rot();
 		

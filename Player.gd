@@ -1,5 +1,6 @@
 extends RigidBody2D
 
+# acceleration and rotation speed
 var multi_forward = 60
 var multi_rot = 100
 var health_obj
@@ -12,12 +13,14 @@ func _ready():
 	
 	add_to_group("player")
 	
-	var screensize = Vector2(Globals.get("display/width"),Globals.get("display/height"))
+	var screensize = Vector2(Globals.get("display/width"), Globals.get("display/height"))
 	set_pos(screensize / 2)
 	
 	var health_scn = load("res://Health.tscn")
 	var health_node = health_scn.instance()
-	get_parent().add_child(health_node, true)
+	
+	get_parent().call_deferred("add_child", health_node, true)
+	
 	health_node.target_obj = self
 	health_obj = health_node
 	
@@ -50,6 +53,7 @@ func processCollision(obstacle):
 		var obstacle_pos = obstacle.get_pos()
 		var hit_position = player_pos - obstacle_pos
 		print("hitpos: ", player_pos.normalized())
+		
 		"""
 		var raycast = RayCast(obstacle_pos)
 		
@@ -57,10 +61,6 @@ func processCollision(obstacle):
 		if raycast.is_colliding() : 
 			print("get_collision_point: ", raycast.get_collision_point(), " get_collider: ", raycast.get_collider())
 		"""
-		
-
-
-
 
 func processInput(delta):
 	var speed = 0
@@ -71,6 +71,7 @@ func processInput(delta):
 	if Input.is_action_pressed("ui_right"): rot += delta*multi_rot
 	if Input.is_action_pressed("ui_up"): speed -= delta*multi_forward
 	if Input.is_action_pressed("ui_down"): speed += delta*multi_forward
+	if Input.is_action_pressed("ui_accept"): shoot("Missle")
 	
 	# rotate only if there is something to rotate
 	if rot != 0 :
@@ -95,3 +96,12 @@ func processInput(delta):
 		#add_force( get_pos(), movevector )
 		apply_impulse(Vector2(0,0), movevector)
 	"""
+func shoot(object) :
+	var shoot_scn = load("res://"+object+".tscn")
+	var shoot_node = shoot_scn.instance()
+	var player_pos = get_pos()
+	
+	get_parent().call_deferred("add_child", shoot_node, true)
+	
+	shoot_node.set_pos(player_pos)
+	

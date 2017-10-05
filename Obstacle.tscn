@@ -30,6 +30,7 @@ colors = ColorArray( 0.765625, 0.972534, 1, 1, 1, 0.867188, 0, 1, 0, 0, 0, 1, 0.
 
 [node name="Obstacle" type="RigidBody2D"]
 
+editor/display_folded = true
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Matrix32( 0.903462, 0, 0, 15.3922, -19, 118 )
@@ -61,7 +62,6 @@ velocity/angular = 0.0
 damp_override/linear = 3.0
 damp_override/angular = -1.0
 script/script = ExtResource( 1 )
-health_label = null
 
 [node name="Sprite" type="Sprite" parent="."]
 
