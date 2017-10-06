@@ -4,11 +4,14 @@ extends RigidBody2D
 var multi_forward = 60
 var multi_rot = 100
 var health_obj
+var zoom = 1
+var multi_zoom = 0.2
 
 func _ready():
 	# Called every time the node is added to the scene.
 	# Initialization here
 	set_fixed_process(true)
+	set_process_input(true)
 	set_max_contacts_reported(4)
 	
 	add_to_group("player")
@@ -34,6 +37,18 @@ func _ready():
 func _fixed_process(delta):
 	#print("_fixed_process", get_colliding_bodies())
 	processInput(delta)
+	
+	
+func _input(event):
+	var old_zoom = zoom
+	
+	if event.type == InputEvent.MOUSE_BUTTON:
+		if event.button_index == BUTTON_WHEEL_UP: zoom += multi_zoom
+		if event.button_index == BUTTON_WHEEL_DOWN: zoom = zoom-multi_zoom if zoom > 1 else 1
+	
+	if old_zoom != zoom : 
+		get_node("Camera2D").set_zoom(Vector2(zoom, zoom))
+
 
 func processCollision(obstacle):
 	
@@ -65,6 +80,7 @@ func processCollision(obstacle):
 func processInput(delta):
 	var speed = 0
 	var rot = 0;
+	var old_zoom = zoom
 	
 	# get input from keyboard
 	if Input.is_action_pressed("ui_left"): rot -= delta*multi_rot
@@ -72,6 +88,12 @@ func processInput(delta):
 	if Input.is_action_pressed("ui_up"): speed -= delta*multi_forward
 	if Input.is_action_pressed("ui_down"): speed += delta*multi_forward
 	if Input.is_action_pressed("ui_accept"): shoot("Missle")
+	if Input.is_action_pressed("ui_page_down"): zoom = zoom-multi_zoom if zoom > 1 else 1
+	if Input.is_action_pressed("ui_page_up"): zoom += multi_zoom
+	
+	if old_zoom != zoom : 
+		get_node("Camera2D").set_zoom(Vector2(zoom, zoom));
+		
 	
 	# rotate only if there is something to rotate
 	if rot != 0 :
