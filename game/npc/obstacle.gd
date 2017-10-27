@@ -22,7 +22,7 @@ func _ready():
 	set_pos((screensize / 2) +  (Vector2(sin(angle), cos(angle)) * 200) )
 	set_rot(angle - PI * rand_range(1,3)/2)
 	
-	var health_scn = load("res://Health.tscn")
+	var health_scn = load("res://game/gui/health.tscn")
 	var health_node = health_scn.instance()
 	get_parent().call_deferred("add_child", health_node, true)
 	

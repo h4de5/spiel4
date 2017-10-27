@@ -10,8 +10,8 @@ func _ready():
 	
 	print ("reset everything - new game")
 	
-	var enemy_scn = load("res://Obstacle.tscn")
-	var player_scn = load("res://Player.tscn")
+	var enemy_scn = load("res://game/npc/obstacle.tscn")
+	var player_scn = load("res://game/player/player.tscn")
 	#var enemyhealth_scn = load("res://Health.tscn")
 	
 	var player_node = player_scn.instance()

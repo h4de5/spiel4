@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=1]
 
-[ext_resource path="res://GameOver.gd" type="Script" id=1]
-[ext_resource path="res://Roboto-Regular.fnt" type="BitmapFont" id=2]
+[ext_resource path="res://game/scenes/gameover.gd" type="Script" id=1]
+[ext_resource path="res://game/fonts/roboto-regular.fnt" type="BitmapFont" id=2]
 
 [node name="Control" type="Control"]
 

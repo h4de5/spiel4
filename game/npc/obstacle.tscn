@@ -1,7 +1,8 @@
 [gd_scene load_steps=8 format=1]
 
-[ext_resource path="res://Obstacle.gd" type="Script" id=1]
-[ext_resource path="res://enemy.png" type="Texture" id=2]
+[ext_resource path="res://game/npc/obstacle.gd" type="Script" id=1]
+[ext_resource path="res://game/npc/enemy.tex" type="Texture" id=2]
+
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 

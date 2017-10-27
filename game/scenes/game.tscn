@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=1]
 
-[ext_resource path="res://Game.gd" type="Script" id=1]
-[ext_resource path="res://Board.tscn" type="PackedScene" id=2]
+[ext_resource path="res://game/scenes/game.gd" type="Script" id=1]
+[ext_resource path="res://game/scenes/board.tscn" type="PackedScene" id=2]
 
 [node name="Game" type="Node2D"]
 

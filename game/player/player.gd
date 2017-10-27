@@ -19,7 +19,7 @@ func _ready():
 	var screensize = Vector2(Globals.get("display/width"), Globals.get("display/height"))
 	set_pos(screensize / 2)
 	
-	var health_scn = load("res://Health.tscn")
+	var health_scn = load("res://game/gui/health.tscn")
 	var health_node = health_scn.instance()
 	
 	get_parent().call_deferred("add_child", health_node, true)
@@ -27,7 +27,7 @@ func _ready():
 	health_node.target_obj = self
 	health_obj = health_node
 	
-	var camera_scn = load("res://Camera.tscn")
+	var camera_scn = load("res://game/scenes/camera.tscn")
 	var camera_node = camera_scn.instance()
 	add_child(camera_node)
 	
@@ -59,7 +59,7 @@ func processCollision(obstacle):
 		health_obj.changeHealth(-abs(impact) / 20000);
 		
 		if health_obj.getHealth() <= 0: 
-			get_tree().change_scene("res://GameOver.tscn")
+			get_tree().change_scene("res://games/scenes/gameover.tscn")
 		# process impact on obstacle
 		obstacle.processCollision(impact)
 		
@@ -87,7 +87,7 @@ func processInput(delta):
 	if Input.is_action_pressed("ui_right"): rot += delta*multi_rot
 	if Input.is_action_pressed("ui_up"): speed -= delta*multi_forward
 	if Input.is_action_pressed("ui_down"): speed += delta*multi_forward
-	if Input.is_action_pressed("ui_accept"): shoot("Missle")
+	if Input.is_action_pressed("ui_accept"): shoot("npc/missle")
 	if Input.is_action_pressed("ui_page_down"): zoom = zoom-multi_zoom if zoom > 1 else 1
 	if Input.is_action_pressed("ui_page_up"): zoom += multi_zoom
 	
@@ -119,7 +119,7 @@ func processInput(delta):
 		apply_impulse(Vector2(0,0), movevector)
 	"""
 func shoot(object) :
-	var shoot_scn = load("res://"+object+".tscn")
+	var shoot_scn = load("res://game/"+object+".tscn")
 	var shoot_node = shoot_scn.instance()
 	var player_pos = get_pos()
 	

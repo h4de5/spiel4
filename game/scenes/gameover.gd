@@ -17,7 +17,7 @@ func _ready():
 
 func buttonPressed(target):
 	#print ("pressed button: ", target.get_name())
-	get_tree().change_scene("res://Game.tscn")
+	get_tree().change_scene("res://game/scenes/game.tscn")
 	#var newgame = get_tree().
 	#newgame.get_node("/root/Game/Player").set_pos(Vector2(0, 0))
 	#newgame.get_node("/root/Game/PlayerHealth").resetHealth()
