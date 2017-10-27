@@ -1,7 +1,9 @@
 [gd_scene load_steps=3 format=1]
 
-[ext_resource path="res://background/starfield.png" type="Texture" id=1]
-[ext_resource path="res://background/starsandnebulae.jpg" type="Texture" id=2]
+[ext_resource path="res://art/background/starfield.png" type="Texture" id=1]
+[ext_resource path="res://art/background/starsandnebulae.jpg" type="Texture" id=2]
+
+
 
 [node name="StaticBody2D" type="StaticBody2D"]
 

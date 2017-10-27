@@ -2,7 +2,7 @@ extends Control
 
 # class member variables go here, for example:
 # var a = 2
-# var b = "textvar"
+# var b 	= "textvar"
 
 
 func _ready():
@@ -17,7 +17,7 @@ func _ready():
 
 func buttonPressed(target):
 	#print ("pressed button: ", target.get_name())
-	get_tree().change_scene("res://game/scenes/game.tscn")
+	get_tree().change_scene(global.scene_path_game)
 	#var newgame = get_tree().
 	#newgame.get_node("/root/Game/Player").set_pos(Vector2(0, 0))
 	#newgame.get_node("/root/Game/PlayerHealth").resetHealth()
