@@ -1,0 +1,102 @@
+[gd_scene load_steps=7 format=1]
+
+[ext_resource path="res://game/player/player.gd" type="Script" id=1]
+[ext_resource path="res://game/player/friend.tex" type="Texture" id=2]
+
+[sub_resource type="ConvexPolygonShape2D" id=1]
+
+custom_solver_bias = 0.0
+points = Vector2Array( 7.80374, -6.12555, 1.7428, 1.78006, -4.63263, -14.7452, 3.93378, -23.8361 )
+
+[sub_resource type="ConvexPolygonShape2D" id=2]
+
+custom_solver_bias = 0.0
+points = Vector2Array( 3.93378, -23.8361, 7.25543, -51.9828, 16.5212, -69.1156, 28.584, -51.808, 34.9463, -23.5179, 28.5707, -5.3548, 7.80374, -6.12555 )
+
+[sub_resource type="ConvexPolygonShape2D" id=3]
+
+custom_solver_bias = 0.0
+points = Vector2Array( 42.9196, -14.92, 37.0833, 1.0921, 28.5707, -5.3548, 34.9463, -23.5179 )
+
+[sub_resource type="ColorRamp" id=4]
+
+offsets = FloatArray( 0, 0.19883, 0.643275, 1 )
+colors = ColorArray( 0.765625, 0.972534, 1, 1, 0, 0.507813, 1, 1, 0, 0, 0, 1, 0.0351562, 0.0351562, 0.0351562, 0 )
+
+[node name="Player" type="RigidBody2D"]
+
+transform/pos = Vector2( 469, 257 )
+input/pickable = false
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, -19.2097, 41.7596 )
+shapes/0/trigger = false
+shapes/1/shape = SubResource( 2 )
+shapes/1/transform = Matrix32( 1, 0, 0, 1, -19.2097, 41.7596 )
+shapes/1/trigger = false
+shapes/2/shape = SubResource( 3 )
+shapes/2/transform = Matrix32( 1, 0, 0, 1, -19.2097, 41.7596 )
+shapes/2/trigger = false
+collision/layers = 1
+collision/mask = 1
+mode = 0
+mass = 0.102432
+friction = 1.0
+bounce = 0.5
+gravity_scale = 0.0
+custom_integrator = false
+continuous_cd = 2
+contacts_reported = 0
+contact_monitor = true
+sleeping = false
+can_sleep = true
+velocity/linear = Vector2( 0, 0 )
+velocity/angular = 0.0
+damp_override/linear = 2.0
+damp_override/angular = 3.0
+script/script = ExtResource( 1 )
+processor = null
+
+[node name="Sprite" type="Sprite" parent="."]
+
+transform/pos = Vector2( 0, 20 )
+transform/rot = -90.0
+transform/scale = Vector2( 0.100639, 0.100639 )
+texture = ExtResource( 2 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+
+transform/pos = Vector2( -19.2097, 41.7596 )
+build_mode = 0
+polygon = Vector2Array( 7.25543, -51.9828, 16.5212, -69.1156, 28.584, -51.808, 34.9463, -23.5179, 42.9196, -14.92, 37.0833, 1.0921, 28.5707, -5.3548, 7.80374, -6.12555, 1.7428, 1.78006, -4.63263, -14.7452, 3.93378, -23.8361 )
+shape_range = Vector2( 0, 2 )
+trigger = false
+
+[node name="Particles2D" type="Particles2D" parent="."]
+
+transform/pos = Vector2( -2.67487, 49.1618 )
+config/amount = 32
+config/lifetime = 0.2
+config/emitting = false
+config/process_mode = 1
+config/half_extents = Vector2( 10, 0 )
+config/local_space = false
+params/direction = 0.0
+params/spread = 70.0
+params/linear_velocity = 180.0
+params/spin_velocity = 0.0
+params/orbit_velocity = 0.0
+params/gravity_direction = 0.0
+params/gravity_strength = 9.8
+params/radial_accel = 0.0
+params/tangential_accel = 0.0
+params/damping = 0.0
+params/initial_angle = 0.0
+params/initial_size = 10.0
+params/final_size = 15.0
+params/hue_variation = 1.0
+params/anim_speed_scale = 1.0
+params/anim_initial_pos = 0.0
+color/color = Color( 0.785156, 0.64484, 0.223892, 1 )
+color/color_ramp = SubResource( 4 )
+
+

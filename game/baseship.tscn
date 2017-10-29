@@ -1,0 +1,52 @@
+[gd_scene load_steps=5 format=1]
+
+[ext_resource path="res://game/baseship.gd" type="Script" id=1]
+[ext_resource path="res://art/models/icon.png" type="Texture" id=2]
+[ext_resource path="res://game/processor.tscn" type="PackedScene" id=3]
+
+[sub_resource type="ConvexPolygonShape2D" id=1]
+
+custom_solver_bias = 0.0
+points = Vector2Array( 0, 0, 1, 0, 1, 1, 0, 1 )
+
+[node name="Baseship" type="RigidBody2D"]
+
+input/pickable = false
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+mode = 0
+mass = 0.102041
+friction = 1.0
+bounce = 0.5
+gravity_scale = 0.0
+custom_integrator = false
+continuous_cd = 0
+contacts_reported = 0
+contact_monitor = false
+sleeping = false
+can_sleep = true
+velocity/linear = Vector2( 0, 0 )
+velocity/angular = 0.0
+damp_override/linear = 2.0
+damp_override/angular = 3.0
+script/script = ExtResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+
+texture = ExtResource( 2 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+
+build_mode = 0
+polygon = Vector2Array( 0, 0, 1, 0, 1, 1, 0, 1 )
+shape_range = Vector2( 0, 0 )
+trigger = false
+
+[node name="Processor" parent="." instance=ExtResource( 3 )]
+
+processor = null
+
+

@@ -1,3 +1,4 @@
+#extends "res://game/baseship.gd"
 extends RigidBody2D
 
 # class member variables go here, for example:
@@ -22,7 +23,7 @@ func _ready():
 	set_pos((screensize / 2) +  (Vector2(sin(angle), cos(angle)) * 200) )
 	set_rot(angle - PI * rand_range(1,3)/2)
 	
-	var health_scn = load("res://game/gui/health.tscn")
+	var health_scn = load(global.scene_path_healthbar)
 	var health_node = health_scn.instance()
 	get_parent().call_deferred("add_child", health_node, true)
 	
