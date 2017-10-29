@@ -8,7 +8,7 @@ var input_player1 = {
 	"ui_right": global.actions.right,
 	"ui_up": global.actions.accelerate,
 	"ui_down": global.actions.back,
-	"ui_select": global.actions.shoot,
+	"ui_select": global.actions.fire,
 	"ui_accept": global.actions.use,
 	"ui_page_up": global.actions.zoom_in,
 	"ui_page_down": global.actions.zoom_out
@@ -20,7 +20,7 @@ var input_player2 = {
 	"ui_right": "right",
 	"ui_up": "accelerate",
 	"ui_down": "break",
-	"ui_select": "shoot",
+	"ui_select": "fire",
 	"ui_accept": "use",
 	"ui_page_up": "zoom_in",
 	"ui_page_down": "zoom_out"
@@ -30,7 +30,7 @@ func _ready():
 	set_process_input(true)
 	# default - use player1 inputs
 	input_group = 1
-	input_actions = action.input_player1
+	input_actions = input_player1
 
 func set_parent(p):
 	parent = p
@@ -38,7 +38,7 @@ func set_parent(p):
 func set_input_group(groupid):
 	input_group = groupid
 	if input_group == 1:
-		input_actions = action.input_player1
+		input_actions = input_player1
 	pass
 
 func _input(event):
@@ -47,7 +47,7 @@ func _input(event):
 	# 	e : input_actions[e]
 	for e in input_actions :
 		if event.is_action(e) :
-			parent.handle_action(input_actions[e], event.is_pressed())
+			parent.parent.handle_action(input_actions[e], event.is_pressed())
 		"""
 		if event.is_action_pressed(e) :
 			parent.handle_action(input_actions[e], true)

@@ -1,9 +1,9 @@
 extends RigidBody2D
 
 # speed for acceleration and rotation and zoom
-var multi_forward = 60
-var multi_break = 60
-var multi_rot = 100
+var multi_forward = 50
+var multi_break = 3
+var multi_rot = 2
 var multi_zoom = 0.2
 
 # current state and modificators
@@ -40,16 +40,14 @@ func _fixed_process(delta):
 	if torque.x != 0 :
 		set_angular_velocity(torque.x)
 	
-	"""
-	TODO
 	# calculate vector from current rotation, if speed is set
 	if velocity.x != 0 :
 		var direction = Vector2(sin(get_rot()), cos(get_rot()))
 		apply_impulse(Vector2(0,0), direction * delta * velocity.x)
-		get_node("Particles2D").set_emitting(true)
-	else :
-		get_node("Particles2D").set_emitting(false)
-	"""
+		#get_node("Particles2D").set_emitting(true)
+	#else :
+		#get_node("Particles2D").set_emitting(false)
+	
 	
 	"""
 	if Input.is_action_pressed("ui_left"): rot -= delta*multi_rot

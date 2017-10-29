@@ -47,6 +47,4 @@ trigger = false
 
 [node name="Processor" parent="." instance=ExtResource( 3 )]
 
-processor = null
-
 

@@ -9,7 +9,9 @@ func _ready():
 	parent = get_parent()
 	if processor != null :
 		var processor_instance = processor.instance()
+		processor_instance.set_parent(parent)
 		add_child(processor_instance)
+		#add_child(processor_instance)
 	"""
 	if processor != "none" : 
 	

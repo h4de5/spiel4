@@ -1,12 +1,13 @@
 extends "res://game/baseship.gd"
 
+"""
 # acceleration and rotation speed
 var multi_forward = 60
-var multi_rot = 100
+var multi_rot = 0.05
 var health_obj
 var zoom = 1
 var multi_zoom = 0.2
-
+"""
 
 func _ready():
 	# Called every time the node is added to the scene.
