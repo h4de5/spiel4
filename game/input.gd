@@ -48,6 +48,7 @@ func _input(event):
 	for e in input_actions :
 		if event.is_action(e) :
 			parent.parent.handle_action(input_actions[e], event.is_pressed())
+		
 		"""
 		if event.is_action_pressed(e) :
 			parent.handle_action(input_actions[e], true)
@@ -55,6 +56,6 @@ func _input(event):
 			parent.handle_action(input_actions[e], false)
 		"""
 	
-	#if event.type == InputEvent.MOUSE_BUTTON:
-	#	if event.button_index == BUTTON_WHEEL_UP: parent.handle_action("ui_page_up") #zoom += multi_zoom
-	#	if event.button_index == BUTTON_WHEEL_DOWN: parent.handle_action("ui_page_down") #zoom = zoom-multi_zoom if zoom > 1 else 1
+	if event.type == InputEvent.MOUSE_BUTTON:
+		if event.button_index == BUTTON_WHEEL_UP: parent.parent.handle_action(global.actions.zoom_in, true) #zoom += multi_zoom
+		if event.button_index == BUTTON_WHEEL_DOWN: parent.parent.handle_action(global.actions.zoom_out, true) #zoom = zoom-multi_zoom if zoom > 1 else 1

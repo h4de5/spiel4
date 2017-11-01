@@ -48,6 +48,8 @@ func _fixed_process(delta):
 	#else :
 		#get_node("Particles2D").set_emitting(false)
 	
+	if zoom_speed != 0 :
+		get_node("Camera2D").set_zoom(Vector2(zoom, zoom));
 	
 	"""
 	if Input.is_action_pressed("ui_left"): rot -= delta*multi_rot
@@ -92,7 +94,7 @@ func handle_action(action, pressed):
 		elif action == global.actions.zoom_in: zoom_speed = -multi_zoom
 		elif action == global.actions.zoom_out: zoom_speed = multi_zoom
 			
-		elif action == global.actions.shoot: shoot("npc/missle")
+		elif action == global.actions.fire: shoot("npc/missle")
 		elif action == global.actions.use: shoot("npc/missle")
 		else:
 			print ("unknown press action: ", action)
@@ -108,6 +110,7 @@ func handle_action(action, pressed):
 		else:
 			print ("unknown release action: ", action)
 
+	if zoom_speed != 0: zoom = zoom + (zoom_speed if (zoom+zoom_speed) >= 1 else 0)
 	"""
 	var speed = 0
 	var rot = 0;
