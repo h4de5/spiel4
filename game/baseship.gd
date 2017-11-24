@@ -91,8 +91,8 @@ func handle_action(action, pressed):
 	if pressed : 
 		if action == global.actions.left: torque.x = -multi_rot
 		elif action == global.actions.right: torque.x = multi_rot
-		elif action == global.actions.accelerate: velocity.x = multi_forward
-		elif action == global.actions.back: velocity.x = -multi_break
+		elif action == global.actions.accelerate: velocity.x = -multi_forward
+		elif action == global.actions.back: velocity.x = multi_break
 		
 		elif action == global.actions.zoom_in: zoom_speed = -multi_zoom
 		elif action == global.actions.zoom_out: zoom_speed = multi_zoom

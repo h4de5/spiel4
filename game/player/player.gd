@@ -31,7 +31,8 @@ func _ready():
 	
 	get_node("Processors").set_processor("Input")
 	get_node("Processors").get_processor().set_parent(self);
-	print ("test")
+	
+	ship_locator.register_player(self)
 	
 
 func processCollision(obstacle):

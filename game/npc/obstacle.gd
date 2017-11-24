@@ -43,12 +43,18 @@ func processMovement(delta):
 		var tree = get_tree()
 		var scene = tree.get_current_scene()
 		var player 
-		var playerpos 
+		var playerpos
+		
+		player = ship_locator.get_next_player( get_pos() )
+		playerpos = player.get_pos()
+		
+		"""
 		if scene.has_node("/root/Game/Player") :
 			player = scene.get_node("/root/Game/Player")
 			playerpos = player.get_pos()
 		else :
 			playerpos = Vector2(0,0)
+		"""
 		
 		var obstaclepos = get_pos();
 		var obstaclerot = get_rot();
