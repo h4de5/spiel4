@@ -1,13 +1,19 @@
-[gd_scene load_steps=5 format=1]
+[gd_scene load_steps=7 format=1]
 
 [ext_resource path="res://game/baseship.gd" type="Script" id=1]
 [ext_resource path="res://art/models/icon.png" type="Texture" id=2]
-[ext_resource path="res://game/processor.tscn" type="PackedScene" id=3]
+[ext_resource path="res://game/processor_selector.gd" type="Script" id=3]
+[ext_resource path="res://game/input.gd" type="Script" id=4]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 
 custom_solver_bias = 0.0
 points = Vector2Array( 0, 0, 1, 0, 1, 1, 0, 1 )
+
+[sub_resource type="ColorRamp" id=5]
+
+offsets = FloatArray( 0, 0.19883, 0.643275, 1 )
+colors = ColorArray( 0.765625, 0.972534, 1, 1, 1, 0.867188, 0, 1, 0, 0, 0, 1, 0.0351562, 0.0351562, 0.0351562, 0 )
 
 [node name="Baseship" type="RigidBody2D"]
 
@@ -45,6 +51,43 @@ polygon = Vector2Array( 0, 0, 1, 0, 1, 1, 0, 1 )
 shape_range = Vector2( 0, 0 )
 trigger = false
 
-[node name="Processor" parent="." instance=ExtResource( 3 )]
+[node name="Processors" type="Node" parent="."]
+
+script/script = ExtResource( 3 )
+
+[node name="Input" type="Node" parent="Processors"]
+
+script/script = ExtResource( 4 )
+
+[node name="Network" type="Node" parent="Processors"]
+
+[node name="AI" type="Node" parent="Processors"]
+
+[node name="Particles2D" type="Particles2D" parent="."]
+
+transform/pos = Vector2( -0.650269, 41.8745 )
+config/amount = 32
+config/lifetime = 0.2
+config/process_mode = 1
+config/half_extents = Vector2( 10, 0 )
+config/local_space = false
+params/direction = 0.0
+params/spread = 70.0
+params/linear_velocity = 180.0
+params/spin_velocity = 0.0
+params/orbit_velocity = 0.0
+params/gravity_direction = 0.0
+params/gravity_strength = 9.8
+params/radial_accel = 0.0
+params/tangential_accel = 0.0
+params/damping = 0.0
+params/initial_angle = 0.0
+params/initial_size = 10.0
+params/final_size = 15.0
+params/hue_variation = 1.0
+params/anim_speed_scale = 1.0
+params/anim_initial_pos = 0.0
+color/color = Color( 0.250488, 0.370995, 0.84375, 1 )
+color/color_ramp = SubResource( 5 )
 
 

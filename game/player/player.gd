@@ -1,14 +1,5 @@
 extends "res://game/baseship.gd"
 
-"""
-# acceleration and rotation speed
-var multi_forward = 60
-var multi_rot = 0.05
-var health_obj
-var zoom = 1
-var multi_zoom = 0.2
-"""
-
 func _ready():
 	# Called every time the node is added to the scene.
 	# Initialization here
@@ -38,6 +29,10 @@ func _ready():
 	
 	connect("body_enter", self, "processCollision")
 	
+	get_node("Processors").set_processor("Input")
+	get_node("Processors").get_processor().set_parent(self);
+	print ("test")
+	
 
 func processCollision(obstacle):
 	
@@ -66,12 +61,19 @@ func processCollision(obstacle):
 			print("get_collision_point: ", raycast.get_collision_point(), " get_collider: ", raycast.get_collider())
 		"""
 
-func shoot(object) :
-	var shoot_scn = load("res://game/"+object+".tscn")
+func shoot(path) :
+	
+	print("pos: ", get_pos())
+	print("global pos: ", get_global_pos())
+	
+	#var shoot_scn = load("res://game/"+object+".tscn")
+	var shoot_scn = load(path)
 	var shoot_node = shoot_scn.instance()
 	var player_pos = get_pos()
 	
-	get_parent().call_deferred("add_child", shoot_node, true)
+	#get_parent().call_deferred("add_child", shoot_node, true)
+	get_parent().add_child(shoot_node)
+	
 	
 	shoot_node.set_pos(player_pos)
 	

@@ -51,6 +51,9 @@ func _fixed_process(delta):
 	if zoom_speed != 0 :
 		get_node("Camera2D").set_zoom(Vector2(zoom, zoom));
 	
+	
+	#print("pos: ", get_pos())
+	#print("global pos: ", get_global_pos())
 	"""
 	if Input.is_action_pressed("ui_left"): rot -= delta*multi_rot
 	if Input.is_action_pressed("ui_right"): rot += delta*multi_rot
@@ -94,8 +97,8 @@ func handle_action(action, pressed):
 		elif action == global.actions.zoom_in: zoom_speed = -multi_zoom
 		elif action == global.actions.zoom_out: zoom_speed = multi_zoom
 			
-		elif action == global.actions.fire: shoot("npc/missle")
-		elif action == global.actions.use: shoot("npc/missle")
+		elif action == global.actions.fire: shoot(global.scene_path_missle)
+		elif action == global.actions.use: shoot(global.scene_path_missle)
 		else:
 			print ("unknown press action: ", action)
 		
@@ -166,3 +169,6 @@ func handle_action(action, pressed):
 		if old_zoom != zoom : 
 			get_node("Camera2D").set_zoom(Vector2(zoom, zoom))
 	"""
+	
+func shoot(path): 
+	pass

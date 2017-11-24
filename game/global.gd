@@ -1,14 +1,23 @@
 extends Node
 
 # scene paths
-var scene_path_player 		= "res://game/player/player.tscn"
-var scene_path_enemy 		= "res://game/npc/obstacle.tscn"
-var scene_path_game 		= "res://game/scenes/game.tscn"
-var scene_path_gameover 	= "res://game/scenes/gameover.tscn"
-var scene_path_healthbar 	= "res://game/gui/health.tscn"
-var scene_path_camera 		= "res://game/scenes/camera.tscn"
+const scene_path_player 		= "res://game/player/player.tscn"
+const scene_path_enemy 		= "res://game/npc/obstacle.tscn"
+const scene_path_game 		= "res://game/scenes/game.tscn"
+const scene_path_gameover 	= "res://game/scenes/gameover.tscn"
+const scene_path_healthbar 	= "res://game/gui/health.tscn"
+const scene_path_camera 		= "res://game/scenes/camera.tscn"
+const scene_path_missle 		= "res://game/npc/missle.tscn"
 
 
+enum groups {
+	player,
+	enemy,
+	obstacle,
+	bullet,
+	missle
+}
+	
 # valid actions for a baseship
 enum actions {
 	left,

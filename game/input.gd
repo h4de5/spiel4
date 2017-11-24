@@ -4,13 +4,13 @@ var input_group
 var input_actions
 
 var input_player1 = {
-	"ui_left": global.actions.left,
-	"ui_right": global.actions.right,
-	"ui_up": global.actions.accelerate,
-	"ui_down": global.actions.back,
-	"ui_select": global.actions.fire,
-	"ui_accept": global.actions.use,
-	"ui_page_up": global.actions.zoom_in,
+	"ui_left": 		global.actions.left,
+	"ui_right": 	global.actions.right,
+	"ui_up": 		global.actions.accelerate,
+	"ui_down": 		global.actions.back,
+	"ui_select": 	global.actions.fire,
+	"ui_accept": 	global.actions.use,
+	"ui_page_up": 	global.actions.zoom_in,
 	"ui_page_down": global.actions.zoom_out
 }
 
@@ -47,7 +47,7 @@ func _input(event):
 	# 	e : input_actions[e]
 	for e in input_actions :
 		if event.is_action(e) :
-			parent.parent.handle_action(input_actions[e], event.is_pressed())
+			parent.handle_action(input_actions[e], event.is_pressed())
 		
 		"""
 		if event.is_action_pressed(e) :
@@ -57,5 +57,5 @@ func _input(event):
 		"""
 	
 	if event.type == InputEvent.MOUSE_BUTTON:
-		if event.button_index == BUTTON_WHEEL_UP: parent.parent.handle_action(global.actions.zoom_in, true) #zoom += multi_zoom
-		if event.button_index == BUTTON_WHEEL_DOWN: parent.parent.handle_action(global.actions.zoom_out, true) #zoom = zoom-multi_zoom if zoom > 1 else 1
+		if event.button_index == BUTTON_WHEEL_UP: parent.handle_action(global.actions.zoom_in, true) #zoom += multi_zoom
+		if event.button_index == BUTTON_WHEEL_DOWN: parent.handle_action(global.actions.zoom_out, true) #zoom = zoom-multi_zoom if zoom > 1 else 1
