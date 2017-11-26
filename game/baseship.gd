@@ -30,8 +30,8 @@ func initialize() :
 	set_fixed_process(true)
 	set_max_contacts_reported(4)
 	
-	set_mass(0.1)
-	set_weight(1)
+	set_mass(1.1)
+	set_weight(2)
 	set_friction(1)
 	set_bounce(0.5)
 	set_gravity_scale(0)
@@ -46,6 +46,32 @@ func initialize() :
 	get_parent().call_deferred("add_child", health_node, true)
 	health_node.target_obj = self
 	health_obj = health_node
+
+# see https://github.com/godotengine/godot/issues/2314
+# and . https://github.com/godotengine/godot/issues/8103
+func fix_collision_shape():
+	for shape in get_children():
+		if not shape extends CollisionShape2D and not shape extends CollisionPolygon2D: 
+			continue
+		if shape.has_meta("__registered") and shape.get_meta("__registered"):
+			continue
+		
+		get_tree().set_editor_hint(true)
+		
+		remove_child(shape) # Make it pick up the editor hint
+		add_child(shape)
+		
+		get_tree().set_editor_hint(false) # Unset quickly
+		
+		if shape extends CollisionShape2D: # Now update parent is working, so just change the shape
+			shape.set_shape(shape.get_shape())
+		elif shape extends CollisionPolygon2D:
+			shape.set_polygon(shape.get_polygon())
+		
+		remove_child(shape) # Reset its editor hint cache, just in case it was needed.. (you might drop this part if it bottlenecks)
+		add_child(shape)
+		
+		shape.set_meta("__registered", true)
 
 func _fixed_process(delta):
 	

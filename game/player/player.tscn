@@ -12,19 +12,26 @@ script/script = ExtResource( 2 )
 [node name="Sprite" parent="."]
 
 transform/rot = -90.0
-transform/scale = Vector2( 0.5, 0.5 )
+transform/scale = Vector2( 0.204808, 0.204808 )
 texture = ExtResource( 3 )
 
 [node name="CollisionPolygon2D" parent="."]
 
-transform/pos = Vector2( -1.84734, -17.53 )
-transform/rot = -90.0
-transform/scale = Vector2( 11.9507, 7.95763 )
-polygon = Vector2Array( 1.33463, 5.00561, -4.33299, 4.23183, -8.78277, 0.644315, -4.05195, -4.20938, 1.28779, -5.54591, 3.16139, -8.21896, 6.95541, -6.46038, 5.36286, -4.35007, 5.12866, -1.67702, 5.97178, -0.832897, 6.15914, 0.785003, 5.1755, 0.996034, 5.50338, 3.17668, 6.81489, 5.77939, 3.25507, 7.74901 )
-shape_range = Vector2( 0, 5 )
+transform/pos = Vector2( 1.53644, 1.38501 )
+polygon = Vector2Array( -27.0637, 6.42696, -2.79872, -53.4265, 23.7309, 6.7505, 17.9074, 22.2801, -2.15166, 17.7506, -21.2401, 23.2507 )
+shape_range = Vector2( 0, 1 )
+
+[node name="Processors" parent="."]
+
+editor/display_folded = true
+
+[node name="Particles2D" parent="."]
+
+transform/pos = Vector2( 0.325073, 22.8552 )
 
 [node name="Camera2D" parent="." instance=ExtResource( 4 )]
 
+transform/pos = Vector2( -0.481369, -33.4462 )
 smoothing/enable = true
 
 

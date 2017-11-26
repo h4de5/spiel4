@@ -6,6 +6,8 @@ func _ready():
 	
 	get_node("Processors").set_processor("Input")
 	get_node("Processors").get_processor().set_parent(self)
+	
+	fix_collision_shape()
 
 
 func initialize() :
