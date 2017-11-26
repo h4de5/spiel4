@@ -46,25 +46,19 @@ func processMovement(delta):
 		var playerpos
 		
 		player = ship_locator.get_next_player( get_pos() )
-		playerpos = player.get_pos()
-		
-		"""
-		if scene.has_node("/root/Game/Player") :
-			player = scene.get_node("/root/Game/Player")
+		if (player) : 
 			playerpos = player.get_pos()
-		else :
-			playerpos = Vector2(0,0)
-		"""
 		
-		var obstaclepos = get_pos();
-		var obstaclerot = get_rot();
-		
-		var forwardvec = Vector2(sin(get_rot()), cos(get_rot()))*-1 * speed/5
-		var playervec = (playerpos - obstaclepos).normalized()
-		
-		var angle = playervec.angle_to(forwardvec)
-		set_angular_velocity(angle);
-		apply_impulse(Vector2(0,0), forwardvec);
+			var obstaclepos = get_pos();
+			var obstaclerot = get_rot();
+			
+			var forwardvec = Vector2(sin(get_rot()), cos(get_rot()))*-1 * speed/5
+			var playervec = (playerpos - obstaclepos).normalized()
+			
+			var angle = playervec.angle_to(forwardvec)
+			set_angular_velocity(angle)
+			apply_impulse(Vector2(0,0), forwardvec)
+
 	#add_force( get_pos(), movevector )
 	#apply_impulse(Vector2(0,0), movevector)
 

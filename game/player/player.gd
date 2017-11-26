@@ -1,39 +1,31 @@
 extends "res://game/baseship.gd"
 
 func _ready():
-	# Called every time the node is added to the scene.
-	# Initialization here
-	
-	#set_processor();
-	
-	#set_fixed_process(true)
-	#set_process_input(true)
-	set_max_contacts_reported(4)
-	
-	add_to_group("player")
-	
-	var screensize = Vector2(Globals.get("display/width"), Globals.get("display/height"))
-	set_pos(screensize / 2)
-	
-	var health_scn = load(global.scene_path_healthbar)
-	var health_node = health_scn.instance()
-	
-	get_parent().call_deferred("add_child", health_node, true)
-	
-	health_node.target_obj = self
-	health_obj = health_node
-	
-	var camera_scn = load(global.scene_path_camera)
-	var camera_node = camera_scn.instance()
-	add_child(camera_node)
 	
 	connect("body_enter", self, "processCollision")
 	
 	get_node("Processors").set_processor("Input")
-	get_node("Processors").get_processor().set_parent(self);
+	get_node("Processors").get_processor().set_parent(self)
+
+
+func initialize() :
 	
-	ship_locator.register_player(self)
+	# add to group player
+	add_to_group("player")
 	
+	# register to locator
+	ship_locator.register_ship(self)
+	
+	# call baseship init
+	.initialize()
+	
+	#var camera_scn = load(global.scene_path_camera)
+	#var camera_node = camera_scn.instance()
+	#add_child(camera_node)
+	
+	var screensize = Vector2(Globals.get("display/width"), Globals.get("display/height"))
+	set_pos(screensize / 2)
+
 
 func processCollision(obstacle):
 	

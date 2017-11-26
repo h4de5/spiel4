@@ -57,5 +57,10 @@ func _input(event):
 		"""
 	
 	if event.type == InputEvent.MOUSE_BUTTON:
-		if event.button_index == BUTTON_WHEEL_UP: parent.handle_action(global.actions.zoom_in, true) #zoom += multi_zoom
-		if event.button_index == BUTTON_WHEEL_DOWN: parent.handle_action(global.actions.zoom_out, true) #zoom = zoom-multi_zoom if zoom > 1 else 1
+		if event.button_index == BUTTON_WHEEL_UP: 
+			parent.handle_action(global.actions.zoom_in, true) #zoom += multi_zoom
+		if event.button_index == BUTTON_WHEEL_DOWN: 
+			parent.handle_action(global.actions.zoom_out, true) #zoom = zoom-multi_zoom if zoom > 1 else 1
+	else :
+		parent.handle_action(global.actions.zoom_in, false)
+		#parent.handle_action(global.actions.zoom_out, false)

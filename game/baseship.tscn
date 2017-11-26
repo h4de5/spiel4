@@ -10,7 +10,7 @@
 custom_solver_bias = 0.0
 points = Vector2Array( 0, 0, 1, 0, 1, 1, 0, 1 )
 
-[sub_resource type="ColorRamp" id=5]
+[sub_resource type="ColorRamp" id=2]
 
 offsets = FloatArray( 0, 0.19883, 0.643275, 1 )
 colors = ColorArray( 0.765625, 0.972534, 1, 1, 1, 0.867188, 0, 1, 0, 0, 0, 1, 0.0351562, 0.0351562, 0.0351562, 0 )
@@ -88,6 +88,6 @@ params/hue_variation = 1.0
 params/anim_speed_scale = 1.0
 params/anim_initial_pos = 0.0
 color/color = Color( 0.250488, 0.370995, 0.84375, 1 )
-color/color_ramp = SubResource( 5 )
+color/color_ramp = SubResource( 2 )
 
 

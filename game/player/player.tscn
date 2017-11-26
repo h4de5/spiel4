@@ -25,4 +25,6 @@ shape_range = Vector2( 0, 5 )
 
 [node name="Camera2D" parent="." instance=ExtResource( 4 )]
 
+smoothing/enable = true
+
 

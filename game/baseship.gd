@@ -19,7 +19,14 @@ var zoom_speed = 0
 
 var health_obj
 
+# call order:
+# baseship._ready > player.init > baseship.init > player._ready
+
 func _ready():
+	initialize()
+	
+
+func initialize() :
 	set_fixed_process(true)
 	set_max_contacts_reported(4)
 	
@@ -31,6 +38,14 @@ func _ready():
 	set_linear_damp(2)
 	set_angular_damp(3)
 	
+	set_max_contacts_reported(4)
+	
+	# Health bar
+	var health_scn = load(global.scene_path_healthbar)
+	var health_node = health_scn.instance()
+	get_parent().call_deferred("add_child", health_node, true)
+	health_node.target_obj = self
+	health_obj = health_node
 
 func _fixed_process(delta):
 	
@@ -44,47 +59,12 @@ func _fixed_process(delta):
 	if velocity.x != 0 :
 		var direction = Vector2(sin(get_rot()), cos(get_rot()))
 		apply_impulse(Vector2(0,0), direction * delta * velocity.x)
-		#get_node("Particles2D").set_emitting(true)
-	#else :
-		#get_node("Particles2D").set_emitting(false)
+		get_node("Particles2D").set_emitting(true)
+	else :
+		get_node("Particles2D").set_emitting(false)
 	
-	if zoom_speed != 0 :
+	if zoom_speed != 0 and get_node("Camera2D"):
 		get_node("Camera2D").set_zoom(Vector2(zoom, zoom));
-	
-	
-	#print("pos: ", get_pos())
-	#print("global pos: ", get_global_pos())
-	"""
-	if Input.is_action_pressed("ui_left"): rot -= delta*multi_rot
-	if Input.is_action_pressed("ui_right"): rot += delta*multi_rot
-	if Input.is_action_pressed("ui_up"): speed -= delta*multi_forward
-	if Input.is_action_pressed("ui_down"): speed += delta*multi_forward
-	if Input.is_action_pressed("ui_accept"): shoot("npc/missle")
-	if Input.is_action_pressed("ui_page_down"): zoom = zoom-multi_zoom if zoom > 1 else 1
-	if Input.is_action_pressed("ui_page_up"): zoom += multi_zoom
-	"""
-	
-	#if old_zoom != zoom :
-	#	get_node("Camera2D").set_zoom(Vector2(zoom, zoom));
-	
-	"""
-	# rotate only if there is something to rotate
-	if rot != 0 :
-		set_angular_velocity(rot)
-	"""
-	
-
-	"""
-	var movevector = Vector2(0,0)
-	if Input.is_action_pressed("ui_left"): movevector.x -= delta*multi
-	if Input.is_action_pressed("ui_right"): movevector.x += delta*multi
-	if Input.is_action_pressed("ui_up"): movevector.y -= delta*multi
-	if Input.is_action_pressed("ui_down"): movevector.y += delta*multi
-
-	if(movevector != Vector2(0,0)):
-		#add_force( get_pos(), movevector )
-		apply_impulse(Vector2(0,0), movevector)
-	"""
 
 func handle_action(action, pressed):
 	
@@ -114,61 +94,6 @@ func handle_action(action, pressed):
 			print ("unknown release action: ", action)
 
 	if zoom_speed != 0: zoom = zoom + (zoom_speed if (zoom+zoom_speed) >= 1 else 0)
-	"""
-	var speed = 0
-	var rot = 0;
-	var old_zoom = zoom
-	
-	# get input from keyboard
-	if action == "ui_left": rot -= delta*multi_rot
-	if action == "ui_right": rot += delta*multi_rot
-	if action == "ui_up": speed -= delta*multi_forward
-	if action == "ui_down": speed += delta*multi_forward
-	if action == "ui_accept": shoot("npc/missle")
-	if action == "ui_page_down": zoom = zoom-multi_zoom if zoom > 1 else 1
-	if action == "ui_page_up": zoom += multi_zoom
-	
-	if old_zoom != zoom : 
-		get_node("Camera2D").set_zoom(Vector2(zoom, zoom));
-	
-	# rotate only if there is something to rotate
-	if rot != 0 :
-		set_angular_velocity(rot)
-	
-	# calculate vecotr from current rotation, if speed is set
-	if speed != 0 :
-		var direction = Vector2(sin(get_rot()), cos(get_rot()))
-		apply_impulse(Vector2(0,0), direction * multi_forward * delta * speed)
-		get_node("Particles2D").set_emitting(true)
-	else :
-		get_node("Particles2D").set_emitting(false)
-		
-	"""
-	
-	
-	"""
-	var movevector = Vector2(0,0)
-	if Input.is_action_pressed("ui_left"): movevector.x -= delta*multi
-	if Input.is_action_pressed("ui_right"): movevector.x += delta*multi
-	if Input.is_action_pressed("ui_up"): movevector.y -= delta*multi
-	if Input.is_action_pressed("ui_down"): movevector.y += delta*multi
-	
-	if(movevector != Vector2(0,0)):
-		#add_force( get_pos(), movevector )
-		apply_impulse(Vector2(0,0), movevector)
-	"""
-	
-	"""
-	func _input(event):
-		var old_zoom = zoom
-		
-		if event.type == InputEvent.MOUSE_BUTTON:
-			if event.button_index == BUTTON_WHEEL_UP: zoom += multi_zoom
-			if event.button_index == BUTTON_WHEEL_DOWN: zoom = zoom-multi_zoom if zoom > 1 else 1
-		
-		if old_zoom != zoom : 
-			get_node("Camera2D").set_zoom(Vector2(zoom, zoom))
-	"""
 	
 func shoot(path): 
 	pass
