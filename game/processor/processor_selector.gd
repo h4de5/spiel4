@@ -11,9 +11,7 @@ func _ready():
 	processor_ai = get_node("AI")
 	
 	remove_processor()
-	
-	pass
-	
+
 func remove_processor() :
 	if has_node("Input"):
 		remove_child(processor_input)
@@ -21,7 +19,7 @@ func remove_processor() :
 		remove_child(processor_network)
 	if has_node("AI"):
 		remove_child(processor_ai)
-	
+
 func set_processor(processor) :
 	
 	remove_processor()

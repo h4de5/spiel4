@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=1]
+
+[ext_resource path="res://game/baseship.tscn" type="PackedScene" id=1]
+[ext_resource path="res://game/npc/enemy.gd" type="Script" id=2]
+[ext_resource path="res://art/models/enemy.png" type="Texture" id=3]
+
+[node name="Baseship - Enemy" instance=ExtResource( 1 )]
+
+script/script = ExtResource( 2 )
+
+[node name="Sprite" parent="."]
+
+transform/rot = -90.0
+transform/scale = Vector2( 0.204808, 0.204808 )
+texture = ExtResource( 3 )
+
+[node name="CollisionPolygon2D" parent="."]
+
+polygon = Vector2Array( -27.0637, 6.42696, -2.79872, -53.4265, 23.7309, 6.7505, 17.9074, 22.2801, -2.15166, 17.7506, -21.2401, 23.2507 )
+shape_range = Vector2( 0, 1 )
+
+[node name="Particles2D" parent="."]
+
+transform/pos = Vector2( -0.0515442, 24.4378 )
+
+

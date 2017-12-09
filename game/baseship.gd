@@ -1,9 +1,9 @@
 extends RigidBody2D
 
 # speed for acceleration and rotation and zoom
-var multi_forward = 50
+var multi_forward = 500
 var multi_break = 3
-var multi_rot = 2
+var multi_rot = 1.5
 var multi_zoom = 0.2
 
 # current state and modificators
@@ -24,19 +24,18 @@ var health_obj
 
 func _ready():
 	initialize()
-	
 
 func initialize() :
 	set_fixed_process(true)
 	set_max_contacts_reported(4)
 	
-	set_mass(1.1)
-	set_weight(2)
+	set_mass(10)
+	set_weight(10)
 	set_friction(1)
 	set_bounce(0.5)
 	set_gravity_scale(0)
 	set_linear_damp(2)
-	set_angular_damp(3)
+	set_angular_damp(4)
 	
 	set_max_contacts_reported(4)
 	
@@ -46,6 +45,12 @@ func initialize() :
 	get_parent().call_deferred("add_child", health_node, true)
 	health_node.target_obj = self
 	health_obj = health_node
+	
+	reset_position()
+	
+# called to reset a position, usually after initialize
+func reset_position() :
+	pass
 
 # see https://github.com/godotengine/godot/issues/2314
 # and . https://github.com/godotengine/godot/issues/8103
@@ -73,11 +78,7 @@ func fix_collision_shape():
 		
 		shape.set_meta("__registered", true)
 
-func _fixed_process(delta):
-	
-	#var motion = velocity*delta
-	#move(motion)
-	
+func _fixed_process(delta) :
 	if torque.x != 0 :
 		set_angular_velocity(torque.x)
 	
@@ -85,10 +86,16 @@ func _fixed_process(delta):
 	if velocity.x != 0 :
 		var direction = Vector2(sin(get_rot()), cos(get_rot()))
 		apply_impulse(Vector2(0,0), direction * delta * velocity.x)
-		get_node("Particles2D").set_emitting(true)
+		
+		# particles only work when they are available
+		if get_node("Particles2D") :
+			get_node("Particles2D").set_emitting(true)
 	else :
-		get_node("Particles2D").set_emitting(false)
+		# particles only work when they are available
+		if get_node("Particles2D") :
+			get_node("Particles2D").set_emitting(false)
 	
+	# zoom can only change if camera2d is available
 	if zoom_speed != 0 and get_node("Camera2D"):
 		get_node("Camera2D").set_zoom(Vector2(zoom, zoom));
 
@@ -120,6 +127,7 @@ func handle_action(action, pressed):
 			print ("unknown release action: ", action)
 
 	if zoom_speed != 0: zoom = zoom + (zoom_speed if (zoom+zoom_speed) >= 1 else 0)
-	
+
+# empty implementation of shoot
 func shoot(path): 
 	pass

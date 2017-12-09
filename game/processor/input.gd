@@ -1,4 +1,4 @@
-extends "res://game/processor.gd"
+extends "res://game/processor/processor.gd"
 
 var input_group
 var input_actions
@@ -42,9 +42,6 @@ func set_input_group(groupid):
 	pass
 
 func _input(event):
-	# input_actions =
-	# 	"ui_left": "left",
-	# 	e : input_actions[e]
 	for e in input_actions :
 		if event.is_action(e) :
 			parent.handle_action(input_actions[e], event.is_pressed())

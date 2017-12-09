@@ -10,10 +10,13 @@ func _ready():
 	var player_node = player_scn.instance()
 	add_child(player_node, true)
 
+	
 	var enemy_node = enemy_scn.instance()
 	add_child(enemy_node, true)
+	
 	enemy_node = enemy_scn.instance()
 	add_child(enemy_node, true)
+	
 
 	# http://www.gamefromscratch.com/post/2015/02/23/Godot-Engine-Tutorial-Part-6-Multiple-Scenes-and-Global-Variables.aspx
 	"""

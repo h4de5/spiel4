@@ -1,14 +1,15 @@
-[gd_scene load_steps=7 format=1]
+[gd_scene load_steps=8 format=1]
 
 [ext_resource path="res://game/baseship.gd" type="Script" id=1]
 [ext_resource path="res://art/models/icon.png" type="Texture" id=2]
-[ext_resource path="res://game/processor_selector.gd" type="Script" id=3]
-[ext_resource path="res://game/input.gd" type="Script" id=4]
+[ext_resource path="res://game/processor/processor_selector.gd" type="Script" id=3]
+[ext_resource path="res://game/processor/input.gd" type="Script" id=4]
+[ext_resource path="res://game/processor/ai.gd" type="Script" id=5]
 
-[sub_resource type="ConvexPolygonShape2D" id=3]
+[sub_resource type="ConvexPolygonShape2D" id=1]
 
 custom_solver_bias = 0.0
-points = Vector2Array( -28.0321, -28.4959, 30.8671, -25.7941, 28.1653, 33.6455, -29.6532, 32.5648 )
+points = Vector2Array( -31.327, -31.6235, 30.274, -31.0832, 30.8144, 31.0582, -30.2462, 31.5985 )
 
 [sub_resource type="ColorRamp" id=2]
 
@@ -18,8 +19,8 @@ colors = ColorArray( 0.765625, 0.972534, 1, 1, 1, 0.867188, 0, 1, 0, 0, 0, 1, 0.
 [node name="Baseship" type="RigidBody2D"]
 
 input/pickable = false
-shapes/0/shape = SubResource( 3 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, -0.0524139, -2.58711 )
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
@@ -46,9 +47,8 @@ texture = ExtResource( 2 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 
-transform/pos = Vector2( -0.0524139, -2.58711 )
 build_mode = 0
-polygon = Vector2Array( -28.0321, -28.4959, 30.8671, -25.7941, 28.1653, 33.6455, -29.6532, 32.5648 )
+polygon = Vector2Array( -31.327, -31.6235, 30.274, -31.0832, 30.8144, 31.0582, -30.2462, 31.5985 )
 shape_range = Vector2( 0, 0 )
 trigger = false
 
@@ -64,9 +64,11 @@ script/script = ExtResource( 4 )
 
 [node name="AI" type="Node" parent="Processors"]
 
+script/script = ExtResource( 5 )
+
 [node name="Particles2D" type="Particles2D" parent="."]
 
-transform/pos = Vector2( -0.650269, 41.8745 )
+transform/pos = Vector2( -0.650269, 37.0113 )
 config/amount = 32
 config/lifetime = 0.2
 config/process_mode = 1
