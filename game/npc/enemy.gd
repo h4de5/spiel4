@@ -1,8 +1,16 @@
 extends "res://game/baseship.gd"
 
 func _ready():
-	
-	connect("body_enter", self, "processCollision")
+	properties = {
+		global.properties.movement_speed_forward: rand_range(300,550),
+		global.properties.movement_speed_back: rand_range(2,4),
+		global.properties.rotation_speed: rand_range(1,3),
+		global.properties.bullet_speed: 800,
+		global.properties.bullet_strength: 50,
+		global.properties.health: 1000
+	}
+
+	#connect("body_enter", self, "processCollision")
 	
 	get_node("Processors").set_processor("AI")
 	get_node("Processors").get_processor().set_parent(self)
@@ -30,6 +38,11 @@ func reset_position():
 	set_rot(angle - PI * rand_range(1,3)/2)
 
 	# randomize speed and rotation
-	multi_forward = rand_range(300,550)
-	multi_break = rand_range(2,4)
-	multi_rot = rand_range(1,3)
+	properties[global.properties.movement_speed_forward] = rand_range(300,550)
+	properties[global.properties.movement_speed_back] = rand_range(2,4)
+	properties[global.properties.rotation_speed] = rand_range(1,3)
+	
+	
+	#multi_forward = rand_range(300,550)
+	#multi_break = rand_range(2,4)
+	#multi_rot = rand_range(1,3)

@@ -1,10 +1,10 @@
 extends RigidBody2D
 
 # speed for acceleration and rotation and zoom
-var multi_forward = 500
-var multi_break = 3
-var multi_rot = 1.5
-var multi_zoom = 0.2
+#var multi_forward = 500
+#var multi_break = 3
+#var multi_rot = 1.5
+#var multi_zoom = 0.2
 
 # current state and modificators
 var position = Vector2()
@@ -17,6 +17,17 @@ var torque = Vector2()
 var zoom = 1
 var zoom_speed = 0
 
+var properties = {
+	global.properties.movement_speed_forward: 500,
+	global.properties.movement_speed_back: 3,
+	global.properties.rotation_speed: 1.5,
+	global.properties.zoom_speed: 1.5,
+	global.properties.bullet_speed: 800,
+	global.properties.bullet_strength: 50,
+	global.properties.health: 1000
+}
+
+# health bar
 var health_obj
 
 # call order:
@@ -38,6 +49,8 @@ func initialize() :
 	set_angular_damp(4)
 	
 	set_max_contacts_reported(4)
+	
+	connect("body_enter", self, "processCollision")
 	
 	# Health bar
 	var health_scn = load(global.scene_path_healthbar)
@@ -102,16 +115,16 @@ func _fixed_process(delta) :
 func handle_action(action, pressed):
 	
 	if pressed : 
-		if action == global.actions.left: torque.x = -multi_rot
-		elif action == global.actions.right: torque.x = multi_rot
-		elif action == global.actions.accelerate: velocity.x = -multi_forward
-		elif action == global.actions.back: velocity.x = multi_break
+		if action == global.actions.left: torque.x = -get_property(global.properties.rotation_speed)
+		elif action == global.actions.right: torque.x = get_property(global.properties.rotation_speed)
+		elif action == global.actions.accelerate: velocity.x = -get_property(global.properties.movement_speed_forward)
+		elif action == global.actions.back: velocity.x = get_property(global.properties.movement_speed_back)
 		
-		elif action == global.actions.zoom_in: zoom_speed = -multi_zoom
-		elif action == global.actions.zoom_out: zoom_speed = multi_zoom
+		elif action == global.actions.zoom_in: zoom_speed = -get_property(global.properties.zoom_speed)
+		elif action == global.actions.zoom_out: zoom_speed = get_property(global.properties.zoom_speed)
 			
-		elif action == global.actions.fire: shoot(global.scene_path_missle)
-		elif action == global.actions.use: shoot(global.scene_path_missle)
+		elif action == global.actions.fire: shoot(global.scene_path_bullet)
+		elif action == global.actions.use: shoot(global.scene_path_bullet)
 		else:
 			print ("unknown press action: ", action)
 		
@@ -123,11 +136,83 @@ func handle_action(action, pressed):
 		
 		elif action == global.actions.zoom_in: zoom_speed = 0
 		elif action == global.actions.zoom_out: zoom_speed = 0
+		
+		elif action == global.actions.fire: pass
+		elif action == global.actions.use: pass
 		else:
 			print ("unknown release action: ", action)
 
 	if zoom_speed != 0: zoom = zoom + (zoom_speed if (zoom+zoom_speed) >= 1 else 0)
 
+
+# get all different properties from this ship
+func get_properties():
+	return properties
+
+func get_property(type):
+	#if (properties.has_index(type)) :
+	if (type in properties) :
+		return properties[type]
+	else :
+		return null
+
+func set_property(type, value):
+	if (type in properties) :
+		properties[type] = value
+
 # empty implementation of shoot
 func shoot(path): 
-	pass
+	
+	#var shoot_scn = load("res://game/"+object+".tscn")
+	var shoot_scn = load(path)
+	var shoot_node = shoot_scn.instance()
+	shoot_node.set_owner(self)
+	var player_pos = get_pos()
+	
+	#get_parent().call_deferred("add_child", shoot_node, true)
+	get_parent().add_child(shoot_node)
+	shoot_node.set_pos(player_pos)
+
+func can_destroy():
+	return true
+
+func hit(power):
+	var health
+	health = get_property(global.properties.health) - power
+	set_property(global.properties.health, health)
+	
+	# update healthbar
+	health_obj.changeHealth(-power);
+	
+	if (health <= 0):
+		print(self, "is destroyed..")
+		queue_free()
+		#get_node("anim").play("explode")
+		#destroyed=true
+
+func processCollision(obstacle):
+	
+	if(obstacle.is_in_group('enemy') or obstacle.is_in_group('player')) :
+		var obstacle_vel = obstacle.get_linear_velocity()
+		var impact = get_linear_velocity().dot(obstacle_vel);
+		#print("processCollision ", obstacle.get_name(), obstacle_vel, get_linear_velocity(), impact)
+		health_obj.changeHealth(-abs(impact) / 20000);
+		
+		if health_obj.getHealth() <= 0: 
+			get_tree().change_scene(global.scene_path_gameover)
+		# process impact on obstacle
+		obstacle.processCollision(impact)
+		
+		# now about where we hit it
+		var player_pos = get_pos()
+		var obstacle_pos = obstacle.get_pos()
+		var hit_position = player_pos - obstacle_pos
+		print("hitpos: ", player_pos.normalized())
+		
+		"""
+		var raycast = RayCast(obstacle_pos)
+		
+		raycast.set_cast_to(player_pos)
+		if raycast.is_colliding() : 
+			print("get_collision_point: ", raycast.get_collision_point(), " get_collider: ", raycast.get_collider())
+		"""
