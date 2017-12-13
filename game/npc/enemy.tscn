@@ -23,4 +23,9 @@ shape_range = Vector2( 0, 1 )
 
 transform/pos = Vector2( -0.0515442, 24.4378 )
 
+[node name="weaponscope" parent="."]
+
+transform/pos = Vector2( -3.48049, -57.3113 )
+transform/scale = Vector2( 0.231271, 0.23729 )
+
 

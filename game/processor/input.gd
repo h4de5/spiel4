@@ -40,7 +40,8 @@ func set_input_group(groupid):
 	if input_group == 1:
 		input_actions = input_player1
 	pass
-
+	
+	
 func _input(event):
 	for e in input_actions :
 		if event.is_action(e) :
@@ -53,11 +54,16 @@ func _input(event):
 			parent.handle_action(input_actions[e], false)
 		"""
 	
+
 	if event.type == InputEvent.MOUSE_BUTTON:
 		if event.button_index == BUTTON_WHEEL_UP: 
 			parent.handle_action(global.actions.zoom_in, true) #zoom += multi_zoom
 		if event.button_index == BUTTON_WHEEL_DOWN: 
 			parent.handle_action(global.actions.zoom_out, true) #zoom = zoom-multi_zoom if zoom > 1 else 1
+	elif (event.type==InputEvent.MOUSE_MOTION):
+		#parent.handle_mousemove(event.pos)
+		parent.handle_mousemove(parent.get_global_mouse_pos())
 	else :
 		parent.handle_action(global.actions.zoom_in, false)
 		#parent.handle_action(global.actions.zoom_out, false)
+	

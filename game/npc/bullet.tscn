@@ -9,16 +9,29 @@ custom_solver_bias = 0.0
 radius = 10.0
 height = 20.0
 
-[node name="Bullet" type="Area2D"]
+[node name="Bullet" type="RigidBody2D"]
 
 input/pickable = true
 shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Matrix32( 0.477925, 0, 0, 0.477925, 0, -4.26003 )
 shapes/0/trigger = false
-gravity_vec = Vector2( 0, 1 )
-gravity = 98.0
-linear_damp = 0.1
-angular_damp = 1.0
+collision/layers = 1
+collision/mask = 1
+mode = 0
+mass = 1.0
+friction = 0.0
+bounce = 0.0
+gravity_scale = 0.0
+custom_integrator = false
+continuous_cd = 0
+contacts_reported = 1
+contact_monitor = true
+sleeping = false
+can_sleep = true
+velocity/linear = Vector2( 0, 0 )
+velocity/angular = 0.0
+damp_override/linear = -1.0
+damp_override/angular = -1.0
 script/script = ExtResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -36,9 +49,5 @@ _update_shape_index = 0
 [node name="visibility" type="VisibilityNotifier2D" parent="."]
 
 rect = Rect2( -10, -10, 20, 20 )
-
-[connection signal="area_enter" from="." to="." method="_on_Bullet_area_enter"]
-
-[connection signal="exit_screen" from="visibility" to="." method="_on_visibility_exit_screen"]
 
 

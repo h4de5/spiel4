@@ -5,17 +5,23 @@ func _ready():
 
 	var enemy_scn = load(global.scene_path_enemy)
 	var player_scn = load(global.scene_path_player)
+	
+	var camera_scn = load(global.scene_path_camera)
+	var camera_node = camera_scn.instance()
+	add_child(camera_node, true)
+	
 	#var enemyhealth_scn = load("res://Health.tscn")
 
 	var player_node = player_scn.instance()
 	add_child(player_node, true)
 
-	
 	var enemy_node = enemy_scn.instance()
 	add_child(enemy_node, true)
 	
 	enemy_node = enemy_scn.instance()
 	add_child(enemy_node, true)
+	
+	
 	
 
 	# http://www.gamefromscratch.com/post/2015/02/23/Godot-Engine-Tutorial-Part-6-Multiple-Scenes-and-Global-Variables.aspx

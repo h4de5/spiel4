@@ -144,6 +144,14 @@ func handle_action(action, pressed):
 
 	if zoom_speed != 0: zoom = zoom + (zoom_speed if (zoom+zoom_speed) >= 1 else 0)
 
+func handle_mousemove(pos) :
+	
+	var dir = pos
+	dir -= get_node("weaponscope").get_global_pos()
+	get_node("weaponscope").set_global_rot(atan2(dir.x, dir.y) -  PI)
+	print("handle mouse");
+	print(pos)
+	
 
 # get all different properties from this ship
 func get_properties():
@@ -166,15 +174,17 @@ func shoot(path):
 	#var shoot_scn = load("res://game/"+object+".tscn")
 	var shoot_scn = load(path)
 	var shoot_node = shoot_scn.instance()
-	shoot_node.set_owner(self)
-	var player_pos = get_pos()
-	
-	#get_parent().call_deferred("add_child", shoot_node, true)
+	#get_tree().get_current_scene().add_child(shoot_scn)
 	get_parent().add_child(shoot_node)
-	shoot_node.set_pos(player_pos)
+	shoot_node.set_owner(self)
+	
 
 func can_destroy():
 	return true
+
+func destroy():
+	ship_locator.free_ship(self)
+	queue_free()
 
 func hit(power):
 	var health
@@ -186,9 +196,10 @@ func hit(power):
 	
 	if (health <= 0):
 		print(self, "is destroyed..")
-		queue_free()
+		destroy()
 		#get_node("anim").play("explode")
 		#destroyed=true
+
 
 func processCollision(obstacle):
 	

@@ -2,10 +2,10 @@ extends Node
 
 var ships = {}
 
-var players = []
 
 func _ready():
 	
+	set_fixed_process(true)
 	pass
 
 func free_ship(ship) :
@@ -43,3 +43,60 @@ func get_next_ship( group, pos ):
 func get_next_player( pos ) :
 	return get_next_ship("player", pos)
 	# return players[0]
+
+func _fixed_process(delta):
+	set_camera()
+	
+
+# Return a bound box that includes all player ships
+func get_bounding_box(group) :
+	#var minv = Vector2(0,0);
+	#var maxv = Vector2(0,0);
+	var shipv
+	var box
+	
+	for ship in ships[group]:
+		shipv = ship.get_pos();
+		if box != null:
+			box = box.expand(shipv)
+		else :
+			box = Rect2(shipv, Vector2(1,1))
+		
+		#minv.x = min(minv.x, shipv.x)
+		#minv.y = min(minv.y, shipv.y)
+		#maxv.x = max(maxv.x, shipv.x)
+		#maxv.y = max(maxv.y, shipv.y)
+	return box
+
+# Return a bound box that includes all ships
+func get_bounding_box_all() :
+	var box 
+	
+	for group in ships:
+		if box != null :
+			box = box.merge(get_bounding_box(group))
+		else :
+			box = get_bounding_box(group)
+			
+		
+	return box
+
+func set_camera():
+	var bounding_box = get_bounding_box_all()
+	
+	var camera = get_node("/root/Game/Camera")
+	camera.set_pos(bounding_box.pos + bounding_box.size*0.5)
+	
+	#Globals.get("display/width")
+	#Globals.get("display/height")
+	
+	#camera.set_zoom()
+	
+	#print("rect pos")
+	#print(bounding_box)
+	
+	#var viewport = Viewport.new()
+	#viewport.set_rect(bounding_box)
+	#camera.set_viewport(viewport)
+	
+	

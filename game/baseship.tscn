@@ -93,4 +93,9 @@ params/anim_initial_pos = 0.0
 color/color = Color( 0.250488, 0.370995, 0.84375, 1 )
 color/color_ramp = SubResource( 2 )
 
+[node name="weaponscope" type="Node2D" parent="."]
+
+transform/pos = Vector2( 0.597057, -48.3034 )
+transform/scale = Vector2( 0.437384, 0.481779 )
+
 

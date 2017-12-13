@@ -27,9 +27,6 @@ func initialize() :
 	# call baseship init
 	.initialize()
 	
-	#var camera_scn = load(global.scene_path_camera)
-	#var camera_node = camera_scn.instance()
-	#add_child(camera_node)
 
 func reset_position():
 	var screensize = Vector2(Globals.get("display/width"), Globals.get("display/height"))
