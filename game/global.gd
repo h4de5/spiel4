@@ -38,6 +38,7 @@ enum properties {
 	zoom_speed,
 	bullet_speed,
 	bullet_strength,
+	health_max,
 	health
 }
 

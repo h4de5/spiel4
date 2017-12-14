@@ -70,15 +70,17 @@ func get_bounding_box(group) :
 
 # Return a bound box that includes all ships
 func get_bounding_box_all() :
-	var box 
+	var box
+	var newbox
 	
 	for group in ships:
-		if box != null :
-			box = box.merge(get_bounding_box(group))
-		else :
-			box = get_bounding_box(group)
+		newbox = get_bounding_box(group)
+		if newbox != null :
+			if box != null :
+				box = box.merge(newbox)
+			else :
+				box = newbox
 			
-		
 	return box
 
 func set_camera():
@@ -86,6 +88,9 @@ func set_camera():
 	
 	var camera = get_node("/root/Game/Camera")
 	camera.set_pos(bounding_box.pos + bounding_box.size*0.5)
+	
+	# TODO - set zoom of camera correctly!
+	# TODO - when a ship is destroyed, camera should move slowly to now rect
 	
 	#Globals.get("display/width")
 	#Globals.get("display/height")

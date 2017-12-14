@@ -54,6 +54,7 @@ func processCollision( object ):
 	print(object)
 	if (object.has_method("hit") and object.has_method("can_destroy") and object.can_destroy()):
 		object.hit(properties[global.properties.bullet_strength])
+		queue_free()
 
 func _on_visibility_exit_screen():
 	print ("out of screen bullet")

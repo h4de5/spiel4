@@ -1,15 +1,10 @@
 extends "res://game/baseship.gd"
 
 func _ready():
-	properties = {
-		global.properties.movement_speed_forward: rand_range(300,550),
-		global.properties.movement_speed_back: rand_range(2,4),
-		global.properties.rotation_speed: rand_range(1,3),
-		global.properties.bullet_speed: 800,
-		global.properties.bullet_strength: 50,
-		global.properties.health: 1000
-	}
-
+	properties[global.properties.movement_speed_forward] = rand_range(300,550)
+	properties[global.properties.movement_speed_back] = rand_range(2,4)
+	properties[global.properties.rotation_speed] = rand_range(1,3)
+	
 	#connect("body_enter", self, "processCollision")
 	
 	get_node("Processors").set_processor("AI")

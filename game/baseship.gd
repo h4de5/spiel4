@@ -19,11 +19,12 @@ var zoom_speed = 0
 
 var properties = {
 	global.properties.movement_speed_forward: 500,
-	global.properties.movement_speed_back: 3,
+	global.properties.movement_speed_back: 400,
 	global.properties.rotation_speed: 1.5,
 	global.properties.zoom_speed: 1.5,
 	global.properties.bullet_speed: 800,
 	global.properties.bullet_strength: 50,
+	global.properties.health_max: 1000,
 	global.properties.health: 1000
 }
 
@@ -55,10 +56,17 @@ func initialize() :
 	# Health bar
 	var health_scn = load(global.scene_path_healthbar)
 	var health_node = health_scn.instance()
+	#get_parent().add_child(health_node)
+	get_parent().call_deferred("add_child", health_node, true)
+	health_node.set_owner(self)
+	
+	"""
+	var health_scn = load(global.scene_path_healthbar)
+	var health_node = health_scn.instance()
 	get_parent().call_deferred("add_child", health_node, true)
 	health_node.target_obj = self
 	health_obj = health_node
-	
+	"""
 	reset_position()
 	
 # called to reset a position, usually after initialize
@@ -149,8 +157,8 @@ func handle_mousemove(pos) :
 	var dir = pos
 	dir -= get_node("weaponscope").get_global_pos()
 	get_node("weaponscope").set_global_rot(atan2(dir.x, dir.y) -  PI)
-	print("handle mouse");
-	print(pos)
+	#print("handle mouse");
+	#print(pos)
 	
 
 # get all different properties from this ship
@@ -192,7 +200,7 @@ func hit(power):
 	set_property(global.properties.health, health)
 	
 	# update healthbar
-	health_obj.changeHealth(-power);
+	#health_obj.changeHealth(-power);
 	
 	if (health <= 0):
 		print(self, "is destroyed..")
@@ -207,10 +215,10 @@ func processCollision(obstacle):
 		var obstacle_vel = obstacle.get_linear_velocity()
 		var impact = get_linear_velocity().dot(obstacle_vel);
 		#print("processCollision ", obstacle.get_name(), obstacle_vel, get_linear_velocity(), impact)
-		health_obj.changeHealth(-abs(impact) / 20000);
+		#health_obj.changeHealth(-abs(impact) / 20000);
 		
-		if health_obj.getHealth() <= 0: 
-			get_tree().change_scene(global.scene_path_gameover)
+		#if health_obj.getHealth() <= 0: 
+		#	get_tree().change_scene(global.scene_path_gameover)
 		# process impact on obstacle
 		obstacle.processCollision(impact)
 		

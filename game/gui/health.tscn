@@ -39,7 +39,6 @@ margin/top = 54.0
 margin/right = 28.0
 margin/bottom = 64.0
 script/script = ExtResource( 1 )
-target = null
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
 

@@ -2,14 +2,9 @@ extends "res://game/baseship.gd"
 
 func _ready():
 	
-	properties = {
-		global.properties.movement_speed_forward: 700,
-		global.properties.movement_speed_back: 3,
-		global.properties.rotation_speed: 1.5,
-		global.properties.bullet_speed: 1000,
-		global.properties.bullet_strength: 50,
-		global.properties.health: 1000
-	}
+	properties[global.properties.movement_speed_forward] = 700
+	properties[global.properties.rotation_speed] = 1.5
+	properties[global.properties.bullet_speed] = 1000
 	
 	get_node("Processors").set_processor("Input")
 	get_node("Processors").get_processor().set_parent(self)
