@@ -42,10 +42,12 @@ func set_input_group(groupid):
 	pass
 	
 func _input(event):
+	
 
 	for e in input_actions :
 		if event.is_action(e) :
-			parent.handle_action(input_actions[e], event.is_pressed())
+			#parent.handle_action(input_actions[e], event.is_pressed(event))
+			parent.handle_action(input_actions[e], Input.is_action_pressed(e))
 	
 	if (event.type == InputEvent.MOUSE_MOTION):
 		#parent.handle_mousemove(event.pos)

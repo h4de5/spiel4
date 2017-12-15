@@ -16,6 +16,8 @@ var rotation = Vector2()
 var torque = Vector2()
 var zoom = 1
 var zoom_speed = 0
+var shoot_repeat = 0
+var shoot_last = 0
 
 var properties = {
 	global.properties.movement_speed_forward: 500,
@@ -24,8 +26,10 @@ var properties = {
 	global.properties.zoom_speed: 0.2,
 	global.properties.bullet_speed: 800,
 	global.properties.bullet_strength: 50,
+	global.properties.bullet_wait: 0.2,
 	global.properties.health_max: 1000,
 	global.properties.health: 1000
+	
 }
 
 # health bar
@@ -122,6 +126,13 @@ func _fixed_process(delta) :
 		#get_node("Camera2D").set_zoom(Vector2(zoom, zoom));
 		ship_locator.set_camera_zoom(zoom)
 		zoom_speed = 0
+	
+	if shoot_repeat != 0 and (shoot_last + delta) >= get_property(global.properties.bullet_wait) :
+		shoot(global.scene_path_bullet)
+		shoot_last = 0
+	elif shoot_repeat != 0 :
+		print("shoot repeat: ", shoot_last, get_property(global.properties.bullet_wait))
+		shoot_last += delta
 
 func handle_action(action, pressed):
 	
@@ -137,8 +148,8 @@ func handle_action(action, pressed):
 		elif action == global.actions.zoom_in: zoom_speed = -get_property(global.properties.zoom_speed)
 		elif action == global.actions.zoom_out: zoom_speed = get_property(global.properties.zoom_speed)
 			
-		elif action == global.actions.fire: shoot(global.scene_path_bullet)
-		elif action == global.actions.use: shoot(global.scene_path_bullet)
+		elif action == global.actions.fire: shoot_repeat = 1
+		elif action == global.actions.use: shoot_repeat = 1
 		else:
 			print ("unknown press action: ", action)
 		
@@ -151,8 +162,8 @@ func handle_action(action, pressed):
 		#elif action == global.actions.zoom_in: zoom_speed = 0
 		#elif action == global.actions.zoom_out: zoom_speed = 0
 		
-		elif action == global.actions.fire: pass
-		elif action == global.actions.use: pass
+		elif action == global.actions.fire: shoot_repeat = 0
+		elif action == global.actions.use: shoot_repeat = 0
 		else:
 			print ("unknown release action: ", action)
 

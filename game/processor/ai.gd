@@ -30,14 +30,17 @@ func _fixed_process(delta) :
 			var playervec = (playerpos - obstaclepos).normalized()
 			
 			var angle = playervec.angle_to(forwardvec)
-			
-			if (angle > 0) :
+			print("ai movment angle", angle)
+			if (angle > 0.03) :
 				parent.handle_action( global.actions.right, true )
-			elif (angle < 0) :
+				parent.handle_action( global.actions.fire, false )
+			elif (angle < -0.03) :
 				parent.handle_action( global.actions.left, true )
+				parent.handle_action( global.actions.fire, false ) 
 			else :
 				parent.handle_action( global.actions.right, false )
 				parent.handle_action( global.actions.left, false )
+				parent.handle_action( global.actions.fire, true ) 
 			
 			if (forwardvec != Vector2(0,0)) :
 				
