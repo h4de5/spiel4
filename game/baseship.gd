@@ -20,8 +20,8 @@ var zoom_speed = 0
 var properties = {
 	global.properties.movement_speed_forward: 500,
 	global.properties.movement_speed_back: 400,
-	global.properties.rotation_speed: 1.5,
-	global.properties.zoom_speed: 1.5,
+	global.properties.rotation_speed: 0.5,
+	global.properties.zoom_speed: 0.2,
 	global.properties.bullet_speed: 800,
 	global.properties.bullet_strength: 50,
 	global.properties.health_max: 1000,
@@ -117,10 +117,16 @@ func _fixed_process(delta) :
 			get_node("Particles2D").set_emitting(false)
 	
 	# zoom can only change if camera2d is available
-	if zoom_speed != 0 and get_node("Camera2D"):
-		get_node("Camera2D").set_zoom(Vector2(zoom, zoom));
+	if zoom_speed != 0:
+		print("new zoom", zoom)
+		#get_node("Camera2D").set_zoom(Vector2(zoom, zoom));
+		ship_locator.set_camera_zoom(zoom)
+		zoom_speed = 0
 
 func handle_action(action, pressed):
+	
+	if self.is_in_group("player"):
+		print ("new action: ", action, " ", pressed, " zoom speed: ", zoom_speed)
 	
 	if pressed : 
 		if action == global.actions.left: torque.x = -get_property(global.properties.rotation_speed)
@@ -142,15 +148,18 @@ func handle_action(action, pressed):
 		elif action == global.actions.accelerate: velocity.x = 0
 		elif action == global.actions.back: velocity.x = 0
 		
-		elif action == global.actions.zoom_in: zoom_speed = 0
-		elif action == global.actions.zoom_out: zoom_speed = 0
+		#elif action == global.actions.zoom_in: zoom_speed = 0
+		#elif action == global.actions.zoom_out: zoom_speed = 0
 		
 		elif action == global.actions.fire: pass
 		elif action == global.actions.use: pass
 		else:
 			print ("unknown release action: ", action)
 
-	if zoom_speed != 0: zoom = zoom + (zoom_speed if (zoom+zoom_speed) >= 1 else 0)
+	if zoom_speed != 0: 
+		print ("zoom speed ", zoom_speed)
+		zoom = zoom + (zoom_speed if (zoom+zoom_speed) >= 1 else 0)
+		
 
 func handle_mousemove(pos) :
 	

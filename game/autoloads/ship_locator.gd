@@ -35,7 +35,7 @@ func register_ship( ship ):
 
 func get_next_ship( group, pos ):
 	# return first ship of given group
-	if (ships.has(group)) :
+	if (ships.has(group)) and ships[group].size() > 0:
 		return ships[group].front()
 	else :
 		return null
@@ -86,11 +86,11 @@ func get_bounding_box_all() :
 func set_camera():
 	var bounding_box = get_bounding_box_all()
 	
-	var camera = get_node("/root/Game/Camera")
-	camera.set_pos(bounding_box.pos + bounding_box.size*0.5)
+	if bounding_box != null :
+		var camera = get_node("/root/Game/Camera")
+		camera.set_pos(bounding_box.pos + bounding_box.size*0.5)
 	
 	# TODO - set zoom of camera correctly!
-	# TODO - when a ship is destroyed, camera should move slowly to now rect
 	
 	#Globals.get("display/width")
 	#Globals.get("display/height")
@@ -103,5 +103,8 @@ func set_camera():
 	#var viewport = Viewport.new()
 	#viewport.set_rect(bounding_box)
 	#camera.set_viewport(viewport)
-	
+
+func set_camera_zoom(zoom):
+	var camera = get_node("/root/Game/Camera")
+	camera.set_zoom(Vector2(zoom, zoom));
 	

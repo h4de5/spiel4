@@ -18,7 +18,9 @@ func initialize():
 func set_owner(o) :
 	owner = o
 	if (o.has_method("get_properties")) :
-		properties = o.get_properties();
+		properties = o.get_properties()
+		
+	add_collision_exception_with(o)
 	
 	var starting_pos = o.get_node("weaponscope").get_global_pos()
 	set_pos(starting_pos)
@@ -50,8 +52,8 @@ func _on_Bullet_area_enter( area ):
 		#queue_free()
 
 func processCollision( object ):
-	print ("body enter bullet")
-	print(object)
+	#print ("body enter bullet")
+	#print(object)
 	if (object.has_method("hit") and object.has_method("can_destroy") and object.can_destroy()):
 		object.hit(properties[global.properties.bullet_strength])
 		queue_free()
