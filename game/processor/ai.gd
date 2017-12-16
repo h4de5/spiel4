@@ -18,32 +18,44 @@ func _fixed_process(delta) :
 		var ownpos = parent.get_pos();
 		var ownrot = parent.get_rot();
 		
-		player = ship_locator.get_next_player( ownpos )
+		player = ship_locator.get_next_player( ownpos, ownrot )
 		if (player) :
 			
 			playerpos = player.get_pos()
+			
+			# HACK TODO - AI should not call handle_mousemove
+			parent.handle_mousemove(playerpos)
 			
 			var obstaclepos = ownpos;
 			var obstaclerot = ownrot;
 			
 			var forwardvec = Vector2(sin(ownrot), cos(ownrot))*-1
 			var playervec = (playerpos - obstaclepos).normalized()
-			
 			var angle = playervec.angle_to(forwardvec)
-			print("ai movment angle", angle)
-			if (angle > 0.03) :
+			
+			
+			#print("ai movment angle", angle)
+			if (angle > parent.rot_impreciseness) :
 				parent.handle_action( global.actions.right, true )
-				parent.handle_action( global.actions.fire, false )
-			elif (angle < -0.03) :
+			elif (angle < -parent.rot_impreciseness) :
 				parent.handle_action( global.actions.left, true )
-				parent.handle_action( global.actions.fire, false ) 
 			else :
 				parent.handle_action( global.actions.right, false )
 				parent.handle_action( global.actions.left, false )
-				parent.handle_action( global.actions.fire, true ) 
+			
+			
+			#var target_rot = parent.get_node("weaponscope").get_global_pos().angle_to_point(playerpos)
+			var target_rot = parent.get_node("weaponscope").get_global_rot()
+			forwardvec = Vector2(sin(target_rot), cos(target_rot))*-1
+			angle = playervec.angle_to(forwardvec)
+			
+			#print("angle", angle)
+			if (abs(angle) < parent.rot_impreciseness) :
+				parent.handle_action( global.actions.fire, true )
+			else :
+				parent.handle_action( global.actions.fire, false )
 			
 			if (forwardvec != Vector2(0,0)) :
-				
 				parent.handle_action( global.actions.accelerate, true )
 			else :
 				parent.handle_action( global.actions.accelerate, false )
@@ -55,4 +67,6 @@ func _fixed_process(delta) :
 			parent.handle_action( global.actions.back, false )
 			parent.handle_action( global.actions.left, false )
 			parent.handle_action( global.actions.right, false )
+			parent.handle_action( global.actions.target_left, false )
+			parent.handle_action( global.actions.target_right, false )
 

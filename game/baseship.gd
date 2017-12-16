@@ -18,11 +18,14 @@ var zoom = 1
 var zoom_speed = 0
 var shoot_repeat = 0
 var shoot_last = 0
+var target_last_pos
+var rot_impreciseness = 0.05
 
 var properties = {
 	global.properties.movement_speed_forward: 500,
 	global.properties.movement_speed_back: 400,
-	global.properties.rotation_speed: 0.5,
+	global.properties.ship_rotation_speed: 0.5,
+	global.properties.weapon_rotation_speed: 3.5,
 	global.properties.zoom_speed: 0.2,
 	global.properties.bullet_speed: 800,
 	global.properties.bullet_strength: 50,
@@ -106,6 +109,16 @@ func fix_collision_shape():
 func _fixed_process(delta) :
 	if torque.x != 0 :
 		set_angular_velocity(torque.x)
+	if torque.y != 0 :
+		
+		var target_rot = get_node("weaponscope").get_global_pos().angle_to_point(target_last_pos)
+		
+		if (abs(abs(target_rot) - abs(get_node("weaponscope").get_global_rot())) < rot_impreciseness) :
+			torque.y = 0
+		else :
+			get_node("weaponscope").set_rot(
+				get_node("weaponscope").get_rot() + 
+				torque.y * delta )
 	
 	# calculate vector from current rotation, if speed is set
 	if velocity.x != 0 :
@@ -122,7 +135,7 @@ func _fixed_process(delta) :
 	
 	# zoom can only change if camera2d is available
 	if zoom_speed != 0:
-		print("new zoom", zoom)
+		#print("new zoom", zoom)
 		#get_node("Camera2D").set_zoom(Vector2(zoom, zoom));
 		ship_locator.set_camera_zoom(zoom)
 		zoom_speed = 0
@@ -131,17 +144,21 @@ func _fixed_process(delta) :
 		shoot(global.scene_path_bullet)
 		shoot_last = 0
 	elif shoot_repeat != 0 :
-		print("shoot repeat: ", shoot_last, get_property(global.properties.bullet_wait))
+		#print("shoot repeat: ", shoot_last, get_property(global.properties.bullet_wait))
 		shoot_last += delta
 
 func handle_action(action, pressed):
 	
-	if self.is_in_group("player"):
-		print ("new action: ", action, " ", pressed, " zoom speed: ", zoom_speed)
+	#if self.is_in_group("player"):
+		#print ("new action: ", action, " ", pressed, " zoom speed: ", zoom_speed)
 	
 	if pressed : 
-		if action == global.actions.left: torque.x = -get_property(global.properties.rotation_speed)
-		elif action == global.actions.right: torque.x = get_property(global.properties.rotation_speed)
+		if action == global.actions.left: torque.x = -get_property(global.properties.ship_rotation_speed)
+		elif action == global.actions.right: torque.x = get_property(global.properties.ship_rotation_speed)
+		
+		elif action == global.actions.target_left: torque.y = -get_property(global.properties.weapon_rotation_speed)
+		elif action == global.actions.target_right: torque.y = get_property(global.properties.weapon_rotation_speed)
+		
 		elif action == global.actions.accelerate: velocity.x = -get_property(global.properties.movement_speed_forward)
 		elif action == global.actions.back: velocity.x = get_property(global.properties.movement_speed_back)
 		
@@ -150,12 +167,16 @@ func handle_action(action, pressed):
 			
 		elif action == global.actions.fire: shoot_repeat = 1
 		elif action == global.actions.use: shoot_repeat = 1
+		
 		else:
 			print ("unknown press action: ", action)
 		
 	else :
 		if action == global.actions.left: torque.x = 0
 		elif action == global.actions.right: torque.x = 0
+		elif action == global.actions.target_left: torque.y = 0
+		elif action == global.actions.target_right: torque.y = 0
+		
 		elif action == global.actions.accelerate: velocity.x = 0
 		elif action == global.actions.back: velocity.x = 0
 		
@@ -168,15 +189,43 @@ func handle_action(action, pressed):
 			print ("unknown release action: ", action)
 
 	if zoom_speed != 0: 
-		print ("zoom speed ", zoom_speed)
+		#print ("zoom speed ", zoom_speed)
 		zoom = zoom + (zoom_speed if (zoom+zoom_speed) >= 1 else 0)
 		
 
 func handle_mousemove(pos) :
 	
-	var dir = pos
-	dir -= get_node("weaponscope").get_global_pos()
+	# save last mouse position - to stop turning weapon
+	target_last_pos = pos
+	
+	#var scope_pos = pos
+	var scope_rot
+	var target_rot
+	
+	#scope_pos -= get_node("weaponscope").get_global_pos()
+	scope_rot = get_node("weaponscope").get_global_rot()
+	#target_rot = atan2(scope_pos.x, scope_pos.y) + PI
+	
+	target_rot = get_node("weaponscope").get_global_pos().angle_to_point(target_last_pos)
+	#lerp()
+	
+	#print("mouse move ", pos, scope_pos, scope_rot, target_rot)
+	
+	if (scope_rot < target_rot) :
+		handle_action(global.actions.target_right, true)
+	elif (scope_rot > target_rot) :
+		handle_action(global.actions.target_left, true)
+	else:
+		handle_action(global.actions.target_left, false)
+		handle_action(global.actions.target_right, false)
+	"""
 	get_node("weaponscope").set_global_rot(atan2(dir.x, dir.y) -  PI)
+	
+	handle_action(global.actions.target_left, true)
+	handle_action(global.actions.target_right, true)
+	handle_action(global.actions.target_right, false)
+	"""
+	
 	#print("handle mouse");
 	#print(pos)
 	
@@ -210,11 +259,12 @@ func shoot(path):
 func can_destroy():
 	return true
 
-func destroy():
+func destroy(destroyer):
+	print(self, "was destroyed by", destroyer)
 	ship_locator.free_ship(self)
 	queue_free()
 
-func hit(power):
+func hit(power, hitter):
 	var health
 	health = get_property(global.properties.health) - power
 	set_property(global.properties.health, health)
@@ -223,8 +273,7 @@ func hit(power):
 	#health_obj.changeHealth(-power);
 	
 	if (health <= 0):
-		print(self, "is destroyed..")
-		destroy()
+		destroy(hitter)
 		#get_node("anim").play("explode")
 		#destroyed=true
 

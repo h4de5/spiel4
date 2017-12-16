@@ -3,7 +3,6 @@ extends Node2D
 func _ready():
 	print ("reset everything - new game")
 
-	var enemy_scn = load(global.scene_path_enemy)
 	var player_scn = load(global.scene_path_player)
 	
 	var camera_scn = load(global.scene_path_camera)
@@ -14,13 +13,15 @@ func _ready():
 
 	var player_node = player_scn.instance()
 	add_child(player_node, true)
+	
+	spawn_enemy()
+	spawn_enemy()
 
+func spawn_enemy():
+	
+	var enemy_scn = load(global.scene_path_enemy)
 	var enemy_node = enemy_scn.instance()
 	add_child(enemy_node, true)
-	
-	enemy_node = enemy_scn.instance()
-	add_child(enemy_node, true)
-	
 	
 	
 

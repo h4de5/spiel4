@@ -23,6 +23,8 @@ enum groups {
 enum actions {
 	left,
 	right,
+	target_left,
+	target_right,
 	accelerate,
 	back,
 	fire,
@@ -34,7 +36,8 @@ enum actions {
 enum properties {
 	movement_speed_forward,
 	movement_speed_back,
-	rotation_speed,
+	ship_rotation_speed,
+	weapon_rotation_speed,
 	zoom_speed,
 	bullet_speed,
 	bullet_strength,

@@ -33,15 +33,15 @@ func register_ship( ship ):
 			ships[group] = [ship]
 			#ships[group].append(ship)
 
-func get_next_ship( group, pos ):
+func get_next_ship( group, pos, rot):
 	# return first ship of given group
 	if (ships.has(group)) and ships[group].size() > 0:
 		return ships[group].front()
 	else :
 		return null
 	
-func get_next_player( pos ) :
-	return get_next_ship("player", pos)
+func get_next_player( pos, rot) :
+	return get_next_ship("player", pos, rot)
 	# return players[0]
 
 func _fixed_process(delta):

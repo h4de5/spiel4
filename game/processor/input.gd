@@ -43,14 +43,15 @@ func set_input_group(groupid):
 	
 func _input(event):
 	
-
-	for e in input_actions :
-		if event.is_action(e) :
-			#parent.handle_action(input_actions[e], event.is_pressed(event))
-			parent.handle_action(input_actions[e], Input.is_action_pressed(e))
-	
 	if (event.type == InputEvent.MOUSE_MOTION):
 		#parent.handle_mousemove(event.pos)
 		# TODO - check if global_mouse_pos is realy the best way to do this
 		parent.handle_mousemove(parent.get_global_mouse_pos())
+	else:
+		for e in input_actions :
+			if event.is_action(e) :
+				#parent.handle_action(input_actions[e], event.is_pressed(event))
+				parent.handle_action(input_actions[e], Input.is_action_pressed(e))
+	
+	
 
