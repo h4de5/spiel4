@@ -6,10 +6,16 @@ func _ready():
 	properties[global.properties.ship_rotation_speed] = 1.5
 	properties[global.properties.bullet_speed] = 1000
 	
-	get_node("Processors").set_processor("Input")
-	get_node("Processors").get_processor().set_parent(self)
-	
 	fix_collision_shape()
+	
+func set_processor(processor):
+	get_node("Processors").set_processor(processor)
+	get_node("Processors").get_processor().set_parent(self)
+
+func set_processor_details(device_details):
+	get_node("Processors").get_processor().set_processor_details(device_details)
+	
+	
 
 func initialize() :
 	

@@ -111,11 +111,13 @@ func _fixed_process(delta) :
 		set_angular_velocity(torque.x)
 	if torque.y != 0 :
 		
-		var target_rot = get_node("weaponscope").get_global_pos().angle_to_point(target_last_pos)
-		
-		if (abs(abs(target_rot) - abs(get_node("weaponscope").get_global_rot())) < rot_impreciseness) :
-			torque.y = 0
-		else :
+		if target_last_pos != null :
+			var target_rot = get_node("weaponscope").get_global_pos().angle_to_point(target_last_pos)
+			
+			if (abs(abs(target_rot) - abs(get_node("weaponscope").get_global_rot())) < rot_impreciseness) :
+				torque.y = 0
+			
+		if torque.y != 0 :
 			get_node("weaponscope").set_rot(
 				get_node("weaponscope").get_rot() + 
 				torque.y * delta )

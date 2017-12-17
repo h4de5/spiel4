@@ -1,11 +1,12 @@
-[gd_scene load_steps=9 format=1]
+[gd_scene load_steps=10 format=1]
 
 [ext_resource path="res://game/baseship.gd" type="Script" id=1]
 [ext_resource path="res://art/models/icon.png" type="Texture" id=2]
 [ext_resource path="res://game/processor/processor_selector.gd" type="Script" id=3]
 [ext_resource path="res://game/processor/input.gd" type="Script" id=4]
-[ext_resource path="res://game/processor/ai.gd" type="Script" id=5]
-[ext_resource path="res://game/npc/missle.png" type="Texture" id=6]
+[ext_resource path="res://game/processor/network.gd" type="Script" id=5]
+[ext_resource path="res://game/processor/ai.gd" type="Script" id=6]
+[ext_resource path="res://game/npc/missle.png" type="Texture" id=7]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 
@@ -63,9 +64,11 @@ script/script = ExtResource( 4 )
 
 [node name="Network" type="Node" parent="Processors"]
 
+script/script = ExtResource( 5 )
+
 [node name="AI" type="Node" parent="Processors"]
 
-script/script = ExtResource( 5 )
+script/script = ExtResource( 6 )
 
 [node name="Particles2D" type="Particles2D" parent="."]
 
@@ -103,6 +106,6 @@ transform/scale = Vector2( 0.437384, 0.481779 )
 
 transform/rot = -90.0
 transform/scale = Vector2( 0.535178, 0.535178 )
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 
 

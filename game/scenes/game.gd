@@ -3,20 +3,22 @@ extends Node2D
 func _ready():
 	print ("reset everything - new game")
 
-	var player_scn = load(global.scene_path_player)
-	
 	var camera_scn = load(global.scene_path_camera)
 	var camera_node = camera_scn.instance()
 	add_child(camera_node, true)
 	
 	#var enemyhealth_scn = load("res://Health.tscn")
+	
+	#spawn_enemy()
+	#spawn_enemy()
 
+func spawn_player(processor, device_details):
+	var player_scn = load(global.scene_path_player)
 	var player_node = player_scn.instance()
 	add_child(player_node, true)
+	player_node.set_processor(processor)
+	player_node.set_processor_details(device_details)
 	
-	spawn_enemy()
-	spawn_enemy()
-
 func spawn_enemy():
 	
 	var enemy_scn = load(global.scene_path_enemy)
