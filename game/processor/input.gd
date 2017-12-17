@@ -2,7 +2,7 @@ extends "res://game/processor/processor.gd"
 
 var input_group
 var device_id = 0
-var device_type = InputEvent.NONE
+var device_types = [InputEvent.NONE]
 
 var input_actions = {
 	"ui_left": 		global.actions.left,
@@ -25,11 +25,11 @@ func set_parent(p):
 	
 func set_processor_details(device_details):
 	device_id = device_details[0]
-	device_type = device_details[1]
+	device_types = device_details[1]
 	
 func _input(event):
-	print ("new event", event)
-	if (event.device == device_id && event.type == device_type):
+	#print ("new event", event)
+	if (event.device == device_id && device_types.has(event.type)):
 		if (event.type == InputEvent.MOUSE_MOTION):
 			#parent.handle_mousemove(event.pos)
 			# TODO - check if global_mouse_pos is realy the best way to do this
