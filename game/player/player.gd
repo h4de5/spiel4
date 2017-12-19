@@ -2,20 +2,11 @@ extends "res://game/baseship.gd"
 
 func _ready():
 	
-	properties[global.properties.movement_speed_forward] = 700
-	properties[global.properties.ship_rotation_speed] = 1.5
-	properties[global.properties.bullet_speed] = 1000
+	properties[global.properties.movement_speed_forward] *= 1.2
+	properties[global.properties.ship_rotation_speed] *= 1.2
+	properties[global.properties.bullet_speed] *= 1.2
 	
 	fix_collision_shape()
-	
-func set_processor(processor):
-	get_node("Processors").set_processor(processor)
-	get_node("Processors").get_processor().set_parent(self)
-
-func set_processor_details(device_details):
-	get_node("Processors").get_processor().set_processor_details(device_details)
-	
-	
 
 func initialize() :
 	
@@ -27,6 +18,16 @@ func initialize() :
 	
 	# call baseship init
 	.initialize()
+	
+func destroy(destroyer):
+	
+	var player_manager = get_node("/root/Game/player_manager")
+	var input_processor = get_node("Processors/Input")
+	
+	if(input_processor != null) :
+		player_manager.unregister_device(input_processor.input_group, input_processor.device_id)
+	
+	.destroy(destroyer)
 	
 
 func reset_position():

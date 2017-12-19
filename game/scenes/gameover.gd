@@ -8,11 +8,9 @@ extends Control
 func _ready():
 	# Called every time the node is added to the scene.
 	# Initialization here
-	
 	var restart_button = get_node("Restart")
 	restart_button.connect("pressed", self, "buttonPressed", [restart_button])
 	
-	pass
 
 
 func buttonPressed(target):

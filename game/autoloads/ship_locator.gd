@@ -36,7 +36,14 @@ func register_ship( ship ):
 func get_next_ship( group, pos, rot):
 	# return first ship of given group
 	if (ships.has(group)) and ships[group].size() > 0:
-		return ships[group].front()
+		var dist = null
+		var closest
+		for ship in ships[group]: 
+			if dist == null or dist > pos-ship.get_pos():
+				dist = pos-ship.get_pos()
+				closest = ship
+				
+		return closest #ships[group].front()
 	else :
 		return null
 	

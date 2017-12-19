@@ -7,7 +7,6 @@
 [node name="Baseship - Player" instance=ExtResource( 1 )]
 
 collision/layers = 2
-collision/mask = 15
 script/script = ExtResource( 2 )
 
 [node name="Sprite" parent="."]
@@ -21,10 +20,6 @@ texture = ExtResource( 3 )
 transform/pos = Vector2( 1.53644, 1.38501 )
 polygon = Vector2Array( -27.0637, 6.42696, -2.79872, -53.4265, 23.7309, 6.7505, 17.9074, 22.2801, -2.15166, 17.7506, -21.2401, 23.2507 )
 shape_range = Vector2( 0, 1 )
-
-[node name="Processors" parent="."]
-
-editor/display_folded = true
 
 [node name="Particles2D" parent="."]
 

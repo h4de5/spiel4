@@ -3,7 +3,7 @@ extends Node
 var registered_devices = {
 	InputEvent.KEY: [],
 	InputEvent.JOYSTICK_BUTTON: []
-	}
+}
 	
 var device_groups = {
 	InputEvent.KEY: [InputEvent.KEY, InputEvent.MOUSE_MOTION, InputEvent.MOUSE_BUTTON ],
@@ -12,6 +12,9 @@ var device_groups = {
 
 func _ready():
 	set_process_input(true)
+	
+func unregister_device(inputtype, device):
+	registered_devices[inputtype].erase(device)
 
 func _input(event):
 	
@@ -25,6 +28,7 @@ func _input(event):
 			
 		if(inputtype != null && not registered_devices[inputtype].has(event.device)) :
 			registered_devices[inputtype].append(event.device)
-			get_parent().spawn_player("Input", [event.device, device_groups[inputtype]])
+			get_parent().spawn_player("Input", 
+				[event.device, device_groups[inputtype], inputtype])
 			
 		

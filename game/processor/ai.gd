@@ -69,4 +69,5 @@ func _fixed_process(delta) :
 			parent.handle_action( global.actions.right, false )
 			parent.handle_action( global.actions.target_left, false )
 			parent.handle_action( global.actions.target_right, false )
+			parent.handle_action( global.actions.fire, false )
 

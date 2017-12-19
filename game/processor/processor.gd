@@ -30,4 +30,6 @@ func _ready() :
 
 func set_processor(proc) :
 	processor = proc
-	#processor.set_parent(self)
+	
+func set_processor_details(device_details):
+	pass

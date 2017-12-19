@@ -26,6 +26,7 @@ func set_parent(p):
 func set_processor_details(device_details):
 	device_id = device_details[0]
 	device_types = device_details[1]
+	input_group = device_details[2]
 	
 func _input(event):
 	#print ("new event", event)

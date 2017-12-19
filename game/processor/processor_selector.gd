@@ -31,7 +31,8 @@ func set_processor(processor) :
 	if processor == "AI" :
 		current_processor = processor_ai
 		
-	add_child(current_processor)
+	if(current_processor):
+		add_child(current_processor)
 
 func get_processor() :
 	return current_processor

@@ -4,8 +4,7 @@ func _ready():
 	
 	reset_position()
 	
-	get_node("Processors").set_processor("AI")
-	get_node("Processors").get_processor().set_parent(self)
+	set_processor("AI")
 	
 	fix_collision_shape()
 

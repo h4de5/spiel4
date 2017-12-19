@@ -7,10 +7,11 @@ func _ready():
 	var camera_node = camera_scn.instance()
 	add_child(camera_node, true)
 	
-	#var enemyhealth_scn = load("res://Health.tscn")
+	spawn_enemy()
+	spawn_enemy()
 	
-	#spawn_enemy()
-	#spawn_enemy()
+	# Background node 
+	# player_manager node
 
 func spawn_player(processor, device_details):
 	var player_scn = load(global.scene_path_player)
@@ -20,7 +21,6 @@ func spawn_player(processor, device_details):
 	player_node.set_processor_details(device_details)
 	
 func spawn_enemy():
-	
 	var enemy_scn = load(global.scene_path_enemy)
 	var enemy_node = enemy_scn.instance()
 	add_child(enemy_node, true)

@@ -1,11 +1,5 @@
 extends RigidBody2D
 
-# speed for acceleration and rotation and zoom
-#var multi_forward = 500
-#var multi_break = 3
-#var multi_rot = 1.5
-#var multi_zoom = 0.2
-
 # current state and modificators
 var position = Vector2()
 # velocity.x = ship
@@ -22,7 +16,7 @@ var target_last_pos
 var rot_impreciseness = 0.05
 
 var properties = {
-	global.properties.movement_speed_forward: 500,
+	global.properties.movement_speed_forward: 800,
 	global.properties.movement_speed_back: 400,
 	global.properties.ship_rotation_speed: 0.5,
 	global.properties.weapon_rotation_speed: 3.5,
@@ -32,7 +26,6 @@ var properties = {
 	global.properties.bullet_wait: 0.2,
 	global.properties.health_max: 1000,
 	global.properties.health: 1000
-	
 }
 
 # health bar
@@ -67,13 +60,6 @@ func initialize() :
 	get_parent().call_deferred("add_child", health_node, true)
 	health_node.set_owner(self)
 	
-	"""
-	var health_scn = load(global.scene_path_healthbar)
-	var health_node = health_scn.instance()
-	get_parent().call_deferred("add_child", health_node, true)
-	health_node.target_obj = self
-	health_obj = health_node
-	"""
 	reset_position()
 	
 # called to reset a position, usually after initialize
@@ -182,8 +168,8 @@ func handle_action(action, pressed):
 		elif action == global.actions.accelerate: velocity.x = 0
 		elif action == global.actions.back: velocity.x = 0
 		
-		#elif action == global.actions.zoom_in: zoom_speed = 0
-		#elif action == global.actions.zoom_out: zoom_speed = 0
+		elif action == global.actions.zoom_in: pass
+		elif action == global.actions.zoom_out: pass
 		
 		elif action == global.actions.fire: shoot_repeat = 0
 		elif action == global.actions.use: shoot_repeat = 0
@@ -230,7 +216,15 @@ func handle_mousemove(pos) :
 	
 	#print("handle mouse");
 	#print(pos)
-	
+
+
+
+func set_processor(processor):
+	get_node("Processors").set_processor(processor)
+	get_node("Processors").get_processor().set_parent(self)
+
+func set_processor_details(device_details):
+	get_node("Processors").get_processor().set_processor_details(device_details)
 
 # get all different properties from this ship
 func get_properties():
