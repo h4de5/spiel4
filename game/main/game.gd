@@ -16,14 +16,14 @@ func _ready():
 func spawn_player(processor, device_details):
 	var player_scn = load(global.scene_path_player)
 	var player_node = player_scn.instance()
-	add_child(player_node, true)
+	get_node("ships").add_child(player_node, true)
 	player_node.set_processor(processor)
 	player_node.set_processor_details(device_details)
 	
 func spawn_enemy():
 	var enemy_scn = load(global.scene_path_enemy)
 	var enemy_node = enemy_scn.instance()
-	add_child(enemy_node, true)
+	get_node("ships").add_child(enemy_node, true)
 	
 	
 

@@ -1,4 +1,4 @@
-#extends "res://game/baseship.gd"
+#extends "res://game/ship/baseship.gd"
 extends RigidBody2D
 
 # class member variables go here, for example:

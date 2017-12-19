@@ -1,4 +1,4 @@
-extends "res://game/baseship.gd"
+extends "res://game/ship/baseship.gd"
 
 func _ready():
 	
@@ -10,15 +10,15 @@ func _ready():
 
 func destroy(destroyer):
 	.destroy(destroyer)
-	get_node("/root/Game").spawn_enemy()
+	get_node(global.scene_tree_game).spawn_enemy()
 
 func initialize() :
 	
 	# add to group player
-	add_to_group("enemy")
+	add_to_group(global.groups.enemy)
 	
 	# register to locator
-	ship_locator.register_ship(self)
+	get_node(global.scene_tree_ship_locator).register_ship(self)
 	
 	# call baseship init
 	.initialize()

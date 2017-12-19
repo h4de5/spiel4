@@ -11,7 +11,7 @@ var torque = Vector2()
 var zoom = 1
 var zoom_speed = 0
 var shoot_repeat = 0
-var shoot_last = 0
+var shoot_wait = 0
 var target_last_pos
 var rot_impreciseness = 0.05
 
@@ -23,7 +23,8 @@ var properties = {
 	global.properties.zoom_speed: 0.2,
 	global.properties.bullet_speed: 800,
 	global.properties.bullet_strength: 50,
-	global.properties.bullet_wait: 0.2,
+	global.properties.bullet_wait: 0.3,
+	global.properties.bullet_range: 1000,
 	global.properties.health_max: 1000,
 	global.properties.health: 1000
 }
@@ -125,15 +126,13 @@ func _fixed_process(delta) :
 	if zoom_speed != 0:
 		#print("new zoom", zoom)
 		#get_node("Camera2D").set_zoom(Vector2(zoom, zoom));
-		ship_locator.set_camera_zoom(zoom)
+		get_node(global.scene_tree_ship_locator).set_camera_zoom(zoom)
 		zoom_speed = 0
 	
-	if shoot_repeat != 0 and (shoot_last + delta) >= get_property(global.properties.bullet_wait) :
+	if shoot_repeat != 0 and shoot_wait - delta <= 0 :
 		shoot(global.scene_path_bullet)
-		shoot_last = 0
-	elif shoot_repeat != 0 :
-		#print("shoot repeat: ", shoot_last, get_property(global.properties.bullet_wait))
-		shoot_last += delta
+	elif shoot_wait > 0 :
+		shoot_wait -= delta
 
 func handle_action(action, pressed):
 	
@@ -153,8 +152,14 @@ func handle_action(action, pressed):
 		elif action == global.actions.zoom_in: zoom_speed = -get_property(global.properties.zoom_speed)
 		elif action == global.actions.zoom_out: zoom_speed = get_property(global.properties.zoom_speed)
 			
-		elif action == global.actions.fire: shoot_repeat = 1
-		elif action == global.actions.use: shoot_repeat = 1
+		elif action == global.actions.fire: 
+			shoot_repeat = 1
+			if shoot_wait <= 0 :
+				shoot(global.scene_path_bullet)
+		elif action == global.actions.use: 
+			shoot_repeat = 1
+			if shoot_wait <= 0 :
+				shoot(global.scene_path_bullet)
 		
 		else:
 			print ("unknown press action: ", action)
@@ -251,13 +256,15 @@ func shoot(path):
 	get_parent().add_child(shoot_node)
 	shoot_node.set_owner(self)
 	
+	shoot_wait = get_property(global.properties.bullet_wait)
+	
 
 func can_destroy():
 	return true
 
 func destroy(destroyer):
-	print(self, "was destroyed by", destroyer)
-	ship_locator.free_ship(self)
+	print(self, "was destroyed by ", destroyer)
+	get_node(global.scene_tree_ship_locator).free_ship(self)
 	queue_free()
 
 func hit(power, hitter):

@@ -11,8 +11,8 @@ var input_actions = {
 	"ui_down": 		global.actions.back,
 	"ui_accept": 	global.actions.fire,
 	#"ui_accept": 	global.actions.use,
-	"ui_page_up": 	global.actions.zoom_in,
-	"ui_page_down": global.actions.zoom_out,
+	#"ui_page_up": 	global.actions.zoom_in,
+	#"ui_page_down": global.actions.zoom_out,
 	"ui_weapon_left": global.actions.target_left,
 	"ui_weapon_right": global.actions.target_right,
 }

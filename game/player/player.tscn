@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=1]
 
-[ext_resource path="res://game/baseship.tscn" type="PackedScene" id=1]
+[ext_resource path="res://game/ship/baseship.tscn" type="PackedScene" id=1]
 [ext_resource path="res://game/player/player.gd" type="Script" id=2]
 [ext_resource path="res://art/models/friend.png" type="Texture" id=3]
 

@@ -18,7 +18,7 @@ func _fixed_process(delta) :
 		var ownpos = parent.get_pos();
 		var ownrot = parent.get_rot();
 		
-		player = ship_locator.get_next_player( ownpos, ownrot )
+		player = get_node(global.scene_tree_ship_locator).get_next_player( ownpos, ownrot )
 		if (player) :
 			
 			playerpos = player.get_pos()
@@ -50,7 +50,8 @@ func _fixed_process(delta) :
 			angle = playervec.angle_to(forwardvec)
 			
 			#print("angle", angle)
-			if (abs(angle) < parent.rot_impreciseness) :
+			if (abs(angle) < parent.rot_impreciseness and 
+				ownpos.distance_to(playerpos) < parent.get_property(global.properties.bullet_range)) :
 				parent.handle_action( global.actions.fire, true )
 			else :
 				parent.handle_action( global.actions.fire, false )

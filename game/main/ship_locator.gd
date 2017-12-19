@@ -10,11 +10,15 @@ func _ready():
 
 func free_ship(ship) :
 	# returns first group of ship
-	var group
-	group = ship.get_groups().front()
+	#var group = ship.get_groups().front()
+	var ship_groups = ship.get_groups()
+	for group in  global.groups: 
+		if ship_groups.has(group):
+			ships[group].erase(ship)
+			break
 	
-	for g in ships:
-		ships[g].erase(ship)
+	#for g in ships:
+	
 	
 func register_player( player ) :
 	#players.append(player)
@@ -23,8 +27,14 @@ func register_player( player ) :
 func register_ship( ship ):
 	
 	# returns first group of ship
+	#var group = ship.get_groups().back()
+	var ship_groups = ship.get_groups()
 	var group
-	group = ship.get_groups().front()
+	for global_group in  global.groups: 
+		if ship_groups.has(global_group):
+			group = global_group
+			break
+	
 	if (group) :
 		if (ships.has(group)) :
 			ships[group].append(ship)
@@ -48,7 +58,7 @@ func get_next_ship( group, pos, rot):
 		return null
 	
 func get_next_player( pos, rot) :
-	return get_next_ship("player", pos, rot)
+	return get_next_ship(global.groups.player, pos, rot)
 	# return players[0]
 
 func _fixed_process(delta):
@@ -68,11 +78,6 @@ func get_bounding_box(group) :
 			box = box.expand(shipv)
 		else :
 			box = Rect2(shipv, Vector2(1,1))
-		
-		#minv.x = min(minv.x, shipv.x)
-		#minv.y = min(minv.y, shipv.y)
-		#maxv.x = max(maxv.x, shipv.x)
-		#maxv.y = max(maxv.y, shipv.y)
 	return box
 
 # Return a bound box that includes all ships
@@ -94,13 +99,26 @@ func set_camera():
 	var bounding_box = get_bounding_box_all()
 	
 	if bounding_box != null :
-		var camera = get_node("/root/Game/Camera")
+		# set camera in the middle (*0.5) of the bounding box
+		var camera = get_node(global.scene_tree_camera)
 		camera.set_pos(bounding_box.pos + bounding_box.size*0.5)
+		var d_width = Globals.get("display/width")
+		var d_height = Globals.get("display/height")
+	
+		
+		var zoomx = bounding_box.size.x / d_width
+		var zoomy = bounding_box.size.y / d_height
+		zoomx = max(zoomx, zoomy)
+		if(zoomx < 1) : 
+			zoomx = 1
+		
+		zoomx *= 1.3
+		#print("width ", d_width, " box size ", bounding_box.size, " zoomx ", zoomx, " zoomy ", zoomy)
+		camera.set_zoom(Vector2(zoomx,zoomx))
 	
 	# TODO - set zoom of camera correctly!
 	
-	#Globals.get("display/width")
-	#Globals.get("display/height")
+	
 	
 	#camera.set_zoom()
 	
@@ -112,6 +130,6 @@ func set_camera():
 	#camera.set_viewport(viewport)
 
 func set_camera_zoom(zoom):
-	var camera = get_node("/root/Game/Camera")
+	var camera = get_node(global.scene_tree_camera)
 	camera.set_zoom(Vector2(zoom, zoom));
 	
