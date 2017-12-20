@@ -1,4 +1,4 @@
-extends Node
+extends "res://game/interfaces/isable.gd"
 
 # current state and modificators
 # velocity.x = ship
@@ -7,16 +7,27 @@ var velocity = Vector2()
 var torque = Vector2()
 var zoom = 1
 var zoom_speed = 0
-var parent
 
 var shoot_repeat = 0
 var shoot_wait = 0
 var target_last_pos
 
+func is_moveable():
+	return true
+
 
 func _ready():
+	required_properties = [
+		global.properties.movement_speed_forward,
+		global.properties.movement_speed_back,
+		global.properties.ship_rotation_speed,
+		# TODO check if necessary?
+		global.properties.weapon_rotation_speed,
+		global.properties.clearance_rotation,
+	]
+	check_requirements()
+	
 	set_fixed_process(true)
-	parent = get_parent()
 
 
 func get_property(prop): 

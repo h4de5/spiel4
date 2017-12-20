@@ -9,6 +9,7 @@ var health_obj
 # baseship._ready > player.init > baseship.init > player._ready
 
 func _ready():
+	print("im ready baseship - anfang")
 	properties = {
 		global.properties.movement_speed_forward: 800,
 		global.properties.movement_speed_back: 400,
@@ -25,6 +26,7 @@ func _ready():
 	}
 	
 	initialize()
+	print("im ready baseship - ende")
 
 func initialize() :
 	set_fixed_process(true)
