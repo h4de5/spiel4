@@ -46,6 +46,7 @@ enum properties {
 	movement_speed_back,
 	ship_rotation_speed,
 	weapon_rotation_speed,
+	clearance_rotation,
 	zoom_speed,
 	bullet_speed,
 	bullet_strength,

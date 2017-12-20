@@ -1,12 +1,15 @@
-[gd_scene load_steps=10 format=1]
+[gd_scene load_steps=13 format=1]
 
 [ext_resource path="res://game/ship/baseship.gd" type="Script" id=1]
-[ext_resource path="res://art/models/icon.png" type="Texture" id=2]
-[ext_resource path="res://game/processor/processor_selector.gd" type="Script" id=3]
-[ext_resource path="res://game/processor/input.gd" type="Script" id=4]
-[ext_resource path="res://game/processor/network.gd" type="Script" id=5]
-[ext_resource path="res://game/processor/ai.gd" type="Script" id=6]
-[ext_resource path="res://game/npc/missle.png" type="Texture" id=7]
+[ext_resource path="res://game/processor/processor_selector.gd" type="Script" id=2]
+[ext_resource path="res://game/processor/input.gd" type="Script" id=3]
+[ext_resource path="res://game/processor/network.gd" type="Script" id=4]
+[ext_resource path="res://game/processor/ai.gd" type="Script" id=5]
+[ext_resource path="res://game/interfaces/adjustable.gd" type="Script" id=6]
+[ext_resource path="res://game/interfaces/destroyable.gd" type="Script" id=7]
+[ext_resource path="res://game/interfaces/moveable.gd" type="Script" id=8]
+[ext_resource path="res://art/models/icon.png" type="Texture" id=9]
+[ext_resource path="res://game/npc/missle.png" type="Texture" id=10]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 
@@ -43,9 +46,38 @@ damp_override/linear = 2.0
 damp_override/angular = 3.0
 script/script = ExtResource( 1 )
 
+[node name="Processors" type="Node" parent="."]
+
+editor/display_folded = true
+script/script = ExtResource( 2 )
+
+[node name="Input" type="Node" parent="Processors"]
+
+script/script = ExtResource( 3 )
+
+[node name="Network" type="Node" parent="Processors"]
+
+script/script = ExtResource( 4 )
+
+[node name="AI" type="Node" parent="Processors"]
+
+script/script = ExtResource( 5 )
+
+[node name="adjustable" type="Node" parent="."]
+
+script/script = ExtResource( 6 )
+
+[node name="destroyable" type="Node" parent="."]
+
+script/script = ExtResource( 7 )
+
+[node name="moveable" type="Node" parent="."]
+
+script/script = ExtResource( 8 )
+
 [node name="Sprite" type="Sprite" parent="."]
 
-texture = ExtResource( 2 )
+texture = ExtResource( 9 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 
@@ -53,22 +85,6 @@ build_mode = 0
 polygon = Vector2Array( -31.327, -31.6235, 30.274, -31.0832, 30.8144, 31.0582, -30.2462, 31.5985 )
 shape_range = Vector2( 0, 0 )
 trigger = false
-
-[node name="Processors" type="Node" parent="."]
-
-script/script = ExtResource( 3 )
-
-[node name="Input" type="Node" parent="Processors"]
-
-script/script = ExtResource( 4 )
-
-[node name="Network" type="Node" parent="Processors"]
-
-script/script = ExtResource( 5 )
-
-[node name="AI" type="Node" parent="Processors"]
-
-script/script = ExtResource( 6 )
 
 [node name="Particles2D" type="Particles2D" parent="."]
 
@@ -106,6 +122,6 @@ transform/scale = Vector2( 0.437384, 0.481779 )
 
 transform/rot = -90.0
 transform/scale = Vector2( 0.535178, 0.535178 )
-texture = ExtResource( 7 )
+texture = ExtResource( 10 )
 
 

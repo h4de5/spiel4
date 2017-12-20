@@ -35,9 +35,9 @@ func _fixed_process(delta) :
 			
 			
 			#print("ai movment angle", angle)
-			if (angle > parent.rot_impreciseness) :
+			if (angle > parent.get_property(global.properties.clearance_rotation)) :
 				parent.handle_action( global.actions.right, true )
-			elif (angle < -parent.rot_impreciseness) :
+			elif (angle < -parent.get_property(global.properties.clearance_rotation)) :
 				parent.handle_action( global.actions.left, true )
 			else :
 				parent.handle_action( global.actions.right, false )
@@ -50,7 +50,7 @@ func _fixed_process(delta) :
 			angle = playervec.angle_to(forwardvec)
 			
 			#print("angle", angle)
-			if (abs(angle) < parent.rot_impreciseness and 
+			if (abs(angle) < parent.get_property(global.properties.clearance_rotation) and 
 				ownpos.distance_to(playerpos) < parent.get_property(global.properties.bullet_range)) :
 				parent.handle_action( global.actions.fire, true )
 			else :
