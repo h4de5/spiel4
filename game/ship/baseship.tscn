@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=1]
+[gd_scene load_steps=15 format=1]
 
 [ext_resource path="res://game/ship/baseship.gd" type="Script" id=1]
 [ext_resource path="res://game/interfaces/adjustable.tscn" type="PackedScene" id=2]
@@ -10,7 +10,8 @@
 [ext_resource path="res://game/processor/network.gd" type="Script" id=8]
 [ext_resource path="res://game/processor/ai.gd" type="Script" id=9]
 [ext_resource path="res://art/models/icon.png" type="Texture" id=10]
-[ext_resource path="res://game/npc/missle.png" type="Texture" id=11]
+[ext_resource path="res://art/models/SmokeParticle.png" type="Texture" id=11]
+[ext_resource path="res://game/npc/missle.png" type="Texture" id=12]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 
@@ -19,8 +20,8 @@ points = Vector2Array( -31.327, -31.6235, 30.274, -31.0832, 30.8144, 31.0582, -3
 
 [sub_resource type="ColorRamp" id=2]
 
-offsets = FloatArray( 0, 0.19883, 0.643275, 1 )
-colors = ColorArray( 0.765625, 0.972534, 1, 1, 1, 0.867188, 0, 1, 0, 0, 0, 1, 0.0351562, 0.0351562, 0.0351562, 0 )
+offsets = FloatArray( 0, 1 )
+colors = ColorArray( 1, 0.84375, 0, 1, 0, 0, 0, 0 )
 
 [node name="Baseship" type="RigidBody2D"]
 
@@ -86,14 +87,15 @@ trigger = false
 [node name="Particles2D" type="Particles2D" parent="."]
 
 transform/pos = Vector2( -0.650269, 37.0113 )
-config/amount = 32
-config/lifetime = 0.2
+config/amount = 15
+config/lifetime = 0.5
 config/process_mode = 1
-config/half_extents = Vector2( 10, 0 )
+config/half_extents = Vector2( 5, 0 )
 config/local_space = false
+config/texture = ExtResource( 11 )
 params/direction = 0.0
-params/spread = 70.0
-params/linear_velocity = 180.0
+params/spread = 22.3
+params/linear_velocity = 18.0
 params/spin_velocity = 0.0
 params/orbit_velocity = 0.0
 params/gravity_direction = 0.0
@@ -102,12 +104,12 @@ params/radial_accel = 0.0
 params/tangential_accel = 0.0
 params/damping = 0.0
 params/initial_angle = 0.0
-params/initial_size = 10.0
-params/final_size = 15.0
+params/initial_size = 0.2
+params/final_size = 0.4
 params/hue_variation = 1.0
 params/anim_speed_scale = 1.0
 params/anim_initial_pos = 0.0
-color/color = Color( 0.250488, 0.370995, 0.84375, 1 )
+randomness/spread = 1.0
 color/color_ramp = SubResource( 2 )
 
 [node name="weaponscope" type="Node2D" parent="."]
@@ -120,6 +122,6 @@ transform/scale = Vector2( 0.437384, 0.481779 )
 
 transform/rot = -90.0
 transform/scale = Vector2( 0.535178, 0.535178 )
-texture = ExtResource( 11 )
+texture = ExtResource( 12 )
 
 
