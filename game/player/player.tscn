@@ -24,8 +24,4 @@ shape_range = Vector2( 0, 3 )
 
 transform/pos = Vector2( 0.325073, 59.7379 )
 
-[node name="weapon" parent="."]
-
-transform/pos = Vector2( 0, 0 )
-
 

@@ -11,7 +11,7 @@
 [ext_resource path="res://game/processor/ai.gd" type="Script" id=9]
 [ext_resource path="res://art/models/icon.png" type="Texture" id=10]
 [ext_resource path="res://art/models/SmokeParticle.png" type="Texture" id=11]
-[ext_resource path="res://game/npc/missle.png" type="Texture" id=12]
+[ext_resource path="res://art/models/missle.png" type="Texture" id=12]
 
 [sub_resource type="ConvexPolygonShape2D" id=3]
 
@@ -123,12 +123,12 @@ color/color_ramp = SubResource( 2 )
 
 [node name="weapon" type="Node2D" parent="."]
 
-transform/scale = Vector2( 0.437384, 0.481779 )
+transform/scale = Vector2( 0.5, 0.5 )
 
 [node name="Sprite" type="Sprite" parent="weapon"]
 
 transform/rot = -90.0
-transform/scale = Vector2( 0.535178, 0.535178 )
+transform/scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 12 )
 
 
