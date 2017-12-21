@@ -2,27 +2,29 @@
 
 [ext_resource path="res://game/ship/baseship.tscn" type="PackedScene" id=1]
 [ext_resource path="res://game/npc/enemy.gd" type="Script" id=2]
-[ext_resource path="res://art/models/enemy.png" type="Texture" id=3]
+[ext_resource path="res://art/models/EnemyShip.png" type="Texture" id=3]
 
 [node name="Baseship - Enemy" instance=ExtResource( 1 )]
 
 collision/layers = 4
-collision/mask = 15
 script/script = ExtResource( 2 )
 
 [node name="Sprite" parent="."]
 
-transform/rot = -90.0
-transform/scale = Vector2( 0.204808, 0.204808 )
+transform/scale = Vector2( 0.450653, 0.450653 )
 texture = ExtResource( 3 )
 
 [node name="CollisionPolygon2D" parent="."]
 
-polygon = Vector2Array( -27.0637, 6.42696, -2.79872, -53.4265, 23.7309, 6.7505, 17.9074, 22.2801, -2.15166, 17.7506, -21.2401, 23.2507 )
-shape_range = Vector2( 0, 1 )
+polygon = Vector2Array( -51.5108, 30.5442, -28.1024, 14.4509, 0.182846, -53.8237, 27.4927, 15.4263, 51.8765, 31.0319, 21.6406, 39.3224, -0.792511, 38.8347, -18.8365, 39.8101 )
+shape_range = Vector2( 0, 2 )
 
 [node name="Particles2D" parent="."]
 
-transform/pos = Vector2( -0.0515442, 24.4378 )
+transform/pos = Vector2( 0.345673, 53.4345 )
+
+[node name="weapon" parent="."]
+
+transform/pos = Vector2( 0, 0 )
 
 

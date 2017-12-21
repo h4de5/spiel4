@@ -2,7 +2,7 @@
 
 [ext_resource path="res://game/ship/baseship.tscn" type="PackedScene" id=1]
 [ext_resource path="res://game/player/player.gd" type="Script" id=2]
-[ext_resource path="res://art/models/friend.png" type="Texture" id=3]
+[ext_resource path="res://art/models/PlayerShip.png" type="Texture" id=3]
 
 [node name="Baseship - Player" instance=ExtResource( 1 )]
 
@@ -11,18 +11,21 @@ script/script = ExtResource( 2 )
 
 [node name="Sprite" parent="."]
 
-transform/rot = -90.0
-transform/scale = Vector2( 0.204808, 0.204808 )
+transform/scale = Vector2( 0.467776, 0.467776 )
 texture = ExtResource( 3 )
 
 [node name="CollisionPolygon2D" parent="."]
 
 transform/pos = Vector2( 1.53644, 1.38501 )
-polygon = Vector2Array( -27.0637, 6.42696, -2.79872, -53.4265, 23.7309, 6.7505, 17.9074, 22.2801, -2.15166, 17.7506, -21.2401, 23.2507 )
-shape_range = Vector2( 0, 1 )
+polygon = Vector2Array( -14.9182, -1.73917, -7.15341, -44.4455, -1.32982, -54.475, 4.49376, -44.769, 11.935, -2.38623, 39.4353, 27.0552, 46.2295, 49.0554, 10.9644, 35.7906, 8.05261, 47.4378, -11.0358, 47.7613, -13.3005, 35.4671, -48.5656, 49.0554, -41.4479, 26.7317 )
+shape_range = Vector2( 0, 3 )
 
 [node name="Particles2D" parent="."]
 
-transform/pos = Vector2( 0.325073, 22.8552 )
+transform/pos = Vector2( 0.325073, 59.7379 )
+
+[node name="weapon" parent="."]
+
+transform/pos = Vector2( 0, 0 )
 
 
