@@ -17,10 +17,15 @@ func _fixed_process(delta):
 		var wr = weakref(owner);
 		if (wr.get_ref()):
 			set_pos(owner.get_pos())
-			var progressbar = get_node("ProgressBar")
-			if(progressbar != null): 
-				progressbar.set_max(owner.get_property(global.properties.health_max))
-				progressbar.set_value(owner.get_property(global.properties.health) )
+			# BUG - bei vielen gegner tritt hier immer wieder ei nfehler auf
+			# owner ist eine bullet (?)
+			# Invalid call. Nonexistent function 'get_property' in base 'RigidBody2D (bullet.gd)'.
+			var health_max = owner.get_property(global.properties.health_max)
+			var health = owner.get_property(global.properties.health)
+			if has_node("ProgressBar"): 
+				var progressbar = get_node("ProgressBar")
+				progressbar.set_max(health_max)
+				progressbar.set_value(health)
 		else:
 			queue_free()
 	#else :

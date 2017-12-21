@@ -45,7 +45,7 @@ func _fixed_process(delta) :
 			
 			
 			#var target_rot = parent.get_node("weaponscope").get_global_pos().angle_to_point(playerpos)
-			var target_rot = parent.get_node("weaponscope").get_global_rot()
+			var target_rot = parent.get_node("weapon").get_global_rot()
 			forwardvec = Vector2(sin(target_rot), cos(target_rot))*-1
 			angle = playervec.angle_to(forwardvec)
 			

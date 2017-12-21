@@ -1,13 +1,12 @@
 extends "res://game/interfaces/isable.gd"
 
 func is_adjustable():
-	return true
+	return activated
 	
 func _ready():
-	print("im ready adjustable - anfang")
+	print("adjustable _ready - start ", get_parent().get_name(), " activated: ", activated)
 	required_properties = [
-		global.properties.health,
-		global.properties.health_max
+		
 	]
-	check_requirements()
-	print("im ready adjustable - ende")
+	#check_requirements()
+	print("adjustable _ready - end ", get_parent().get_name(), " activated: ", activated)

@@ -19,14 +19,14 @@ func initialize():
 
 func set_owner(o) :
 	owner = o
-	if (o.has_method("get_properties")) :
-		properties = o.get_properties()
+	if (o.has_method("get_property")) :
+		properties = o.get_property(null)
 		
 	add_collision_exception_with(o)
 	
-	starting_pos = o.get_node("weaponscope").get_global_pos()
+	starting_pos = o.get_node("weapon").get_global_pos()
 	set_pos(starting_pos)
-	var starting_rot = (o.get_node("weaponscope").get_global_rot()) + PI
+	var starting_rot = (o.get_node("weapon").get_global_rot()) + PI
 	set_rot(starting_rot + PI)
 	 
 	var v2 = Vector2(  sin(starting_rot), cos(starting_rot)   ).normalized()
@@ -46,7 +46,9 @@ func _fixed_process(delta):
 func processCollision( object ):
 	#print ("body enter bullet")
 	#print(object)
-	if (object.has_method("hit") and object.has_method("can_destroy") and object.can_destroy()):
+	if (object.has_method("hit") and 
+		object.has_method("is_destroyable") and 
+		object.is_destroyable()) :
 		object.hit(properties[global.properties.bullet_strength], owner)
 		destroy(object)
 

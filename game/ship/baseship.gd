@@ -1,15 +1,17 @@
 extends RigidBody2D
 
-
 var properties
-# health bar
-var health_obj
 
 # call order:
 # baseship._ready > player.init > baseship.init > player._ready
 
+func _enter_tree():
+	print("baseship _enter_tree - start ", get_name())
+	
+	print("baseship _enter_tree - end ", get_name())
+	
 func _ready():
-	print("im ready baseship - anfang")
+	print("baseship _ready - start ", get_name())
 	properties = {
 		global.properties.movement_speed_forward: 800,
 		global.properties.movement_speed_back: 400,
@@ -24,9 +26,8 @@ func _ready():
 		global.properties.health_max: 1000,
 		global.properties.health: 1000
 	}
-	
 	initialize()
-	print("im ready baseship - ende")
+	print("baseship _ready - end ", get_name())
 
 func initialize() :
 	set_fixed_process(true)
@@ -42,16 +43,7 @@ func initialize() :
 	
 	set_max_contacts_reported(4)
 	
-	
-	
 	connect("body_enter", self, "processCollision")
-	
-	# Health bar
-	var health_scn = load(global.scene_path_healthbar)
-	var health_node = health_scn.instance()
-	#get_parent().add_child(health_node)
-	get_parent().call_deferred("add_child", health_node, true)
-	health_node.set_owner(self)
 	
 	reset_position()
 	
@@ -88,10 +80,23 @@ func fix_collision_shape():
 
 func handle_action(action, pressed):
 	get_node("moveable").handle_action(action, pressed)
+	get_node("shootable").handle_action(action, pressed)
 	
 func handle_mousemove(pos) :
-	get_node("moveable").handle_mousemove(pos)
+	get_node("shootable").handle_mousemove(pos)
 
+
+func is_destroyable():
+	return get_node("destroyable").is_destroyable()
+
+func destroy(destroyer):
+	get_node("destroyable").destroy(destroyer)
+	
+	get_node(global.scene_tree_ship_locator).free_ship(self)
+	queue_free()
+
+func hit(power, hitter):
+	get_node("destroyable").hit(power, hitter)
 
 
 func set_processor(processor):
@@ -102,11 +107,12 @@ func set_processor_details(device_details):
 	get_node("Processors").get_processor().set_processor_details(device_details)
 
 # get all different properties from this ship
-func get_properties():
-	return properties
-
 func get_property(type):
-	#if (properties.has_index(type)) :
+	
+	# if null, return all properties
+	if (type == null):
+		return properties
+		
 	if (type in properties) :
 		return properties[type]
 	else :
@@ -116,44 +122,9 @@ func set_property(type, value):
 	if (type in properties) :
 		properties[type] = value
 
-# empty implementation of shoot
-func shoot(path): 
-	
-	#var shoot_scn = load("res://game/"+object+".tscn")
-	var shoot_scn = load(path)
-	var shoot_node = shoot_scn.instance()
-	#get_tree().get_current_scene().add_child(shoot_scn)
-	get_parent().add_child(shoot_node)
-	shoot_node.set_owner(self)
-	
-	#shoot_wait = get_property(global.properties.bullet_wait)
-	
-
-func can_destroy():
-	return true
-
-func destroy(destroyer):
-	print(self, "was destroyed by ", destroyer)
-	get_node(global.scene_tree_ship_locator).free_ship(self)
-	queue_free()
-
-func hit(power, hitter):
-	var health
-	health = get_property(global.properties.health) - power
-	set_property(global.properties.health, health)
-	
-	# update healthbar
-	#health_obj.changeHealth(-power);
-	
-	if (health <= 0):
-		destroy(hitter)
-		#get_node("anim").play("explode")
-		#destroyed=true
-
-
 func processCollision(obstacle):
 	
-	if(obstacle.is_in_group('enemy') or obstacle.is_in_group('player')) :
+	if(obstacle.is_in_group(global.groups.enemy) or obstacle.is_in_group(global.groups.player)) :
 		var obstacle_vel = obstacle.get_linear_velocity()
 		var impact = get_linear_velocity().dot(obstacle_vel);
 		#print("processCollision ", obstacle.get_name(), obstacle_vel, get_linear_velocity(), impact)

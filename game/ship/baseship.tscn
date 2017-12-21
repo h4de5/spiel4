@@ -49,11 +49,19 @@ script/script = ExtResource( 1 )
 
 [node name="adjustable" parent="." instance=ExtResource( 2 )]
 
+activated = false
+
 [node name="destroyable" parent="." instance=ExtResource( 3 )]
+
+activated = false
 
 [node name="moveable" parent="." instance=ExtResource( 4 )]
 
+activated = false
+
 [node name="shootable" parent="." instance=ExtResource( 5 )]
+
+activated = false
 
 [node name="Processors" type="Node" parent="."]
 
@@ -110,13 +118,13 @@ params/anim_initial_pos = 0.0
 color/color = Color( 0.250488, 0.370995, 0.84375, 1 )
 color/color_ramp = SubResource( 2 )
 
-[node name="weaponscope" type="Node2D" parent="."]
+[node name="weapon" type="Node2D" parent="."]
 
 editor/display_folded = true
 transform/pos = Vector2( 0.109386, -1.48669 )
 transform/scale = Vector2( 0.437384, 0.481779 )
 
-[node name="Sprite" type="Sprite" parent="weaponscope"]
+[node name="Sprite" type="Sprite" parent="weapon"]
 
 transform/rot = -90.0
 transform/scale = Vector2( 0.535178, 0.535178 )
