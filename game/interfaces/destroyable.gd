@@ -4,7 +4,7 @@ var health_node = null
 
 func is_destroyable():
 	return activated
-	
+
 func _ready():
 	print("destroyable _ready - start ", get_parent().get_name(), " activated: ", activated)
 
@@ -12,17 +12,17 @@ func _ready():
 		global.properties.health,
 		global.properties.health_max
 	]
-	
+
 	call_deferred("initialize")
-	
+
 	print("destroyable _ready - end ", get_parent().get_name(), " activated: ", activated)
-	
+
 
 func initialize():
 	# Health bar
 	if not is_destroyable():
 		return
-	
+
 	var health_scn = load(global.scene_path_healthbar)
 	health_node = health_scn.instance()
 	parent.get_parent().add_child(health_node)
@@ -39,7 +39,7 @@ func hit(power, hitter):
 	var health
 	health = get_property(global.properties.health) - power
 	parent.set_property(global.properties.health, health)
-	
+
 	if (health <= 0):
 		parent.destroy(hitter)
 		#get_node("anim").play("explode")

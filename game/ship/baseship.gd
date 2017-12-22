@@ -21,7 +21,7 @@ func _ready():
 		global.properties.health_max: 1000,
 		global.properties.health: 1000
 	}
-	
+
 	initialize()
 	print("baseship _ready - end ", get_name())
 
@@ -39,19 +39,19 @@ func initialize() :
 
 	set_max_contacts_reported(4)
 	connect("body_enter", self, "processCollision")
-	
+
 	reset_position()
 
 # called to reset a position, usually after initialize
 func reset_position() :
 	randomize();
-	
+
 	#var screensize = Vector2(Globals.get("display/width"),Globals.get("display/height"))
 	var box = get_node(global.scene_tree_ship_locator).get_bounding_box_all()
 	box = box.pos + box.size/2
 	var angle = rand_range(0, 2*PI)
 	set_pos( box +  (Vector2(sin(angle), cos(angle)) * 200) )
-	
+
 	set_rot(angle - PI * rand_range(1,3)/2)
 	pass
 
@@ -94,7 +94,7 @@ func is_destroyable():
 
 func destroy(destroyer):
 	get_node("destroyable").destroy(destroyer)
-	
+
 	get_node(global.scene_tree_ship_locator).free_ship(self)
 	queue_free()
 
@@ -110,11 +110,11 @@ func set_processor_details(device_details):
 
 # get all different properties from this ship
 func get_property(type):
-	
+
 	# if null, return all properties
 	if (type == null):
 		return properties
-		
+
 	if (type in properties) :
 		return properties[type]
 	else :
@@ -125,7 +125,7 @@ func set_property(type, value):
 		properties[type] = value
 
 func processCollision(obstacle):
-	
+
 	if(obstacle.is_in_group(global.groups.enemy) or obstacle.is_in_group(global.groups.player)) :
 		var obstacle_vel = obstacle.get_linear_velocity()
 		var impact = get_linear_velocity().dot(obstacle_vel);

@@ -27,7 +27,7 @@ func _fixed_process(delta):
 			else :
 				var health_max = owner.get_property(global.properties.health_max)
 				var health = owner.get_property(global.properties.health)
-				if has_node("ProgressBar"): 
+				if has_node("ProgressBar"):
 					var progressbar = get_node("ProgressBar")
 					progressbar.set_max(health_max)
 					progressbar.set_value(health)

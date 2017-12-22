@@ -22,12 +22,12 @@ func _ready():
 
 func set_parent(p):
 	parent = p
-	
+
 func set_processor_details(device_details):
 	device_id = device_details[0]
 	device_types = device_details[1]
 	input_group = device_details[2]
-	
+
 func _input(event):
 	#print ("new event", event)
 	if (event.device == device_id && device_types.has(event.type)):
@@ -36,11 +36,11 @@ func _input(event):
 			# TODO - check if global_mouse_pos is realy the best way to do this
 			parent.handle_mousemove(parent.get_global_mouse_pos())
 		else:
-			
+
 			for e in input_actions :
 				if event.is_action(e) :
 					#parent.handle_action(input_actions[e], event.is_pressed(event))
 					parent.handle_action(input_actions[e], Input.is_action_pressed(e))
-	
-	
+
+
 

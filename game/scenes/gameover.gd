@@ -10,7 +10,7 @@ func _ready():
 	# Initialization here
 	var restart_button = get_node("Restart")
 	restart_button.connect("pressed", self, "buttonPressed", [restart_button])
-	
+
 
 
 func buttonPressed(target):
@@ -20,9 +20,8 @@ func buttonPressed(target):
 	#newgame.get_node("/root/Game/Player").set_pos(Vector2(0, 0))
 	#newgame.get_node("/root/Game/PlayerHealth").resetHealth()
 	#newgame.get_node("/root/Game/ObstacleHealth").resetHealth()
-	
+
 	#get_node("/root/Game/Player").set_pos(Vector2(0, 0))
 	#get_node("/root/Game/PlayerHealth").resetHealth()
 	#get_node("/root/Game/ObstacleHealth").resetHealth()
-	
-	
+
