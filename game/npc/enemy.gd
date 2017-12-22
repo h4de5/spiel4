@@ -24,12 +24,7 @@ func initialize() :
 	.initialize()
 
 func reset_position():
-	randomize();
-	
-	var screensize = Vector2(Globals.get("display/width"),Globals.get("display/height"))
-	var angle = rand_range(0, 2*PI)
-	set_pos((screensize / 2) +  (Vector2(sin(angle), cos(angle)) * 200) )
-	set_rot(angle - PI * rand_range(1,3)/2)
+	.reset_position()
 
 	# randomize speed and rotation
 	properties[global.properties.movement_speed_forward] = rand_range(300,550)

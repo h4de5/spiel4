@@ -11,7 +11,6 @@ height = 20.0
 
 [node name="Bullet" type="RigidBody2D"]
 
-editor/display_folded = true
 input/pickable = true
 shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Matrix32( 0.477925, 0, 0, 0.477925, 0, -4.26003 )
@@ -19,7 +18,7 @@ shapes/0/trigger = false
 collision/layers = 8
 collision/mask = 7
 mode = 0
-mass = 0.510204
+mass = 0.2
 friction = 0.0
 bounce = 0.0
 gravity_scale = 0.0

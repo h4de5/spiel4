@@ -7,7 +7,7 @@ func _ready():
 	var camera_node = camera_scn.instance()
 	add_child(camera_node, true)
 	
-	for i in range(2):
+	for i in range(5):
         spawn_enemy()
 		
 	

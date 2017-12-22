@@ -2,6 +2,7 @@ extends Control
 
 #export (NodePath) var target
 var owner
+var owner_path
 
 func _ready():
 	# Called every time the node is added to the scene.
@@ -15,17 +16,21 @@ func _fixed_process(delta):
 	if owner != null:
 		# to prevent error when ship is destroyed
 		var wr = weakref(owner);
-		if (wr.get_ref()):
+		if wr.get_ref():
 			set_pos(owner.get_pos())
-			# BUG - bei vielen gegner tritt hier immer wieder ei nfehler auf
-			# owner ist eine bullet (?)
-			# Invalid call. Nonexistent function 'get_property' in base 'RigidBody2D (bullet.gd)'.
-			var health_max = owner.get_property(global.properties.health_max)
-			var health = owner.get_property(global.properties.health)
-			if has_node("ProgressBar"): 
-				var progressbar = get_node("ProgressBar")
-				progressbar.set_max(health_max)
-				progressbar.set_value(health)
+			if not owner.has_method("get_property"):
+				# BUG - bei vielen gegner tritt hier immer wieder ei nfehler auf
+				# owner ist eine bullet (?)
+				# Invalid call. Nonexistent function 'get_property' in base 'RigidBody2D (bullet.gd)'.
+				#get_tree().set_pause(true)
+				pass
+			else :
+				var health_max = owner.get_property(global.properties.health_max)
+				var health = owner.get_property(global.properties.health)
+				if has_node("ProgressBar"): 
+					var progressbar = get_node("ProgressBar")
+					progressbar.set_max(health_max)
+					progressbar.set_value(health)
 		else:
 			queue_free()
 	#else :
@@ -33,6 +38,7 @@ func _fixed_process(delta):
 
 func set_owner(o):
 	owner = o
+	owner_path = o.get_path()
 
 func changeHealth(value):
 	#var progressbar = get_node("ProgressBar")

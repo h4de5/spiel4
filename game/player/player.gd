@@ -29,7 +29,3 @@ func destroy(destroyer):
 
 	.destroy(destroyer)
 
-
-func reset_position():
-	var screensize = Vector2(Globals.get("display/width"), Globals.get("display/height"))
-	set_pos(screensize / 2)

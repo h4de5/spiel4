@@ -8,11 +8,8 @@ var parent
 func _ready():
 	print("isable ready - start ", self.get_name())
 	parent = get_parent()
-	
 	call_deferred("check_requirements")
-	
 	print("isable ready - end ", self.get_name())
-	
 
 func check_requirements():
 	print("isable check_requirements - start ", self.get_name())
@@ -33,7 +30,6 @@ func check_requirements():
 	print("isable check_requirements - end ", self.get_name(), " ok? ", ret)
 	activated = ret
 	return ret
-
 
 # those needs to be overwritten
 func is_moveable():
