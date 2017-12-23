@@ -62,8 +62,6 @@ activated = false
 
 [node name="shootable" parent="." instance=ExtResource( 5 )]
 
-activated = false
-
 [node name="Processors" type="Node" parent="."]
 
 editor/display_folded = true
@@ -128,5 +126,9 @@ color/color_ramp = SubResource( 2 )
 transform/pos = Vector2( -0.256599, -15.1095 )
 transform/scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 12 )
+
+[node name="muzzle" type="Position2D" parent="weapon"]
+
+transform/pos = Vector2( 0, -45.9938 )
 
 
