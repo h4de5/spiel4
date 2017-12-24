@@ -1,3 +1,4 @@
+# input, ai and network processor baseclass, used for setting
 extends Node
 
 # holds information about the parent object - usually baseship

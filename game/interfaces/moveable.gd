@@ -1,3 +1,4 @@
+# interface for moving used in baseships, accepts orders from AI and input
 extends "res://game/interfaces/isable.gd"
 
 # current state and modificators
@@ -9,7 +10,10 @@ var zoom = 1
 var zoom_speed = 0
 
 func is_moveable():
-	return activated
+	if activated:
+		return self
+	else:
+		return null
 
 func _ready():
 	required_properties = [
@@ -36,7 +40,7 @@ func handle_action(action, pressed):
 	#if self.is_in_group("player"):
 		#print ("new action: ", action, " ", pressed, " zoom speed: ", zoom_speed)
 
-	if not is_moveable():
+	if not activated:
 		reset()
 		return
 

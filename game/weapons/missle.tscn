@@ -1,9 +1,10 @@
 [gd_scene load_steps=10 format=1]
 
-[ext_resource path="res://game/npc/missle.gd" type="Script" id=1]
+[ext_resource path="res://game/weapons/missle.gd" type="Script" id=1]
 [ext_resource path="res://art/models/missle.png" type="Texture" id=2]
 [ext_resource path="res://game/artefacts/explosion.png" type="Texture" id=3]
 [ext_resource path="res://game/artefacts/smoke.png" type="Texture" id=4]
+
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 

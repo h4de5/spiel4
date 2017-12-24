@@ -15,3 +15,5 @@ transform/scale = Vector2( 0.467776, 0.467776 )
 texture = ExtResource( 3 )
 
 
+[editable path="destroyable"]
+[editable path="moveable"]

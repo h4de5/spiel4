@@ -1,3 +1,4 @@
+# base class for all ships, has all interfaces and properties
 extends RigidBody2D
 
 var properties
@@ -91,7 +92,6 @@ func fix_collision_shape():
 
 func destroy(destroyer):
 	get_node("destroyable").destroy(destroyer)
-
 	get_node(global.scene_tree_ship_locator).free_ship(self)
 	queue_free()
 

@@ -1,3 +1,5 @@
+# AI that controlls a ship by sending commands to moveable and shootable interface
+
 extends "res://game/processor/processor.gd"
 
 var delta_count = 0
@@ -43,16 +45,19 @@ func _fixed_process(delta) :
 
 			# if shootable
 			var shootable = interface.is_shootable(parent)
-			if shootable != false:
+			if shootable:
 
 				# HACK TODO - AI should not call handle_mousemove
 				shootable.handle_mousemove(playerpos)
 
+				# stop accelerating if AI is too close
 				if ownpos.distance_to(playerpos) < parent.get_property(global.properties.bullet_range) * 1/2:
 					forwardvec = Vector2(0,0)
 
+				var weapon = parent.get_node("weapons_selector").get_active_weapon()
+
 				#var target_rot = parent.get_node("weaponscope").get_global_pos().angle_to_point(playerpos)
-				var target_rot = parent.get_node("weapon").get_global_rot()
+				var target_rot = weapon.get_weapon_rotation()
 				var weaponvec = Vector2(sin(target_rot), cos(target_rot))*-1
 				angle = playervec.angle_to(weaponvec)
 
@@ -72,10 +77,11 @@ func _fixed_process(delta) :
 				else :
 					shootable.handle_action( global.actions.fire, false )
 
-			if (forwardvec != null and forwardvec != Vector2(0,0)) :
-				moveable.handle_action( global.actions.accelerate, true )
-			else :
-				moveable.handle_action( global.actions.accelerate, false )
+			if moveable:
+				if (forwardvec != null and forwardvec != Vector2(0,0)) :
+					moveable.handle_action( global.actions.accelerate, true )
+				else :
+					moveable.handle_action( global.actions.accelerate, false )
 
 			#set_angular_velocity(angle)
 			#apply_impulse(Vector2(0,0), forwardvec)

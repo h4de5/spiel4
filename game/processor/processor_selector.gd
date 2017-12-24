@@ -1,3 +1,4 @@
+# provides methods to select a specific processor for a baseship
 extends Node
 
 var current_processor

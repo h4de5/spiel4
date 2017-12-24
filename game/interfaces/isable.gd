@@ -1,5 +1,5 @@
+# baseclass for interfaces
 extends Node
-
 
 export var activated = false
 var required_properties = {}
@@ -7,9 +7,15 @@ var parent
 
 func _ready():
 	#print("isable ready - start ", self.get_name())
-	parent = get_parent()
+	set_parent()
 	call_deferred("check_requirements")
 	#print("isable ready - end ", self.get_name())
+
+func set_parent(p = null):
+	if p == null:
+		parent = get_parent()
+	else:
+		parent = p
 
 func check_requirements():
 	#print("isable check_requirements - start ", self.get_name())
@@ -32,14 +38,6 @@ func check_requirements():
 	return ret
 
 # those needs to be overwritten
-func is_moveable():
-	return false
-func is_adjustable():
-	return false
-func is_destroyable():
-	return false
-func is_shootable():
-	return false
 
 func get_property(prop):
 	return parent.get_property(prop)

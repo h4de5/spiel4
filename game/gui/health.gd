@@ -1,3 +1,4 @@
+# healthbar class, used by destroyable interface is baseships
 extends Control
 
 #export (NodePath) var target

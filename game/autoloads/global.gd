@@ -1,3 +1,4 @@
+# global autoloads, used for scene paths and dictonaries
 extends Node
 
 # scene paths
@@ -7,8 +8,8 @@ const scene_path_game 		= "res://game/main/game.tscn"
 const scene_path_gameover 	= "res://game/scenes/gameover.tscn"
 const scene_path_healthbar 	= "res://game/gui/health.tscn"
 const scene_path_camera 	= "res://game/main/camera.tscn"
-const scene_path_missle 	= "res://game/npc/missle.tscn"
-const scene_path_bullet 	= "res://game/npc/bullet.tscn"
+#const scene_path_missle 	= "res://game/weapons/missle.tscn"
+#const scene_path_bullet 	= "res://game/weapons/bullet.tscn"
 
 const scene_tree_game 			= "/root/Game"
 const scene_tree_ships 			= "/root/Game/ships"

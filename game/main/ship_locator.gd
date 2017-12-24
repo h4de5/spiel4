@@ -1,3 +1,4 @@
+# lists of all active ships in game, gets nearest ship, sets zoom to bounding box
 extends Node
 
 var ships = {}

@@ -1,3 +1,4 @@
+# main node to start game with, holds background, does ship spawing
 extends Node2D
 
 func _ready():

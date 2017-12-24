@@ -1,9 +1,13 @@
+# interface extends parent with healthbar, hit and destroy methods
 extends "res://game/interfaces/isable.gd"
 
 var health_node = null
 
 func is_destroyable():
-	return activated
+	if activated:
+		return self
+	else:
+		return null
 
 func _ready():
 	#print("destroyable _ready - start ", get_parent().get_name(), " activated: ", activated)

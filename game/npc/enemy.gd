@@ -1,3 +1,4 @@
+# enemy baseship, controlled by AI processor
 extends "res://game/ship/baseship.gd"
 
 func _ready():

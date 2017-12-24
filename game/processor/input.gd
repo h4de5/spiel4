@@ -1,3 +1,6 @@
+# handles input from keyboard. mouse and controllers,
+# used in processor selector, baseship and moveable interface
+
 extends "res://game/processor/processor.gd"
 
 var input_group
@@ -38,14 +41,17 @@ func _input(event):
 		if (event.type == InputEvent.MOUSE_MOTION):
 			#parent.handle_mousemove(event.pos)
 			# TODO - check if global_mouse_pos is realy the best way to do this
-			shootable.handle_mousemove(parent.get_global_mouse_pos())
+			if shootable:
+				shootable.handle_mousemove(parent.get_global_mouse_pos())
 		else:
 
 			for e in input_actions :
 				if event.is_action(e) :
 					#parent.handle_action(input_actions[e], event.is_pressed(event))
-					moveable.handle_action(input_actions[e], Input.is_action_pressed(e))
-					shootable.handle_action(input_actions[e], Input.is_action_pressed(e))
+					if moveable:
+						moveable.handle_action(input_actions[e], Input.is_action_pressed(e))
+					if shootable:
+						shootable.handle_action(input_actions[e], Input.is_action_pressed(e))
 
 
 

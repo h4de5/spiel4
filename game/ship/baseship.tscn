@@ -1,12 +1,14 @@
-[gd_scene load_steps=9 format=1]
+[gd_scene load_steps=11 format=1]
 
 [ext_resource path="res://game/ship/baseship.gd" type="Script" id=1]
 [ext_resource path="res://game/interfaces/adjustable.tscn" type="PackedScene" id=2]
 [ext_resource path="res://game/interfaces/destroyable.tscn" type="PackedScene" id=3]
 [ext_resource path="res://game/interfaces/moveable.tscn" type="PackedScene" id=4]
-[ext_resource path="res://game/processor/processors.tscn" type="PackedScene" id=5]
-[ext_resource path="res://art/models/icon.png" type="Texture" id=6]
-[ext_resource path="res://game/weapons/weapon.tscn" type="PackedScene" id=7]
+[ext_resource path="res://game/interfaces/shootable.tscn" type="PackedScene" id=5]
+[ext_resource path="res://game/processor/processors.tscn" type="PackedScene" id=6]
+[ext_resource path="res://art/models/icon.png" type="Texture" id=7]
+[ext_resource path="res://game/weapons/weapons_selector.gd" type="Script" id=8]
+[ext_resource path="res://game/weapons/cannon.tscn" type="PackedScene" id=9]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 
@@ -48,13 +50,21 @@ activated = false
 
 [node name="moveable" parent="." instance=ExtResource( 4 )]
 
-[node name="processor_selector" parent="." instance=ExtResource( 5 )]
+editor/display_folded = true
+
+[node name="shootable" parent="." instance=ExtResource( 5 )]
+
+[node name="processor_selector" parent="." instance=ExtResource( 6 )]
 
 [node name="Sprite" type="Sprite" parent="."]
 
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 
-[node name="weapon" parent="." instance=ExtResource( 7 )]
+[node name="weapons_selector" type="Node" parent="."]
+
+script/script = ExtResource( 8 )
+
+[node name="cannon" parent="weapons_selector" instance=ExtResource( 9 )]
 
 [node name="Collision" type="CollisionPolygon2D" parent="."]
 
@@ -66,4 +76,3 @@ trigger = false
 
 [editable path="destroyable"]
 [editable path="moveable"]
-[editable path="weapon"]
