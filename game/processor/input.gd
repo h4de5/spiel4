@@ -29,18 +29,23 @@ func set_processor_details(device_details):
 	input_group = device_details[2]
 
 func _input(event):
-	#print ("new event", event)
+	# FIXME - check with: shootable = interface.is_shootable()
+
+	var moveable = interface.is_moveable(parent)
+	var shootable = interface.is_shootable(parent)
+
 	if (event.device == device_id && device_types.has(event.type)):
 		if (event.type == InputEvent.MOUSE_MOTION):
 			#parent.handle_mousemove(event.pos)
 			# TODO - check if global_mouse_pos is realy the best way to do this
-			parent.handle_mousemove(parent.get_global_mouse_pos())
+			shootable.handle_mousemove(parent.get_global_mouse_pos())
 		else:
 
 			for e in input_actions :
 				if event.is_action(e) :
 					#parent.handle_action(input_actions[e], event.is_pressed(event))
-					parent.handle_action(input_actions[e], Input.is_action_pressed(e))
+					moveable.handle_action(input_actions[e], Input.is_action_pressed(e))
+					shootable.handle_action(input_actions[e], Input.is_action_pressed(e))
 
 
 

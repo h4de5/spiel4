@@ -1,27 +1,17 @@
-[gd_scene load_steps=15 format=1]
+[gd_scene load_steps=9 format=1]
 
 [ext_resource path="res://game/ship/baseship.gd" type="Script" id=1]
 [ext_resource path="res://game/interfaces/adjustable.tscn" type="PackedScene" id=2]
 [ext_resource path="res://game/interfaces/destroyable.tscn" type="PackedScene" id=3]
 [ext_resource path="res://game/interfaces/moveable.tscn" type="PackedScene" id=4]
-[ext_resource path="res://game/interfaces/shootable.tscn" type="PackedScene" id=5]
-[ext_resource path="res://game/processor/processor_selector.gd" type="Script" id=6]
-[ext_resource path="res://game/processor/input.gd" type="Script" id=7]
-[ext_resource path="res://game/processor/network.gd" type="Script" id=8]
-[ext_resource path="res://game/processor/ai.gd" type="Script" id=9]
-[ext_resource path="res://art/models/icon.png" type="Texture" id=10]
-[ext_resource path="res://art/models/SmokeParticle.png" type="Texture" id=11]
-[ext_resource path="res://art/models/Weapon.png" type="Texture" id=12]
+[ext_resource path="res://game/processor/processors.tscn" type="PackedScene" id=5]
+[ext_resource path="res://art/models/icon.png" type="Texture" id=6]
+[ext_resource path="res://game/weapons/weapon.tscn" type="PackedScene" id=7]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 
 custom_solver_bias = 0.0
 points = Vector2Array( -31.327, -31.6235, 30.274, -31.0832, 30.8144, 31.0582, -30.2462, 31.5985 )
-
-[sub_resource type="ColorRamp" id=2]
-
-offsets = FloatArray( 0, 0.19883, 0.643275, 1 )
-colors = ColorArray( 0.765625, 0.972534, 1, 1, 1, 0.867188, 0, 1, 0, 0, 0, 1, 0.0351562, 0.0351562, 0.0351562, 0 )
 
 [node name="Baseship" type="RigidBody2D"]
 
@@ -58,77 +48,22 @@ activated = false
 
 [node name="moveable" parent="." instance=ExtResource( 4 )]
 
-activated = false
-
-[node name="shootable" parent="." instance=ExtResource( 5 )]
-
-[node name="Processors" type="Node" parent="."]
-
-editor/display_folded = true
-script/script = ExtResource( 6 )
-
-[node name="Input" type="Node" parent="Processors"]
-
-script/script = ExtResource( 7 )
-
-[node name="Network" type="Node" parent="Processors"]
-
-script/script = ExtResource( 8 )
-
-[node name="AI" type="Node" parent="Processors"]
-
-script/script = ExtResource( 9 )
+[node name="processor_selector" parent="." instance=ExtResource( 5 )]
 
 [node name="Sprite" type="Sprite" parent="."]
 
-texture = ExtResource( 10 )
+texture = ExtResource( 6 )
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+[node name="weapon" parent="." instance=ExtResource( 7 )]
+
+[node name="Collision" type="CollisionPolygon2D" parent="."]
 
 build_mode = 0
 polygon = Vector2Array( -31.327, -31.6235, 30.274, -31.0832, 30.8144, 31.0582, -30.2462, 31.5985 )
 shape_range = Vector2( 0, 0 )
 trigger = false
 
-[node name="Particles2D" type="Particles2D" parent="."]
 
-transform/pos = Vector2( -0.650269, 37.0113 )
-config/amount = 32
-config/lifetime = 0.5
-config/process_mode = 1
-config/half_extents = Vector2( 5, 0 )
-config/local_space = false
-config/texture = ExtResource( 11 )
-params/direction = 0.0
-params/spread = 22.3
-params/linear_velocity = 18.0
-params/spin_velocity = 0.0
-params/orbit_velocity = 0.0
-params/gravity_direction = 0.0
-params/gravity_strength = 9.8
-params/radial_accel = 0.0
-params/tangential_accel = 0.0
-params/damping = 0.0
-params/initial_angle = 0.0
-params/initial_size = 0.2
-params/final_size = 0.4
-params/hue_variation = 1.0
-params/anim_speed_scale = 1.0
-params/anim_initial_pos = 0.0
-randomness/spread = 1.0
-color/color = Color( 1, 0.84375, 0, 1 )
-color/color_ramp = SubResource( 2 )
-
-[node name="weapon" type="Node2D" parent="."]
-
-[node name="Sprite" type="Sprite" parent="weapon"]
-
-transform/pos = Vector2( -0.256599, -15.1095 )
-transform/scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 12 )
-
-[node name="muzzle" type="Position2D" parent="weapon"]
-
-transform/pos = Vector2( 0, -45.9938 )
-
-
+[editable path="destroyable"]
+[editable path="moveable"]
+[editable path="weapon"]

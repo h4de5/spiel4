@@ -21,4 +21,6 @@ script/script = ExtResource( 4 )
 
 [node name="ships" type="Node" parent="."]
 
+[node name="bullets" type="Node" parent="."]
+
 

@@ -23,8 +23,8 @@ func destroy(destroyer):
 
 	var player_manager = get_node(global.scene_tree_player_manager)
 
-	if(has_node("Processors/Input")) :
-		var input_processor = get_node("Processors/Input")
+	if(has_node("processor_selector/Input")) :
+		var input_processor = get_node("processor_selector/Input")
 		player_manager.unregister_device(input_processor.input_group, input_processor.device_id)
 
 	.destroy(destroyer)

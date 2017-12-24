@@ -14,14 +14,4 @@ script/script = ExtResource( 2 )
 transform/scale = Vector2( 0.467776, 0.467776 )
 texture = ExtResource( 3 )
 
-[node name="CollisionPolygon2D" parent="."]
-
-transform/pos = Vector2( 1.53644, 1.38501 )
-polygon = Vector2Array( -14.9182, -1.73917, -7.15341, -44.4455, -1.32982, -54.475, 4.49376, -44.769, 11.935, -2.38623, 39.4353, 27.0552, 46.2295, 49.0554, 10.9644, 35.7906, 8.05261, 47.4378, -11.0358, 47.7613, -13.3005, 35.4671, -48.5656, 49.0554, -41.4479, 26.7317 )
-shape_range = Vector2( 0, 3 )
-
-[node name="Particles2D" parent="."]
-
-transform/pos = Vector2( 0.325073, 59.7379 )
-
 

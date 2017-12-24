@@ -6,24 +6,22 @@ var properties
 # baseship._ready > player.init > baseship.init > player._ready
 
 func _ready():
-	print("baseship _ready - start ", get_name())
+	#print("baseship _ready - start ", get_name())
 	properties = {
 		global.properties.movement_speed_forward: 800,
 		global.properties.movement_speed_back: 400,
 		global.properties.ship_rotation_speed: 0.5,
-		global.properties.weapon_rotation_speed: 3.5,
-		global.properties.clearance_rotation: 0.05,
 		global.properties.zoom_speed: 0.2,
-		global.properties.bullet_speed: 800,
-		global.properties.bullet_strength: 50,
-		global.properties.bullet_wait: 0.3,
-		global.properties.bullet_range: 1000,
 		global.properties.health_max: 1000,
 		global.properties.health: 1000
 	}
 
+	properties = interface.collect_properties(self)
+
+	print("found properties ", properties)
+
 	initialize()
-	print("baseship _ready - end ", get_name())
+	#print("baseship _ready - end ", get_name())
 
 func initialize() :
 	set_fixed_process(true)
@@ -82,15 +80,14 @@ func fix_collision_shape():
 		shape.set_meta("__registered", true)
 
 
-func handle_action(action, pressed):
-	get_node("moveable").handle_action(action, pressed)
-	get_node("shootable").handle_action(action, pressed)
+#func handle_action(action, pressed):
+#	get_node("moveable").handle_action(action, pressed)
+#	get_node("shootable").handle_action(action, pressed)
 
-func handle_mousemove(pos) :
-	get_node("shootable").handle_mousemove(pos)
+#func handle_mousemove(pos) :
+#	get_node("shootable").handle_mousemove(pos)
 
-func is_destroyable():
-	return get_node("destroyable").is_destroyable()
+
 
 func destroy(destroyer):
 	get_node("destroyable").destroy(destroyer)
@@ -102,11 +99,11 @@ func hit(power, hitter):
 	get_node("destroyable").hit(power, hitter)
 
 func set_processor(processor):
-	get_node("Processors").set_processor(processor)
-	get_node("Processors").get_processor().set_parent(self)
+	get_node("processor_selector").set_processor(processor)
+	get_node("processor_selector").get_processor().set_parent(self)
 
 func set_processor_details(device_details):
-	get_node("Processors").get_processor().set_processor_details(device_details)
+	get_node("processor_selector").get_processor().set_processor_details(device_details)
 
 # get all different properties from this ship
 func get_property(type):

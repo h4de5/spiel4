@@ -6,7 +6,7 @@ func is_destroyable():
 	return activated
 
 func _ready():
-	print("destroyable _ready - start ", get_parent().get_name(), " activated: ", activated)
+	#print("destroyable _ready - start ", get_parent().get_name(), " activated: ", activated)
 
 	required_properties = [
 		global.properties.health,
@@ -15,7 +15,7 @@ func _ready():
 
 	call_deferred("initialize")
 
-	print("destroyable _ready - end ", get_parent().get_name(), " activated: ", activated)
+	#print("destroyable _ready - end ", get_parent().get_name(), " activated: ", activated)
 
 
 func initialize():

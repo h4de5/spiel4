@@ -6,13 +6,13 @@ var required_properties = {}
 var parent
 
 func _ready():
-	print("isable ready - start ", self.get_name())
+	#print("isable ready - start ", self.get_name())
 	parent = get_parent()
 	call_deferred("check_requirements")
-	print("isable ready - end ", self.get_name())
+	#print("isable ready - end ", self.get_name())
 
 func check_requirements():
-	print("isable check_requirements - start ", self.get_name())
+	#print("isable check_requirements - start ", self.get_name())
 	var ret = true
 
 	if not parent or not parent.has_method("get_property"):
@@ -27,7 +27,7 @@ func check_requirements():
 					print("parent ", parent, " is missing property ", prop)
 					ret = false
 
-	print("isable check_requirements - end ", self.get_name(), " ok? ", ret)
+	#print("isable check_requirements - end ", self.get_name(), " ok? ", ret)
 	activated = ret
 	return ret
 

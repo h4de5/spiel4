@@ -117,7 +117,10 @@ func shoot(scene):
 	var shoot_scn = load(scene)
 	var shoot_node = shoot_scn.instance()
 	#get_tree().get_current_scene().add_child(shoot_scn)
-	parent.get_parent().add_child(shoot_node)
+	#parent.get_parent().add_child(shoot_node)
+	#get_tree().get_root().
+	get_node(global.scene_tree_bullets).add_child(shoot_node)
+
 	shoot_node.set_owner(parent)
 	shoot_node.set_pos(parent.get_node("weapon").get_node("muzzle").get_global_pos())
 	shoot_wait = get_property(global.properties.bullet_wait)
