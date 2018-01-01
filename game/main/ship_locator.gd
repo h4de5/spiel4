@@ -103,8 +103,22 @@ func set_camera():
 		# set camera in the middle (*0.5) of the bounding box
 		var camera = get_node(global.scene_tree_camera)
 		camera.set_pos(bounding_box.pos + bounding_box.size*0.5)
-		var d_width = Globals.get("display/width")
-		var d_height = Globals.get("display/height")
+
+		var window_size = get_viewport().get_rect().size
+
+		var zoom = bounding_box.size / window_size
+		var zoom_max = max(max(zoom.x, zoom.y), 1)
+		zoom_max *= 1.3
+
+		#print("width ", d_width, " box size ", bounding_box.size, " zoomx ", zoomx, " zoomy ", zoomy)
+		camera.set_zoom(Vector2(zoom_max, zoom_max))
+		"""
+
+		var d_width = window_size.x
+		var d_height = window_size.y
+		print("width: ", d_width, " height: ", d_height,
+		" size: ", window_size, " bounding_box: ", bounding_box.size,
+		" div: ", window_size / bounding_box.size)
 
 
 		var zoomx = bounding_box.size.x / d_width
@@ -116,6 +130,7 @@ func set_camera():
 		zoomx *= 1.3
 		#print("width ", d_width, " box size ", bounding_box.size, " zoomx ", zoomx, " zoomy ", zoomy)
 		camera.set_zoom(Vector2(zoomx,zoomx))
+		"""
 
 	# TODO - set zoom of camera correctly!
 

@@ -19,7 +19,7 @@ func _ready():
 
 	properties = interface.collect_properties(self)
 
-	print("found properties ", properties)
+	#print("found properties base ", properties)
 
 	initialize()
 	#print("baseship _ready - end ", get_name())

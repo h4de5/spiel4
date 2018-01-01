@@ -30,6 +30,8 @@ func set_parent(p) :
 	else:
 		print("Error - Parent of bullet is not shootable: ", parent)
 
+	starting_pos = parent.get_global_pos()
+
 func _fixed_process(delta):
 	if properties != null and starting_pos != null:
 		if(get_pos().distance_to(starting_pos) > properties[global.properties.bullet_range]) :

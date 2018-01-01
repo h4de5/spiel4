@@ -21,10 +21,10 @@ func _fixed_process(delta):
 			set_pos(owner.get_pos())
 			if not owner.has_method("get_property"):
 				# BUG - bei vielen gegner tritt hier immer wieder ei nfehler auf
-				# owner ist eine bullet (?)
+				# owner ist eine bullet (?) oder eine Progressbar (?)
 				# Invalid call. Nonexistent function 'get_property' in base 'RigidBody2D (bullet.gd)'.
 				#get_tree().set_pause(true)
-				pass
+				queue_free()
 			else :
 				var health_max = owner.get_property(global.properties.health_max)
 				var health = owner.get_property(global.properties.health)
