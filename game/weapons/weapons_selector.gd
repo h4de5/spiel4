@@ -1,5 +1,5 @@
 # selects weapon, delivers current weapon to get position and orientation
-extends Node
+extends Node2D
 
 func get_active_weapon():
 	var weapons = get_children()

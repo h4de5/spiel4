@@ -22,7 +22,7 @@ func is_activated():
 	return activated
 
 func set_weapon_rotation(r):
-	set_rot(r)
+	set_global_rot(r)
 
 func get_weapon_rotation():
 	return get_global_rot()
@@ -31,9 +31,7 @@ func get_weapon_position():
 	return get_global_pos()
 
 func new_bullet():
-	return bullet.duplicate(true)
-
-
+	return bullet.duplicate(false)
 
 func shoot(parent, target = null):
 
@@ -43,8 +41,13 @@ func shoot(parent, target = null):
 	bullet.set_pos(get_node("muzzle").get_global_pos())
 
 	#var starting_rot = (parent.get_node("weapon").get_global_rot()) + PI
-	var starting_rot = get_global_rot() + PI
-	bullet.set_global_rot(starting_rot + PI)
+	var starting_rot = get_global_rot()
+	bullet.set_global_rot(starting_rot)
+
+	starting_rot += PI
+
+	var v2 = Vector2(  sin(starting_rot), cos(starting_rot)   ).normalized()
+	bullet.set_linear_velocity(v2 * properties[global.properties.bullet_speed]);
 
 	"""
 

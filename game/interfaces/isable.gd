@@ -1,5 +1,5 @@
 # baseclass for interfaces
-extends Node
+extends Node2D
 
 export var activated = false
 var required_properties = {}

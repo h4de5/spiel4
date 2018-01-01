@@ -8,7 +8,7 @@
 offsets = FloatArray( 0, 0.19883, 0.643275, 1 )
 colors = ColorArray( 0.765625, 0.972534, 1, 1, 1, 0.867188, 0, 1, 0, 0, 0, 1, 0.0351562, 0.0351562, 0.0351562, 0 )
 
-[node name="moveable" type="Node"]
+[node name="moveable" type="Node2D"]
 
 script/script = ExtResource( 1 )
 activated = false

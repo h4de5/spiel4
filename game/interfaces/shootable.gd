@@ -4,7 +4,7 @@ extends "res://game/interfaces/isable.gd"
 var shoot_repeat = 0
 var shoot_wait = 0
 var shoot_last_target_pos = null
-var torque_weapon = Vector2()
+var torque_weapon = 0
 var weapon = null
 
 func is_shootable():
@@ -33,7 +33,7 @@ func reset():
 	shoot_repeat = 0
 	shoot_wait = 0
 	shoot_last_target_pos = null
-	torque_weapon = Vector2()
+	torque_weapon = 0
 	if parent and parent.has_node("weapons_selector"):
 		weapon = parent.get_node("weapons_selector").get_active_weapon()
 
@@ -57,17 +57,31 @@ func handle_mousemove(pos) :
 
 		scope_pos = weapon.get_weapon_position()
 		scope_rot = weapon.get_weapon_rotation()
+
 		#target_rot = atan2(scope_pos.x, scope_pos.y) + PI
 
 		target_rot = scope_pos.angle_to_point(shoot_last_target_pos)
+		#			0rot
+		# +PI/2 	[ship]	-PI/2
+		#			+-PI
 		#lerp()
 
-		#print("mouse move ", pos, scope_pos, scope_rot, target_rot)
+		#print("mouse move pos - scope: ", scope_pos, " target: ", shoot_last_target_pos, )
+		#print("mouse move rot - scope: ", scope_rot, " target: ", target_rot,
+		#	" diff: ", (target_rot - scope_rot), " diff pi: ", (target_rot - scope_rot)/PI)
 
-		if (scope_rot < target_rot) :
-			handle_action(global.actions.target_right, true)
-		elif (scope_rot > target_rot) :
-			handle_action(global.actions.target_left, true)
+		var diff = target_rot - scope_rot;
+
+		if (scope_rot > target_rot) :
+			if diff < PI and diff > -PI:
+				handle_action(global.actions.target_right, true)
+			else:
+				handle_action(global.actions.target_left, true)
+		elif (scope_rot < target_rot) :
+			if diff < PI and diff > -PI:
+				handle_action(global.actions.target_left, true)
+			else:
+				handle_action(global.actions.target_right, true)
 		else:
 			handle_action(global.actions.target_left, false)
 			handle_action(global.actions.target_right, false)
@@ -81,8 +95,8 @@ func handle_action(action, pressed):
 		weapon = parent.get_node("weapons_selector").get_active_weapon()
 
 		if weapon :
-			if action == global.actions.target_left: torque_weapon.x = -get_property(global.properties.weapon_rotation_speed)
-			elif action == global.actions.target_right: torque_weapon.x = get_property(global.properties.weapon_rotation_speed)
+			if action == global.actions.target_left: torque_weapon = get_property(global.properties.weapon_rotation_speed)
+			elif action == global.actions.target_right: torque_weapon = -get_property(global.properties.weapon_rotation_speed)
 
 			elif action == global.actions.fire:
 				shoot_repeat = 1
@@ -92,10 +106,12 @@ func handle_action(action, pressed):
 				shoot_repeat = 1
 				if shoot_wait <= 0 :
 					shoot(parent, shoot_last_target_pos)
+		else :
+			print ("no weapon found in parent: ", parent)
 
 	else :
-		if action == global.actions.target_left: torque_weapon.x = 0
-		elif action == global.actions.target_right: torque_weapon.x = 0
+		if action == global.actions.target_left: torque_weapon = 0
+		elif action == global.actions.target_right: torque_weapon = 0
 
 		elif action == global.actions.fire: shoot_repeat = 0
 		elif action == global.actions.use: shoot_repeat = 0
@@ -107,20 +123,23 @@ func _fixed_process(delta) :
 	# TODO - cache weapon
 	#var weapon = parent.get_node("weapons_selector").get_active_weapon()
 
-	if torque_weapon.x != 0 and weapon:
+	if torque_weapon != 0 and weapon:
+
+		# to stop moving weapon towards target_pos
 
 		if shoot_last_target_pos != null:
+			var scope_rot = weapon.get_weapon_rotation()
 			var target_rot = weapon.get_weapon_position().angle_to_point(shoot_last_target_pos)
+			var clearance = get_property(global.properties.clearance_rotation)
 
-			if (abs(abs(target_rot) -
-				abs(weapon.get_weapon_rotation()))
-				< get_property(global.properties.clearance_rotation)) :
-				torque_weapon.x = 0
+			var diff = target_rot - scope_rot;
+			if diff < clearance and diff > -clearance:
+				torque_weapon = 0
 
-		if torque_weapon.x != 0 :
+		if torque_weapon != 0 :
 			weapon.set_weapon_rotation(
 				weapon.get_weapon_rotation() +
-				torque_weapon.x * delta )
+				torque_weapon * delta )
 
 	if weapon :
 		if shoot_repeat != 0 and shoot_wait - delta <= 0 :
