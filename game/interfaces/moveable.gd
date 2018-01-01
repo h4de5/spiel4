@@ -3,9 +3,9 @@ extends "res://game/interfaces/isable.gd"
 
 # current state and modificators
 # velocity.x = ship
-var velocity = Vector2()
+var velocity = 0
 # torque.x = ship, torque.y = canon
-var torque = Vector2()
+var torque = 0
 var zoom = 1
 var zoom_speed = 0
 
@@ -45,24 +45,24 @@ func handle_action(action, pressed):
 		return
 
 	if pressed :
-		if action == global.actions.left: torque.x = -get_property(global.properties.ship_rotation_speed)
-		elif action == global.actions.right: torque.x = get_property(global.properties.ship_rotation_speed)
+		if action == global.actions.left: torque = -get_property(global.properties.ship_rotation_speed)
+		elif action == global.actions.right: torque = get_property(global.properties.ship_rotation_speed)
 
 		#elif action == global.actions.target_left: torque.y = -get_property(global.properties.weapon_rotation_speed)
 		#elif action == global.actions.target_right: torque.y = get_property(global.properties.weapon_rotation_speed)
 
-		elif action == global.actions.accelerate: velocity.x = -get_property(global.properties.movement_speed_forward)
-		elif action == global.actions.back: velocity.x = get_property(global.properties.movement_speed_back)
+		elif action == global.actions.accelerate: velocity = get_property(global.properties.movement_speed_forward)
+		elif action == global.actions.back: velocity = -get_property(global.properties.movement_speed_back)
 
 		elif action == global.actions.zoom_in: zoom_speed = -get_property(global.properties.zoom_speed)
 		elif action == global.actions.zoom_out: zoom_speed = get_property(global.properties.zoom_speed)
 
 	else :
-		if action == global.actions.left: torque.x = 0
-		elif action == global.actions.right: torque.x = 0
+		if action == global.actions.left: torque = 0
+		elif action == global.actions.right: torque = 0
 
-		elif action == global.actions.accelerate: velocity.x = 0
-		elif action == global.actions.back: velocity.x = 0
+		elif action == global.actions.accelerate: velocity = 0
+		elif action == global.actions.back: velocity = 0
 
 		elif action == global.actions.zoom_in: pass
 
@@ -73,23 +73,28 @@ func handle_action(action, pressed):
 func _fixed_process(delta) :
 
 	# turning vehicle
-	if torque.x != 0 :
-		parent.set_angular_velocity(torque.x)
+	if torque != 0 :
+		parent.set_angular_velocity(torque)
 
 	# calculate vector from current rotation, if speed is set
-	if velocity.x != 0 :
+	if velocity != 0 :
 		var direction = Vector2(sin(parent.get_rot()), cos(parent.get_rot()))
-		parent.apply_impulse(Vector2(0,0), direction * delta * velocity.x)
+		parent.apply_impulse(Vector2(0,0), direction * delta * velocity * -1)
 
 		# particles only work when they are available
-		if parent.has_node("Particles2D") :
-			parent.get_node("Particles2D").set_emitting(true)
+		if velocity > 0 and has_node("particle_forward") :
+			get_node("particle_forward").set_emitting(true)
+		if velocity < 0 and has_node("particle_backward") :
+			get_node("particle_backward").set_emitting(true)
 	else :
 		# particles only work when they are available
-		if parent.has_node("Particles2D") :
-			parent.get_node("Particles2D").set_emitting(false)
+		if has_node("particle_forward") :
+			get_node("particle_forward").set_emitting(false)
+		if has_node("particle_backward") :
+			get_node("particle_backward").set_emitting(false)
 
 	# zoom can only change if camera2d is available
+	# NO LONGER IN USE - DONE IN ship_locator
 	if zoom_speed != 0:
 		parent.get_node(global.scene_tree_ship_locator).set_camera_zoom(zoom)
 		zoom_speed = 0

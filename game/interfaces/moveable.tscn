@@ -15,7 +15,7 @@ activated = false
 
 [node name="particle_forward" type="Particles2D" parent="."]
 
-transform/pos = Vector2( -0.650269, 37.0113 )
+transform/pos = Vector2( 0, 30 )
 config/amount = 32
 config/lifetime = 0.4
 config/process_mode = 1

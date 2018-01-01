@@ -4,12 +4,22 @@ extends "res://game/processor/processor.gd"
 
 var delta_count = 0
 var delta_max = 0.2
+var moveable = null
+var shootable = null
+var weapon = null
 
 func _ready() :
 	set_fixed_process(true)
 
 func set_parent(p) :
 	parent = p
+	call_deferred("initialize")
+
+func initialize():
+	moveable = interface.is_moveable(parent)
+	shootable = interface.is_shootable(parent)
+	if shootable :
+		weapon = parent.get_node("weapons_selector").get_active_weapon()
 
 func _fixed_process(delta) :
 	delta_count += delta
@@ -19,7 +29,7 @@ func _fixed_process(delta) :
 		var playerpos
 		var ownpos = parent.get_pos();
 		var ownrot = parent.get_rot();
-		var moveable = interface.is_moveable(parent)
+		#var moveable = interface.is_moveable(parent)
 		var forwardvec
 		var angle
 		var playervec
@@ -43,10 +53,7 @@ func _fixed_process(delta) :
 					moveable.handle_action( global.actions.right, false )
 					moveable.handle_action( global.actions.left, false )
 
-			# if shootable
-			var shootable = interface.is_shootable(parent)
 			if shootable:
-
 				# HACK TODO - AI should not call handle_mousemove
 				shootable.handle_mousemove(playerpos)
 
@@ -54,9 +61,8 @@ func _fixed_process(delta) :
 				if ownpos.distance_to(playerpos) < parent.get_property(global.properties.bullet_range) * 1/2:
 					forwardvec = Vector2(0,0)
 
-				var weapon = parent.get_node("weapons_selector").get_active_weapon()
+				#var weapon = parent.get_node("weapons_selector").get_active_weapon()
 
-				#var target_rot = parent.get_node("weaponscope").get_global_pos().angle_to_point(playerpos)
 				var target_rot = weapon.get_weapon_rotation()
 				var weaponvec = Vector2(sin(target_rot), cos(target_rot))*-1
 				angle = playervec.angle_to(weaponvec)
@@ -85,12 +91,15 @@ func _fixed_process(delta) :
 
 			#set_angular_velocity(angle)
 			#apply_impulse(Vector2(0,0), forwardvec)
-		elif moveable:
-			moveable.handle_action( global.actions.accelerate, false )
-			moveable.handle_action( global.actions.back, false )
-			moveable.handle_action( global.actions.left, false )
-			moveable.handle_action( global.actions.right, false )
-			moveable.handle_action( global.actions.target_left, false )
-			moveable.handle_action( global.actions.target_right, false )
-			moveable.handle_action( global.actions.fire, false )
+		else:
+			if moveable:
+				moveable.handle_action( global.actions.accelerate, false )
+				moveable.handle_action( global.actions.back, false )
+				moveable.handle_action( global.actions.left, false )
+				moveable.handle_action( global.actions.right, false )
+
+			if shootable:
+				shootable.handle_action( global.actions.target_left, false )
+				shootable.handle_action( global.actions.target_right, false )
+				shootable.handle_action( global.actions.fire, false )
 

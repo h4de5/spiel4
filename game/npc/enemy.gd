@@ -31,8 +31,3 @@ func reset_position():
 	properties[global.properties.movement_speed_forward] = rand_range(300,550)
 	properties[global.properties.movement_speed_back] = rand_range(2,4)
 	properties[global.properties.ship_rotation_speed] = rand_range(1,3)
-
-
-	#multi_forward = rand_range(300,550)
-	#multi_break = rand_range(2,4)
-	#multi_rot = rand_range(1,3)

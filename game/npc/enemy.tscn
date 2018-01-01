@@ -9,6 +9,10 @@
 collision/layers = 4
 script/script = ExtResource( 2 )
 
+[node name="particle_forward" parent="moveable"]
+
+transform/pos = Vector2( -0.650269, 51.0113 )
+
 [node name="Sprite" parent="."]
 
 transform/scale = Vector2( 0.450653, 0.450653 )
