@@ -57,6 +57,23 @@ func reset_position() :
 	set_rot(angle - PI * rand_range(1,3)/2)
 	pass
 
+
+# get all different properties from this ship
+func get_property(type):
+
+	# if null, return all properties
+	if (type == null):
+		return properties
+
+	if (type in properties) :
+		return properties[type]
+	else :
+		return null
+
+func set_property(type, value):
+	if (type in properties) :
+		properties[type] = value
+
 # see https://github.com/godotengine/godot/issues/2314
 # and . https://github.com/godotengine/godot/issues/8103
 func fix_collision_shape():
@@ -87,22 +104,6 @@ func destroy(destroyer):
 	#get_node("destroyable").destroy(destroyer)
 	get_node(global.scene_tree_ship_locator).free_ship(self)
 	# free is called in destroyable
-
-# get all different properties from this ship
-func get_property(type):
-
-	# if null, return all properties
-	if (type == null):
-		return properties
-
-	if (type in properties) :
-		return properties[type]
-	else :
-		return null
-
-func set_property(type, value):
-	if (type in properties) :
-		properties[type] = value
 
 func processCollision(obstacle):
 

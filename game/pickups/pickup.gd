@@ -1,9 +1,10 @@
 extends Area2D
 
 var properties
+var collectable = null
 
 func _ready():
-
+	set_fixed_process(true)
 	"""
 	properties = {
 		global.properties.movement_speed_forward: 4000,
@@ -22,10 +23,41 @@ func _ready():
 	"""
 
 	properties = {
-		# weapon, modifier
+		# weapon, modifier, passenger, goods, bomb
 		global.properties.pickup_type: 1,
 		 # set, add, multiply
 		global.properties.pickup_modifier_mode: 2,
 		# seconds
-		global.properties.pickup_duration: 60
+		global.properties.pickup_modifier_duration: 60
 	}
+
+	connect("body_enter", self, "process_collect")
+
+	call_deferred("initialize")
+
+func initialize():
+	collectable = interface.is_collectable(self)
+
+# get all different properties from this ship
+func get_property(type):
+
+	# if null, return all properties
+	if (type == null):
+		return properties
+
+	if (type in properties) :
+		return properties[type]
+	else :
+		return null
+
+func set_property(type, value):
+	if (type in properties) :
+		properties[type] = value
+
+func process_collect(body):
+	print("something entered pickup body ", body)
+
+	if collectable :
+		collectable.collect(body)
+	else :
+		print ("pickup is not a collectable ", self)

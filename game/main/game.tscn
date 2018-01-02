@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=1]
+[gd_scene load_steps=6 format=1]
 
 [ext_resource path="res://game/main/game.gd" type="Script" id=1]
 [ext_resource path="res://game/main/board.tscn" type="PackedScene" id=2]
 [ext_resource path="res://game/main/player_manager.gd" type="Script" id=3]
 [ext_resource path="res://game/main/ship_locator.gd" type="Script" id=4]
+[ext_resource path="res://game/pickups/pickup.tscn" type="PackedScene" id=5]
 
 [node name="Game" type="Node2D"]
 
@@ -22,5 +23,9 @@ script/script = ExtResource( 4 )
 [node name="ships" type="Node" parent="."]
 
 [node name="bullets" type="Node" parent="."]
+
+[node name="pickup" parent="." instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 518.032, 333.994 )
 
 
