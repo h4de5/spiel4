@@ -28,7 +28,8 @@ func is_able(node, interface, recursive= true):
 		return null
 
 	# must have method and be an extendent to isable
-	if node extends load("res://game/interfaces/isable.gd") and node.has_method("is_"+interface):
+	if (node extends load("res://game/interfaces/isable.gd") and
+		node.has_method("is_"+interface)):
 		return node.call("is_"+interface)
 
 	# only go down one level
@@ -36,7 +37,8 @@ func is_able(node, interface, recursive= true):
 		# for each child in node
 		for child in node.get_children():
 			# if has interface method, return result
-			if child extends load("res://game/interfaces/isable.gd") and child.has_method("is_"+interface):
+			if (child extends load("res://game/interfaces/isable.gd") and
+				child.has_method("is_"+interface)):
 				return child.call("is_"+ interface)
 			else :
 				# if not, go one level deeper
@@ -49,47 +51,14 @@ func is_adjustable(node, recursive= true):
 	return is_able(node, "adjustable")
 
 func is_shootable(node, recursive= true):
-	"""
-	if node == null:
-		return false
-	if node.has_method("is_shootable"):
-		if node.is_shootable():
-			return node
-	if recursive:
-		for child in node.get_children():
-			if is_shootable(child, true) :
-				return child
-	return false
-	"""
 	return is_able(node, "shootable")
 
 func is_moveable(node, recursive= true):
 	return is_able(node, "moveable")
-	"""
-	if node == null:
-		return false
-	if node.has_method("is_moveable"):
-		if node.is_moveable():
-			return node
-	if recursive:
-		for child in node.get_children():
-			if is_moveable(child, false) :
-				return child
-	return false
-	"""
 
 func is_destroyable(node, recursive= true):
 	return is_able(node, "destroyable")
-	"""
-	if node == null:
-		return false
-	if node.has_method("is_destroyable"):
-		if node.is_destroyable():
-			return node
-	if recursive:
-		for child in node.get_children():
-			if is_destroyable(child, false) :
-				return child
-	return false
-	"""
+
+func is_collectable(node, recursive= true):
+	return is_able(node, "collectable")
 
