@@ -46,8 +46,11 @@ func reset_position() :
 	randomize();
 
 	#var screensize = Vector2(Globals.get("display/width"),Globals.get("display/height"))
-	var box = get_node(global.scene_tree_ship_locator).get_bounding_box_all()
-	box = box.pos + box.size/2
+	var box = get_node(global.scene_tree_ship_locator).get_bounding_box_all([self])
+	if box != null:
+		box = box.pos + box.size/2
+	else :
+		box = Vector2(0,0)
 	var angle = rand_range(0, 2*PI)
 	set_pos( box +  (Vector2(sin(angle), cos(angle)) * 200) )
 

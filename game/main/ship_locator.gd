@@ -67,13 +67,15 @@ func _fixed_process(delta):
 
 
 # Return a bound box that includes all player ships
-func get_bounding_box(group) :
+func get_bounding_box(group, excludes = []) :
 	#var minv = Vector2(0,0);
 	#var maxv = Vector2(0,0);
 	var shipv
 	var box
 
 	for ship in ships[group]:
+		if excludes.has(ship):
+			continue
 		shipv = ship.get_pos();
 		if box != null:
 			box = box.expand(shipv)
@@ -82,12 +84,12 @@ func get_bounding_box(group) :
 	return box
 
 # Return a bound box that includes all ships
-func get_bounding_box_all() :
+func get_bounding_box_all(excludes = []) :
 	var box
 	var newbox
 
 	for group in ships:
-		newbox = get_bounding_box(group)
+		newbox = get_bounding_box(group, excludes)
 		if newbox != null :
 			if box != null :
 				box = box.merge(newbox)
@@ -96,8 +98,8 @@ func get_bounding_box_all() :
 
 	return box
 
-func set_camera():
-	var bounding_box = get_bounding_box_all()
+func set_camera(excludes = []):
+	var bounding_box = get_bounding_box_all(excludes)
 
 	if bounding_box != null :
 		# set camera in the middle (*0.5) of the bounding box

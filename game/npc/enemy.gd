@@ -9,7 +9,7 @@ func _ready():
 
 	fix_collision_shape()
 
-	print("found properties enemy ", properties)
+	#print("found properties enemy ", properties)
 
 func destroy(destroyer):
 	.destroy(destroyer)
