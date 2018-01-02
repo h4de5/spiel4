@@ -62,3 +62,5 @@ func is_destroyable(node, recursive= true):
 func is_collectable(node, recursive= true):
 	return is_able(node, "collectable")
 
+func is_collidable(node, recursive= true):
+	return is_able(node, "collidable")

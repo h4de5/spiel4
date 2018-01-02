@@ -5,7 +5,7 @@ func _ready():
 
 	reset_position()
 
-	set_processor("AI")
+	get_node('processor_selector').set_processor("AI")
 
 	fix_collision_shape()
 
@@ -17,7 +17,7 @@ func destroy(destroyer):
 
 func initialize() :
 
-	# add to group player
+	# add to group enemy
 	add_to_group(global.groups.enemy)
 
 	# register to locator
@@ -33,3 +33,4 @@ func reset_position():
 	properties[global.properties.movement_speed_forward] *= rand_range(0.7,1.2)
 	properties[global.properties.movement_speed_back] *= rand_range(0.7,1.2)
 	properties[global.properties.ship_rotation_speed] *= rand_range(0.8,1.2)
+	properties[global.properties.weapon_rotation_speed] *= rand_range(0.5,1.0)

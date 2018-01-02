@@ -4,6 +4,7 @@ extends Node
 # scene paths
 const scene_path_player 	= "res://game/player/player.tscn"
 const scene_path_enemy 		= "res://game/npc/enemy.tscn"
+const scene_path_tower 		= "res://game/npc/tower.tscn"
 const scene_path_game 		= "res://game/main/game.tscn"
 const scene_path_gameover 	= "res://game/scenes/gameover.tscn"
 const scene_path_healthbar 	= "res://game/gui/health.tscn"
@@ -28,18 +29,28 @@ var groups = {
 }
 
 var properties = {
+	# moveable
 	movement_speed_forward = "movement_speed_forward",
 	movement_speed_back = "movement_speed_back",
 	ship_rotation_speed = "ship_rotation_speed",
-	weapon_rotation_speed = "weapon_rotation_speed",
 	clearance_rotation = "clearance_rotation",
 	zoom_speed = "zoom_speed",
+
+	# shootable
+	weapon_rotation_speed = "weapon_rotation_speed",
 	bullet_speed = "bullet_speed",
 	bullet_strength = "bullet_strength",
 	bullet_wait = "bullet_wait",
 	bullet_range = "bullet_range",
+
+	# destroyable
 	health_max = "health_max",
-	health = "health"
+	health = "health",
+
+	# collectable
+	pickup_type = "pickup_type",
+	pickup_modifier_mode = "pickup_modifier_mode",
+	pickup_duration = "pickup_duration"
 }
 
 # valid actions for a baseship

@@ -35,5 +35,11 @@ func set_processor(processor) :
 	if(current_processor):
 		add_child(current_processor)
 
+	current_processor.set_parent(get_parent())
+
+func set_processor_details(device_details):
+	if current_processor:
+		current_processor.set_processor_details(device_details)
+
 func get_processor() :
 	return current_processor

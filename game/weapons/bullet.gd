@@ -1,4 +1,5 @@
 # standard bullet class used in cannon weapon and by shootable
+# calls hit() of destroyable interface
 extends RigidBody2D
 
 # owner/shooter of the bullet

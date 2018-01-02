@@ -11,6 +11,9 @@ func _ready():
 	for i in range(3):
 		spawn_enemy()
 
+	for i in range(2):
+		spawn_tower()
+
 
 	# Background node
 	# player_manager node
@@ -19,13 +22,19 @@ func spawn_player(processor, device_details):
 	var player_scn = load(global.scene_path_player)
 	var player_node = player_scn.instance()
 	get_node("ships").add_child(player_node, true)
-	player_node.set_processor(processor)
-	player_node.set_processor_details(device_details)
+
+	player_node.get_node("processor_selector").set_processor(processor)
+	player_node.get_node("processor_selector").set_processor_details(device_details)
 
 func spawn_enemy():
 	var enemy_scn = load(global.scene_path_enemy)
 	var enemy_node = enemy_scn.instance()
 	get_node("ships").add_child(enemy_node, true)
+
+func spawn_tower():
+	var tower_scn = load(global.scene_path_tower)
+	var tower_node = tower_scn.instance()
+	get_node("ships").add_child(tower_node, true)
 
 
 

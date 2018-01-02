@@ -37,7 +37,11 @@ func destroy(destroyer):
 	# health_node is destroying itself
 	#if health_node != null:
 	#	health_node.queue_free()
-	pass
+	if parent.has_method('destroy') :
+		parent.destroy(destroyer)
+
+	parent.queue_free()
+
 
 func hit(power, hitter):
 	var health
@@ -45,6 +49,6 @@ func hit(power, hitter):
 	parent.set_property(global.properties.health, health)
 
 	if (health <= 0):
-		parent.destroy(hitter)
+		destroy(hitter)
 		#get_node("anim").play("explode")
 		#destroyed=true

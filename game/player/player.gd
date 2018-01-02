@@ -7,6 +7,8 @@ func _ready():
 	properties[global.properties.ship_rotation_speed] *= 2
 	properties[global.properties.bullet_speed] *= 4
 	properties[global.properties.bullet_wait] /= 2
+	properties[global.properties.weapon_rotation_speed] *= 2
+
 
 	#print("found properties player ", properties)
 	fix_collision_shape()
