@@ -50,7 +50,8 @@ var properties = {
 	# collectable
 	pickup_type = "pickup_type",
 	pickup_modifier_mode = "pickup_modifier_mode",
-	pickup_modifier_duration = "pickup_modifier_duration"
+	pickup_modifier_duration = "pickup_modifier_duration",
+	pickup_duration = "pickup_duration",
 }
 
 # valid actions for a baseship

@@ -36,6 +36,9 @@ velocity/angular = 0.0
 damp_override/linear = 2.0
 damp_override/angular = 3.0
 script/script = ExtResource( 1 )
+properties = {
+
+}
 
 [node name="destroyable" parent="." instance=ExtResource( 2 )]
 

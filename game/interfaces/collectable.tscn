@@ -7,4 +7,22 @@
 script/script = ExtResource( 1 )
 activated = false
 
+[node name="timer_show" type="Timer" parent="."]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = false
+autostart = false
+
+[node name="timer_modifier" type="Timer" parent="."]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = false
+autostart = false
+
+[connection signal="timeout" from="timer_show" to="." method="_on_timer_show_timeout"]
+
+[connection signal="timeout" from="timer_modifier" to="." method="_on_timer_modifier_timeout"]
+
 

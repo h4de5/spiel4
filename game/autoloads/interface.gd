@@ -2,6 +2,10 @@
 extends Node
 
 # goes through node and collects all get_property functions
+# properties .. can be set and overwritten
+# properties_modifier_add .. points will be added or reduced from normal properties
+# properties_modifier_multi .. points will be multiplied or divided after modifier_add
+
 func collect_properties(node, properties = {}):
 	if not node == null:
 		if node.has_method("get_property"):
@@ -48,19 +52,19 @@ func is_able(node, interface, recursive= true):
 	return null
 
 func is_adjustable(node, recursive= true):
-	return is_able(node, "adjustable")
+	return is_able(node, "adjustable", recursive)
 
 func is_shootable(node, recursive= true):
-	return is_able(node, "shootable")
+	return is_able(node, "shootable", recursive)
 
 func is_moveable(node, recursive= true):
-	return is_able(node, "moveable")
+	return is_able(node, "moveable", recursive)
 
 func is_destroyable(node, recursive= true):
-	return is_able(node, "destroyable")
+	return is_able(node, "destroyable", recursive)
 
 func is_collectable(node, recursive= true):
-	return is_able(node, "collectable")
+	return is_able(node, "collectable", recursive)
 
 func is_collidable(node, recursive= true):
-	return is_able(node, "collidable")
+	return is_able(node, "collidable", recursive)

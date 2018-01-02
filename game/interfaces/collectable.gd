@@ -9,11 +9,25 @@ func is_collectable():
 func _ready():
 	required_properties = [
 		global.properties.pickup_type,
+		global.properties.pickup_duration,
 		global.properties.pickup_modifier_mode,
-		global.properties.pickup_modifier_duration
+		global.properties.pickup_modifier_duration,
 	]
 
+	set_fixed_process(true)
 	call_deferred("initialize")
+
+
+
+func initialize():
+	var timer_show = parent.get_property(global.properties.pickup_duration)
+	if timer_show > 0:
+		get_node("timer_show").set_wait_time(timer_show)
+		get_node("timer_show").start()
+
+func _fixed_process(delta) :
+
+	pass
 
 func collect(body):
 
@@ -21,7 +35,13 @@ func collect(body):
 
 	if body.is_in_group(global.groups.player) :
 		var body_properties = body.get_property(null)
-		hide()
+
+		var timer_modifier = pickup_properties[global.properties.pickup_modifier_duration]
+		if timer_modifier > 0:
+			get_node("timer_modifier").set_wait_time(timer_modifier)
+			get_node("timer_modifier").start()
+
+		call_deferred("hide")
 
 
 func hide():
@@ -31,4 +51,12 @@ func hide():
 	#visibility.visible = false
 
 func clear():
-	queue_free()
+	parent.queue_free()
+
+# if collectable was not picked up in time, remove it
+func _on_timer_show_timeout():
+	clear()
+
+# if collectable was picket up and modifier runs out
+func _on_timer_modifier_timeout():
+	clear()

@@ -4,7 +4,7 @@ var properties
 var collectable = null
 
 func _ready():
-	set_fixed_process(true)
+	#set_fixed_process(true)
 	"""
 	properties = {
 		global.properties.movement_speed_forward: 4000,
@@ -25,10 +25,12 @@ func _ready():
 	properties = {
 		# weapon, modifier, passenger, goods, bomb
 		global.properties.pickup_type: 1,
+		# pickup lasts seconds
+		global.properties.pickup_duration: 10,
 		 # set, add, multiply
 		global.properties.pickup_modifier_mode: 2,
-		# seconds
-		global.properties.pickup_modifier_duration: 60
+		# modifier lasts seconds
+		global.properties.pickup_modifier_duration: 60,
 	}
 
 	connect("body_enter", self, "process_collect")
@@ -55,7 +57,7 @@ func set_property(type, value):
 		properties[type] = value
 
 func process_collect(body):
-	print("something entered pickup body ", body)
+	#print("something entered pickup body ", body)
 
 	if collectable :
 		collectable.collect(body)

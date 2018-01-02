@@ -1,12 +1,14 @@
 # base class for all ships, has all interfaces and properties
 extends RigidBody2D
 
-var properties
+export var properties = Dictionary()
+
 
 # call order:
 # baseship._ready > player.init > baseship.init > player._ready
 
 func _ready():
+
 	#print("baseship _ready - start ", get_name())
 	properties = {
 		global.properties.movement_speed_forward: 4000,
@@ -17,6 +19,7 @@ func _ready():
 		global.properties.health: 1000
 	}
 
+	# merges properties from all sub-nodes
 	properties = interface.collect_properties(self)
 
 	#print("found properties base ", properties)
@@ -25,7 +28,7 @@ func _ready():
 	#print("baseship _ready - end ", get_name())
 
 func initialize() :
-	set_fixed_process(true)
+	#set_fixed_process(true)
 	set_max_contacts_reported(4)
 
 	set_mass(50)

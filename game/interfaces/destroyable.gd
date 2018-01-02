@@ -39,8 +39,13 @@ func destroy(destroyer):
 	#	health_node.queue_free()
 	if parent.has_method('destroy') :
 		parent.destroy(destroyer)
-
 	parent.queue_free()
+
+func heal(power, healer):
+	var health
+	health = parent.get_property(global.properties.health) - power
+	health = min(health, parent.get_property(global.properties.health_max))
+	parent.set_property(global.properties.health, health)
 
 
 func hit(power, hitter):
