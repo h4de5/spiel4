@@ -9,6 +9,8 @@ func _ready():
 
 	fix_collision_shape()
 
+	print("found properties enemy ", properties)
+
 func destroy(destroyer):
 	.destroy(destroyer)
 	get_node(global.scene_tree_game).spawn_enemy()
@@ -28,6 +30,6 @@ func reset_position():
 	.reset_position()
 
 	# randomize speed and rotation
-	properties[global.properties.movement_speed_forward] = rand_range(300,550)
-	properties[global.properties.movement_speed_back] = rand_range(2,4)
-	properties[global.properties.ship_rotation_speed] = rand_range(1,3)
+	properties[global.properties.movement_speed_forward] *= rand_range(0.7,1.2)
+	properties[global.properties.movement_speed_back] *= rand_range(0.7,1.2)
+	properties[global.properties.ship_rotation_speed] *= rand_range(0.8,1.2)

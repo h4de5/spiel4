@@ -19,7 +19,8 @@ func initialize():
 	moveable = interface.is_moveable(parent)
 	shootable = interface.is_shootable(parent)
 	if shootable :
-		weapon = parent.get_node("weapons_selector").get_active_weapon()
+		#weapon = parent.get_node("weapons_selector").get_active_weapon()
+		weapon = shootable.get_active_weapon()
 
 func _fixed_process(delta) :
 	delta_count += delta

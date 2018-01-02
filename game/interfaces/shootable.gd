@@ -13,6 +13,21 @@ func is_shootable():
 	else:
 		return null
 
+func get_active_weapon():
+	var weapons = get_children()
+	for weapon in weapons:
+		if weapon.is_activated():
+			return weapon
+	return null
+
+# forward properties of active weapon to collect properties
+func get_property(type):
+	var weapon = get_active_weapon()
+	if weapon :
+		return weapon.get_property(type)
+	else:
+		return null
+
 func _ready():
 	required_properties = [
 		global.properties.bullet_speed,
@@ -34,8 +49,11 @@ func reset():
 	shoot_wait = 0
 	shoot_last_target_pos = null
 	torque_weapon = 0
+	weapon = get_active_weapon()
+	"""
 	if parent and parent.has_node("weapons_selector"):
 		weapon = parent.get_node("weapons_selector").get_active_weapon()
+	"""
 
 func handle_mousemove(pos) :
 
@@ -51,7 +69,8 @@ func handle_mousemove(pos) :
 	var target_rot
 
 	# TODO - cache weapon
-	weapon = parent.get_node("weapons_selector").get_active_weapon()
+	#weapon = parent.get_node("weapons_selector").get_active_weapon()
+	weapon = get_active_weapon()
 
 	if weapon:
 
@@ -92,11 +111,12 @@ func handle_action(action, pressed):
 		#print ("new action: ", action, " ", pressed, " zoom speed: ", zoom_speed)
 
 	if pressed :
-		weapon = parent.get_node("weapons_selector").get_active_weapon()
+		#weapon = parent.get_node("weapons_selector").get_active_weapon()
+		weapon = get_active_weapon()
 
 		if weapon :
-			if action == global.actions.target_left: torque_weapon = get_property(global.properties.weapon_rotation_speed)
-			elif action == global.actions.target_right: torque_weapon = -get_property(global.properties.weapon_rotation_speed)
+			if action == global.actions.target_left: torque_weapon = parent.get_property(global.properties.weapon_rotation_speed)
+			elif action == global.actions.target_right: torque_weapon = -parent.get_property(global.properties.weapon_rotation_speed)
 
 			elif action == global.actions.fire:
 				shoot_repeat = 1
@@ -130,7 +150,7 @@ func _fixed_process(delta) :
 		if shoot_last_target_pos != null:
 			var scope_rot = weapon.get_weapon_rotation()
 			var target_rot = weapon.get_weapon_position().angle_to_point(shoot_last_target_pos)
-			var clearance = get_property(global.properties.clearance_rotation)
+			var clearance = parent.get_property(global.properties.clearance_rotation)
 
 			var diff = target_rot - scope_rot;
 			if diff < clearance and diff > -clearance:
@@ -152,4 +172,4 @@ func _fixed_process(delta) :
 func shoot(parent, target):
 	if weapon:
 		weapon.shoot(parent, shoot_last_target_pos)
-	shoot_wait = get_property(global.properties.bullet_wait)
+	shoot_wait = parent.get_property(global.properties.bullet_wait)

@@ -4,7 +4,7 @@ extends "res://game/ship/baseship.gd"
 func _ready():
 
 	properties[global.properties.movement_speed_forward] *= 1.2
-	properties[global.properties.ship_rotation_speed] *= 5
+	properties[global.properties.ship_rotation_speed] *= 2
 	properties[global.properties.bullet_speed] *= 4
 	properties[global.properties.bullet_wait] /= 2
 

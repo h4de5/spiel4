@@ -9,6 +9,10 @@
 collision/layers = 2
 script/script = ExtResource( 2 )
 
+[node name="moveable" parent="."]
+
+editor/display_folded = true
+
 [node name="particle_forward" parent="moveable"]
 
 transform/pos = Vector2( 0, 65.0113 )
@@ -21,4 +25,4 @@ texture = ExtResource( 3 )
 
 [editable path="destroyable"]
 [editable path="moveable"]
-[editable path="weapons_selector/cannon"]
+[editable path="shootable"]

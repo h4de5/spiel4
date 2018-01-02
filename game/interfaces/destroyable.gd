@@ -41,7 +41,7 @@ func destroy(destroyer):
 
 func hit(power, hitter):
 	var health
-	health = get_property(global.properties.health) - power
+	health = parent.get_property(global.properties.health) - power
 	parent.set_property(global.properties.health, health)
 
 	if (health <= 0):

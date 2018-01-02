@@ -39,5 +39,5 @@ func check_requirements():
 
 # those needs to be overwritten
 
-func get_property(prop):
-	return parent.get_property(prop)
+#func get_property(prop):
+#	return parent.get_property(prop)

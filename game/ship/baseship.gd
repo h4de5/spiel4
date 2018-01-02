@@ -9,9 +9,9 @@ var properties
 func _ready():
 	#print("baseship _ready - start ", get_name())
 	properties = {
-		global.properties.movement_speed_forward: 800,
-		global.properties.movement_speed_back: 400,
-		global.properties.ship_rotation_speed: 0.5,
+		global.properties.movement_speed_forward: 4000,
+		global.properties.movement_speed_back: 2000,
+		global.properties.ship_rotation_speed: 1,
 		global.properties.zoom_speed: 0.2,
 		global.properties.health_max: 1000,
 		global.properties.health: 1000
@@ -28,8 +28,8 @@ func initialize() :
 	set_fixed_process(true)
 	set_max_contacts_reported(4)
 
-	set_mass(10)
-	set_weight(10)
+	set_mass(50)
+	set_weight(50)
 	set_friction(1)
 	set_bounce(0.5)
 	set_gravity_scale(0)

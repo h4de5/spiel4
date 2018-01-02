@@ -45,17 +45,17 @@ func handle_action(action, pressed):
 		return
 
 	if pressed :
-		if action == global.actions.left: torque = -get_property(global.properties.ship_rotation_speed)
-		elif action == global.actions.right: torque = get_property(global.properties.ship_rotation_speed)
+		if action == global.actions.left: torque = -parent.get_property(global.properties.ship_rotation_speed)
+		elif action == global.actions.right: torque = parent.get_property(global.properties.ship_rotation_speed)
 
-		#elif action == global.actions.target_left: torque.y = -get_property(global.properties.weapon_rotation_speed)
-		#elif action == global.actions.target_right: torque.y = get_property(global.properties.weapon_rotation_speed)
+		#elif action == global.actions.target_left: torque.y = -parent.get_property(global.properties.weapon_rotation_speed)
+		#elif action == global.actions.target_right: torque.y = parent.get_property(global.properties.weapon_rotation_speed)
 
-		elif action == global.actions.accelerate: velocity = get_property(global.properties.movement_speed_forward)
-		elif action == global.actions.back: velocity = -get_property(global.properties.movement_speed_back)
+		elif action == global.actions.accelerate: velocity = parent.get_property(global.properties.movement_speed_forward)
+		elif action == global.actions.back: velocity = -parent.get_property(global.properties.movement_speed_back)
 
-		elif action == global.actions.zoom_in: zoom_speed = -get_property(global.properties.zoom_speed)
-		elif action == global.actions.zoom_out: zoom_speed = get_property(global.properties.zoom_speed)
+		elif action == global.actions.zoom_in: zoom_speed = -parent.get_property(global.properties.zoom_speed)
+		elif action == global.actions.zoom_out: zoom_speed = parent.get_property(global.properties.zoom_speed)
 
 	else :
 		if action == global.actions.left: torque = 0
