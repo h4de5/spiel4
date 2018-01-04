@@ -8,6 +8,12 @@ var moveable = null
 var shootable = null
 var weapon = null
 
+# TODO: make different AI modes
+# follow: using minimal and maximal proximity
+# guard: fly around a given point or object
+# flee: try to flee from a predator object
+# make it possible to switch between those modes
+
 func _ready() :
 	set_fixed_process(true)
 

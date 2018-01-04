@@ -10,6 +10,7 @@ var starting_pos = null
 
 func _ready():
 	set_fixed_process(true)
+
 	initialize()
 
 func initialize():
