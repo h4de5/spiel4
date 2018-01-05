@@ -56,9 +56,8 @@ func reset_position() :
 		box = Vector2(0,0)
 	var angle = rand_range(0, 2*PI)
 	set_pos( box +  (Vector2(sin(angle), cos(angle)) * 200) )
-
 	set_rot(angle - PI * rand_range(1,3)/2)
-	pass
+
 
 
 # get all different properties from this ship

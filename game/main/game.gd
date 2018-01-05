@@ -9,11 +9,10 @@ func _ready():
 	add_child(camera_node, true)
 
 
-	for i in range(3):
-		spawn_enemy()
 
-	for i in range(2):
-		spawn_tower()
+	#for i in range(3): spawn_enemy()
+
+	#for i in range(2): spawn_tower()
 
 
 	# Background node

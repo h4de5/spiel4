@@ -33,8 +33,6 @@ func _ready():
 		global.properties.pickup_modifier_duration: 60,
 	}
 
-	connect("body_enter", self, "process_collect")
-
 	call_deferred("initialize")
 
 func initialize():
@@ -55,11 +53,3 @@ func get_property(type):
 func set_property(type, value):
 	if (type in properties) :
 		properties[type] = value
-
-func process_collect(body):
-	#print("something entered pickup body ", body)
-
-	if collectable :
-		collectable.collect(body)
-	else :
-		print ("pickup is not a collectable ", self)

@@ -13,21 +13,23 @@ func _ready():
 		global.properties.pickup_modifier_mode,
 		global.properties.pickup_modifier_duration,
 	]
-
 	set_fixed_process(true)
 	call_deferred("initialize")
-
-
 
 func initialize():
 	var timer_show = parent.get_property(global.properties.pickup_duration)
 	if timer_show > 0:
 		get_node("timer_show").set_wait_time(timer_show)
 		get_node("timer_show").start()
+	parent.connect("body_enter", self, "process_collect")
 
 func _fixed_process(delta) :
 
 	pass
+
+func process_collect(body):
+	#print("something entered pickup body ", body)
+	collect(body)
 
 func collect(body):
 

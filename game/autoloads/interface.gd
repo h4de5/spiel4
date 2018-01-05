@@ -20,7 +20,11 @@ func collect_properties(node, properties = {}):
 
 static func merge_dicts(target, patch):
 	for key in patch:
-		target[key] = patch[key]
+		if typeof(patch[key]) == TYPE_DICTIONARY:
+			target[key] = merge_dics(target[key], patch[key])
+		else:
+			target[key] = patch[key]
+
 	return target
 
 # check if node has interface
@@ -51,9 +55,6 @@ func is_able(node, interface, recursive= true):
 					return isable
 	return null
 
-func is_adjustable(node, recursive= true):
-	return is_able(node, "adjustable", recursive)
-
 func is_shootable(node, recursive= true):
 	return is_able(node, "shootable", recursive)
 
@@ -67,6 +68,10 @@ func is_collectable(node, recursive= true):
 	return is_able(node, "collectable", recursive)
 
 # for later
+
+func is_adjustable(node, recursive= true):
+	return is_able(node, "adjustable", recursive)
+
 func is_collidable(node, recursive= true):
 	return is_able(node, "collidable", recursive)
 

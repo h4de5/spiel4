@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=1]
+[gd_scene load_steps=9 format=1]
 
 [ext_resource path="res://game/ship/baseship.gd" type="Script" id=1]
 [ext_resource path="res://game/interfaces/destroyable.tscn" type="PackedScene" id=2]
@@ -11,6 +11,43 @@
 
 custom_solver_bias = 0.0
 points = Vector2Array( -31.327, -31.6235, 30.274, -31.0832, 30.8144, 31.0582, -30.2462, 31.5985 )
+
+[sub_resource type="GDScript" id=2]
+
+script/source = "extends Label
+
+export var show_debug = false
+
+func _ready():
+	set_fixed_process(true)
+	set_process_input(true)
+
+func _input(event):
+	if event.type == InputEvent.KEY:
+		if event.scancode == KEY_Z && event.pressed == false && not event.is_echo():
+			show_debug = not show_debug
+			if not show_debug:
+				set_text(\"\")
+        # The 'W' key was released
+
+func _fixed_process(delta):
+	if show_debug:
+		set_global_pos(get_parent().get_global_pos() + Vector2(-100, 100))
+		set_rotation(-get_parent().get_global_rot());
+		set_text(var_dump(get_parent().get_property(null)))
+
+func var_dump(dict):
+	var retstring = \"\"
+	for key in dict:
+		retstring = retstring + \"  \" + key + \": \"
+
+		if typeof(dict[key]) == TYPE_DICTIONARY:
+			retstring = retstring + var_dump(dict[key])
+		else:
+			retstring = retstring + str(dict[key])
+		retstring = retstring + \"\\n\"
+	return retstring
+"
 
 [node name="Baseship" type="RigidBody2D"]
 
@@ -60,6 +97,22 @@ build_mode = 0
 polygon = Vector2Array( -31.327, -31.6235, 30.274, -31.0832, 30.8144, 31.0582, -30.2462, 31.5985 )
 shape_range = Vector2( 0, 0 )
 trigger = false
+
+[node name="debug" type="Label" parent="."]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = -86.0
+margin/top = 44.0
+margin/right = 89.0
+margin/bottom = 130.0
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+script/script = SubResource( 2 )
+show_debug = false
 
 
 [editable path="destroyable"]
