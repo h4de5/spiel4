@@ -38,10 +38,22 @@ func collect(body):
 	if body.is_in_group(global.groups.player) :
 		var body_properties = body.get_property(null)
 
+		var payload = get_node("payload")
+
+		if pickup_properties.has(global.properties.modifier_multi):
+			payload.set_property(global.properties.modifier_multi, pickup_properties[global.properties.modifier_multi])
+		if pickup_properties.has(global.properties.modifier_add):
+			payload.set_property(global.properties.modifier_add, pickup_properties[global.properties.modifier_add])
+
 		var timer_modifier = pickup_properties[global.properties.pickup_modifier_duration]
 		if timer_modifier > 0:
-			get_node("timer_modifier").set_wait_time(timer_modifier)
-			get_node("timer_modifier").start()
+			payload.get_node("timer_modifier").set_wait_time(timer_modifier)
+			payload.get_node("timer_modifier").start()
+
+		remove_child(payload)
+		body.add_child(payload)
+
+
 
 		call_deferred("hide")
 
@@ -59,6 +71,3 @@ func clear():
 func _on_timer_show_timeout():
 	clear()
 
-# if collectable was picket up and modifier runs out
-func _on_timer_modifier_timeout():
-	clear()

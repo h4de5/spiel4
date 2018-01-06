@@ -15,19 +15,19 @@ func _ready() :
 		var processor_instance = processor.instance()
 		processor_instance.set_parent(parent)
 		add_child(processor_instance)
-	"""
-	if processor != "none" :
 
-		# Load the class resource when calling load()
-		var processor_class = load("game/"+processor+".gd")
+#	if processor != "none" :
+#
+#		# Load the class resource when calling load()
+#		var processor_class = load("game/"+processor+".gd")
+#
+#		# Preload the class only once at compile time
+#		# won't work here
+#		#var processor_class = preload("game/"+processor+".gd")
+#
+#	    var processor_instance = processor_class.new()
+#	    processor_instance._ready()
 
-		# Preload the class only once at compile time
-		# won't work here
-		#var processor_class = preload("game/"+processor+".gd")
-
-	    var processor_instance = processor_class.new()
-	    processor_instance._ready()
-	"""
 
 func set_processor(proc) :
 	processor = proc

@@ -28,6 +28,10 @@ func _input(event):
 			show_debug = not show_debug
 			if not show_debug:
 				set_text(\"\")
+
+		if event.scancode == KEY_U && event.pressed == false && not event.is_echo():
+		# merges properties from all sub-nodes
+			get_parent().properties = interface.collect_properties(get_parent())
         # The 'W' key was released
 
 func _fixed_process(delta):
@@ -36,16 +40,16 @@ func _fixed_process(delta):
 		set_rotation(-get_parent().get_global_rot());
 		set_text(var_dump(get_parent().get_property(null)))
 
-func var_dump(dict):
+func var_dump(dict, indent=\"\"):
 	var retstring = \"\"
 	for key in dict:
-		retstring = retstring + \"  \" + key + \": \"
+		retstring = retstring + indent + key + \": \"
 
 		if typeof(dict[key]) == TYPE_DICTIONARY:
-			retstring = retstring + var_dump(dict[key])
+			retstring = retstring + \"\\n\" + var_dump(dict[key], indent+\"  \")
 		else:
-			retstring = retstring + str(dict[key])
-		retstring = retstring + \"\\n\"
+			retstring = retstring + str(dict[key])+ \"\\n\"
+		retstring = retstring
 	return retstring
 "
 

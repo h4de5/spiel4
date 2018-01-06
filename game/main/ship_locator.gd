@@ -114,38 +114,24 @@ func set_camera(excludes = []):
 
 		#print("width ", d_width, " box size ", bounding_box.size, " zoomx ", zoomx, " zoomy ", zoomy)
 		camera.set_zoom(Vector2(zoom_max, zoom_max))
-		"""
-
-		var d_width = window_size.x
-		var d_height = window_size.y
-		print("width: ", d_width, " height: ", d_height,
-		" size: ", window_size, " bounding_box: ", bounding_box.size,
-		" div: ", window_size / bounding_box.size)
 
 
-		var zoomx = bounding_box.size.x / d_width
-		var zoomy = bounding_box.size.y / d_height
-		zoomx = max(zoomx, zoomy)
-		if(zoomx < 1) :
-			zoomx = 1
-
-		zoomx *= 1.3
-		#print("width ", d_width, " box size ", bounding_box.size, " zoomx ", zoomx, " zoomy ", zoomy)
-		camera.set_zoom(Vector2(zoomx,zoomx))
-		"""
-
-	# TODO - set zoom of camera correctly!
-
-
-
-	#camera.set_zoom()
-
-	#print("rect pos")
-	#print(bounding_box)
-
-	#var viewport = Viewport.new()
-	#viewport.set_rect(bounding_box)
-	#camera.set_viewport(viewport)
+#		var d_width = window_size.x
+#		var d_height = window_size.y
+#		print("width: ", d_width, " height: ", d_height,
+#		" size: ", window_size, " bounding_box: ", bounding_box.size,
+#		" div: ", window_size / bounding_box.size)
+#
+#
+#		var zoomx = bounding_box.size.x / d_width
+#		var zoomy = bounding_box.size.y / d_height
+#		zoomx = max(zoomx, zoomy)
+#		if(zoomx < 1) :
+#			zoomx = 1
+#
+#		zoomx *= 1.3
+#		#print("width ", d_width, " box size ", bounding_box.size, " zoomx ", zoomx, " zoomy ", zoomy)
+#		camera.set_zoom(Vector2(zoomx,zoomx))
 
 func set_camera_zoom(zoom):
 	var camera = get_node(global.scene_tree_camera)

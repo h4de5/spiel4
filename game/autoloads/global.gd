@@ -52,6 +52,10 @@ var properties = {
 	pickup_modifier_mode = "pickup_modifier_mode",
 	pickup_modifier_duration = "pickup_modifier_duration",
 	pickup_duration = "pickup_duration",
+
+	# modifier
+	modifier_add = "modifier_add",
+	modifier_multi = "modifier_multi",
 }
 
 # valid actions for a baseship

@@ -6,21 +6,37 @@ extends Node
 # properties_modifier_add .. points will be added or reduced from normal properties
 # properties_modifier_multi .. points will be multiplied or divided after modifier_add
 
-func collect_properties(node, properties = {}):
+func collect_properties(node, properties = {}, level = 0):
 	if not node == null:
 		if node.has_method("get_property"):
 			properties = node.get_property(null)
+
+		properties.erase(global.properties.modifier_add)
+		properties.erase(global.properties.modifier_multi)
 
 		for child in node.get_children():
 			if child.has_method("get_property"):
 				merge_dicts(properties, child.get_property(null))
 			else:
-				properties = collect_properties(child, properties)
+				properties = collect_properties(child, properties, level+1)
+	if level == 0:
+		if properties.has(global.properties.modifier_add) :
+			for key in properties[global.properties.modifier_add]:
+				if properties.has(key):
+					properties[key] += properties[global.properties.modifier_add][key]
+				else :
+					properties[key] = properties[global.properties.modifier_add][key]
+
+		if properties.has(global.properties.modifier_multi) :
+			for key in properties[global.properties.modifier_multi]:
+				if properties.has(key):
+					properties[key] *= properties[global.properties.modifier_multi][key]
+
 	return properties
 
 static func merge_dicts(target, patch):
 	for key in patch:
-		if typeof(patch[key]) == TYPE_DICTIONARY:
+		if target.has(key) and typeof(patch[key]) == TYPE_DICTIONARY:
 			target[key] = merge_dics(target[key], patch[key])
 		else:
 			target[key] = patch[key]

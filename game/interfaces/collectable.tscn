@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=1]
+[gd_scene load_steps=3 format=1]
 
 [ext_resource path="res://game/interfaces/collectable.gd" type="Script" id=1]
+[ext_resource path="res://game/interfaces/collectable_payload.gd" type="Script" id=2]
 
 [node name="collectable" type="Node2D"]
 
@@ -14,7 +15,11 @@ wait_time = 1.0
 one_shot = false
 autostart = false
 
-[node name="timer_modifier" type="Timer" parent="."]
+[node name="payload" type="Node2D" parent="."]
+
+script/script = ExtResource( 2 )
+
+[node name="timer_modifier" type="Timer" parent="payload"]
 
 process_mode = 1
 wait_time = 1.0
@@ -23,6 +28,6 @@ autostart = false
 
 [connection signal="timeout" from="timer_show" to="." method="_on_timer_show_timeout"]
 
-[connection signal="timeout" from="timer_modifier" to="." method="_on_timer_modifier_timeout"]
+[connection signal="timeout" from="payload/timer_modifier" to="payload" method="_on_timer_modifier_timeout"]
 
 

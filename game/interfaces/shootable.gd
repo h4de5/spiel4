@@ -50,10 +50,10 @@ func reset():
 	shoot_last_target_pos = null
 	torque_weapon = 0
 	weapon = get_active_weapon()
-	"""
-	if parent and parent.has_node("weapons_selector"):
-		weapon = parent.get_node("weapons_selector").get_active_weapon()
-	"""
+
+#	if parent and parent.has_node("weapons_selector"):
+#		weapon = parent.get_node("weapons_selector").get_active_weapon()
+
 
 func handle_mousemove(pos) :
 
