@@ -31,7 +31,7 @@ func _input(event):
 
 		if event.scancode == KEY_U && event.pressed == false && not event.is_echo():
 		# merges properties from all sub-nodes
-			get_parent().properties = interface.collect_properties(get_parent())
+			get_parent().properties = str2var(var2str(interface.collect_properties(get_parent())))
         # The 'W' key was released
 
 func _fixed_process(delta):
@@ -77,9 +77,6 @@ velocity/angular = 0.0
 damp_override/linear = 2.0
 damp_override/angular = 3.0
 script/script = ExtResource( 1 )
-properties = {
-
-}
 
 [node name="destroyable" parent="." instance=ExtResource( 2 )]
 

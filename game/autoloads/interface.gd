@@ -7,41 +7,49 @@ extends Node
 # properties_modifier_multi .. points will be multiplied or divided after modifier_add
 
 func collect_properties(node, properties = {}, level = 0):
+
 	if not node == null:
+
+		# get properties_base
 		if node.has_method("get_property"):
-			properties = node.get_property(null)
+			properties = str2var(var2str(node.get_property(null)))
+			#properties = node.get_property(null)
 
-		properties.erase(global.properties.modifier_add)
-		properties.erase(global.properties.modifier_multi)
+		if level == 0 or not node.has_method("get_property"):
+			# childs of childs with a get_property method, are ignored!
+			for child in node.get_children():
+				merge_dicts(properties, collect_properties(child, properties, level+1))
 
-		for child in node.get_children():
-			if child.has_method("get_property"):
-				merge_dicts(properties, child.get_property(null))
-			else:
-				properties = collect_properties(child, properties, level+1)
-	if level == 0:
-		if properties.has(global.properties.modifier_add) :
-			for key in properties[global.properties.modifier_add]:
-				if properties.has(key):
-					properties[key] += properties[global.properties.modifier_add][key]
-				else :
-					properties[key] = properties[global.properties.modifier_add][key]
+#			if child.has_method("get_property"):
+#				# childs of childs with a get_property method, are ignored!
+#				merge_dicts(properties, child.get_property(null))
+#			else:
+#				properties = collect_properties(child, properties, level+1)
 
-		if properties.has(global.properties.modifier_multi) :
-			for key in properties[global.properties.modifier_multi]:
-				if properties.has(key):
-					properties[key] *= properties[global.properties.modifier_multi][key]
+		if level == 0:
+			if properties.has(global.properties.modifier_add) :
+				for key in properties[global.properties.modifier_add]:
+					if properties.has(key):
+						properties[key] += properties[global.properties.modifier_add][key]
+					else :
+						properties[key] = properties[global.properties.modifier_add][key]
+
+			if properties.has(global.properties.modifier_multi) :
+				for key in properties[global.properties.modifier_multi]:
+					if properties.has(key):
+						properties[key] *= properties[global.properties.modifier_multi][key]
 
 	return properties
 
-static func merge_dicts(target, patch):
-	for key in patch:
-		if target.has(key) and typeof(patch[key]) == TYPE_DICTIONARY:
-			target[key] = merge_dics(target[key], patch[key])
-		else:
-			target[key] = patch[key]
-
+func merge_dicts(target, patch):
+	if not patch == null:
+		for key in patch:
+			if target.has(key) and typeof(patch[key]) == TYPE_DICTIONARY:
+				target[key] = merge_dicts(target[key], patch[key])
+			else:
+				target[key] = patch[key]
 	return target
+
 
 # check if node has interface
 # can be shootable, adjustable, destroyable,

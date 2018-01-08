@@ -1,14 +1,14 @@
 # default weapon for shootable ships
 extends Node
 
-var properties = Dictionary({
+var properties_base = {
 	global.properties.bullet_speed: 800,
 	global.properties.bullet_strength: 50,
 	global.properties.bullet_wait: 0.3,
 	global.properties.bullet_range: 1000,
 	global.properties.weapon_rotation_speed: 1.5,
 	global.properties.clearance_rotation: 0.05,
-})
+}
 
 var bullet
 var activated
@@ -18,22 +18,15 @@ func _ready():
 	remove_child(bullet)
 	activated = true
 
-
 # get all different properties from this ship
-func get_property(type):
-
+func get_property(type) :
 	# if null, return all properties
-	if (type == null):
-		return properties
-
-	if (type in properties) :
-		return properties[type]
+	if (type == null) :
+		return properties_base
+	if (type in properties_base) :
+		return properties_base[type]
 	else :
 		return null
-
-func set_property(type, value):
-	if (type in properties) :
-		properties[type] = value
 
 func is_activated():
 	return activated
@@ -64,4 +57,4 @@ func shoot(parent, target = null):
 	starting_rot += PI
 
 	var v2 = Vector2(  sin(starting_rot), cos(starting_rot)   ).normalized()
-	bullet.set_linear_velocity(v2 * properties[global.properties.bullet_speed]);
+	bullet.set_linear_velocity(v2 * parent.properties[global.properties.bullet_speed]);

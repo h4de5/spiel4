@@ -1,12 +1,16 @@
 extends RigidBody2D
 
 var properties
+var properties_base = {
+	global.properties.health_max: 2000,
+	global.properties.health: 2000
+}
 
 func _ready():
-	properties = {
-		global.properties.health_max: 2000,
-		global.properties.health: 2000
-	}
+#	properties_base = {
+#		global.properties.health_max: 2000,
+#		global.properties.health: 2000
+#	}
 	properties = interface.collect_properties(self)
 	initialize()
 	get_node('processor_selector').set_processor("AI")
@@ -86,17 +90,11 @@ func destroy(destroyer):
 	get_node(global.scene_tree_game).spawn_tower()
 
 # get all different properties from this ship
-func get_property(type):
-
+func get_property(type) :
 	# if null, return all properties
-	if (type == null):
-		return properties
-
-	if (type in properties) :
-		return properties[type]
+	if (type == null) :
+		return properties_base
+	if (type in properties_base) :
+		return properties_base[type]
 	else :
 		return null
-
-func set_property(type, value):
-	if (type in properties) :
-		properties[type] = value

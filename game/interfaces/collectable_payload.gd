@@ -15,26 +15,24 @@ extends Node2D
 #		global.properties.clearance_rotation: 0.05
 #	}
 
-var properties = {
+var properties_base = {
 	global.properties.modifier_add: {},
 	global.properties.modifier_multi: {}
 }
 
 # get all different properties from this ship
-func get_property(type):
-
+func get_property(type) :
 	# if null, return all properties
-	if (type == null):
-		return properties
-
-	if (type in properties) :
-		return properties[type]
+	if (type == null) :
+		return properties_base
+	if (type in properties_base) :
+		return properties_base[type]
 	else :
 		return null
 
 func set_property(type, value):
-	if (type in properties) :
-		properties[type] = value
+	if (type in properties_base) :
+		properties_base[type] = value
 
 
 # if collectable was picket up and modifier runs out

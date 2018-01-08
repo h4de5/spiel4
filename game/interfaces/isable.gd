@@ -36,8 +36,3 @@ func check_requirements():
 	#print("isable check_requirements - end ", self.get_name(), " ok? ", ret)
 	activated = ret
 	return ret
-
-# those needs to be overwritten
-
-#func get_property(prop):
-#	return parent.get_property(prop)

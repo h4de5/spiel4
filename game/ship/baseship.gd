@@ -1,16 +1,8 @@
 # base class for all ships, has all interfaces and properties
 extends RigidBody2D
 
-export var properties = Dictionary()
-
-
-# call order:
-# baseship._ready > player.init > baseship.init > player._ready
-
-func _ready():
-
-	#print("baseship _ready - start ", get_name())
-	properties = {
+var properties = Dictionary()
+var properties_base = {
 		global.properties.movement_speed_forward: 4000,
 		global.properties.movement_speed_back: 2000,
 		global.properties.ship_rotation_speed: 1,
@@ -18,6 +10,22 @@ func _ready():
 		global.properties.health_max: 1000,
 		global.properties.health: 1000
 	}
+
+# call order:
+# baseship._ready > player.init > baseship.init > player._ready
+
+func _ready():
+
+	#print("baseship _ready - start ", get_name())
+#
+#	properties = {
+#		global.properties.movement_speed_forward: 4000,
+#		global.properties.movement_speed_back: 2000,
+#		global.properties.ship_rotation_speed: 1,
+#		global.properties.zoom_speed: 0.2,
+#		global.properties.health_max: 1000,
+#		global.properties.health: 1000
+#	}
 
 	# merges properties from all sub-nodes
 	properties = interface.collect_properties(self)
@@ -47,10 +55,9 @@ func initialize() :
 # called to reset a position, usually after initialize
 func reset_position() :
 	randomize();
-
 	#var screensize = Vector2(Globals.get("display/width"),Globals.get("display/height"))
 	var box = get_node(global.scene_tree_ship_locator).get_bounding_box_all([self])
-	if box != null:
+	if box != null :
 		box = box.pos + box.size/2
 	else :
 		box = Vector2(0,0)
@@ -58,23 +65,19 @@ func reset_position() :
 	set_pos( box +  (Vector2(sin(angle), cos(angle)) * 200) )
 	set_rot(angle - PI * rand_range(1,3)/2)
 
-
-
 # get all different properties from this ship
-func get_property(type):
-
+func get_property(type) :
 	# if null, return all properties
-	if (type == null):
-		return properties
-
-	if (type in properties) :
-		return properties[type]
+	if (type == null) :
+		return properties_base
+	if (type in properties_base) :
+		return properties_base[type]
 	else :
 		return null
 
 func set_property(type, value):
-	if (type in properties) :
-		properties[type] = value
+	if (type in properties_base) :
+		properties_base[type] = value
 
 # see https://github.com/godotengine/godot/issues/2314
 # and . https://github.com/godotengine/godot/issues/8103

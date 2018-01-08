@@ -1,12 +1,6 @@
 extends Area2D
 
-var properties
-var collectable = null
-
-func _ready():
-	#set_fixed_process(true)
-
-	properties = {
+var properties_base = {
 		# weapon, modifier, passenger, goods, bomb
 		global.properties.pickup_type: 1,
 		# pickup lasts seconds
@@ -20,24 +14,21 @@ func _ready():
 			global.properties.movement_speed_forward: 2,
 		}
 	}
+var collectable = null
 
+func _ready():
+	#set_fixed_process(true)
 	call_deferred("initialize")
 
 func initialize():
 	collectable = interface.is_collectable(self)
 
 # get all different properties from this ship
-func get_property(type):
-
+func get_property(type) :
 	# if null, return all properties
-	if (type == null):
-		return properties
-
-	if (type in properties) :
-		return properties[type]
+	if (type == null) :
+		return properties_base
+	if (type in properties_base) :
+		return properties_base[type]
 	else :
 		return null
-
-func set_property(type, value):
-	if (type in properties) :
-		properties[type] = value
