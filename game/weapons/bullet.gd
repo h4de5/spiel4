@@ -34,10 +34,12 @@ func set_parent(p) :
 	starting_pos = parent.get_global_pos()
 
 func _fixed_process(delta):
-	if shootable.get_property(null) != null and starting_pos != null:
-		var props = shootable.get_property(null)
-		if(get_pos().distance_to(starting_pos) > props[global.properties.bullet_range]) :
-			destroy("range_over")
+	var wr = weakref(shootable);
+	if wr.get_ref():
+		if shootable.get_property(null) != null and starting_pos != null:
+			var props = shootable.get_property(null)
+			if(get_pos().distance_to(starting_pos) > props[global.properties.bullet_range]) :
+				destroy("range_over")
 
 func processCollision( object ):
 	#print ("body enter bullet")

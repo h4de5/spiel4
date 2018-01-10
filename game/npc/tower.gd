@@ -98,3 +98,7 @@ func get_property(type) :
 		return properties_base[type]
 	else :
 		return null
+
+func set_property(type, value):
+	if (type in properties_base) :
+		properties_base[type] = value

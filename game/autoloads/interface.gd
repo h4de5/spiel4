@@ -12,8 +12,8 @@ func collect_properties(node, properties = {}, level = 0):
 
 		# get properties_base
 		if node.has_method("get_property"):
-			properties = str2var(var2str(node.get_property(null)))
-			#properties = node.get_property(null)
+			#properties = str2var(var2str(node.get_property(null)))
+			properties = node.get_property(null)
 
 		if level == 0 or not node.has_method("get_property"):
 			# childs of childs with a get_property method, are ignored!
