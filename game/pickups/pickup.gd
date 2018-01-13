@@ -11,7 +11,8 @@ var properties_base = {
 		global.properties.pickup_modifier_duration: 10,
 
 		global.properties.modifier_multi: {
-			global.properties.movement_speed_forward: 2,
+			global.properties.movement_speed_forward: 4,
+			global.properties.ship_rotation_speed: 4,
 		}
 	}
 var collectable = null
@@ -23,12 +24,20 @@ func _ready():
 func initialize():
 	collectable = interface.is_collectable(self)
 
-# get all different properties from this ship
-func get_property(type) :
-	# if null, return all properties
-	if (type == null) :
-		return properties_base
-	if (type in properties_base) :
-		return properties_base[type]
+func set_randompos():
+
+	randomize();
+	var box = get_node(global.scene_tree_ship_locator).get_bounding_box_all([self])
+	if box != null :
+		box = box.pos + box.size/2
 	else :
-		return null
+		box = Vector2(0,0)
+	var angle = rand_range(0, 2*PI)
+	set_pos( box +  (Vector2(sin(angle), cos(angle)) * 1000) )
+
+func collected(reason):
+	# free is called in collectable
+	# spawn another pickup
+	get_node(global.scene_tree_game).spawn_pickup()
+
+

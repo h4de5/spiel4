@@ -17,6 +17,20 @@ func _ready():
 	# only to be called in inherited classes
 	#fix_collision_shape()
 
+# get all different properties from this ship
+func get_property(type) :
+	# if null, return all properties
+	if (type == null) :
+		return properties
+	if (type in properties) :
+		return properties[type]
+	else :
+		return null
+
+func set_property(type, value):
+	if (type in properties) :
+		properties[type] = value
+
 func initialize() :
 	set_fixed_process(true)
 	set_max_contacts_reported(4)
@@ -89,16 +103,3 @@ func destroy(destroyer):
 	# free is called in destroyable
 	get_node(global.scene_tree_game).spawn_tower()
 
-# get all different properties from this ship
-func get_property(type) :
-	# if null, return all properties
-	if (type == null) :
-		return properties_base
-	if (type in properties_base) :
-		return properties_base[type]
-	else :
-		return null
-
-func set_property(type, value):
-	if (type in properties_base) :
-		properties_base[type] = value

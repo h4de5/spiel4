@@ -19,14 +19,14 @@ func _ready():
 	activated = true
 
 # get all different properties from this ship
-func get_property(type) :
-	# if null, return all properties
-	if (type == null) :
-		return properties_base
-	if (type in properties_base) :
-		return properties_base[type]
-	else :
-		return null
+#func get_property(type) :
+#	# if null, return all properties
+#	if (type == null) :
+#		return properties_base
+#	if (type in properties_base) :
+#		return properties_base[type]
+#	else :
+#		return null
 
 func is_activated():
 	return activated

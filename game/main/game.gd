@@ -8,9 +8,11 @@ func _ready():
 	var camera_node = camera_scn.instance()
 	add_child(camera_node, true)
 
-	for i in range(3): spawn_enemy()
+	#for i in range(3): spawn_enemy()
 
-	for i in range(2): spawn_tower()
+	#for i in range(2): spawn_tower()
+
+	for i in range(2): spawn_pickup()
 
 
 	# Background node
@@ -25,15 +27,20 @@ func spawn_player(processor, device_details):
 	player_node.get_node("processor_selector").set_processor_details(device_details)
 
 func spawn_enemy():
-	var enemy_scn = load(global.scene_path_enemy)
-	var enemy_node = enemy_scn.instance()
-	get_node("ships").add_child(enemy_node, true)
+	var scn = load(global.scene_path_enemy)
+	var node = scn.instance()
+	get_node("ships").add_child(node, true)
 
 func spawn_tower():
-	var tower_scn = load(global.scene_path_tower)
-	var tower_node = tower_scn.instance()
-	get_node("ships").add_child(tower_node, true)
+	var scn = load(global.scene_path_tower)
+	var node = scn.instance()
+	get_node("ships").add_child(node, true)
 
+func spawn_pickup():
+	var scn = load(global.scene_path_pickup)
+	var node = scn.instance()
+	get_node("ships").add_child(node, true)
+	node.set_randompos()
 
 
 	# http://www.gamefromscratch.com/post/2015/02/23/Godot-Engine-Tutorial-Part-6-Multiple-Scenes-and-Global-Variables.aspx

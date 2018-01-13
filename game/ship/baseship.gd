@@ -55,7 +55,6 @@ func initialize() :
 # called to reset a position, usually after initialize
 func reset_position() :
 	randomize();
-	#var screensize = Vector2(Globals.get("display/width"),Globals.get("display/height"))
 	var box = get_node(global.scene_tree_ship_locator).get_bounding_box_all([self])
 	if box != null :
 		box = box.pos + box.size/2
@@ -69,15 +68,15 @@ func reset_position() :
 func get_property(type) :
 	# if null, return all properties
 	if (type == null) :
-		return properties_base
-	if (type in properties_base) :
-		return properties_base[type]
+		return properties
+	if (type in properties) :
+		return properties[type]
 	else :
 		return null
 
 func set_property(type, value):
-	if (type in properties_base) :
-		properties_base[type] = value
+	if (type in properties) :
+		properties[type] = value
 
 # see https://github.com/godotengine/godot/issues/2314
 # and . https://github.com/godotengine/godot/issues/8103

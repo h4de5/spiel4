@@ -5,28 +5,29 @@ extends Node
 # properties .. can be set and overwritten
 # properties_modifier_add .. points will be added or reduced from normal properties
 # properties_modifier_multi .. points will be multiplied or divided after modifier_add
-
-func collect_properties(node, properties = {}, level = 0):
+func collect_properties(node, level = 0):
+	var properties = {}
+	var properties_fixed = {}
 
 	if not node == null:
-
+		if level == 0:
+			for key in global.properties_fixed:
+				if "properties" in node and node.properties != null and not node.properties.empty() and node.properties.has(key):
+					properties_fixed[key] = node.properties[key]
 		# get properties_base
-		if node.has_method("get_property"):
-			#properties = str2var(var2str(node.get_property(null)))
-			properties = node.get_property(null)
+		if "properties_base" in node:
+			properties = str2var(var2str(node.properties_base))
 
-		if level == 0 or not node.has_method("get_property"):
+		if level == 0 or not "properties_base" in node:
 			# childs of childs with a get_property method, are ignored!
 			for child in node.get_children():
-				merge_dicts(properties, collect_properties(child, properties, level+1))
-
-#			if child.has_method("get_property"):
-#				# childs of childs with a get_property method, are ignored!
-#				merge_dicts(properties, child.get_property(null))
-#			else:
-#				properties = collect_properties(child, properties, level+1)
+				properties = merge_dicts(properties, collect_properties(child, level+1))
 
 		if level == 0:
+			if not properties_fixed.empty():
+				for key in properties_fixed:
+					properties[key] = properties_fixed[key]
+
 			if properties.has(global.properties.modifier_add) :
 				for key in properties[global.properties.modifier_add]:
 					if properties.has(key):
@@ -48,6 +49,7 @@ func merge_dicts(target, patch):
 				target[key] = merge_dicts(target[key], patch[key])
 			else:
 				target[key] = patch[key]
+
 	return target
 
 

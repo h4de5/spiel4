@@ -37,4 +37,7 @@ func set_property(type, value):
 
 # if collectable was picket up and modifier runs out
 func _on_timer_modifier_timeout():
-	get_parent().remove_child(self)
+	var parent = get_parent()
+	parent.remove_child(self)
+	# merges properties from all sub-nodes
+	parent.properties = interface.collect_properties(parent)

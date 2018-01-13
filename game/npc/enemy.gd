@@ -30,7 +30,7 @@ func reset_position():
 	.reset_position()
 
 	# randomize speed and rotation
-	properties_base[global.properties.movement_speed_forward] *= rand_range(0.7,1.2)
-	properties_base[global.properties.movement_speed_back] *= rand_range(0.7,1.2)
-	properties_base[global.properties.ship_rotation_speed] *= rand_range(0.8,1.2)
-	properties_base[global.properties.weapon_rotation_speed] *= rand_range(0.5,1.0)
+	#properties_base[global.properties.movement_speed_forward] *= rand_range(0.7,1.2)
+	#properties_base[global.properties.movement_speed_back] *= rand_range(0.7,1.2)
+	#properties_base[global.properties.ship_rotation_speed] *= rand_range(0.8,1.2)
+	#properties_base[global.properties.weapon_rotation_speed] *= rand_range(0.5,1.0)

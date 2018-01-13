@@ -21,12 +21,12 @@ func get_active_weapon():
 	return null
 
 # forward properties of active weapon to collect properties
-func get_property(type):
-	var weapon = get_active_weapon()
-	if weapon :
-		return weapon.get_property(type)
-	else:
-		return null
+#func get_property(type):
+#	var weapon = get_active_weapon()
+#	if weapon :
+#		return weapon.get_property(type)
+#	else:
+#		return null
 
 func _ready():
 	required_properties = [

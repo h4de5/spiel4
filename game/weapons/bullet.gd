@@ -5,7 +5,7 @@ extends RigidBody2D
 # owner/shooter of the bullet
 var parent
 # properties of the owner
-#var properties = null
+var properties_snapshot = null
 var starting_pos = null
 var shootable = null
 
@@ -30,24 +30,23 @@ func set_parent(p) :
 	shootable = interface.is_shootable(parent)
 	if not shootable:
 		print("Error - Parent of bullet is not shootable: ", parent)
+	else:
+		# get properties from parent
+		properties_snapshot = parent.get_property(null)
 
 	starting_pos = parent.get_global_pos()
 
 func _fixed_process(delta):
-	var wr = weakref(shootable);
-	if wr.get_ref():
-		if shootable.get_property(null) != null and starting_pos != null:
-			var props = shootable.get_property(null)
-			if(get_pos().distance_to(starting_pos) > props[global.properties.bullet_range]) :
-				destroy("range_over")
+	if starting_pos != null:
+		if(get_pos().distance_to(starting_pos) > properties_snapshot[global.properties.bullet_range]) :
+			destroy("range_over")
 
 func processCollision( object ):
 	#print ("body enter bullet")
 	#print(object)
 	var destroyable = interface.is_destroyable(object)
-	if destroyable and shootable:
-		var props = shootable.get_property(null)
-		destroyable.hit(props[global.properties.bullet_strength], parent)
+	if destroyable:
+		destroyable.hit(properties_snapshot[global.properties.bullet_strength], parent)
 	# kill yourself
 	destroy(object)
 

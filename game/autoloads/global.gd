@@ -5,6 +5,7 @@ extends Node
 const scene_path_player 	= "res://game/player/player.tscn"
 const scene_path_enemy 		= "res://game/npc/enemy.tscn"
 const scene_path_tower 		= "res://game/npc/tower.tscn"
+const scene_path_pickup		= "res://game/pickups/pickup.tscn"
 const scene_path_game 		= "res://game/main/game.tscn"
 const scene_path_gameover 	= "res://game/scenes/gameover.tscn"
 const scene_path_healthbar 	= "res://game/gui/health.tscn"
@@ -57,6 +58,11 @@ var properties = {
 	modifier_add = "modifier_add",
 	modifier_multi = "modifier_multi",
 }
+
+# the following properties should not be reset on collecting
+var properties_fixed = [
+	properties.health,
+]
 
 # valid actions for a baseship
 enum actions {

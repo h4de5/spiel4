@@ -37,7 +37,7 @@ func destroy(destroyer):
 	# health_node is destroying itself
 	#if health_node != null:
 	#	health_node.queue_free()
-	if parent.has_method('destroy') :
+	if parent.has_method("destroy") :
 		parent.destroy(destroyer)
 	parent.queue_free()
 
