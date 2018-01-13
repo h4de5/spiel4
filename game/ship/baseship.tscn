@@ -42,7 +42,9 @@ func _fixed_process(delta):
 
 func var_dump(dict, indent=\"\"):
 	var retstring = \"\"
-	for key in dict:
+	var keys = dict.keys()
+	keys.sort()
+	for key in keys:
 		retstring = retstring + indent + key + \": \"
 
 		if typeof(dict[key]) == TYPE_DICTIONARY:

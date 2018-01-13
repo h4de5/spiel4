@@ -136,3 +136,15 @@ func set_camera(excludes = []):
 func set_camera_zoom(zoom):
 	var camera = get_node(global.scene_tree_camera)
 	camera.set_zoom(Vector2(zoom, zoom));
+
+func get_random_pos(distance = 400, excludes = []):
+
+	randomize();
+	var box = get_node(global.scene_tree_ship_locator).get_bounding_box_all(excludes)
+	if box != null :
+		box = box.pos + box.size/2
+	else :
+		box = Vector2(0,0)
+	var angle = rand_range(0, 2*PI)
+	var pos = box +  (Vector2(sin(angle), cos(angle)) * distance)
+	return pos

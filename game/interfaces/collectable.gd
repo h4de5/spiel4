@@ -12,20 +12,21 @@ func _ready():
 	required_properties = [
 		global.properties.pickup_type,
 		global.properties.pickup_duration,
-		global.properties.pickup_modifier_mode,
+		#global.properties.pickup_modifier_mode,
 		global.properties.pickup_modifier_duration,
 	]
-
-	if parent.get("properties_base") == null:
-		print("Collectable does not have any properties_base set")
-	else :
-		pickup_properties = parent.properties_base
 
 	set_fixed_process(true)
 	call_deferred("initialize")
 
 func initialize():
-	var timer_show = parent.properties_base[global.properties.pickup_duration]
+	#if parent.get("properties_base") == null:
+	if not parent.has_method("get_property"):
+		print("Collectable does not have any properties_base set")
+	else :
+		pickup_properties = parent.get_property(null)
+
+	var timer_show = pickup_properties[global.properties.pickup_duration]
 	if timer_show > 0:
 		get_node("timer_show").set_wait_time(timer_show)
 		get_node("timer_show").start()

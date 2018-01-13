@@ -16,6 +16,7 @@ func is_moveable():
 		return null
 
 func _ready():
+
 	required_properties = [
 		global.properties.movement_speed_forward,
 		global.properties.movement_speed_back,
