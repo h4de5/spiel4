@@ -20,6 +20,20 @@ var properties_base = {
 	global.properties.modifier_multi: {}
 }
 
+func _ready():
+	set_fixed_process(true)
+
+func _fixed_process(delta) :
+	var timer = get_node("timer_modifier")
+	var progress = get_node("progress_modifer")
+
+	if timer and progress:
+		progress.set_value(timer.get_time_left() / timer.get_wait_time() * 100)
+		set_rot(get_parent().get_global_rot() * -1)
+		var payload_count = count_payloads() - 1
+		progress.set_pos(Vector2(progress.get_pos().x, 60 + progress.get_size().height * payload_count))
+
+
 # get all different properties from this ship
 func get_property(type) :
 	# if null, return all properties
@@ -41,3 +55,14 @@ func _on_timer_modifier_timeout():
 	parent.remove_child(self)
 	# merges properties from all sub-nodes
 	parent.properties = interface.collect_properties(parent)
+
+
+# counts how many payloads a certain node has
+# used for positioning the progressbar
+func count_payloads():
+	var parent = get_parent()
+	var payload_count = 0
+	for child in parent.get_children():
+		if "payload" in child.get_name():
+			payload_count += 1
+	return payload_count

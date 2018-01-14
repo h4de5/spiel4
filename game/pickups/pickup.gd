@@ -7,7 +7,7 @@ var properties_base = {
 		# pickup lasts seconds
 		global.properties.pickup_duration: 30,
 		# modifier lasts seconds
-		global.properties.pickup_modifier_duration: 10,
+		global.properties.pickup_modifier_duration: 50,
 	}
 var collectable = null
 

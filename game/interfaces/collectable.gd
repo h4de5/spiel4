@@ -16,7 +16,7 @@ func _ready():
 		global.properties.pickup_modifier_duration,
 	]
 
-	set_fixed_process(true)
+	#set_fixed_process(true)
 	call_deferred("initialize")
 
 func initialize():
@@ -32,9 +32,8 @@ func initialize():
 		get_node("timer_show").start()
 	parent.connect("body_enter", self, "process_collect")
 
-func _fixed_process(delta) :
-
-	pass
+#func _fixed_process(delta) :
+#	pass
 
 func process_collect(body):
 	#print("something entered pickup body ", body)
@@ -57,6 +56,7 @@ func collect(body):
 			payload.get_node("timer_modifier").set_wait_time(timer_modifier)
 			payload.get_node("timer_modifier").start()
 
+		# move payload to colliding body
 		remove_child(payload)
 		body.add_child(payload)
 
@@ -76,8 +76,3 @@ func collected(reason):
 		parent.collected(reason)
 	parent.queue_free()
 
-func hide():
-	# getnode("nodename").set("focus/ignore_mouse", true)
-	#parent.get_parent().remove_child(parent)
-	#visibility.visible = false
-	pass

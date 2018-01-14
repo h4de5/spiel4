@@ -22,7 +22,7 @@ func check_requirements():
 	var ret = true
 
 	if not parent or not parent.has_method("get_property"):
-		print("parent ", parent, " does not have get_properties function")
+		print("parent ", parent, " does not have get_property function")
 		ret = false
 	elif required_properties != null and required_properties.size() > 0:
 		var props = parent.get_property(null)

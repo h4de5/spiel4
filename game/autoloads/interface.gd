@@ -55,6 +55,7 @@ func merge_dicts(target, patch):
 
 # check if node has interface
 # can be shootable, adjustable, destroyable,
+# TODO: rework to use: find_node ( String mask, bool recursive=true, bool owned=true ) const
 func is_able(node, interface, recursive= true):
 	if node == null:
 		return null
