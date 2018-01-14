@@ -64,6 +64,19 @@ var properties_fixed = [
 	properties.health,
 ]
 
+enum pickup_types {
+	# modifier alters properties temporary
+	modifier,
+	# new weapons, auto switch? amunition?
+	weapon,
+	# not temporary, repair packs, amunition
+	goods,
+	# exmplode an collect
+	bomb,
+	# later use in missions?
+	passenger
+}
+
 # valid actions for a baseship
 enum actions {
 	left,

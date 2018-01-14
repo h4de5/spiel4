@@ -16,21 +16,20 @@ func _ready():
 		global.properties.pickup_modifier_duration,
 	]
 
+
 	#set_fixed_process(true)
 	call_deferred("initialize")
 
 func initialize():
-	#if parent.get("properties_base") == null:
-	if not parent.has_method("get_property"):
-		print("Collectable does not have any properties_base set")
-	else :
-		pickup_properties = parent.get_property(null)
+	pickup_properties = parent.get_property(null)
 
 	var timer_show = pickup_properties[global.properties.pickup_duration]
 	if timer_show > 0:
 		get_node("timer_show").set_wait_time(timer_show)
 		get_node("timer_show").start()
 	parent.connect("body_enter", self, "process_collect")
+
+	get_node("payload/progress_modifer").hide()
 
 #func _fixed_process(delta) :
 #	pass
@@ -41,10 +40,12 @@ func process_collect(body):
 
 func collect(body):
 
-	if body.is_in_group(global.groups.player) :
+	if body.is_in_group(global.groups.player) or body.is_in_group(global.groups.enemy):
 		#var body_properties = body.get_property(null)
 
 		var payload = get_node("payload")
+
+		get_node("payload/progress_modifer").show()
 
 		if pickup_properties.has(global.properties.modifier_multi) :
 			payload.set_property(global.properties.modifier_multi, pickup_properties[global.properties.modifier_multi])

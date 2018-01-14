@@ -30,7 +30,7 @@ func _fixed_process(delta) :
 	if timer and progress:
 		progress.set_value(timer.get_time_left() / timer.get_wait_time() * 100)
 		set_rot(get_parent().get_global_rot() * -1)
-		var payload_count = count_payloads() - 1
+		var payload_count = get_own_payload_position() - 1
 		progress.set_pos(Vector2(progress.get_pos().x, 60 + progress.get_size().height * payload_count))
 
 
@@ -56,13 +56,27 @@ func _on_timer_modifier_timeout():
 	# merges properties from all sub-nodes
 	parent.properties = interface.collect_properties(parent)
 
-
-# counts how many payloads a certain node has
+# goes through all payloads of parent and
+# returns position of current payload
 # used for positioning the progressbar
-func count_payloads():
+func get_own_payload_position():
 	var parent = get_parent()
 	var payload_count = 0
+	var payload_current = 0
 	for child in parent.get_children():
 		if "payload" in child.get_name():
 			payload_count += 1
-	return payload_count
+		# get own position in payload list
+		if child == self:
+			payload_current = payload_count
+	return payload_current
+
+
+func revamp_progress(color):
+	var progress = get_node("progress_modifer")
+	var stylebox = StyleBoxFlat.new()
+	#var v2 = Vector2()
+	stylebox.set_bg_color(color)
+	#progress.get("custom_styles/fg").set_bg_color(color)
+	#progress.draw_style_box(stylebox)
+	progress.set('custom_styles/fg', stylebox)

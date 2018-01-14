@@ -2,8 +2,8 @@ extends Area2D
 
 var properties = {}
 var properties_base = {
-		# weapon, modifier, passenger, goods, bomb
-		global.properties.pickup_type: 1,
+		# modifier, weapon, passenger, goods, bomb
+		global.properties.pickup_type: global.pickup_types.modifier,
 		# pickup lasts seconds
 		global.properties.pickup_duration: 30,
 		# modifier lasts seconds
@@ -60,7 +60,9 @@ func set_random_modifier():
 	]
 	var property_modifier_pool = [
 		global.properties.modifier_multi,
-		global.properties.modifier_add,
+		# problem: there is not validation range for possible values
+		# will end up e.g. with rotation_speed < 0
+		#global.properties.modifier_add,
 	]
 
 	var p_index = randi() % property_pool.size()
@@ -68,9 +70,15 @@ func set_random_modifier():
 
 	var value;
 	if property_modifier_pool[m_index] == global.properties.modifier_multi:
-		value = rand_range(0.8, 2.8)
+		value = rand_range(0.8, 2.0)
 	else:
 		value = rand_range(-5, 5)
+
+	#this will recolor all progressbars -
+	if(value < 1) :
+		get_node("collectable/payload").revamp_progress(Color("#f86847"))
+	#else:
+	#	get_node("collectable/payload").revamp_progress(Color("#30f030"))
 
 	properties_base[property_modifier_pool[m_index]] = {
 		property_pool[p_index]: value
