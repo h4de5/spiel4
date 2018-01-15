@@ -3,9 +3,7 @@ extends "res://game/ship/baseship.gd"
 
 func _ready():
 
-#	properties_base[global.properties.modifier_add] = {
-#		global.properties.movement_speed_forward: 100,
-#	}
+
 
 	# merges properties from all sub-nodes
 #	properties = interface.collect_properties(self)
@@ -21,6 +19,10 @@ func _ready():
 	fix_collision_shape()
 
 func initialize() :
+
+	properties_base[global.properties.modifier_add] = {
+		global.properties.movement_speed_forward: 1000,
+	}
 
 	# add to group player
 	add_to_group(global.groups.player)

@@ -10,7 +10,7 @@ func _ready():
 
 	for i in range(1): spawn_enemy()
 
-	#for i in range(1): spawn_tower()
+	for i in range(1): spawn_tower()
 
 	for i in range(2): spawn_pickup()
 

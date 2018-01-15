@@ -36,9 +36,9 @@ func _fixed_process(delta) :
 		var ownpos = parent.get_pos();
 		var ownrot = parent.get_rot();
 		# TODO check if this and targetangle def change have worked
-		#var ownvec = Vector2(sin(ownrot), cos(ownrot))*-1
+		var ownvec = Vector2(sin(ownrot), cos(ownrot))*-1
 		# moving vector according to rotation
-		var ownvec = Vector2(sin(ownrot), cos(ownrot))
+		#var ownvec = Vector2(sin(ownrot), cos(ownrot))
 
 		# target position, rotation and vector
 		# node
@@ -71,8 +71,8 @@ func _fixed_process(delta) :
 				moveable.handle_action( global.actions.accelerate, false )
 
 			# where do i have to turn to?
-			#var targetangle = moving_vector.angle_to(ownvec)
-			var targetangle = ownvec.angle_to(moving_vector)
+			var targetangle = moving_vector.angle_to(ownvec)
+			#var targetangle = ownvec.angle_to(moving_vector)
 
 			#print("ai movment angle", angle)
 			if (targetangle > parent.get_property(global.properties.clearance_rotation)) :
@@ -96,6 +96,21 @@ func _fixed_process(delta) :
 			# get target position
 			targetpos = target_shootat.get_pos()
 
+			# get projected position of player
+			# add velocity
+			#targetpos = targetpos + target_shootat.get_linear_velocity()
+
+			# correcting distance and bullet speed
+			# je weiter weg und je langsamer die kugel
+			# desto höher muss der anpassungsvector sein
+			var bulletspeed = parent.get_property(global.properties.bullet_speed)
+			var targetdistance = ownpos.distance_to(targetpos)
+			var adjustmentvec = target_shootat.get_linear_velocity()
+			adjustmentvec = adjustmentvec * targetdistance / bulletspeed
+			targetpos = targetpos + adjustmentvec
+			# make target visible
+			#target_shootat.get_node("projected").set_global_pos(targetpos)
+
 			# own position to target vector2
 			var shooting_vector = (targetpos - ownpos).normalized()
 
@@ -114,6 +129,7 @@ func _fixed_process(delta) :
 			#var weapon = parent.get_node("weapons_selector").get_active_weapon()
 
 			var weaponrot = weapon.get_weapon_rotation()
+
 			var weaponvec = Vector2(sin(weaponrot), cos(weaponrot))*-1
 			var targetangle = shooting_vector.angle_to(weaponvec)
 			#var weaponvec = Vector2(sin(weaponrot), cos(weaponrot))
@@ -134,6 +150,8 @@ func _fixed_process(delta) :
 					#print ("raycast_hits ", raycast_hits.collider.get_name())
 					if not raycast_hits.collider.is_in_group(global.groups.enemy) :
 						shoot = true
+				else:
+					shoot = true
 
 			if shoot :
 				shootable.handle_action( global.actions.fire, true)
