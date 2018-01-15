@@ -99,8 +99,10 @@ func is_collectable(node, recursive= true):
 func is_adjustable(node, recursive= true):
 	return is_able(node, "adjustable", recursive)
 
+# deals damage when colliding
 func is_collidable(node, recursive= true):
 	return is_able(node, "collidable", recursive)
 
+# deals damage when destroyed
 func is_explodeable(node, recursive= true):
 	return is_able(node, "explodeable", recursive)

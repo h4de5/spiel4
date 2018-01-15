@@ -36,6 +36,10 @@ func _ready():
 	#print("baseship _ready - end ", get_name())
 
 func initialize() :
+
+	# register to locator
+	object_locator.register_ship(self)
+
 	#set_fixed_process(true)
 	set_max_contacts_reported(4)
 
@@ -54,7 +58,7 @@ func initialize() :
 
 # called to reset a position, usually after initialize
 func reset_position() :
-	set_pos(get_node(global.scene_tree_ship_locator).get_random_pos(800, [self]))
+	set_pos(object_locator.get_random_pos(800, [self]))
 	set_rot(PI * rand_range(1,3)/2)
 
 # get all different properties from this ship
@@ -99,7 +103,7 @@ func fix_collision_shape():
 
 func destroy(destroyer):
 	#get_node("destroyable").destroy(destroyer)
-	get_node(global.scene_tree_ship_locator).free_ship(self)
+	object_locator.free_ship(self)
 	# free is called in destroyable
 
 func processCollision(obstacle):

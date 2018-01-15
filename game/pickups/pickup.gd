@@ -14,6 +14,9 @@ var collectable = null
 func _ready():
 	#set_fixed_process(true)
 
+	# add to correct group
+	add_to_group(global.groups.pickup)
+
 	set_random_modifier()
 	# merges properties from all sub-nodes
 	properties = interface.collect_properties(self)
@@ -35,16 +38,19 @@ func get_property(type) :
 
 func initialize():
 	collectable = interface.is_collectable(self)
+	# register to locator
+	object_locator.register_object(self)
 
 func reset_position():
-	set_pos(get_node(global.scene_tree_ship_locator).get_random_pos(500, [self]))
-
+	set_pos(object_locator.get_random_pos(500, [self]))
 
 func collected(reason):
+	#get_node("destroyable").destroy(destroyer)
+	object_locator.free_object(self)
+
 	# free is called in collectable
 	# spawn another pickup
 	get_node(global.scene_tree_game).spawn_pickup()
-
 
 func set_random_modifier():
 	randomize()

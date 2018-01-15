@@ -97,5 +97,5 @@ func _fixed_process(delta) :
 	# zoom can only change if camera2d is available
 	# NO LONGER IN USE - DONE IN ship_locator
 	if zoom_speed != 0:
-		parent.get_node(global.scene_tree_ship_locator).set_camera_zoom(zoom)
+		object_locator.set_camera_zoom(zoom)
 		zoom_speed = 0

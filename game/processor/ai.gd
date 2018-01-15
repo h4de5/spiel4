@@ -32,81 +32,139 @@ func _fixed_process(delta) :
 	delta_count += delta
 	if delta_count > delta_max :
 
-		var player
-		var playerpos
+		# current object position
 		var ownpos = parent.get_pos();
 		var ownrot = parent.get_rot();
-		#var moveable = interface.is_moveable(parent)
-		var forwardvec
-		var angle
-		var playervec
+		# TODO check if this and targetangle def change have worked
+		#var ownvec = Vector2(sin(ownrot), cos(ownrot))*-1
+		# moving vector according to rotation
+		var ownvec = Vector2(sin(ownrot), cos(ownrot))
 
-		player = get_node(global.scene_tree_ship_locator).get_next_player( ownpos, ownrot )
-		if (player) :
+		# target position, rotation and vector
+		# node
+		var target_moveto
+		# node
+		var target_shootat
+		# vector2
+		var targetpos
+		# where should the current not be moved to
+		# vector2
+		var moving_vector
 
-			playerpos = player.get_pos()
-			playervec = (playerpos - ownpos).normalized()
+		if moveable :
+			target_moveto = find_target_moveto( ownpos, ownrot )
 
-			if moveable:
-				forwardvec = Vector2(sin(ownrot), cos(ownrot))*-1
-				angle = playervec.angle_to(forwardvec)
+		if shootable:
+			target_shootat = find_target_shootat( ownpos, ownrot )
 
-				#print("ai movment angle", angle)
-				if (angle > parent.get_property(global.properties.clearance_rotation)) :
-					moveable.handle_action( global.actions.right, true )
-				elif (angle < -parent.get_property(global.properties.clearance_rotation)) :
-					moveable.handle_action( global.actions.left, true )
-				else :
-					moveable.handle_action( global.actions.right, false )
-					moveable.handle_action( global.actions.left, false )
+		if target_moveto :
 
-			if shootable:
-				# HACK TODO - AI should not call handle_mousemove
-				shootable.handle_mousemove(playerpos)
+			# get target position
+			targetpos = target_moveto.get_pos()
+			# own position to target vector2
+			# if set,
+			moving_vector = (targetpos - ownpos).normalized()
 
-				# stop accelerating if AI is too close
-				if ownpos.distance_to(playerpos) < parent.get_property(global.properties.bullet_range) * 1/2:
-					forwardvec = Vector2(0,0)
-
-				#var weapon = parent.get_node("weapons_selector").get_active_weapon()
-
-				var target_rot = weapon.get_weapon_rotation()
-				var weaponvec = Vector2(sin(target_rot), cos(target_rot))*-1
-				angle = playervec.angle_to(weaponvec)
-
-				# weapon adjustment
-				if (abs(angle) < parent.get_property(global.properties.clearance_rotation) and
-					ownpos.distance_to(playerpos) < parent.get_property(global.properties.bullet_range)) :
-
-					# shoot only when there is no other enemy in between
-					# In code, for 2D spacestate, this code must be used:
-					var space_state = parent.get_world_2d().get_direct_space_state()
-					# use global coordinates, not local to node
-					var raycast_hits = space_state.intersect_ray( ownpos, playerpos, [parent])
-					if not raycast_hits.empty():
-						#print ("raycast_hits ", raycast_hits.collider.get_name())
-						if not raycast_hits.collider.is_in_group(global.groups.enemy) :
-							shootable.handle_action( global.actions.fire, true )
-				else :
-					shootable.handle_action( global.actions.fire, false )
-
-			if moveable:
-				if (forwardvec != null and forwardvec != Vector2(0,0)) :
-					moveable.handle_action( global.actions.accelerate, true )
-				else :
-					moveable.handle_action( global.actions.accelerate, false )
-
-			#set_angular_velocity(angle)
-			#apply_impulse(Vector2(0,0), forwardvec)
-		else:
-			if moveable:
+			if moving_vector != null :
+				moveable.handle_action( global.actions.accelerate, true )
+			elif moveable:
 				moveable.handle_action( global.actions.accelerate, false )
-				moveable.handle_action( global.actions.back, false )
-				moveable.handle_action( global.actions.left, false )
-				moveable.handle_action( global.actions.right, false )
 
-			if shootable:
-				shootable.handle_action( global.actions.target_left, false )
-				shootable.handle_action( global.actions.target_right, false )
+			# where do i have to turn to?
+			#var targetangle = moving_vector.angle_to(ownvec)
+			var targetangle = ownvec.angle_to(moving_vector)
+
+			#print("ai movment angle", angle)
+			if (targetangle > parent.get_property(global.properties.clearance_rotation)) :
+				moveable.handle_action( global.actions.right, true )
+			elif (targetangle < -parent.get_property(global.properties.clearance_rotation)) :
+				moveable.handle_action( global.actions.left, true )
+			else :
+				moveable.handle_action( global.actions.right, false )
+				moveable.handle_action( global.actions.left, false )
+
+		elif moveable:
+			moveable.handle_action( global.actions.accelerate, false )
+			moveable.handle_action( global.actions.back, false )
+			moveable.handle_action( global.actions.left, false )
+			moveable.handle_action( global.actions.right, false )
+
+		if target_shootat :
+
+			var bulletrange = parent.get_property(global.properties.bullet_range)
+
+			# get target position
+			targetpos = target_shootat.get_pos()
+
+			# own position to target vector2
+			var shooting_vector = (targetpos - ownpos).normalized()
+
+			# HACK TODO - AI should not call handle_mousemove
+			shootable.handle_mousemove(targetpos)
+
+			# stop accelerating if AI is too close
+			# only when moving and shooting target are the same
+			if (moving_vector != null and
+				target_moveto == target_shootat and
+				ownpos.distance_to(targetpos) < bulletrange * 2/3):
+
+				moving_vector = null
+				moveable.handle_action( global.actions.accelerate, false )
+
+			#var weapon = parent.get_node("weapons_selector").get_active_weapon()
+
+			var weaponrot = weapon.get_weapon_rotation()
+			var weaponvec = Vector2(sin(weaponrot), cos(weaponrot))*-1
+			var targetangle = shooting_vector.angle_to(weaponvec)
+			#var weaponvec = Vector2(sin(weaponrot), cos(weaponrot))
+			#var targetangle = weaponvec.angle_to(shooting_vector)
+
+			var shoot = false
+
+			# weapon adjustment
+			if (abs(targetangle) < parent.get_property(global.properties.clearance_rotation) and
+				ownpos.distance_to(targetpos) < bulletrange) :
+
+				# shoot only when there is no other enemy in between
+				# In code, for 2D spacestate, this code must be used:
+				var space_state = parent.get_world_2d().get_direct_space_state()
+				# use global coordinates, not local to node
+				var raycast_hits = space_state.intersect_ray( ownpos, targetpos, [parent])
+				if not raycast_hits.empty():
+					#print ("raycast_hits ", raycast_hits.collider.get_name())
+					if not raycast_hits.collider.is_in_group(global.groups.enemy) :
+						shoot = true
+
+			if shoot :
+				shootable.handle_action( global.actions.fire, true)
+			else:
 				shootable.handle_action( global.actions.fire, false )
 
+		elif shootable:
+			shootable.handle_action( global.actions.target_left, false )
+			shootable.handle_action( global.actions.target_right, false )
+			shootable.handle_action( global.actions.fire, false )
+
+
+
+
+func find_target_moveto( ownpos, ownrot ):
+	var pickup
+	pickup = object_locator.get_next_object( global.groups.pickup, ownpos, ownrot )
+
+	# if there is a pickup nearby, go there
+	if pickup and ownpos.distance_to(pickup.get_pos()) < 400:
+		return pickup
+
+	var player
+	# only go for players in range
+	player = object_locator.get_next_player( ownpos, ownrot )
+	if player and ownpos.distance_to(player.get_pos()) < 2000:
+		return player
+
+func find_target_shootat( ownpos, ownrot ):
+	var player
+	# only go for players in range
+	player = object_locator.get_next_player( ownpos, ownrot )
+	if player and ownpos.distance_to(player.get_pos()) < 1500:
+		return player

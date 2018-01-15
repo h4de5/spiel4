@@ -26,7 +26,7 @@ func initialize() :
 	add_to_group(global.groups.player)
 
 	# register to locator
-	get_node(global.scene_tree_ship_locator).register_ship(self)
+	#object_locator.register_ship(self)
 
 	# call baseship init
 	.initialize()

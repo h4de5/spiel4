@@ -39,7 +39,7 @@ func spawn_tower():
 func spawn_pickup():
 	var scn = load(global.scene_path_pickup)
 	var node = scn.instance()
-	get_node("ships").add_child(node, true)
+	get_node("objects").add_child(node, true)
 
 
 	# http://www.gamefromscratch.com/post/2015/02/23/Godot-Engine-Tutorial-Part-6-Multiple-Scenes-and-Global-Variables.aspx
