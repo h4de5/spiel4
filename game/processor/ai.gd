@@ -65,10 +65,11 @@ func _fixed_process(delta) :
 			# if set,
 			moving_vector = (targetpos - ownpos).normalized()
 
-			if moving_vector != null :
-				moveable.handle_action( global.actions.accelerate, true )
-			elif moveable:
-				moveable.handle_action( global.actions.accelerate, false )
+			# moved after clearance check
+#			if moving_vector != null :
+#				moveable.handle_action( global.actions.accelerate, true )
+#			elif moveable:
+#				moveable.handle_action( global.actions.accelerate, false )
 
 			# where do i have to turn to?
 			var targetangle = moving_vector.angle_to(ownvec)
@@ -82,6 +83,9 @@ func _fixed_process(delta) :
 			else :
 				moveable.handle_action( global.actions.right, false )
 				moveable.handle_action( global.actions.left, false )
+				# only accelerate if ship is directed towards user,
+				# prevent never ending spiral
+				moveable.handle_action( global.actions.accelerate, true )
 
 		elif moveable:
 			moveable.handle_action( global.actions.accelerate, false )
