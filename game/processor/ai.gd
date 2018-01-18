@@ -3,7 +3,7 @@
 extends "res://game/processor/processor.gd"
 
 var delta_count = 0
-var delta_max = 0.2
+var delta_max = 1
 var moveable = null
 var shootable = null
 var weapon = null
@@ -27,6 +27,7 @@ func initialize():
 	if shootable :
 		#weapon = parent.get_node("weapons_selector").get_active_weapon()
 		weapon = shootable.get_active_weapon()
+
 
 func _fixed_process(delta) :
 	delta_count += delta
@@ -149,11 +150,19 @@ func _fixed_process(delta) :
 				# In code, for 2D spacestate, this code must be used:
 				var space_state = parent.get_world_2d().get_direct_space_state()
 				# use global coordinates, not local to node
-				var raycast_hits = space_state.intersect_ray( ownpos, targetpos, [parent])
+				# 7 .. layer 1, 2 and 3 (binary 1+2+4)
+				var raycast_hits = space_state.intersect_ray( ownpos, targetpos, [parent], 7)
+
+				#draw_line.update_line(parent, ownpos, targetpos)
+
 				if not raycast_hits.empty():
-					#print ("raycast_hits ", raycast_hits.collider.get_name())
+					#print ("raycasts ", raycast_hits)
+
 					if not raycast_hits.collider.is_in_group(global.groups.enemy) :
 						shoot = true
+					else:
+						shoot = false
+					#print ("raycast from ", parent.get_name(), " would hit ", raycast_hits.collider.get_name(), " in groups ", raycast_hits.collider.get_groups(), " shoot ", shoot)
 				else:
 					shoot = true
 
@@ -166,8 +175,6 @@ func _fixed_process(delta) :
 			shootable.handle_action( global.actions.target_left, false )
 			shootable.handle_action( global.actions.target_right, false )
 			shootable.handle_action( global.actions.fire, false )
-
-
 
 
 func find_target_moveto( ownpos, ownrot ):

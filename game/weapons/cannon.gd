@@ -3,7 +3,7 @@ extends Node
 
 var properties_base = {
 	global.properties.bullet_speed: 800,
-	global.properties.bullet_strength: 50,
+	global.properties.bullet_strength: 5,
 	global.properties.bullet_wait: 0.3,
 	global.properties.bullet_range: 1000,
 	global.properties.weapon_rotation_speed: 1.5,

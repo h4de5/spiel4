@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=1]
 
 [ext_resource path="res://game/pickups/pickup.gd" type="Script" id=1]
-[ext_resource path="res://art/models/icon.png" type="Texture" id=2]
+[ext_resource path="res://game/pickups/pickup-icon.png" type="Texture" id=2]
 [ext_resource path="res://game/interfaces/collectable.tscn" type="PackedScene" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -23,6 +23,7 @@ script/script = ExtResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
 
+transform/scale = Vector2( 0.223494, 0.223494 )
 texture = ExtResource( 2 )
 modulate = Color( 0.851563, 0.701536, 0.0166321, 1 )
 

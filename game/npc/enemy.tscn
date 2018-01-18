@@ -18,7 +18,13 @@ transform/pos = Vector2( -0.650269, 51.0113 )
 transform/scale = Vector2( 0.450653, 0.450653 )
 texture = ExtResource( 3 )
 
+[node name="Collision" parent="."]
+
+transform/pos = Vector2( 0.193718, 0 )
+polygon = Vector2Array( -0.602623, -51.4763, 17.2189, -13.1213, 53.2493, 32.0136, 2.10935, 45.186, -52.9049, 31.8199, -17.0681, -10.9905 )
+shape_range = Vector2( 0, 2 )
+
 
 [editable path="destroyable"]
 [editable path="moveable"]
-[editable path="weapons_selector/cannon"]
+[editable path="shootable"]

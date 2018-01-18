@@ -22,8 +22,8 @@ func initialize():
 	if not is_destroyable():
 		return
 
-#	var health_scn = load(global.scene_path_healthbar)
-#	health_node = health_scn.instance()
+	#var health_scn = load(global.scene_path_healthbar)
+	#health_node = health_scn.instance()
 #	parent.get_parent().add_child(health_node)
 #	#parent.get_parent().call_deferred("add_child", health_node, true)
 #	health_node.set_owner(parent)
@@ -47,6 +47,7 @@ func _fixed_process(delta):
 			else :
 				var health_max = parent.get_property(global.properties.health_max)
 				var health = parent.get_property(global.properties.health)
+
 				if health < 0:
 					health = 0
 				if health > health_max:

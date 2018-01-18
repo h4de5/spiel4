@@ -9,7 +9,7 @@
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
-extents = Vector2( 28.0993, 28.5971 )
+extents = Vector2( 30.958, 31.8102 )
 
 [node name="Tower" type="RigidBody2D"]
 
@@ -17,8 +17,8 @@ input/pickable = false
 shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = false
-collision/layers = 1
-collision/mask = 1
+collision/layers = 4
+collision/mask = 15
 mode = 0
 mass = 1.0
 friction = 1.0
@@ -46,7 +46,7 @@ script/script = ExtResource( 1 )
 
 texture = ExtResource( 5 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="Collision" type="CollisionShape2D" parent="."]
 
 shape = SubResource( 1 )
 trigger = false

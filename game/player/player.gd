@@ -2,9 +2,7 @@
 extends "res://game/ship/baseship.gd"
 
 func _ready():
-
-
-
+	print("ready player")
 	# merges properties from all sub-nodes
 #	properties = interface.collect_properties(self)
 
@@ -15,26 +13,21 @@ func _ready():
 #	properties[global.properties.weapon_rotation_speed] *= 2
 
 
-	#print("found properties player ", properties)
 	fix_collision_shape()
 
 func initialize() :
+	print("initialize player")
+	.initialize()
 
 	properties_base[global.properties.modifier_add] = {
 		global.properties.movement_speed_forward: 1000,
 	}
 
-	# add to group player
-	add_to_group(global.groups.player)
-
+	register_object(global.groups.player)
 	# register to locator
 	#object_locator.register_ship(self)
 
-	# call baseship init
-	.initialize()
-
 func destroy(destroyer):
-
 	var player_manager = get_node(global.scene_tree_player_manager)
 
 	if(has_node("processor_selector/Input")) :

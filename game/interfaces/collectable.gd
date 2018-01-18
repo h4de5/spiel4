@@ -16,7 +16,6 @@ func _ready():
 		global.properties.pickup_modifier_duration,
 	]
 
-
 	#set_fixed_process(true)
 	call_deferred("initialize")
 
@@ -31,11 +30,7 @@ func initialize():
 
 	get_node("payload/progress_modifer").hide()
 
-#func _fixed_process(delta) :
-#	pass
-
 func process_collect(body):
-	#print("something entered pickup body ", body)
 	collect(body)
 
 func collect(body):
