@@ -151,17 +151,18 @@ func _fixed_process(delta) :
 				var space_state = parent.get_world_2d().get_direct_space_state()
 				# use global coordinates, not local to node
 				# 7 .. layer 1, 2 and 3 (binary 1+2+4)
-				var raycast_hits = space_state.intersect_ray( ownpos, targetpos, [parent], 7)
+
+				var collision_settings = global.collision_layer_masks[parent.main_group]
+				var raycast_hits = space_state.intersect_ray( ownpos, targetpos, [parent], collision_settings[1])
 
 				#draw_line.update_line(parent, ownpos, targetpos)
 
 				if not raycast_hits.empty():
 					#print ("raycasts ", raycast_hits)
 
-					if not raycast_hits.collider.is_in_group(global.groups.enemy) :
+					#if not raycast_hits.collider.is_in_group(global.groups.npc) :
+					if raycast_hits.collider.is_in_group(global.groups.player) :
 						shoot = true
-					else:
-						shoot = false
 					#print ("raycast from ", parent.get_name(), " would hit ", raycast_hits.collider.get_name(), " in groups ", raycast_hits.collider.get_groups(), " shoot ", shoot)
 				else:
 					shoot = true

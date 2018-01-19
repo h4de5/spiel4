@@ -2,6 +2,7 @@ extends RigidBody2D
 
 var properties
 var properties_base = Dictionary()
+var main_group
 
 # call order:
 # ready base
@@ -26,11 +27,23 @@ func initialize() :
 func reset_position() :
 	set_pos(object_locator.get_random_pos(800, [self]))
 
+# adds object to specific group, add its to the object_locator
+# and sets collision layers and mask
 func register_object(group):
+
+	main_group = group
 	# add to group player
 	add_to_group(group)
 	# register to locator
 	object_locator.register_object(self)
+	# returns array with mask and layer
+	var collision_settings = global.collision_layer_masks[group]
+
+	# missing documentation about those two methods
+	# [0] .. should be collision.layers (on which layer is the object)
+	# [1] .. should be collision.mask (with which layers can the object collide)
+	set_collision_mask(collision_settings[0])
+	set_layer_mask(collision_settings[1])
 
 func destroy(destroyer):
 	pass
@@ -50,7 +63,7 @@ func set_property(type, value):
 
 # not yet in use
 func process_collision(obstacle):
-	if(obstacle.is_in_group(global.groups.enemy) or obstacle.is_in_group(global.groups.player)) :
+	if(obstacle.is_in_group(global.groups.npc) or obstacle.is_in_group(global.groups.player)) :
 		var obstacle_vel = obstacle.get_linear_velocity()
 		var impact = get_linear_velocity().dot(obstacle_vel);
 		#print("processCollision ", obstacle.get_name(), obstacle_vel, get_linear_velocity(), impact)
@@ -59,7 +72,7 @@ func process_collision(obstacle):
 		#if health_obj.getHealth() <= 0:
 		#	get_tree().change_scene(global.scene_path_gameover)
 		# process impact on obstacle
-		obstacle.processCollision(impact)
+		#obstacle.process_collision(impact)
 
 		# now about where we hit it
 		var player_pos = get_pos()

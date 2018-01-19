@@ -14,6 +14,8 @@ func _ready():
 
 	for i in range(2): spawn_pickup()
 
+	for i in range(2): spawn_object(global.scene_path_asteroid, "objects")
+
 
 	# Background node
 	# player_manager node
@@ -41,6 +43,10 @@ func spawn_pickup():
 	var node = scn.instance()
 	get_node("objects").add_child(node, true)
 
+func spawn_object(scnpath, group):
+	var scn = load(scnpath)
+	var node = scn.instance()
+	get_node(group).add_child(node, true)
 
 	# http://www.gamefromscratch.com/post/2015/02/23/Godot-Engine-Tutorial-Part-6-Multiple-Scenes-and-Global-Variables.aspx
 #

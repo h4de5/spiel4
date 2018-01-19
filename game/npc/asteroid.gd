@@ -17,16 +17,16 @@ func initialize() :
 	set_mass(500)
 	set_weight(500)
 	set_friction(1)
-	set_bounce(1.0)
+	set_bounce(5.0)
 	set_gravity_scale(0)
 	set_linear_damp(5)
 	set_angular_damp(4)
 
 	# register to locator
 	# add to group enemy
-	register_object(global.groups.npc)
+	register_object(global.groups.obstacle)
 	# make the AI stear it
-	get_node('processor_selector').set_processor("AI")
+	#get_node('processor_selector').set_processor("AI")
 
 
 # called to reset a position, usually after initialize
@@ -37,4 +37,4 @@ func destroy(destroyer):
 	#get_node("destroyable").destroy(destroyer)
 	object_locator.free_ship(self)
 	# free is called in destroyable
-	get_node(global.scene_tree_game).spawn_tower()
+	get_node(global.scene_tree_game).spawn_object(global.scene_path_asteroid, "objects")

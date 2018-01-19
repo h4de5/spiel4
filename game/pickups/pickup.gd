@@ -41,6 +41,14 @@ func initialize():
 	# register to locator
 	object_locator.register_object(self)
 
+	var collision_settings = global.collision_layer_masks[global.groups.pickup]
+
+	# missing documentation about those two methods
+	# [0] .. should be collision.layers (on which layer is the object)
+	# [1] .. should be collision.mask (with which layers can the object collide)
+	set_collision_mask(collision_settings[0])
+	set_layer_mask(collision_settings[1])
+
 func reset_position():
 	set_pos(object_locator.get_random_pos(500, [self]))
 

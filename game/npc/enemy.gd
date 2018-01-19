@@ -9,7 +9,7 @@ func initialize() :
 	.initialize()
 
 	# add to group enemy
-	register_object(global.groups.enemy)
+	register_object(global.groups.npc)
 
 	# make the AI stear it
 	get_node('processor_selector').set_processor("AI")

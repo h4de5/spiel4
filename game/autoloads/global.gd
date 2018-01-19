@@ -5,6 +5,7 @@ extends Node
 const scene_path_player 	= "res://game/player/player.tscn"
 const scene_path_enemy 		= "res://game/npc/enemy.tscn"
 const scene_path_tower 		= "res://game/npc/tower.tscn"
+const scene_path_asteroid	= "res://game/npc/asteroid.tscn"
 const scene_path_pickup		= "res://game/pickups/pickup.tscn"
 const scene_path_game 		= "res://game/main/game.tscn"
 const scene_path_gameover 	= "res://game/scenes/gameover.tscn"
@@ -22,13 +23,24 @@ const scene_tree_camera 		= "/root/Game/Camera"
 
 
 var groups = {
-	player= "player",
-	enemy= "enemy",
-	obstacle= "obstacle",
-	pickup= "pickup",
-	bullet= "bullet",
-	missle= "missle"
+	player		= "player",
+	npc			= "npc",
+	obstacle	= "obstacle",
+	pickup 		= "pickup",
+	bullet 		= "bullet",
+	missle 		= "missle"
 }
+
+var collision_layer_masks = {
+	player		= [1, 1+2+4+8+16+32],
+	npc 		= [2, 1+2+4+8+16+32],
+	obstacle 	= [4, 1+2+4+16+32],
+	pickup 		= [8, 1+2],
+	bullet 		= [16, 1+2+4+32],
+	missle 		= [32, 1+2+4+16+32],
+}
+
+
 
 var properties = {
 	# moveable

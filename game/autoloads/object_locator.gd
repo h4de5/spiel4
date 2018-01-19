@@ -5,7 +5,7 @@ var objects_registered = {}
 
 var camera_focus_on_group = [
 	global.groups.player,
-	global.groups.enemy,
+	global.groups.npc,
 	#global.groups.pickup
 ]
 
