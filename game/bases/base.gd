@@ -47,6 +47,8 @@ func register_object(group):
 
 func destroy(destroyer):
 	pass
+func collected(reason):
+	pass
 
 # get all different properties from this ship
 func get_property(type) :
@@ -78,7 +80,7 @@ func process_collision(obstacle):
 		var player_pos = get_pos()
 		var obstacle_pos = obstacle.get_pos()
 		var hit_position = player_pos - obstacle_pos
-		print("hitpos: ", player_pos.normalized())
+		#print("hitpos: ", player_pos.normalized())
 
 		"""
 		var raycast = RayCast(obstacle_pos)

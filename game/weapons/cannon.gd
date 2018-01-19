@@ -6,8 +6,8 @@ var properties_base = {
 	global.properties.bullet_strength: 50,
 	global.properties.bullet_wait: 0.4,
 	global.properties.bullet_range: 1000,
-	global.properties.weapon_rotation_speed: 1.5,
-	global.properties.clearance_rotation: 0.05,
+	global.properties.weapon_rotation_speed: 2.5,
+	global.properties.clearance_rotation: 0.02,
 }
 
 var bullet
@@ -17,16 +17,6 @@ func _ready():
 	bullet = get_node("bullet")
 	remove_child(bullet)
 	activated = true
-
-# get all different properties from this ship
-#func get_property(type) :
-#	# if null, return all properties
-#	if (type == null) :
-#		return properties_base
-#	if (type in properties_base) :
-#		return properties_base[type]
-#	else :
-#		return null
 
 func is_activated():
 	return activated

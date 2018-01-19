@@ -34,7 +34,6 @@ func process_collect(body):
 	collect(body)
 
 func collect(body):
-
 	if body.is_in_group(global.groups.player) or body.is_in_group(global.groups.npc):
 		#var body_properties = body.get_property(null)
 
