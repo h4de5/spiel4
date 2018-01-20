@@ -1,6 +1,5 @@
 extends "res://game/bases/base.gd"
 
-# baseship._ready > player.init > baseship.init > player._ready
 func _ready():
 	# only to be called in inherited classes
 	fix_collision_shape()
@@ -16,8 +15,8 @@ func initialize() :
 
 	set_mass(5000)
 	set_weight(5000)
-	set_friction(1)
-	set_bounce(5.0)
+	set_bounce(0.0)
+	set_friction(0)
 	set_gravity_scale(0)
 	set_linear_damp(0)
 	set_angular_damp(0)
@@ -43,3 +42,6 @@ func destroy(destroyer):
 	object_locator.free_ship(self)
 	# free is called in destroyable
 	get_node(global.scene_tree_game).spawn_object(global.scene_path_asteroid, "objects")
+
+func hit(power, hitter):
+	resizeable(1.1)

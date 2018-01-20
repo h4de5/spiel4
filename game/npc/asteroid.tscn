@@ -1,20 +1,19 @@
-[gd_scene load_steps=6 format=1]
+[gd_scene load_steps=5 format=1]
 
 [ext_resource path="res://game/npc/asteroid.gd" type="Script" id=1]
 [ext_resource path="res://game/interfaces/destroyable.tscn" type="PackedScene" id=2]
-[ext_resource path="res://game/interfaces/moveable.tscn" type="PackedScene" id=3]
-[ext_resource path="res://game/npc/asteroid-icon.png" type="Texture" id=4]
+[ext_resource path="res://game/npc/asteroid-icon.png" type="Texture" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
 
 custom_solver_bias = 0.0
-radius = 20.5196
+radius = 113.288
 
 [node name="Asteroid" type="RigidBody2D"]
 
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 5.35386, -0.00162436, 0.00162436, 5.35386, 0, 0 )
+shapes/0/transform = Matrix32( 1, -0.000303401, 0.000303401, 1, 0, 0 )
 shapes/0/trigger = false
 collision/layers = 2
 collision/mask = 15
@@ -41,25 +40,17 @@ script/script = ExtResource( 1 )
 
 visibility/visible = false
 
-[node name="moveable" parent="." instance=ExtResource( 3 )]
-
-[node name="particle_forward" parent="moveable"]
-
-visibility/visible = false
-
 [node name="Sprite" type="Sprite" parent="."]
 
 transform/scale = Vector2( 1.34653, 1.34653 )
-texture = ExtResource( 4 )
+texture = ExtResource( 3 )
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 
 transform/rot = 0.0173836
-transform/scale = Vector2( 5.35386, 5.35386 )
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
 
 
 [editable path="destroyable"]
-[editable path="moveable"]

@@ -10,6 +10,10 @@ script/script = ExtResource( 1 )
 
 [node name="board" parent="." instance=ExtResource( 2 )]
 
+[node name="ParallaxBackground" parent="board"]
+
+editor/display_folded = true
+
 [node name="player_manager" type="Node" parent="."]
 
 script/script = ExtResource( 3 )
@@ -21,3 +25,4 @@ script/script = ExtResource( 3 )
 [node name="objects" type="Node" parent="."]
 
 
+[editable path="board"]

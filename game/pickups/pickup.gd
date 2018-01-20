@@ -1,7 +1,20 @@
-extends Area2D
+extends "res://game/bases/basearea.gd"
 
-var properties = {}
-var properties_base = {
+
+var collectable = null
+
+func _ready():
+	# only to be called in inherited classes
+	fix_collision_shape()
+
+	# generate random modifiers
+	set_random_modifier()
+	# merges properties from all sub-nodes
+	properties = interface.collect_properties(self)
+
+func initialize() :
+	.initialize()
+	properties_base = {
 		# modifier, weapon, passenger, goods, bomb
 		global.properties.pickup_type: global.pickup_types.modifier,
 		# pickup lasts seconds
@@ -9,53 +22,16 @@ var properties_base = {
 		# modifier lasts seconds
 		global.properties.pickup_modifier_duration: 50,
 	}
-var collectable = null
 
-func _ready():
-	#set_fixed_process(true)
-
-	# add to correct group
-	add_to_group(global.groups.pickup)
-
-	set_random_modifier()
-	# merges properties from all sub-nodes
-	properties = interface.collect_properties(self)
-
-	reset_position()
-	call_deferred("initialize")
-
-
-# get all different properties from this ship
-func get_property(type) :
-	# if null, return all properties
-	if (type == null) :
-		return properties
-	if (type in properties) :
-		return properties[type]
-	else :
-		return null
-
-
-func initialize():
-	collectable = interface.is_collectable(self)
 	# register to locator
-	object_locator.register_object(self)
+	# add to group enemy
+	register_object(global.groups.pickup)
 
-	var collision_settings = global.collision_layer_masks[global.groups.pickup]
-
-	# missing documentation about those two methods
-	# [0] .. should be collision.layers (on which layer is the object)
-	# [1] .. should be collision.mask (with which layers can the object collide)
-	set_collision_mask(collision_settings[0])
-	set_layer_mask(collision_settings[1])
-
-func reset_position():
-	set_pos(object_locator.get_random_pos(500, [self]))
+	collectable = interface.is_collectable(self)
 
 func collected(reason):
 	#get_node("destroyable").destroy(destroyer)
 	object_locator.free_object(self)
-
 	# free is called in collectable
 	# spawn another pickup
 	get_node(global.scene_tree_game).spawn_pickup()

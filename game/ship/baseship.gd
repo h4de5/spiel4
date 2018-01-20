@@ -3,12 +3,12 @@ extends "res://game/bases/base.gd"
 
 # baseship._ready > player.init > baseship.init > player._ready
 func _ready():
-	print("ready baseship")
+	#print("ready baseship")
 	# merges properties from all sub-nodes
 	properties = interface.collect_properties(self)
 
 func initialize() :
-	print("initialize baseship")
+	#print("initialize baseship")
 	.initialize()
 	properties_base = {
 		global.properties.movement_speed_forward: 4000,

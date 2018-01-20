@@ -60,13 +60,16 @@ func _fixed_process(delta):
 
 func destroy(destroyer):
 	# health_node is destroying itself
-	#if health_node != null:
-	#	health_node.queue_free()
+
 	if parent.has_method("destroy") :
 		parent.destroy(destroyer)
+
 	parent.queue_free()
 
 func heal(power, healer):
+	if parent.has_method("heal") :
+		parent.heal(power, healer)
+
 	var health
 	health = parent.get_property(global.properties.health) - power
 	health = min(health, parent.get_property(global.properties.health_max))
@@ -74,6 +77,9 @@ func heal(power, healer):
 
 
 func hit(power, hitter):
+	if parent.has_method("hit") :
+		parent.hit(power, hitter)
+
 	var health
 	health = parent.get_property(global.properties.health) - power
 	parent.set_property(global.properties.health, health)

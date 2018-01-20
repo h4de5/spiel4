@@ -2,7 +2,7 @@
 extends "res://game/ship/baseship.gd"
 
 func _ready():
-	print("ready player")
+	#print("ready player")
 	# merges properties from all sub-nodes
 #	properties = interface.collect_properties(self)
 
@@ -16,7 +16,7 @@ func _ready():
 	fix_collision_shape()
 
 func initialize() :
-	print("initialize player")
+	#print("initialize player")
 	.initialize()
 
 	properties_base[global.properties.modifier_add] = {
