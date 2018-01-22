@@ -16,7 +16,8 @@ func initialize() :
 		global.properties.ship_rotation_speed: 2,
 		global.properties.zoom_speed: 0.2,
 		global.properties.health_max: 1000,
-		global.properties.health: 1000
+		global.properties.health: 1000,
+		global.properties.body_scale: get_scale(),
 	}
 
 	set_mass(50)
@@ -36,3 +37,9 @@ func destroy(destroyer):
 	#get_node("destroyable").destroy(destroyer)
 	object_locator.free_ship(self)
 	# free is called in destroyable
+
+
+func _integrate_forces(state):
+	var resizeable = get_node("resizeable")
+	if resizeable.is_resizeable():
+		resizeable._integrate_forces(state)

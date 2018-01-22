@@ -23,7 +23,7 @@ func check_requirements():
 
 	if not parent or not parent.has_method("get_property"):
 		print("parent ", parent.get_name(), " (", parent,
-			") does not have get_property function to check for ",
+			") does not have get_property function to check for interface ",
 			self.get_name(), " (", self, ")")
 		ret = false
 	elif required_properties != null and required_properties.size() > 0:
@@ -31,7 +31,9 @@ func check_requirements():
 		if props != null and props.size() > 0:
 			for prop in required_properties :
 				if not props.has(prop):
-					print("parent ", parent, " is missing property ", prop)
+					print("parent ", parent.get_name(), " (", parent,
+						") does not have property * ", prop ," * to enable interface ",
+						self.get_name(), " (", self, ")")
 					ret = false
 
 	#print("isable check_requirements - end ", self.get_name(), " ok? ", ret)

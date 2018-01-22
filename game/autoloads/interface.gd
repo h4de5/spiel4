@@ -94,6 +94,9 @@ func is_destroyable(node, recursive= true):
 func is_collectable(node, recursive= true):
 	return is_able(node, "collectable", recursive)
 
+func is_resizeable(node, recursive= true):
+	return is_able(node, "resizeable", recursive)
+
 # for later
 
 func is_adjustable(node, recursive= true):

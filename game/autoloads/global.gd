@@ -70,6 +70,11 @@ var properties = {
 	# modifier
 	modifier_add = "modifier_add",
 	modifier_multi = "modifier_multi",
+
+	# resizeable bodies
+	body_scale = "body_scale",
+	body_scale_max = "body_scale_max",
+	body_scale_min = "body_scale_min",
 }
 
 # the following properties should not be reset on collecting

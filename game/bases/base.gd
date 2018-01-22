@@ -22,7 +22,6 @@ func initialize() :
 	set_max_contacts_reported(4)
 	connect("body_enter", self, "process_collision")
 	reset_position()
-	current_scale = get_scale()
 
 # called to reset a position, usually after initialize
 func reset_position() :
@@ -67,45 +66,6 @@ func get_property(type) :
 func set_property(type, value):
 	if (type in properties) :
 		properties[type] = value
-
-
-var current_scale
-
-# see bug https://github.com/godotengine/godot/issues/5734
-#func _integrate_forces(state):
-#	set_scale(current_scale)
-
-# resizing objects includeing collision shape .. does not work well
-func resizeable( scale) :
-	pass
-	# will be reset immidieatly
-	#set_scale(get_scale() * scale)
-	# will only resize sprite, but not collision
-	# current_scale *= scale
-#
-	# somehow works well, but multiply instances from same object
-	# seem to share the same collisionShape,
-	# therefor all of them get resized
-#	for i in range(get_shape_count()):
-#		print("shape #", i, " ", get_shape_transform(i), get_shape(i))
-#		var shape = get_shape(i)
-#		print("shape type: ", shape.get_type())
-#		# first we only support circleshaps
-#		if shape extends CircleShape2D:
-#			var shape_new = shape
-#			shape_new.set_radius(shape.get_radius() * scale)
-#			set_shape(i, shape_new)
-
-	# works fine for centered shaps
-#	for shape in get_children():
-#		if (not shape extends Sprite):
-#			continue
-#		shape.set_scale(shape.get_scale()*scale)
-
-#			# from internet - could work for rectangles
-#			var transform = shape.get_shape()
-#			var oldScale = transform.get_extents ()
-#			transform.set_extents(Vector2 (oldScale.x, oldScale.y - 40))
 
 
 # not yet in use

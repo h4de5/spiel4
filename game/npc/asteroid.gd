@@ -43,5 +43,4 @@ func destroy(destroyer):
 	# free is called in destroyable
 	get_node(global.scene_tree_game).spawn_object(global.scene_path_asteroid, "objects")
 
-func hit(power, hitter):
-	resizeable(1.1)
+
