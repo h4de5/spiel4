@@ -8,6 +8,7 @@
 [node name="processor_selector" type="Node"]
 
 script/script = ExtResource( 1 )
+use_processor = null
 
 [node name="Input" type="Node" parent="."]
 
@@ -20,5 +21,7 @@ script/script = ExtResource( 3 )
 [node name="AI" type="Node" parent="."]
 
 script/script = ExtResource( 4 )
+
+[connection signal="exit_tree" from="Input" to="Input" method="_on_Input_exit_tree"]
 
 

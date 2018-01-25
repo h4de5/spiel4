@@ -3,18 +3,20 @@ extends Node
 
 # holds information about the parent object - usually baseship
 var parent
-
-var processor
+var moveable = null
+var shootable = null
+#var processor
 #export(String, "none", "input", "ai", "network") var processor = "none"
 #export(PackedScene) var processor
 
 func _ready() :
-	parent = get_parent()
+	pass
+	#set_parent(get_parent())
 
-	if processor != null :
-		var processor_instance = processor.instance()
-		processor_instance.set_parent(parent)
-		add_child(processor_instance)
+	#if processor != null and processor != "none" :
+	#	var processor_instance = processor.instance()
+	#	processor_instance.set_parent(parent)
+	#	add_child(processor_instance)
 
 #	if processor != "none" :
 #
@@ -29,8 +31,17 @@ func _ready() :
 #	    processor_instance._ready()
 
 
-func set_processor(proc) :
-	processor = proc
+func set_parent(p) :
+	parent = p
+	call_deferred("initialize")
+
+func initialize():
+	if parent:
+		moveable = interface.is_moveable(parent)
+		shootable = interface.is_shootable(parent)
+
+#func set_processor(proc) :
+#	processor = proc
 
 func set_processor_details(device_details):
 	pass

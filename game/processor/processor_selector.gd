@@ -1,6 +1,10 @@
 # provides methods to select a specific processor for a baseship
 extends Node
 
+#var current_processor
+export(String, "none", "Input", "Network", "AI") var use_processor
+#export PackedScene current_processor
+#export(Array, PackedScene) var current_processor
 var current_processor
 var processor_input
 var processor_network
@@ -11,7 +15,10 @@ func _ready():
 	processor_network = get_node("Network")
 	processor_ai = get_node("AI")
 
-	remove_processor()
+	if use_processor:
+		set_processor(use_processor)
+	else:
+		remove_processor()
 
 func remove_processor() :
 	if has_node("Input"):
@@ -27,15 +34,17 @@ func set_processor(processor) :
 
 	if processor == "Input" :
 		current_processor = processor_input
-	if processor == "Network" :
+	elif processor == "Network" :
 		current_processor = processor_network
-	if processor == "AI" :
+	elif processor == "AI" :
 		current_processor = processor_ai
+	else:
+		current_processor = null
 
-	if(current_processor):
+	if current_processor :
+		use_processor = processor
 		add_child(current_processor)
-
-	current_processor.set_parent(get_parent())
+		current_processor.set_parent(get_parent())
 
 func set_processor_details(device_details):
 	if current_processor:
@@ -43,3 +52,4 @@ func set_processor_details(device_details):
 
 func get_processor() :
 	return current_processor
+

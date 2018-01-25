@@ -39,6 +39,7 @@ func destroy(destroyer):
 	# free is called in destroyable
 
 
+# used for resizing object :\
 func _integrate_forces(state):
 	var resizeable = get_node("resizeable")
 	if resizeable.is_resizeable():

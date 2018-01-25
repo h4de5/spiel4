@@ -42,6 +42,8 @@ script/script = ExtResource( 1 )
 
 [node name="processor_selector" parent="." instance=ExtResource( 4 )]
 
+use_processor = "AI"
+
 [node name="Sprite" type="Sprite" parent="."]
 
 texture = ExtResource( 5 )

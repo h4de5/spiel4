@@ -12,7 +12,7 @@ func initialize() :
 	register_object(global.groups.npc)
 
 	# make the AI stear it
-	get_node('processor_selector').set_processor("AI")
+	#get_node('processor_selector').set_processor("AI")
 
 func destroy(destroyer):
 	.destroy(destroyer)

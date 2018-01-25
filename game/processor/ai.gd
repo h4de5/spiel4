@@ -4,8 +4,6 @@ extends "res://game/processor/processor.gd"
 
 var delta_count = 0
 var delta_max = 1
-var moveable = null
-var shootable = null
 var weapon = null
 
 # TODO: make different AI modes
@@ -17,17 +15,10 @@ var weapon = null
 func _ready() :
 	set_fixed_process(true)
 
-func set_parent(p) :
-	parent = p
-	call_deferred("initialize")
-
 func initialize():
-	moveable = interface.is_moveable(parent)
-	shootable = interface.is_shootable(parent)
+	.initialize()
 	if shootable :
-		#weapon = parent.get_node("weapons_selector").get_active_weapon()
 		weapon = shootable.get_active_weapon()
-
 
 func _fixed_process(delta) :
 	delta_count += delta

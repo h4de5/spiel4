@@ -22,20 +22,21 @@ func check_requirements():
 	var ret = true
 
 	if not parent or not parent.has_method("get_property"):
-		print("parent ", parent.get_name(), " (", parent,
-			") does not have get_property function to check for interface ",
-			self.get_name(), " (", self, ")")
+		print_error("function", "get_property")
 		ret = false
 	elif required_properties != null and required_properties.size() > 0:
 		var props = parent.get_property(null)
 		if props != null and props.size() > 0:
 			for prop in required_properties :
 				if not props.has(prop):
-					print("parent ", parent.get_name(), " (", parent,
-						") does not have property * ", prop ," * to enable interface ",
-						self.get_name(), " (", self, ")")
+					print_error("property", prop)
 					ret = false
 
 	#print("isable check_requirements - end ", self.get_name(), " ok? ", ret)
 	activated = ret
 	return ret
+
+func print_error(type, name):
+	print("object ", parent.get_name(), " (", parent,
+		") does not have ", type ," * ", name ," * to enable interface ",
+		self.get_name(), " (", self, ")")

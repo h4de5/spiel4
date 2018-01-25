@@ -13,6 +13,10 @@ script/script = ExtResource( 2 )
 
 transform/pos = Vector2( -0.650269, 51.0113 )
 
+[node name="processor_selector" parent="."]
+
+use_processor = "AI"
+
 [node name="Sprite" parent="."]
 
 transform/scale = Vector2( 0.450653, 0.450653 )

@@ -22,20 +22,24 @@ var input_actions = {
 
 func _ready():
 	set_process_input(true)
-
-func set_parent(p):
-	parent = p
+	moveable = interface.is_moveable(parent)
+	shootable = interface.is_shootable(parent)
 
 func set_processor_details(device_details):
 	device_id = device_details[0]
 	device_types = device_details[1]
 	input_group = device_details[2]
 
+func reset_processor_details():
+	input_group = null
+	device_id = 0
+	device_types = [InputEvent.NONE]
+
 func _input(event):
 	# FIXME - check with: shootable = interface.is_shootable()
 
-	var moveable = interface.is_moveable(parent)
-	var shootable = interface.is_shootable(parent)
+	#var moveable = interface.is_moveable(parent)
+	#var shootable = interface.is_shootable(parent)
 
 	if (event.device == device_id && device_types.has(event.type)):
 		if (event.type == InputEvent.MOUSE_MOTION):
@@ -44,9 +48,11 @@ func _input(event):
 			if shootable:
 				shootable.handle_mousemove(parent.get_global_mouse_pos())
 		else:
-
+			print ("got event ", event)
 			for e in input_actions :
+
 				if event.is_action(e) :
+
 					#parent.handle_action(input_actions[e], event.is_pressed(event))
 					if moveable:
 						moveable.handle_action(input_actions[e], Input.is_action_pressed(e))
@@ -54,4 +60,8 @@ func _input(event):
 						shootable.handle_action(input_actions[e], Input.is_action_pressed(e))
 
 
-
+func _on_Input_exit_tree():
+	if input_group:
+		var player_manager = get_node(global.scene_tree_player_manager)
+		player_manager.unregister_device(input_group, device_id)
+	reset_processor_details()

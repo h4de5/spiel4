@@ -23,6 +23,10 @@ func initialize():
 	body_scale = parent.get_scale()
 	body_scale_base = parent.get_scale()
 
+	if not parent.has_method('_integrate_forces'):
+		print_error("function", "_integrate_forces")
+		activated = false
+
 
 func _integrate_forces(state):
 	#print("im _integrate_forces mit state: ", state, " current scale: ", get_property(global.properties.body_scale))

@@ -26,7 +26,8 @@ func initialize() :
 	# add to group enemy
 	register_object(global.groups.npc)
 	# make the AI stear it
-	get_node('processor_selector').set_processor("AI")
+	# is set in the inspector
+	#get_node('processor_selector').set_processor("AI")
 
 
 # called to reset a position, usually after initialize
