@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=1]
+[gd_scene load_steps=6 format=1]
 
 [ext_resource path="res://game/ship/baseship.tscn" type="PackedScene" id=1]
 [ext_resource path="res://game/player/player.gd" type="Script" id=2]
 [ext_resource path="res://art/models/PlayerShip.png" type="Texture" id=3]
 [ext_resource path="res://art/models/icon.png" type="Texture" id=4]
+[ext_resource path="res://game/interfaces/collectable_payload.tscn" type="PackedScene" id=5]
 
 [node name="Baseship - Player" instance=ExtResource( 1 )]
 
@@ -38,6 +39,11 @@ visibility/visible = false
 transform/pos = Vector2( 0, -88 )
 transform/scale = Vector2( 0.27858, 0.27858 )
 texture = ExtResource( 4 )
+
+[node name="payload" parent="." instance=ExtResource( 5 )]
+
+modifier_type = "modifier_multi"
+modifier_exports = StringArray( "bullet_wait", "0.5", "movement_speed_forward", "1.5" )
 
 
 [editable path="destroyable"]

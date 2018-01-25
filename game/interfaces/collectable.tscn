@@ -1,33 +1,7 @@
-[gd_scene load_steps=5 format=1]
+[gd_scene load_steps=3 format=1]
 
 [ext_resource path="res://game/interfaces/collectable.gd" type="Script" id=1]
-[ext_resource path="res://game/interfaces/collectable_payload.gd" type="Script" id=2]
-
-[sub_resource type="StyleBoxFlat" id=1]
-
-content_margin/left = -1.0
-content_margin/right = -1.0
-content_margin/top = -1.0
-content_margin/bottom = -1.0
-bg_color = Color( 0.951047, 0.972656, 0.281158, 1 )
-light_color = Color( 0.975614, 0.988281, 0.826141, 1 )
-dark_color = Color( 0.941406, 0.717087, 0.0441284, 1 )
-border_size = 1
-border_blend = true
-draw_bg = true
-
-[sub_resource type="StyleBoxFlat" id=2]
-
-content_margin/left = -1.0
-content_margin/right = -1.0
-content_margin/top = -1.0
-content_margin/bottom = -1.0
-bg_color = Color( 0, 0, 0, 1 )
-light_color = Color( 0.8, 0.8, 0.8, 1 )
-dark_color = Color( 0.8, 0.8, 0.8, 1 )
-border_size = 2
-border_blend = false
-draw_bg = false
+[ext_resource path="res://game/interfaces/collectable_payload.tscn" type="PackedScene" id=2]
 
 [node name="collectable" type="Node2D"]
 
@@ -41,40 +15,13 @@ wait_time = 1.0
 one_shot = false
 autostart = false
 
-[node name="payload" type="Node2D" parent="."]
+[node name="payload" parent="." instance=ExtResource( 2 )]
 
-script/script = ExtResource( 2 )
+[node name="progress_modifer" parent="payload"]
 
-[node name="timer_modifier" type="Timer" parent="payload"]
-
-process_mode = 1
-wait_time = 1.0
-one_shot = false
-autostart = false
-
-[node name="progress_modifer" type="ProgressBar" parent="payload"]
-
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = -30.0
-margin/top = 60.0
-margin/right = 30.0
-margin/bottom = 70.0
-custom_styles/fg = SubResource( 1 )
-custom_styles/bg = SubResource( 2 )
-range/min = 0.0
-range/max = 100.0
-range/step = 1.0
-range/page = 0.0
-range/value = 50.0
-range/exp_edit = false
-range/rounded = false
-percent/visible = false
+visibility/visible = true
 
 [connection signal="timeout" from="timer_show" to="." method="_on_timer_show_timeout"]
 
-[connection signal="timeout" from="payload/timer_modifier" to="payload" method="_on_timer_modifier_timeout"]
 
-
+[editable path="payload"]

@@ -28,8 +28,6 @@ func initialize():
 		get_node("timer_show").start()
 	parent.connect("body_enter", self, "process_collect")
 
-	get_node("payload/progress_modifer").hide()
-
 func process_collect(body):
 	collect(body)
 
@@ -40,21 +38,23 @@ func collect(body):
 		if has_node("payload"):
 			var payload = get_node("payload")
 
-			get_node("payload/progress_modifer").show()
-
 			if pickup_properties.has(global.properties.modifier_multi) :
 				payload.set_property(global.properties.modifier_multi, pickup_properties[global.properties.modifier_multi])
 			if pickup_properties.has(global.properties.modifier_add) :
 				payload.set_property(global.properties.modifier_add, pickup_properties[global.properties.modifier_add])
 
-			var timer_modifier = pickup_properties[global.properties.pickup_modifier_duration]
-			if timer_modifier > 0 :
-				payload.get_node("timer_modifier").set_wait_time(timer_modifier)
-				payload.get_node("timer_modifier").start()
 
 			# move payload to colliding body
 			remove_child(payload)
 			body.add_child(payload)
+
+			var timer_modifier = pickup_properties[global.properties.pickup_modifier_duration]
+			if timer_modifier > 0 :
+				payload.start_modifier_timeout(timer_modifier)
+				#get_node("payload/progress_modifer").show()
+				#payload.get_node("timer_modifier").set_wait_time(timer_modifier)
+				#payload.get_node("timer_modifier").start()
+
 
 			# merges properties from all sub-nodes
 			body.properties = interface.collect_properties(body)

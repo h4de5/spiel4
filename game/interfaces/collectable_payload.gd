@@ -15,6 +15,23 @@ extends Node2D
 #		global.properties.clearance_rotation: 0.05
 #	}
 
+# geht - is blöd
+#export(Array) var modifier_add
+# geht - kann ned geändert werden
+# export(Dictionary) var modifier_multi
+# geht ned
+#export(String, global.properties.movement_speed_forward, global.properties.movement_speed_back, global.properties.ship_rotation_speed, global.properties.weapon_rotation_speed, global.properties.bullet_speed, global.properties.bullet_strength, global.properties.bullet_wait, global.properties.bullet_range) var export_modifier
+# geht - is blöd
+#export(String, "global.properties.movement_speed_forward", "global.properties.movement_speed_back") var export_modifier
+# geht ned
+#export(Array, String) var modifier_add
+
+export(String, "", "modifier_add", "modifier_multi") var modifier_type
+#export var modifier_names = StringArray()
+#export var modifier_values = FloatArray()
+export var modifier_exports = StringArray()
+export(float) var modifier_timer
+
 var properties_base = {
 	global.properties.modifier_add: {},
 	global.properties.modifier_multi: {}
@@ -23,11 +40,28 @@ var properties_base = {
 func _ready():
 	set_fixed_process(true)
 
+	get_node("progress_modifer").hide()
+
+	# merges properties from all sub-nodes
+	if modifier_exports.size() > 0 and modifier_type:
+
+		for idx in range(0, modifier_exports.size(), 2):
+			properties_base[modifier_type][modifier_exports[idx]] = float(modifier_exports[idx+1])
+
+		if "properties" in get_parent():
+			get_parent().properties = interface.collect_properties(get_parent())
+
+		if modifier_timer :
+			start_modifier_timeout(modifier_timer)
+		else:
+			get_node("progress_modifer").hide()
+
+
 func _fixed_process(delta) :
 	var timer = get_node("timer_modifier")
 	var progress = get_node("progress_modifer")
 
-	if timer and progress:
+	if timer and progress and progress.is_visible():
 		progress.set_value(timer.get_time_left() / timer.get_wait_time() * 100)
 		set_rot(get_parent().get_global_rot() * -1)
 		var payload_count = get_own_payload_position() - 1
@@ -48,6 +82,10 @@ func set_property(type, value):
 	if (type in properties_base) :
 		properties_base[type] = value
 
+func start_modifier_timeout(timer):
+	get_node("timer_modifier").set_wait_time(timer)
+	get_node("timer_modifier").start()
+	get_node("progress_modifer").show()
 
 # if collectable was picket up and modifier runs out
 func _on_timer_modifier_timeout():
@@ -65,7 +103,8 @@ func get_own_payload_position():
 	var payload_current = 0
 	for child in parent.get_children():
 		if "payload" in child.get_name():
-			payload_count += 1
+			if child.has_node("progress_modifer") and child.get_node("progress_modifer").is_visible():
+				payload_count += 1
 		# get own position in payload list
 		if child == self:
 			payload_current = payload_count
