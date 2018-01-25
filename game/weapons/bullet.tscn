@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=1]
+[gd_scene load_steps=5 format=1]
 
 [ext_resource path="res://game/weapons/bullet.gd" type="Script" id=1]
 [ext_resource path="res://art/models/shot.png" type="Texture" id=2]
+[ext_resource path="res://art/models/SmokeParticle.png" type="Texture" id=3]
 
 [sub_resource type="CapsuleShape2D" id=1]
 
@@ -49,5 +50,27 @@ _update_shape_index = 0
 [node name="visibility" type="VisibilityNotifier2D" parent="."]
 
 rect = Rect2( -10, -10, 20, 20 )
+
+[node name="Light2D" type="Light2D" parent="."]
+
+enabled = true
+editor_only = false
+texture = ExtResource( 3 )
+offset = Vector2( 0, 0 )
+scale = 1.0
+color = Color( 0.976563, 0.830472, 0.484467, 1 )
+energy = 2.0
+mode = 2
+range/height = 0.0
+range/z_min = -1024
+range/z_max = 1024
+range/layer_min = 0
+range/layer_max = 0
+range/item_mask = 1
+shadow/enabled = false
+shadow/color = Color( 0, 0, 0, 0 )
+shadow/buffer_size = 2048
+shadow/esm_multiplier = 80.0
+shadow/item_mask = 1
 
 

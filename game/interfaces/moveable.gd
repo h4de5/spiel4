@@ -85,17 +85,22 @@ func _fixed_process(delta) :
 		# particles only work when they are available
 		if velocity > 0 and has_node("particle_forward") :
 			get_node("particle_forward").set_emitting(true)
+			get_node("particle_forward/Light2D").show()
 		if velocity < 0 and has_node("particle_backward") :
 			get_node("particle_backward").set_emitting(true)
+			get_node("particle_forward/Light2D").show()
 	else :
 		# particles only work when they are available
 		if has_node("particle_forward") :
 			get_node("particle_forward").set_emitting(false)
+			get_node("particle_forward/Light2D").hide()
 		if has_node("particle_backward") :
 			get_node("particle_backward").set_emitting(false)
+			get_node("particle_forward/Light2D").hide()
 
 	# zoom can only change if camera2d is available
 	# NO LONGER IN USE - DONE IN ship_locator
 	if zoom_speed != 0:
 		object_locator.set_camera_zoom(zoom)
 		zoom_speed = 0
+

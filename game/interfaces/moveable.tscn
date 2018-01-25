@@ -42,4 +42,27 @@ randomness/spread = 1.0
 color/color = Color( 1, 0.84375, 0, 1 )
 color/color_ramp = SubResource( 1 )
 
+[node name="Light2D" type="Light2D" parent="particle_forward"]
+
+transform/pos = Vector2( 0, 96 )
+enabled = true
+editor_only = false
+texture = ExtResource( 2 )
+offset = Vector2( 0, 0 )
+scale = 2.0
+color = Color( 0.988281, 0.902265, 0.509583, 1 )
+energy = 2.0
+mode = 2
+range/height = 0.0
+range/z_min = -1024
+range/z_max = 1024
+range/layer_min = 0
+range/layer_max = 0
+range/item_mask = 1
+shadow/enabled = false
+shadow/color = Color( 0, 0, 0, 0 )
+shadow/buffer_size = 2048
+shadow/esm_multiplier = 80.0
+shadow/item_mask = 1
+
 

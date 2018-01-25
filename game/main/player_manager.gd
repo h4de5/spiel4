@@ -23,7 +23,7 @@ func unregister_device(inputtype, device):
 func _unhandled_input ( event ) :
 	# if positive input event
 	if (event.device != null && event.type != InputEvent.NONE) :
-		#print("device input ", event.device, " with type ", event.type)
+		print("device input ", event.device, " with type ", event.type)
 		var inputtype = null
 		# see if we already have this device_group registered
 		for device_group in device_groups :
@@ -33,6 +33,8 @@ func _unhandled_input ( event ) :
 				break
 		# if a new device group is was found, spawn a player with that device details
 		if(inputtype != null && not registered_devices[inputtype].has(event.device)) :
+			get_tree().set_input_as_handled()
+
 			registered_devices[inputtype].append(event.device)
 			get_node(global.scene_tree_game).spawn_player("Input",
 				[event.device, device_groups[inputtype], inputtype])
