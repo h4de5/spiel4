@@ -15,7 +15,7 @@ func _ready():
 		global.properties.health_max
 	]
 	call_deferred("initialize")
-	set_fixed_process(true)
+	set_process(true)
 
 func initialize():
 	# Health bar
@@ -28,7 +28,7 @@ func initialize():
 #	#parent.get_parent().call_deferred("add_child", health_node, true)
 #	health_node.set_owner(parent)
 
-func _fixed_process(delta):
+func _process(delta):
 	#if target != "" and get_node(target) != null:
 	#	set_pos(get_node(target).get_pos());
 	if parent != null:

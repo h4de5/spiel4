@@ -1,6 +1,8 @@
 # healthbar class, used by destroyable interface is baseships
 extends Control
 
+# NOT IN USE !!
+
 #export (NodePath) var target
 var owner
 var owner_path
@@ -9,9 +11,9 @@ func _ready():
 	# Called every time the node is added to the scene.
 	# Initialization here
 	resetHealth()
-	set_fixed_process(true)
+	set_process(true)
 
-func _fixed_process(delta):
+func _process(delta):
 	#if target != "" and get_node(target) != null:
 	#	set_pos(get_node(target).get_pos());
 	if owner != null:

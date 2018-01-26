@@ -7,8 +7,8 @@
 [sub_resource type="CapsuleShape2D" id=1]
 
 custom_solver_bias = 0.0
-radius = 10.0
-height = 20.0
+radius = 7.69698
+height = 17.6795
 
 [node name="Bullet" type="RigidBody2D"]
 
@@ -53,6 +53,7 @@ rect = Rect2( -10, -10, 20, 20 )
 
 [node name="Light2D" type="Light2D" parent="."]
 
+visibility/visible = false
 enabled = true
 editor_only = false
 texture = ExtResource( 3 )

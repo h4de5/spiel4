@@ -23,7 +23,7 @@ func unregister_device(inputtype, device):
 func _unhandled_input ( event ) :
 	# if positive input event
 	if (event.device != null && event.type != InputEvent.NONE) :
-		print("device input ", event.device, " with type ", event.type)
+		#print("device input ", event.device, " with type ", event.type)
 		var inputtype = null
 		# see if we already have this device_group registered
 		for device_group in device_groups :

@@ -30,10 +30,10 @@ func register_object(group):
 	var collision_settings = global.collision_layer_masks[group]
 
 	# missing documentation about those two methods
-	# [0] .. should be collision.layers (on which layer is the object)
-	# [1] .. should be collision.mask (with which layers can the object collide)
-	set_collision_mask(collision_settings[0])
-	set_layer_mask(collision_settings[1])
+	# [1] .. is collision.layers (on which layer is the object)
+	# [0] .. is collision.mask (with which layers can the object collide)
+	set_collision_mask(collision_settings[1])
+	set_layer_mask(collision_settings[0])
 
 func destroy(destroyer):
 	pass

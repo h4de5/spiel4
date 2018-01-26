@@ -53,8 +53,6 @@ func _ready():
 
 		if modifier_timer :
 			start_modifier_timeout(modifier_timer)
-		else:
-			get_node("progress_modifer").hide()
 
 
 func _fixed_process(delta) :

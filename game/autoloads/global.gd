@@ -63,8 +63,9 @@ var properties = {
 
 	# collectable
 	pickup_type = "pickup_type",
-	#pickup_modifier_mode = "pickup_modifier_mode",
+	# how long does the modifier last
 	pickup_modifier_duration = "pickup_modifier_duration",
+	# how long is the collectable available
 	pickup_duration = "pickup_duration",
 
 	# modifier
@@ -89,7 +90,7 @@ enum pickup_types {
 	weapon,
 	# not temporary, repair packs, amunition
 	goods,
-	# exmplode an collect
+	# explode an collect
 	bomb,
 	# later use in missions?
 	passenger

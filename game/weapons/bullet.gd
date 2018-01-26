@@ -11,7 +11,6 @@ var shootable = null
 
 func _ready():
 	set_fixed_process(true)
-
 	initialize()
 
 func initialize():
@@ -26,6 +25,8 @@ func initialize():
 func set_parent(p) :
 	parent = p
 	add_collision_exception_with(parent)
+
+	get_node("Light2D").show()
 
 	shootable = interface.is_shootable(parent)
 	if not shootable:

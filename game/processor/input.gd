@@ -40,13 +40,13 @@ func _input(event):
 
 	#var moveable = interface.is_moveable(parent)
 	#var shootable = interface.is_shootable(parent)
-
 	if (event.device == device_id && device_types.has(event.type)):
 		if (event.type == InputEvent.MOUSE_MOTION):
 			get_tree().set_input_as_handled()
 			#parent.handle_mousemove(event.pos)
 			# TODO - check if global_mouse_pos is realy the best way to do this
-			if shootable:
+
+			if shootable :
 				shootable.handle_mousemove(parent.get_global_mouse_pos())
 		else:
 			#print ("got event ", event)

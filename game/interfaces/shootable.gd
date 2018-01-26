@@ -17,16 +17,10 @@ func get_active_weapon():
 	var weapons = get_children()
 	for weapon in weapons:
 		if weapon.is_activated():
+			weapon.show()
+			weapon.set_parent(parent)
 			return weapon
 	return null
-
-# forward properties of active weapon to collect properties
-#func get_property(type):
-#	var weapon = get_active_weapon()
-#	if weapon :
-#		return weapon.get_property(type)
-#	else:
-#		return null
 
 func _ready():
 	required_properties = [
@@ -39,8 +33,6 @@ func _ready():
 		global.properties.clearance_rotation,
 	]
 	reset()
-	#check_requirements()
-
 	set_fixed_process(true)
 
 # resets all values to default or off
@@ -51,16 +43,10 @@ func reset():
 	torque_weapon = 0
 	weapon = get_active_weapon()
 
-#	if parent and parent.has_node("weapons_selector"):
-#		weapon = parent.get_node("weapons_selector").get_active_weapon()
-
-
 func handle_mousemove(pos) :
-
 	if not is_shootable():
 		reset()
 		return
-
 	# save last mouse position - to stop turning weapon
 	shoot_last_target_pos = pos
 
@@ -73,21 +59,10 @@ func handle_mousemove(pos) :
 	weapon = get_active_weapon()
 
 	if weapon:
-
 		scope_pos = weapon.get_weapon_position()
 		scope_rot = weapon.get_weapon_rotation()
 
-		#target_rot = atan2(scope_pos.x, scope_pos.y) + PI
-
 		target_rot = scope_pos.angle_to_point(shoot_last_target_pos)
-		#			0rot
-		# +PI/2 	[ship]	-PI/2
-		#			+-PI
-		#lerp()
-
-		#print("mouse move pos - scope: ", scope_pos, " target: ", shoot_last_target_pos, )
-		#print("mouse move rot - scope: ", scope_rot, " target: ", target_rot,
-		#	" diff: ", (target_rot - scope_rot), " diff pi: ", (target_rot - scope_rot)/PI)
 
 		var diff = target_rot - scope_rot;
 

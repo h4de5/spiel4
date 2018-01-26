@@ -17,10 +17,6 @@ autostart = false
 
 [node name="payload" parent="." instance=ExtResource( 2 )]
 
-[node name="progress_modifer" parent="payload"]
-
-visibility/visible = true
-
 [connection signal="timeout" from="timer_show" to="." method="_on_timer_show_timeout"]
 
 
