@@ -2,7 +2,6 @@
 extends "res://game/weapons/weapon.gd"
 
 
-
 func _ready():
 	properties_base = {
 		global.properties.bullet_speed: 800,
@@ -10,7 +9,7 @@ func _ready():
 		global.properties.bullet_wait: 0.4,
 		global.properties.bullet_range: 1000,
 		global.properties.weapon_rotation_speed: 2.5,
-		#global.properties.clearance_rotation: 0.02,
+		global.properties.clearance_rotation: 0.02,
 	}
 
-	activated = true
+	#activated = true

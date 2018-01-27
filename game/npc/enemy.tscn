@@ -9,9 +9,39 @@
 collision/layers = 4
 script/script = ExtResource( 2 )
 
+[node name="destroyable" parent="."]
+
+editor/display_folded = true
+
+[node name="moveable" parent="."]
+
+editor/display_folded = true
+
 [node name="particle_forward" parent="moveable"]
 
 transform/pos = Vector2( -0.650269, 51.0113 )
+
+[node name="shootable" parent="."]
+
+editor/display_folded = false
+
+[node name="dualcannon" parent="shootable"]
+
+visibility/visible = false
+
+[node name="Sprite" parent="shootable/dualcannon"]
+
+editor/display_folded = true
+transform/pos = Vector2( -30, 18 )
+
+[node name="Sprite2" parent="shootable/dualcannon"]
+
+editor/display_folded = true
+transform/pos = Vector2( 30, 18 )
+
+[node name="cannon" parent="shootable"]
+
+activated = true
 
 [node name="processor_selector" parent="."]
 
@@ -32,3 +62,4 @@ shape_range = Vector2( 0, 2 )
 [editable path="destroyable"]
 [editable path="moveable"]
 [editable path="shootable"]
+[editable path="shootable/dualcannon"]

@@ -16,7 +16,7 @@ func _ready():
 func initialize():
 	# add to group bullet
 	add_to_group(global.groups.bullet)
-	connect("body_enter", self, "processCollision")
+	connect("body_enter", self, "process_collision")
 
 	# NOT IN USE
 	# will be removed after bullet_range
@@ -42,13 +42,13 @@ func _fixed_process(delta):
 		if(get_pos().distance_to(starting_pos) > properties_snapshot[global.properties.bullet_range]) :
 			destroy("range_over")
 
-func processCollision( object ):
+func process_collision( object ):
 	#print ("body enter bullet")
 	#print(object)
 	var destroyable = interface.is_destroyable(object)
 	if destroyable:
 		destroyable.hit(properties_snapshot[global.properties.bullet_strength], parent)
-	# kill yourself
+	# kill yourself (object is the "killer")
 	destroy(object)
 
 func _on_visibility_exit_screen():

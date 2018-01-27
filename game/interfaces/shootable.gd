@@ -16,10 +16,11 @@ func is_shootable():
 func get_active_weapon():
 	var weapons = get_children()
 	for weapon in weapons:
-		if weapon.is_activated():
-			weapon.show()
-			weapon.set_parent(parent)
-			return weapon
+		if weapon extends load("res://game/weapons/weapon.gd"):
+			if weapon.is_activated():
+				weapon.show()
+				weapon.set_parent(parent)
+				return weapon
 	return null
 
 func _ready():
