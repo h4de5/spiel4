@@ -66,7 +66,7 @@ func var_dump(dict, indent=\"\"):
 	return retstring
 "
 
-[node name="Baseship" type="RigidBody2D" index="0"]
+[node name="Baseship" type="RigidBody2D"]
 
 input_pickable = false
 collision_layer = 1

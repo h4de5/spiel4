@@ -34,20 +34,22 @@ func get_weapon_position():
 	return get_global_position()
 
 func new_bullet():
-	return bullet.duplicate(false)
+	var newbullet = bullet.duplicate(false)
+	newbullet.set_script(bullet.get_script())
+	return newbullet;
 
 func shoot(parent, target = null):
-	var bullet = new_bullet()
-	send_bullet(bullet, get_node("Sprite/muzzle").get_global_position(), get_weapon_rotation())
+	var newbullet = new_bullet()
+	send_bullet(newbullet, get_node("Sprite/muzzle").get_global_position(), get_weapon_rotation())
 
 
-func send_bullet(bullet, muzzle_pos, starting_rot):
-	get_node(global.scene_tree_bullets).add_child(bullet)
-	bullet.set_parent(parent)
+func send_bullet(newbullet, muzzle_pos, starting_rot):
+	get_node(global.scene_tree_bullets).add_child(newbullet)
+	newbullet.set_parent(parent)
 
-	bullet.set_position(muzzle_pos)
+	newbullet.set_position(muzzle_pos)
 	#var starting_rot = get_weapon_rotation()
-	bullet.set_global_rotation(starting_rot)
+	newbullet.set_global_rotation(starting_rot)
 
 	starting_rot += PI
 
@@ -55,5 +57,5 @@ func send_bullet(bullet, muzzle_pos, starting_rot):
 	# it would be more correct, if we add parents velocity ..
 	# but the game would not be better through it ->
 	# very slow bullets if shooting behind
-	#bullet.set_linear_velocity(v2 * parent.properties[global.properties.bullet_speed] + parent.get_linear_velocity());
-	bullet.set_linear_velocity(v2 * parent.properties[global.properties.bullet_speed]);
+	#newbullet.set_linear_velocity(v2 * parent.properties[global.properties.bullet_speed] + parent.get_linear_velocity());
+	newbullet.set_linear_velocity(v2 * parent.properties[global.properties.bullet_speed]);

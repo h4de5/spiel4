@@ -61,9 +61,9 @@ func _physics_process(delta) :
 
 	if timer and progress and progress.is_visible():
 		progress.set_value(timer.get_time_left() / timer.get_wait_time() * 100)
-		set_rot(get_parent().get_global_rot() * -1)
+		set_rotation(get_parent().get_global_rotation() * -1)
 		var payload_count = get_own_payload_position() - 1
-		progress.set_pos(Vector2(progress.get_pos().x, 60 + progress.get_size().height * payload_count))
+		progress.set_position(Vector2(progress.get_position().x, 60 + progress.get_size().y * payload_count))
 
 
 # get all different properties from this ship

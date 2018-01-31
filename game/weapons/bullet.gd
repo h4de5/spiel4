@@ -35,11 +35,11 @@ func set_parent(p) :
 		# get properties from parent
 		properties_snapshot = parent.get_property(null)
 
-	starting_pos = parent.get_global_pos()
+	starting_pos = parent.get_global_position()
 
 func _physics_process(delta):
 	if starting_pos != null:
-		if(get_pos().distance_to(starting_pos) > properties_snapshot[global.properties.bullet_range]) :
+		if(get_position().distance_to(starting_pos) > properties_snapshot[global.properties.bullet_range]) :
 			destroy("range_over")
 
 func process_collision( object ):
