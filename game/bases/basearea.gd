@@ -16,7 +16,7 @@ func initialize() :
 
 # called to reset a position, usually after initialize
 func reset_position() :
-	set_pos(object_locator.get_random_pos(800, [self]))
+	set_position(object_locator.get_random_pos(800, [self]))
 
 # adds object to specific group, add its to the object_locator
 # and sets collision layers and mask
@@ -32,8 +32,8 @@ func register_object(group):
 	# missing documentation about those two methods
 	# [1] .. is collision.layers (on which layer is the object)
 	# [0] .. is collision.mask (with which layers can the object collide)
-	set_collision_mask(collision_settings[1])
-	set_layer_mask(collision_settings[0])
+	#set_collision_mask(collision_settings[1])
+	#set_layer_mask(collision_settings[0])
 
 func destroy(destroyer):
 	pass
@@ -59,7 +59,7 @@ func set_property(type, value):
 func fix_collision_shape():
 	for shape in get_children():
 		#if not shape extends CollisionShape2D and not shape extends CollisionPolygon2D:
-		if not shape extends CollisionPolygon2D:
+		if not shape is CollisionPolygon2D:
 			continue
 		if shape.has_meta("__registered") and shape.get_meta("__registered"):
 			continue
@@ -73,7 +73,7 @@ func fix_collision_shape():
 
 		#if shape extends CollisionShape2D: # Now update parent is working, so just change the shape
 		#	shape.set_shape(shape.get_shape())
-		if shape extends CollisionPolygon2D:
+		if shape is CollisionPolygon2D:
 			shape.set_polygon(shape.get_polygon())
 
 		remove_child(shape) # Reset its editor hint cache, just in case it was needed.. (you might drop this part if it bottlenecks)

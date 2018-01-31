@@ -1,11 +1,11 @@
-[gd_scene load_steps=3 format=1]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://game/interfaces/collectable.gd" type="Script" id=1]
 [ext_resource path="res://game/interfaces/collectable_payload.tscn" type="PackedScene" id=2]
 
 [node name="collectable" type="Node2D"]
 
-script/script = ExtResource( 1 )
+script = ExtResource( 1 )
 activated = false
 
 [node name="timer_show" type="Timer" parent="."]
@@ -17,7 +17,6 @@ autostart = false
 
 [node name="payload" parent="." instance=ExtResource( 2 )]
 
-[connection signal="timeout" from="timer_show" to="." method="_on_timer_show_timeout"]
 
-
+[connection signal="timeout"  from="timer_show"  to="." method="_on_timer_show_timeout" binds=[  ]]
 [editable path="payload"]

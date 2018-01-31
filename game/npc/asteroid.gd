@@ -30,7 +30,7 @@ func initialize() :
 
 # called to reset a position, usually after initialize
 func reset_position() :
-	set_pos(object_locator.get_random_pos(500, [self]))
+	set_position(object_locator.get_random_pos(500, [self]))
 	var x = rand_range(-90, 90)
 	var y = rand_range(-90, 90)
 	var r = rand_range(-2, 2)

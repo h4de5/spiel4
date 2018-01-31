@@ -36,7 +36,7 @@ func _process(delta):
 		var wr = weakref(parent);
 		if wr.get_ref():
 
-			set_rot(parent.get_global_rot() * -1)
+			set_rotation(parent.get_global_rotation() * -1)
 
 			if not parent.has_method("get_property"):
 				# BUG - bei vielen gegner tritt hier immer wieder ei nfehler auf

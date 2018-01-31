@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=1]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://game/weapons/weapon.tscn" type="PackedScene" id=1]
 [ext_resource path="res://game/weapons/cannon.gd" type="Script" id=2]
@@ -6,17 +6,15 @@
 
 [node name="cannon" instance=ExtResource( 1 )]
 
-script/script = ExtResource( 2 )
+script = ExtResource( 2 )
 activated = false
 
 [node name="Sprite" parent="."]
 
-transform/pos = Vector2( 0, -16 )
-transform/scale = Vector2( 0.5, 0.5 )
+position = Vector2( 0, -16 )
+scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 3 )
 
 [node name="muzzle" parent="Sprite"]
 
-transform/pos = Vector2( 0, -61.9938 )
-
-
+position = Vector2( 0, -61.9938 )

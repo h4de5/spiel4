@@ -31,7 +31,7 @@ func initialize() :
 # called to reset a position, usually after initialize
 func reset_position() :
 	.reset_position()
-	set_rot(PI * rand_range(1,3)/2)
+	set_rotation(PI * rand_range(1,3)/2)
 
 func destroy(destroyer):
 	#get_node("destroyable").destroy(destroyer)

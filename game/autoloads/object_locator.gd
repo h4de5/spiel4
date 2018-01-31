@@ -10,7 +10,8 @@ var camera_focus_on_group = [
 ]
 
 func _ready():
-	set_fixed_process(true)
+	set_physics_process(true)
+	#set_fixed_process(true)
 
 func register_ship( ship ):
 	register_object( ship )
@@ -55,8 +56,8 @@ func get_next_object( group, pos, rot):
 		var dist = null
 		var closest
 		for object in objects_registered[group]:
-			if dist == null or dist > pos-object.get_pos():
-				dist = pos-object.get_pos()
+			if dist == null or dist > pos-object.get_position():
+				dist = pos-object.get_position()
 				closest = object
 
 		return closest #objects_registered[group].front()
@@ -66,7 +67,7 @@ func get_next_object( group, pos, rot):
 
 	# return players[0]
 
-func _fixed_process(delta):
+func _physics_process(delta):
 	set_camera()
 
 # Return a bound box that includes all objects_registered
@@ -77,7 +78,7 @@ func get_bounding_box(group, excludes = []) :
 	for object in objects_registered[group]:
 		if excludes.has(object):
 			continue
-		objectv = object.get_pos();
+		objectv = object.get_position();
 		if box != null:
 			box = box.expand(objectv)
 		else :
@@ -106,9 +107,9 @@ func set_camera(excludes = []):
 	if bounding_box != null :
 		# set camera in the middle (*0.5) of the bounding box
 		var camera = get_node(global.scene_tree_camera)
-		camera.set_pos(bounding_box.pos + bounding_box.size*0.5)
+		camera.set_position(bounding_box.position + bounding_box.size*0.5)
 
-		var window_size = get_viewport().get_rect().size
+		var window_size = get_viewport().get_visible_rect().size
 
 		var zoom = bounding_box.size / window_size
 		var zoom_max = max(max(zoom.x, zoom.y), 1)
@@ -126,7 +127,7 @@ func get_random_pos(distance = 400, excludes = []):
 	randomize();
 	var box = get_bounding_box_all(excludes)
 	if box != null :
-		box = box.pos + box.size/2
+		box = box.position + box.size/2
 	else :
 		box = Vector2(0,0)
 	var angle = rand_range(0, 2*PI)

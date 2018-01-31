@@ -32,7 +32,7 @@ func initialize() :
 
 # called to reset a position, usually after initialize
 func reset_position() :
-	set_pos(object_locator.get_random_pos(300, [self]))
+	set_position(object_locator.get_random_pos(300, [self]))
 
 func destroy(destroyer):
 	#get_node("destroyable").destroy(destroyer)

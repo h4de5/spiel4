@@ -2,13 +2,15 @@
 extends Node
 
 var registered_devices = {
-	InputEvent.KEY: [],
-	InputEvent.JOYSTICK_BUTTON: []
+	"InputEventKey": [],
+	"InputEventJoypadButton": [],
+	"InputEventScreenTouch": []
 }
 
 var device_groups = {
-	InputEvent.KEY: [InputEvent.KEY, InputEvent.MOUSE_MOTION, InputEvent.MOUSE_BUTTON ],
-	InputEvent.JOYSTICK_BUTTON: [InputEvent.JOYSTICK_BUTTON, InputEvent.JOYSTICK_MOTION]
+	"InputEventKey": ["InputEventKey", "InputEventMouseMotion", "InputEventMouseButton" ],
+	"InputEventJoypadButton": ["InputEventJoypadButton", "InputEventJoypadMotion"],
+	"InputEventScreenTouch": ["InputEventScreenTouch", "InputEventScreenDrag"],
 }
 
 func _ready():
@@ -17,17 +19,28 @@ func _ready():
 
 func unregister_device(inputtype, device):
 	registered_devices[inputtype].erase(device)
+	pass
 
 # check all inputs
 #func _input(event):
 func _unhandled_input ( event ) :
 	# if positive input event
-	if (event.device != null && event.type != InputEvent.NONE) :
+	# FIXME check here if is_action_type is ok - otherwise check for .get_class()
+	print("event ", event)
+	print("is_action_type ", event.is_action_type())
+	print("event get_class: ", event.get_class())
+	print("event typeof: ", typeof(event))
+	print("InputEventMouseButton: ", InputEventMouseButton)
+	print("get_class: ", InputEventMouseButton.get_class())
+	print("typeof: ", typeof(InputEventMouseButton))
+	
+	if (event.device != null && event.is_action_type()):
 		#print("device input ", event.device, " with type ", event.type)
 		var inputtype = null
 		# see if we already have this device_group registered
 		for device_group in device_groups :
-			if device_groups[device_group].has(event.type):
+			#if device_groups[device_group].has(event):
+			if device_groups[device_group].has(event.get_class()):
 				# if yes - remember device group
 				inputtype = device_group
 				break

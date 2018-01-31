@@ -13,20 +13,20 @@ var weapon = null
 # make it possible to switch between those modes
 
 func _ready() :
-	set_fixed_process(true)
+	set_physics_process(true)
 
 func initialize():
 	.initialize()
 	if shootable :
 		weapon = shootable.get_active_weapon()
 
-func _fixed_process(delta) :
+func _physics_process(delta) :
 	delta_count += delta
 	if delta_count > delta_max :
 
 		# current object position
-		var ownpos = parent.get_pos();
-		var ownrot = parent.get_rot();
+		var ownpos = parent.get_position();
+		var ownrot = parent.get_rotation();
 		# TODO check if this and targetangle def change have worked
 		var ownvec = Vector2(sin(ownrot), cos(ownrot))*-1
 		# moving vector according to rotation
@@ -52,7 +52,7 @@ func _fixed_process(delta) :
 		if target_moveto :
 
 			# get target position
-			targetpos = target_moveto.get_pos()
+			targetpos = target_moveto.get_position()
 			# own position to target vector2
 			# if set,
 			moving_vector = (targetpos - ownpos).normalized()
@@ -90,7 +90,7 @@ func _fixed_process(delta) :
 			var bulletrange = parent.get_property(global.properties.bullet_range)
 
 			# get target position
-			targetpos = target_shootat.get_pos()
+			targetpos = target_shootat.get_position()
 
 			# get projected position of player
 			# add velocity
@@ -174,18 +174,18 @@ func find_target_moveto( ownpos, ownrot ):
 	pickup = object_locator.get_next_object( global.groups.pickup, ownpos, ownrot )
 
 	# if there is a pickup nearby, go there
-	if pickup and ownpos.distance_to(pickup.get_pos()) < 400:
+	if pickup and ownpos.distance_to(pickup.get_position()) < 400:
 		return pickup
 
 	var player
 	# only go for players in range
 	player = object_locator.get_next_player( ownpos, ownrot )
-	if player and ownpos.distance_to(player.get_pos()) < 2000:
+	if player and ownpos.distance_to(player.get_position()) < 2000:
 		return player
 
 func find_target_shootat( ownpos, ownrot ):
 	var player
 	# only go for players in range
 	player = object_locator.get_next_player( ownpos, ownrot )
-	if player and ownpos.distance_to(player.get_pos()) < 1500:
+	if player and ownpos.distance_to(player.get_position()) < 1500:
 		return player

@@ -16,7 +16,7 @@ func is_shootable():
 func get_active_weapon():
 	var weapons = get_children()
 	for weapon in weapons:
-		if weapon extends load("res://game/weapons/weapon.gd"):
+		if weapon is load("res://game/weapons/weapon.gd"):
 			if weapon.is_activated():
 				weapon.show()
 				weapon.set_parent(parent)
@@ -34,7 +34,7 @@ func _ready():
 		global.properties.clearance_rotation,
 	]
 	reset()
-	set_fixed_process(true)
+	set_physics_process(true)
 
 # resets all values to default or off
 func reset():
@@ -112,7 +112,7 @@ func handle_action(action, pressed):
 		elif action == global.actions.fire: shoot_repeat = 0
 		elif action == global.actions.use: shoot_repeat = 0
 
-func _fixed_process(delta) :
+func _physics_process(delta) :
 
 	# turning weapon - TODO, needs to change
 

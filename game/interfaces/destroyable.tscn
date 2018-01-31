@@ -1,13 +1,13 @@
-[gd_scene load_steps=4 format=1]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://game/interfaces/destroyable.gd" type="Script" id=1]
 
 [sub_resource type="StyleBoxFlat" id=1]
 
-content_margin/left = -1.0
-content_margin/right = -1.0
-content_margin/top = -1.0
-content_margin/bottom = -1.0
+content_margin_left = -1.0
+content_margin_right = -1.0
+content_margin_top = -1.0
+content_margin_bottom = -1.0
 bg_color = Color( 0.300049, 1, 0.046875, 1 )
 light_color = Color( 0.8, 0.8, 0.8, 1 )
 dark_color = Color( 0.8, 0.8, 0.8, 1 )
@@ -17,10 +17,10 @@ draw_bg = true
 
 [sub_resource type="StyleBoxFlat" id=2]
 
-content_margin/left = -1.0
-content_margin/right = -1.0
-content_margin/top = -1.0
-content_margin/bottom = -1.0
+content_margin_left = -1.0
+content_margin_right = -1.0
+content_margin_top = -1.0
+content_margin_bottom = -1.0
 bg_color = Color( 0, 0, 0, 1 )
 light_color = Color( 0.8, 0.8, 0.8, 1 )
 dark_color = Color( 0.8, 0.8, 0.8, 1 )
@@ -30,29 +30,27 @@ draw_bg = false
 
 [node name="destroyable" type="Node2D"]
 
-script/script = ExtResource( 1 )
+script = ExtResource( 1 )
 activated = false
 
 [node name="progress_health" type="ProgressBar" parent="."]
 
 visibility/opacity = 0.5
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = -30.0
-margin/top = 50.0
-margin/right = 30.0
-margin/bottom = 60.0
+focus_ignore_mouse = false
+focus_stop_mouse = true
+size_flags_horizontal = 2
+size_flags_vertical = 0
+margin_left = -30.0
+margin_top = 50.0
+margin_right = 30.0
+margin_bottom = 60.0
 custom_styles/fg = SubResource( 1 )
 custom_styles/bg = SubResource( 2 )
-range/min = 0.0
-range/max = 100.0
-range/step = 1.0
-range/page = 0.0
-range/value = 100.0
-range/exp_edit = false
-range/rounded = false
-percent/visible = false
-
-
+min_value = 0.0
+max_value = 100.0
+step = 1.0
+page = 0.0
+value = 100.0
+exp_edit = false
+rounded = false
+percent_visible = false

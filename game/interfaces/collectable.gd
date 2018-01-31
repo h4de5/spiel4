@@ -30,7 +30,7 @@ func initialize():
 		get_node("timer_show").set_wait_time(timer_show)
 		get_node("timer_show").start()
 	# connect to body_enter event
-	parent.connect("body_enter", self, "collect")
+	parent.connect("body_entered", self, "collect")
 
 
 # called when something collected the pickup

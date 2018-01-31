@@ -1,4 +1,5 @@
-[gd_scene format=1]
+[gd_scene load_steps=1 format=2]
+
 
 [node name="Camera" type="Camera2D"]
 
@@ -6,17 +7,15 @@ anchor_mode = 1
 rotating = false
 current = true
 zoom = Vector2( 1, 1 )
-limit/left = -10000000
-limit/top = -10000000
-limit/right = 10000000
-limit/bottom = 10000000
+limit_left = -10000000
+limit_top = -10000000
+limit_right = 10000000
+limit_bottom = 10000000
 drag_margin/h_enabled = false
 drag_margin/v_enabled = false
-smoothing/enable = true
-smoothing/speed = 1.5
-drag_margin/left = 0.2
-drag_margin/top = 0.2
-drag_margin/right = 0.2
-drag_margin/bottom = 0.2
-
-
+smoothing_enabled = true
+smoothing_speed = 1.5
+drag_margin_left = 0.2
+drag_margin_top = 0.2
+drag_margin_right = 0.2
+drag_margin_bottom = 0.2

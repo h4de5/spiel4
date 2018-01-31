@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=1]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://game/weapons/weapon.tscn" type="PackedScene" id=1]
 [ext_resource path="res://game/weapons/dualcannon.gd" type="Script" id=2]
@@ -6,39 +6,52 @@
 
 [node name="dualcannon" instance=ExtResource( 1 )]
 
-script/script = ExtResource( 2 )
+script = ExtResource( 2 )
 
-[node name="Sprite" parent="."]
+[node name="Sprite" parent="." index="0"]
 
-transform/pos = Vector2( -30, -7 )
-transform/scale = Vector2( 0.2, 0.2 )
+position = Vector2( -30, -7 )
+scale = Vector2( 0.2, 0.2 )
 texture = ExtResource( 3 )
 
-[node name="muzzle" parent="Sprite"]
+[node name="muzzle" parent="Sprite" index="0"]
 
-transform/pos = Vector2( -4.76837e-07, -60.9938 )
+position = Vector2( -4.76837e-07, -60.9938 )
 
-[node name="bullet" parent="."]
+[node name="bullet" parent="." index="1"]
 
-transform/pos = Vector2( 0.214638, 0 )
+position = Vector2( 0.214638, 0 )
+linear_damp = -1.0
+angular_damp = -1.0
 
-[node name="Sprite" parent="bullet"]
+[node name="Sprite" parent="bullet" index="0"]
 
-transform/scale = Vector2( 0.8, 0.8 )
+scale = Vector2( 0.8, 0.8 )
 
-[node name="collision" parent="bullet"]
+[node name="collision" parent="bullet" index="1"]
 
-transform/pos = Vector2( 0, -3.26003 )
+position = Vector2( 0, -3.26003 )
 
-[node name="Sprite2" type="Sprite" parent="."]
+[node name="Light2D" parent="bullet" index="3"]
 
-transform/pos = Vector2( 30, -7 )
-transform/scale = Vector2( 0.2, 0.2 )
+scale = Vector2( 1, 1 )
+texture_scale = 1.0
+range_layer_min = 0
+range_item_cull_mask = 1
+shadow_gradient_length = 0.0
+shadow_filter = 0
+shadow_filter_smooth = 0.0
+shadow_item_cull_mask = 1
+
+[node name="Sprite2" type="Sprite" parent="." index="2"]
+
+position = Vector2( 30, -7 )
+scale = Vector2( 0.2, 0.2 )
 texture = ExtResource( 3 )
 
-[node name="muzzle" type="Position2D" parent="Sprite2"]
+[node name="muzzle" type="Position2D" parent="Sprite2" index="0"]
 
-transform/pos = Vector2( 0, -60 )
+position = Vector2( 0, -60 )
 
 
 [editable path="bullet"]

@@ -48,27 +48,27 @@ func resize_body( factor ) :
 		var shape_new = null
 
 		# first we only support circleshaps
-		if shape extends CircleShape2D:
+		if shape is CircleShape2D:
 			# create new shape instance
 			shape_new = CircleShape2D.new()
 			# get radius from current shape
 			# add scale factor
 			shape_new.set_radius(shape.get_radius() * factor)
-		elif shape extends CapsuleShape2D:
+		elif shape is CapsuleShape2D:
 			shape_new = CapsuleShape2D.new()
 			shape_new.set_radius(shape.get_radius() * factor)
 			shape_new.set_height(shape.get_height() * factor)
-		elif shape extends RectangleShape2D:
+		elif shape is RectangleShape2D:
 			shape_new = RectangleShape2D.new()
 			shape_new.set_extents(shape.get_extents() * factor)
-		elif shape extends ConcavePolygonShape2D:
+		elif shape is ConcavePolygonShape2D:
 			shape_new = ConcavePolygonShape2D.new()
 			var segments = shape.get_segments()
 			var segments_new = []
 			for segment in segments:
 				segments_new.append(segment*factor)
 			shape_new.set_segments(segments_new)
-		elif shape extends ConvexPolygonShape2D:
+		elif shape is ConvexPolygonShape2D:
 			shape_new = ConvexPolygonShape2D.new()
 
 			var points = shape.get_points()

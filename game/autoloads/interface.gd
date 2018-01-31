@@ -63,8 +63,7 @@ func is_able(node, interface, recursive= true):
 		return null
 
 	# must have method and be an extendent to isable
-	if (node extends load("res://game/interfaces/isable.gd") and
-		node.has_method("is_"+interface)):
+	if (node is preload("res://game/interfaces/isable.gd") and node.has_method("is_"+interface)):
 		return node.call("is_"+interface)
 
 	# only go down one level
@@ -72,7 +71,7 @@ func is_able(node, interface, recursive= true):
 		# for each child in node
 		for child in node.get_children():
 			# if has interface method, return result
-			if (child extends load("res://game/interfaces/isable.gd") and
+			if (child is preload("res://game/interfaces/isable.gd") and
 				child.has_method("is_"+interface)):
 				return child.call("is_"+ interface)
 			else :

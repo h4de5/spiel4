@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=1]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://game/ship/baseship.tscn" type="PackedScene" id=1]
 [ext_resource path="res://game/player/player.gd" type="Script" id=2]
@@ -8,8 +8,8 @@
 
 [node name="Baseship - Player" instance=ExtResource( 1 )]
 
-collision/layers = 2
-script/script = ExtResource( 2 )
+collision_layer = 2
+script = ExtResource( 2 )
 
 [node name="destroyable" parent="."]
 
@@ -21,7 +21,7 @@ editor/display_folded = true
 
 [node name="particle_forward" parent="moveable"]
 
-transform/pos = Vector2( 0, 65.0113 )
+position = Vector2( 0, 65.0113 )
 
 [node name="shootable" parent="."]
 
@@ -34,35 +34,33 @@ activated = true
 [node name="Sprite" parent="shootable/dualcannon"]
 
 editor/display_folded = true
-transform/pos = Vector2( -30, 26 )
+position = Vector2( -30, 26 )
 
 [node name="Sprite2" parent="shootable/dualcannon"]
 
-transform/pos = Vector2( 30, 26 )
+position = Vector2( 30, 26 )
 
 [node name="Sprite" parent="."]
 
-transform/scale = Vector2( 0.467776, 0.467776 )
+scale = Vector2( 0.467776, 0.467776 )
 texture = ExtResource( 3 )
 
 [node name="Collision" parent="."]
 
-polygon = Vector2Array( 5.48351, -48.7932, 15.16, 1.18334, 38.5192, 25.1264, 48.4468, 51.1135, -1.26912, 51.7018, -47.9096, 50.5295, -37.0183, 26.2801, -15.4988, 1.47533, -5.24124, -48.7932 )
+polygon = PoolVector2Array( 5.48351, -48.7932, 15.16, 1.18334, 38.5192, 25.1264, 48.4468, 51.1135, -1.26912, 51.7018, -47.9096, 50.5295, -37.0183, 26.2801, -15.4988, 1.47533, -5.24124, -48.7932 )
 shape_range = Vector2( 0, 1 )
 
 [node name="projected" type="Sprite" parent="."]
 
-visibility/visible = false
-transform/pos = Vector2( 0, -88 )
-transform/scale = Vector2( 0.27858, 0.27858 )
+visible = false
+position = Vector2( 0, -88 )
+scale = Vector2( 0.27858, 0.27858 )
 texture = ExtResource( 4 )
 
 [node name="payload" parent="." instance=ExtResource( 5 )]
 
 modifier_type = "modifier_multi"
-modifier_exports = StringArray( "bullet_wait", "0.5", "movement_speed_forward", "1.5" )
-
-
+modifier_exports = PoolStringArray( "bullet_wait", "0.5", "movement_speed_forward", "1.5" )
 [editable path="destroyable"]
 [editable path="moveable"]
 [editable path="shootable"]

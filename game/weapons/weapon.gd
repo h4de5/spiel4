@@ -25,29 +25,29 @@ func is_activated():
 	return activated
 
 func set_weapon_rotation(r):
-	set_global_rot(r)
+	set_global_rotation(r)
 
 func get_weapon_rotation():
-	return get_global_rot()
+	return get_global_rotation()
 
 func get_weapon_position():
-	return get_global_pos()
+	return get_global_position()
 
 func new_bullet():
 	return bullet.duplicate(false)
 
 func shoot(parent, target = null):
 	var bullet = new_bullet()
-	send_bullet(bullet, get_node("Sprite/muzzle").get_global_pos(), get_weapon_rotation())
+	send_bullet(bullet, get_node("Sprite/muzzle").get_global_position(), get_weapon_rotation())
 
 
 func send_bullet(bullet, muzzle_pos, starting_rot):
 	get_node(global.scene_tree_bullets).add_child(bullet)
 	bullet.set_parent(parent)
 
-	bullet.set_pos(muzzle_pos)
+	bullet.set_position(muzzle_pos)
 	#var starting_rot = get_weapon_rotation()
-	bullet.set_global_rot(starting_rot)
+	bullet.set_global_rotation(starting_rot)
 
 	starting_rot += PI
 

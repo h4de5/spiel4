@@ -19,8 +19,8 @@ func _ready():
 	#activated = true
 
 func set_weapon_rotation(r):
-	get_node("Sprite").set_global_rot(r)
-	get_node("Sprite2").set_global_rot(r)
+	get_node("Sprite").set_global_rotation(r)
+	get_node("Sprite2").set_global_rotation(r)
 
 #	tmp_count += 1
 #
@@ -45,11 +45,11 @@ func set_weapon_rotation(r):
 func get_weapon_rotation():
 
 	#return fmod(get_node("Sprite").get_rot() + parent.get_rot(), 2*PI)
-	return get_node("Sprite").get_global_rot()
+	return get_node("Sprite").get_global_rotation()
 
 func get_weapon_position():
-	return get_global_pos()
+	return get_global_position()
 
 func shoot(parent, target = null):
-	send_bullet(new_bullet(), get_node("Sprite/muzzle").get_global_pos(), get_node("Sprite").get_global_rot())
-	send_bullet(new_bullet(), get_node("Sprite2/muzzle").get_global_pos(), get_node("Sprite2").get_global_rot())
+	send_bullet(new_bullet(), get_node("Sprite/muzzle").get_global_pos(), get_node("Sprite").get_global_rotation())
+	send_bullet(new_bullet(), get_node("Sprite2/muzzle").get_global_pos(), get_node("Sprite2").get_global_rotation())

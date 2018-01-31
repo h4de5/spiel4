@@ -28,7 +28,7 @@ func _ready():
 	]
 	#check_requirements()
 
-	set_fixed_process(true)
+	set_physics_process(true)
 
 # resets all values to default or off
 func reset():
@@ -71,7 +71,7 @@ func handle_action(action, pressed):
 		zoom = zoom + (zoom_speed if (zoom+zoom_speed) >= 1 else 0)
 
 
-func _fixed_process(delta) :
+func _physics_process(delta) :
 
 	# turning vehicle
 	if torque != 0 :
@@ -79,7 +79,7 @@ func _fixed_process(delta) :
 
 	# calculate vector from current rotation, if speed is set
 	if velocity != 0 :
-		var direction = Vector2(sin(parent.get_rot()), cos(parent.get_rot()))
+		var direction = Vector2(sin(parent.get_rotation()), cos(parent.get_rotation()))
 		parent.apply_impulse(Vector2(0,0), direction * delta * velocity * -1)
 
 		# particles only work when they are available

@@ -1,30 +1,30 @@
-[gd_scene load_steps=3 format=1]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://game/scenes/gameover.gd" type="Script" id=1]
 [ext_resource path="res://game/fonts/roboto-regular.fnt" type="BitmapFont" id=2]
 
 [node name="Control" type="Control"]
 
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 0.0
-margin/top = 0.0
-margin/right = 40.0
-margin/bottom = 40.0
-script/script = ExtResource( 1 )
+focus_ignore_mouse = false
+focus_stop_mouse = true
+size_flags_horizontal = 2
+size_flags_vertical = 2
+margin_left = 0.0
+margin_top = 0.0
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 1 )
 
 [node name="GameOver" type="Label" parent="."]
 
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = 393.0
-margin/top = 318.0
-margin/right = 638.0
-margin/bottom = 371.0
+focus_ignore_mouse = true
+focus_stop_mouse = true
+size_flags_horizontal = 2
+size_flags_vertical = 0
+margin_left = 393.0
+margin_top = 318.0
+margin_right = 638.0
+margin_bottom = 371.0
 custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 0.996094, 0.984421, 0.984421, 1 )
 text = "Game Over"
@@ -34,18 +34,16 @@ max_lines_visible = -1
 
 [node name="Restart" type="Button" parent="."]
 
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 485.0
-margin/top = 465.0
-margin/right = 568.0
-margin/bottom = 485.0
+focus_ignore_mouse = false
+focus_stop_mouse = true
+size_flags_horizontal = 2
+size_flags_vertical = 2
+margin_left = 485.0
+margin_top = 465.0
+margin_right = 568.0
+margin_bottom = 485.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 text = "Restart"
 flat = false
-
-

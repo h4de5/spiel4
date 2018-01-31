@@ -1,21 +1,21 @@
-[gd_scene load_steps=4 format=1]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://game/interfaces/moveable.gd" type="Script" id=1]
 [ext_resource path="res://art/models/SmokeParticle.png" type="Texture" id=2]
 
-[sub_resource type="ColorRamp" id=1]
+[sub_resource type="Gradient" id=1]
 
-offsets = FloatArray( 0, 0.19883, 0.643275, 1 )
-colors = ColorArray( 0.765625, 0.972534, 1, 1, 1, 0.867188, 0, 1, 0, 0, 0, 1, 0.0351562, 0.0351562, 0.0351562, 0 )
+offsets = PoolRealArray( 0, 0.19883, 0.643275, 1 )
+colors = PoolColorArray( 0.765625, 0.972534, 1, 1, 1, 0.867188, 0, 1, 0, 0, 0, 1, 0.0351562, 0.0351562, 0.0351562, 0 )
 
 [node name="moveable" type="Node2D"]
 
-script/script = ExtResource( 1 )
+script = ExtResource( 1 )
 activated = false
 
 [node name="particle_forward" type="Particles2D" parent="."]
 
-transform/pos = Vector2( 0, 30 )
+position = Vector2( 0, 30 )
 config/amount = 32
 config/lifetime = 0.4
 config/process_mode = 1
@@ -44,7 +44,7 @@ color/color_ramp = SubResource( 1 )
 
 [node name="Light2D" type="Light2D" parent="particle_forward"]
 
-transform/pos = Vector2( 0, 96 )
+position = Vector2( 0, 96 )
 enabled = true
 editor_only = false
 texture = ExtResource( 2 )
@@ -53,16 +53,14 @@ scale = 2.0
 color = Color( 0.988281, 0.902265, 0.509583, 1 )
 energy = 2.0
 mode = 2
-range/height = 0.0
-range/z_min = -1024
-range/z_max = 1024
+range_height = 0.0
+range_z_min = -1024
+range_z_max = 1024
 range/layer_min = 0
-range/layer_max = 0
+range_layer_max = 0
 range/item_mask = 1
-shadow/enabled = false
-shadow/color = Color( 0, 0, 0, 0 )
-shadow/buffer_size = 2048
+shadow_enabled = false
+shadow_color = Color( 0, 0, 0, 0 )
+shadow_buffer_size = 2048
 shadow/esm_multiplier = 80.0
 shadow/item_mask = 1
-
-

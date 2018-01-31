@@ -5,7 +5,7 @@ extends "res://game/processor/processor.gd"
 
 var input_group
 var device_id = 0
-var device_types = [InputEvent.NONE]
+var device_types = []
 
 var input_actions = {
 	"ui_left": 		global.actions.left,
@@ -33,21 +33,23 @@ func set_processor_details(device_details):
 func reset_processor_details():
 	input_group = null
 	device_id = 0
-	device_types = [InputEvent.NONE]
-
+	device_types = []
+#		InputEvent.NONE
+	
 func _input(event):
 	# FIXME - check with: shootable = interface.is_shootable()
 
 	#var moveable = interface.is_moveable(parent)
 	#var shootable = interface.is_shootable(parent)
-	if (event.device == device_id && device_types.has(event.type)):
-		if (event.type == InputEvent.MOUSE_MOTION):
+	if (event.device == device_id && device_types.has(event.get_class())):
+		#if (event.type == InputEvent.MOUSE_MOTION):
+		if (event is InputEventMouseMotion):
 			get_tree().set_input_as_handled()
 			#parent.handle_mousemove(event.pos)
 			# TODO - check if global_mouse_pos is realy the best way to do this
 
 			if shootable :
-				shootable.handle_mousemove(parent.get_global_mouse_pos())
+				shootable.handle_mousemove(parent.get_global_mouse_position())
 		else:
 			#print ("got event ", event)
 			for e in input_actions :

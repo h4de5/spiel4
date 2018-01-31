@@ -10,13 +10,13 @@ var starting_pos = null
 var shootable = null
 
 func _ready():
-	set_fixed_process(true)
+	set_physics_process(true)
 	initialize()
 
 func initialize():
 	# add to group bullet
 	add_to_group(global.groups.bullet)
-	connect("body_enter", self, "process_collision")
+	connect("body_entered", self, "process_collision")
 
 	# NOT IN USE
 	# will be removed after bullet_range
@@ -37,7 +37,7 @@ func set_parent(p) :
 
 	starting_pos = parent.get_global_pos()
 
-func _fixed_process(delta):
+func _physics_process(delta):
 	if starting_pos != null:
 		if(get_pos().distance_to(starting_pos) > properties_snapshot[global.properties.bullet_range]) :
 			destroy("range_over")

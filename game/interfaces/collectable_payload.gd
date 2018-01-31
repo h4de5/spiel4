@@ -29,8 +29,8 @@ extends Node2D
 export(String, "", "modifier_add", "modifier_multi") var modifier_type
 #export var modifier_names = StringArray()
 #export var modifier_values = FloatArray()
-export var modifier_exports = StringArray()
-export(float) var modifier_timer
+export var modifier_exports = PoolStringArray()
+export (float) var modifier_timer 
 
 var properties_base = {
 	global.properties.modifier_add: {},
@@ -38,7 +38,7 @@ var properties_base = {
 }
 
 func _ready():
-	set_fixed_process(true)
+	set_physics_process(true)
 
 	get_node("progress_modifer").hide()
 
@@ -55,7 +55,7 @@ func _ready():
 			start_modifier_timeout(modifier_timer)
 
 
-func _fixed_process(delta) :
+func _physics_process(delta) :
 	var timer = get_node("timer_modifier")
 	var progress = get_node("progress_modifer")
 
