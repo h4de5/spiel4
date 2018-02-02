@@ -26,13 +26,13 @@ func unregister_device(inputtype, device):
 func _unhandled_input ( event ) :
 	# if positive input event
 	# FIXME check here if is_action_type is ok - otherwise check for .get_class()
-	print("event ", event)
-	print("is_action_type ", event.is_action_type())
-	print("event get_class: ", event.get_class())
-	print("event typeof: ", typeof(event))
-	print("InputEventMouseButton: ", InputEventMouseButton)
-	print("get_class: ", InputEventMouseButton.get_class())
-	print("typeof: ", typeof(InputEventMouseButton))
+	#print("event ", event)
+	#print("is_action_type ", event.is_action_type())
+	#print("event get_class: ", event.get_class())
+	#print("event typeof: ", typeof(event))
+	#print("InputEventMouseButton: ", InputEventMouseButton)
+	#print("get_class: ", InputEventMouseButton.get_class())
+	#print("typeof: ", typeof(InputEventMouseButton))
 	
 	if (event.device != null && event.is_action_type()):
 		#print("device input ", event.device, " with type ", event.type)

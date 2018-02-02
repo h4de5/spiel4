@@ -4,6 +4,8 @@
 [ext_resource path="res://game/pickups/pickup-icon.png" type="Texture" id=2]
 [ext_resource path="res://game/interfaces/collectable.tscn" type="PackedScene" id=3]
 
+
+
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0

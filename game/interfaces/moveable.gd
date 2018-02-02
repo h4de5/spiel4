@@ -59,6 +59,7 @@ func handle_action(action, pressed):
 		elif action == global.actions.zoom_out: zoom_speed = parent.get_property(global.properties.zoom_speed)
 
 	else :
+		#print("action ", action, " unpressed")
 		if action == global.actions.left: torque = 0
 		elif action == global.actions.right: torque = 0
 
@@ -79,9 +80,12 @@ func _physics_process(delta) :
 
 	# calculate vector from current rotation, if speed is set
 	if velocity != 0 :
-		var direction = Vector2(sin(parent.get_rotation()), cos(parent.get_rotation()))
-		parent.apply_impulse(Vector2(0,0), direction * delta * velocity * -1)
-		#parent.add_force( Vector2(0,0), direction * delta * velocity * -1)
+		
+		var direction = Vector2(cos(parent.get_rotation()+ PI/2), sin(parent.get_rotation()+ PI/2) )
+		
+		#print("moving with ", direction * velocity * -1, " velocity: ", velocity)
+		parent.apply_impulse(Vector2(0,0), direction * velocity * delta * -1)
+		#parent.add_force( Vector2(0,0), direction * velocity * -1)
 
 		# particles only work when they are available
 		if velocity > 0 and has_node("particle_forward") :

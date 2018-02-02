@@ -11,7 +11,7 @@ func initialize() :
 	#print("initialize baseship")
 	.initialize()
 	properties_base = {
-		global.properties.movement_speed_forward: 40,
+		global.properties.movement_speed_forward: 30,
 		global.properties.movement_speed_back: 20,
 		global.properties.ship_rotation_speed: 2,
 		global.properties.zoom_speed: 0.2,

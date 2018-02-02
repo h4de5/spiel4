@@ -25,10 +25,11 @@ func _physics_process(delta) :
 	if delta_count > delta_max :
 
 		# current object position
-		var ownpos = parent.get_position();
-		var ownrot = parent.get_rotation();
+		var ownpos = parent.get_global_position();
+		var ownrot = parent.get_global_rotation();
 		# TODO check if this and targetangle def change have worked
-		var ownvec = Vector2(sin(ownrot), cos(ownrot))*-1
+		# looking direction
+		var ownvec = Vector2(cos(ownrot + PI/2), sin(ownrot + PI/2))
 		# moving vector according to rotation
 		#var ownvec = Vector2(sin(ownrot), cos(ownrot))
 
@@ -52,21 +53,20 @@ func _physics_process(delta) :
 		if target_moveto :
 
 			# get target position
-			targetpos = target_moveto.get_position()
+			targetpos = target_moveto.get_global_position()
 			# own position to target vector2
 			# if set,
 			moving_vector = (targetpos - ownpos).normalized()
-
-			# moved after clearance check
-#			if moving_vector != null :
-#				moveable.handle_action( global.actions.accelerate, true )
-#			elif moveable:
-#				moveable.handle_action( global.actions.accelerate, false )
-
-			# where do i have to turn to?
-			var targetangle = moving_vector.angle_to(ownvec)
-			#var targetangle = ownvec.angle_to(moving_vector)
-
+			
+			# hier gehört die differenz ziwschen eigenem looking at und ziel winkel
+			
+			var movingangle =  wrapf(moving_vector.angle() + PI/2, -PI, PI)
+			
+			var targetangle
+			
+			targetangle = wrapf(movingangle - ownrot, -PI, PI)
+			
+			
 			#print("ai movment angle", angle)
 			if (targetangle > parent.get_property(global.properties.clearance_rotation)) :
 				moveable.handle_action( global.actions.right, true )
@@ -174,13 +174,13 @@ func find_target_moveto( ownpos, ownrot ):
 	pickup = object_locator.get_next_object( global.groups.pickup, ownpos, ownrot )
 
 	# if there is a pickup nearby, go there
-	if pickup and ownpos.distance_to(pickup.get_position()) < 400:
+	if pickup and ownpos.distance_to(pickup.get_global_position()) < 400:
 		return pickup
 
 	var player
 	# only go for players in range
 	player = object_locator.get_next_player( ownpos, ownrot )
-	if player and ownpos.distance_to(player.get_position()) < 2000:
+	if player and ownpos.distance_to(player.get_global_position()) < 2000:
 		return player
 
 func find_target_shootat( ownpos, ownrot ):

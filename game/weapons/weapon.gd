@@ -36,7 +36,7 @@ func get_weapon_position():
 func new_bullet():
 	var newbullet = bullet.duplicate(false)
 	newbullet.set_script(bullet.get_script())
-	return newbullet;
+	return newbullet
 
 func shoot(parent, target = null):
 	var newbullet = new_bullet()
@@ -51,9 +51,9 @@ func send_bullet(newbullet, muzzle_pos, starting_rot):
 	#var starting_rot = get_weapon_rotation()
 	newbullet.set_global_rotation(starting_rot)
 
-	starting_rot += PI
+	starting_rot -= PI / 2
 
-	var v2 = Vector2(  sin(starting_rot), cos(starting_rot)   ).normalized()
+	var v2 = Vector2(  cos(starting_rot), sin(starting_rot)   ).normalized()
 	# it would be more correct, if we add parents velocity ..
 	# but the game would not be better through it ->
 	# very slow bullets if shooting behind

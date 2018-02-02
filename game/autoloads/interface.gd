@@ -22,8 +22,9 @@ func collect_properties(node, level = 0):
 			# childs of childs with a get_property method, are ignored!
 			for child in node.get_children():
 				properties = merge_dicts(properties, collect_properties(child, level+1))
-
+#
 		if level == 0:
+			#print ("properties before ", properties)
 			if not properties_fixed.empty():
 				for key in properties_fixed:
 					properties[key] = properties_fixed[key]
@@ -31,14 +32,18 @@ func collect_properties(node, level = 0):
 			if properties.has(global.properties.modifier_add) :
 				for key in properties[global.properties.modifier_add]:
 					if properties.has(key):
-						properties[key] += properties[global.properties.modifier_add][key]
+						
+						properties[key] += float( properties[global.properties.modifier_add][key] )
 					else :
-						properties[key] = properties[global.properties.modifier_add][key]
+						properties[key] = float( properties[global.properties.modifier_add][key] )
 
 			if properties.has(global.properties.modifier_multi) :
 				for key in properties[global.properties.modifier_multi]:
 					if properties.has(key):
-						properties[key] *= properties[global.properties.modifier_multi][key]
+						#print ("key ", key , " before ", properties[key], " modifer ", float( properties[global.properties.modifier_multi][key] ))
+						properties[key] *= float( properties[global.properties.modifier_multi][key] )
+						#print ("key ", key , " after ", properties[key])
+			#print ("properties after ", properties)
 
 	return properties
 
