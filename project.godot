@@ -21,6 +21,7 @@ name="Play4"
 global="*res://game/autoloads/global.gd"
 interface="*res://game/autoloads/interface.gd"
 object_locator="*res://game/autoloads/object_locator.gd"
+network="res://game/processor/network.gd"
 
 [debug]
 
