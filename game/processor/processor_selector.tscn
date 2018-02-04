@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://game/processor/processor_selector.gd" type="Script" id=1]
 [ext_resource path="res://game/processor/input.gd" type="Script" id=2]
@@ -10,16 +10,16 @@
 script = ExtResource( 1 )
 use_processor = null
 
-[node name="Input" type="Node" parent="."]
+[node name="Input" type="Node" parent="." index="0"]
 
 script = ExtResource( 2 )
 
-[node name="Network" type="Node" parent="."]
+[node name="Network" type="Node" parent="." index="1"]
 
 script = ExtResource( 3 )
 
-[node name="AI" type="Node" parent="."]
+[node name="AI" type="Node" parent="." index="2"]
 
 script = ExtResource( 4 )
 
-[connection signal="tree_exited"  from="Input"  to="Input" method="_on_Input_exit_tree" binds=[  ]]
+

@@ -24,6 +24,8 @@ func _ready():
 	set_process_input(true)
 	moveable = interface.is_moveable(parent)
 	shootable = interface.is_shootable(parent)
+	
+	connect("tree_exiting", self, "_on_input_tree_exiting")
 
 func set_processor_details(device_details):
 	device_id = device_details[0]
@@ -62,10 +64,8 @@ func _input(event):
 						shootable.handle_action(input_actions[e], Input.is_action_pressed(e))
 
 
-func _on_Input_exit_tree():
+func _on_input_tree_exiting():
 	if input_group:
 		var player_manager = get_node(global.scene_tree_player_manager)
-		# FIXME 
-		if player_manager:
-			player_manager.unregister_device(input_group, device_id)
+		player_manager.unregister_device(input_group, device_id)
 	reset_processor_details()

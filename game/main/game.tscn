@@ -5,7 +5,7 @@
 [ext_resource path="res://game/main/board.tscn" type="PackedScene" id=3]
 [ext_resource path="res://game/main/player_manager.gd" type="Script" id=4]
 
-[node name="Game" type="Node2D" index="0"]
+[node name="game" type="Node2D" index="0"]
 
 script = ExtResource( 1 )
 
@@ -57,6 +57,8 @@ align = 1
 script = ExtResource( 2 )
 
 [node name="board" parent="." index="1" instance=ExtResource( 3 )]
+
+editor/display_folded = true
 
 [node name="ParallaxBackground" parent="board" index="0"]
 

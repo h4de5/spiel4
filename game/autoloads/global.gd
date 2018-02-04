@@ -14,12 +14,12 @@ const scene_path_camera 	= "res://game/main/camera.tscn"
 #const scene_path_missle 	= "res://game/weapons/missle.tscn"
 #const scene_path_bullet 	= "res://game/weapons/bullet.tscn"
 
-const scene_tree_game 			= "/root/Game"
-const scene_tree_ships 			= "/root/Game/ships"
-const scene_tree_bullets 		= "/root/Game/bullets"
-#const scene_tree_ship_locator 	= "/root/Game/object_locator"
-const scene_tree_player_manager = "/root/Game/player_manager"
-const scene_tree_camera 		= "/root/Game/Camera"
+const scene_tree_game 			= "/root/game"
+const scene_tree_ships 			= "/root/game/ships"
+const scene_tree_bullets 		= "/root/game/bullets"
+#const scene_tree_ship_locator 	= "/root/game/object_locator"
+const scene_tree_player_manager = "/root/game/player_manager"
+const scene_tree_camera 		= "/root/game/Camera"
 
 
 var groups = {

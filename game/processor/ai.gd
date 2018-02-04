@@ -126,7 +126,7 @@ func _physics_process(delta) :
 
 			var weaponrot = weapon.get_weapon_rotation()
 
-			var weaponvec = Vector2(sin(weaponrot), cos(weaponrot))*-1
+			var weaponvec = Vector2(cos(weaponrot + PI/2), sin(weaponrot+ PI/2))*-1
 			var targetangle = shooting_vector.angle_to(weaponvec)
 			#var weaponvec = Vector2(sin(weaponrot), cos(weaponrot))
 			#var targetangle = weaponvec.angle_to(shooting_vector)
