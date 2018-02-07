@@ -11,7 +11,7 @@ func _ready():
 	call_deferred("initialize")
 
 func initialize():
-	#for i in range(1): spawn_enemy()
+	for i in range(1): spawn_enemy()
 
 	#for i in range(1): spawn_tower()
 

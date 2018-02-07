@@ -21,7 +21,7 @@ name="Play4"
 global="*res://game/autoloads/global.gd"
 interface="*res://game/autoloads/interface.gd"
 object_locator="*res://game/autoloads/object_locator.gd"
-network="res://game/processor/network.gd"
+network_manager="*res://game/autoloads/network_manager.gd"
 
 [debug]
 
@@ -29,9 +29,12 @@ name="Game4"
 
 [display]
 
+window/size/width=600
+window/size/height=500
+window/energy_saving/keep_screen_on=false
+window/stretch/aspect="keep"
 stretch/aspect="keep"
-window/height=700
-window/width=1024
+window/height=0
 
 [input]
 
@@ -90,6 +93,14 @@ ui_weapon_right=[ Object(InputEventJoypadMotion,"resource_local_to_scene":false,
 , Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":2,"axis_value":-1.0,"script":null)
  ]
 
+[physics]
+
+2d/thread_model=2
+
 [rendering]
 
+quality/intended_usage/framebuffer_allocation=0
+quality/intended_usage/framebuffer_allocation.mobile=0
+quality/2d/use_pixel_snap=true
+threads/thread_model=2
 viewport/default_clear_color=Color( 0, 0, 0, 1 )

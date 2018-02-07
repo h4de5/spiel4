@@ -13,16 +13,24 @@ var weapon = null
 # make it possible to switch between those modes
 
 func _ready() :
-	set_physics_process(true)
+	pass
 
 func initialize():
 	.initialize()
+	
+	set_physics_process(true)
+		
 	if shootable :
 		weapon = shootable.get_active_weapon()
 
 func _physics_process(delta) :
+	
 	delta_count += delta
 	if delta_count > delta_max :
+		
+		# generate input only in single player or on server
+		if get_tree().has_meta("network_peer") and not get_tree().is_network_server():
+			pass
 
 		# current object position
 		var ownpos = parent.get_global_position();
