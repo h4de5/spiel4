@@ -3,7 +3,7 @@ extends "res://game/bases/base.gd"
 # baseship._ready > player.init > baseship.init > player._ready
 func _ready():
 	# only to be called in inherited classes
-	fix_collision_shape()
+	#fix_collision_shape()
 	# merges properties from all sub-nodes
 	properties = interface.collect_properties(self)
 
@@ -38,4 +38,4 @@ func destroy(destroyer):
 	#get_node("destroyable").destroy(destroyer)
 	object_locator.free_ship(self)
 	# free is called in destroyable
-	get_node(global.scene_tree_game).spawn_tower()
+	#get_node(global.scene_tree_game).spawn_tower()

@@ -108,4 +108,8 @@ func _physics_process(delta) :
 	if zoom_speed != 0:
 		object_locator.set_camera_zoom(zoom)
 		zoom_speed = 0
+		
+	if (get_tree().has_meta("network_peer") and parent.is_network_master()):
+		
+		parent.rpc_unreliable("set_network_update", parent.get_network_update())
 

@@ -35,7 +35,7 @@ func _unhandled_input ( event ) :
 	#print("typeof: ", typeof(InputEventMouseButton))
 	
 	if (event.device != null && event.is_action_type()):
-		#print("device input ", event.device, " with type ", event.type)
+		print("device input ", event.device, " with type ", event.is_action_type())
 		var inputtype = null
 		# see if we already have this device_group registered
 		for device_group in device_groups :
@@ -49,6 +49,7 @@ func _unhandled_input ( event ) :
 			get_tree().set_input_as_handled()
 
 			registered_devices[inputtype].append(event.device)
+			print ("spawning new player from input..")
 			get_node(global.scene_tree_game).spawn_player("Input",
 				[event.device, device_groups[inputtype], inputtype])
 

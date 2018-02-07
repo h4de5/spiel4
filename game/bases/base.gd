@@ -3,6 +3,7 @@ extends RigidBody2D
 var properties
 var properties_base = Dictionary()
 var main_group
+var scene_path
 
 # call order:
 # ready base
@@ -96,6 +97,7 @@ func process_collision(obstacle):
 			print("get_collision_point: ", raycast.get_collision_point(), " get_collider: ", raycast.get_collider())
 		"""
 
+
 # see https://github.com/godotengine/godot/issues/2314
 # and . https://github.com/godotengine/godot/issues/8103
 func fix_collision_shape():
@@ -124,3 +126,12 @@ func fix_collision_shape():
 #		add_child(shape)
 #
 #		shape.set_meta("__registered", true)
+
+remote func get_network_update():
+	return [get_position(), get_rotation(), get_linear_velocity(), get_angular_velocity()]
+
+remote func set_network_update(packet):
+	set_position(packet[0])
+	set_rotation(packet[1])
+	set_linear_velocity(packet[2])
+	set_angular_velocity(packet[3])

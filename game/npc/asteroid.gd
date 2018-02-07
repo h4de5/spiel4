@@ -41,6 +41,6 @@ func destroy(destroyer):
 	#get_node("destroyable").destroy(destroyer)
 	object_locator.free_object(self)
 	# free is called in destroyable
-	get_node(global.scene_tree_game).spawn_object(global.scene_path_asteroid, "objects")
+	#get_node(global.scene_tree_game).spawn_object(global.scene_path_asteroid, "objects")
 
 

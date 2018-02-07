@@ -5,7 +5,7 @@ var collectable = null
 
 func _ready():
 	# only to be called in inherited classes
-	fix_collision_shape()
+	#fix_collision_shape()
 
 	# generate random modifiers
 	set_random_modifier()
@@ -34,7 +34,7 @@ func collected(reason):
 	object_locator.free_object(self)
 	# free is called in collectable
 	# spawn another pickup
-	get_node(global.scene_tree_game).spawn_pickup()
+	#get_node(global.scene_tree_game).spawn_pickup()
 
 func set_random_modifier():
 	randomize()

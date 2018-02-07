@@ -3,6 +3,7 @@ extends Area2D
 var properties
 var properties_base = Dictionary()
 var main_group
+var scene_path
 
 func _ready():
 	# merges properties from all sub-nodes
@@ -58,29 +59,9 @@ func set_property(type, value):
 		properties[type] = value
 
 
-# see https://github.com/godotengine/godot/issues/2314
-# and . https://github.com/godotengine/godot/issues/8103
-func fix_collision_shape():
-	for shape in get_children():
-		#if not shape extends CollisionShape2D and not shape extends CollisionPolygon2D:
-		if not shape is CollisionPolygon2D:
-			continue
-		if shape.has_meta("__registered") and shape.get_meta("__registered"):
-			continue
 
-		get_tree().set_editor_hint(true)
+remote func get_network_update():
+	return [get_position()]
 
-		remove_child(shape) # Make it pick up the editor hint
-		add_child(shape)
-
-		get_tree().set_editor_hint(false) # Unset quickly
-
-		#if shape extends CollisionShape2D: # Now update parent is working, so just change the shape
-		#	shape.set_shape(shape.get_shape())
-		if shape is CollisionPolygon2D:
-			shape.set_polygon(shape.get_polygon())
-
-		remove_child(shape) # Reset its editor hint cache, just in case it was needed.. (you might drop this part if it bottlenecks)
-		add_child(shape)
-
-		shape.set_meta("__registered", true)
+remote func set_network_update(packet):
+	set_position(packet[0])

@@ -16,4 +16,4 @@ func initialize() :
 
 func destroy(destroyer):
 	.destroy(destroyer)
-	get_node(global.scene_tree_game).spawn_enemy()
+	#get_node(global.scene_tree_game).spawn_enemy()
