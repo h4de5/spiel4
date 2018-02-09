@@ -113,7 +113,7 @@ func set_camera(excludes = []):
 
 		var zoom = bounding_box.size / window_size
 		var zoom_max = max(max(zoom.x, zoom.y), 1)
-		zoom_max *= 1.3
+		zoom_max *= 1.8
 
 		#print("width ", d_width, " box size ", bounding_box.size, " zoomx ", zoomx, " zoomy ", zoomy)
 		camera.set_zoom(Vector2(zoom_max, zoom_max))

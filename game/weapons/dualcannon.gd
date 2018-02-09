@@ -51,5 +51,5 @@ func get_weapon_position():
 	return get_global_position()
 
 func shoot(parent, target = null):
-	send_bullet(new_bullet(), get_node("Sprite/muzzle").get_global_position(), get_node("Sprite").get_global_rotation())
-	send_bullet(new_bullet(), get_node("Sprite2/muzzle").get_global_position(), get_node("Sprite2").get_global_rotation())
+	send_bullet(get_node("Sprite/muzzle").get_global_position(), get_node("Sprite").get_global_rotation())
+	send_bullet(get_node("Sprite2/muzzle").get_global_position(), get_node("Sprite2").get_global_rotation())

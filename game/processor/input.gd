@@ -46,7 +46,7 @@ func _input(event):
 	if (event.device == device_id && device_types.has(event.get_class())):
 		#if (event.type == InputEvent.MOUSE_MOTION):
 		if (event is InputEventMouseMotion):
-			get_tree().set_input_as_handled()
+			#get_tree().set_input_as_handled()
 			#parent.handle_mousemove(event.pos)
 			# TODO - check if global_mouse_pos is realy the best way to do this
 
@@ -56,7 +56,8 @@ func _input(event):
 			#print ("got event ", event)
 			for e in input_actions :
 				if event.is_action(e) :
-					get_tree().set_input_as_handled()
+					if (not event is InputEventMouseButton):
+						get_tree().set_input_as_handled()
 					#parent.handle_action(input_actions[e], event.is_pressed(event))
 					if moveable:
 						moveable.handle_action(input_actions[e], Input.is_action_pressed(e))

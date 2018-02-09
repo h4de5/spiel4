@@ -128,10 +128,26 @@ func fix_collision_shape():
 #		shape.set_meta("__registered", true)
 
 remote func get_network_update():
-	return [get_position(), get_rotation(), get_linear_velocity(), get_angular_velocity()]
+	var packet = [
+		get_position(), 
+		get_rotation(), 
+		get_linear_velocity(), 
+		get_angular_velocity(),
+		properties
+		]
+	if interface.is_shootable(self) and interface.is_shootable(self).get_active_weapon():
+		packet.append(interface.is_shootable(self).get_active_weapon().get_weapon_rotation())
+	else: 
+		packet.append(0)
+		
+	return packet
+	
 
 remote func set_network_update(packet):
 	set_position(packet[0])
 	set_rotation(packet[1])
 	set_linear_velocity(packet[2])
 	set_angular_velocity(packet[3])
+	properties = packet[4]
+	if interface.is_shootable(self) and interface.is_shootable(self).get_active_weapon():
+		interface.is_shootable(self).get_active_weapon().set_weapon_rotation(packet[5])

@@ -18,7 +18,10 @@ func _ready() :
 func initialize():
 	.initialize()
 	
-	set_physics_process(true)
+	if not network_manager.network_activated() or network_manager.is_server():
+		set_physics_process(true)
+	else:
+		set_physics_process(false)
 		
 	if shootable :
 		weapon = shootable.get_active_weapon()
@@ -29,8 +32,8 @@ func _physics_process(delta) :
 	if delta_count > delta_max :
 		
 		# generate input only in single player or on server
-		if get_tree().has_meta("network_peer") and not get_tree().is_network_server():
-			pass
+		#if get_tree().has_meta("network_peer") and not get_tree().is_network_server():
+		#	pass
 
 		# current object position
 		var ownpos = parent.get_global_position();
@@ -132,44 +135,46 @@ func _physics_process(delta) :
 
 			#var weapon = parent.get_node("weapons_selector").get_active_weapon()
 
-			var weaponrot = weapon.get_weapon_rotation()
-
-			var weaponvec = Vector2(cos(weaponrot + PI/2), sin(weaponrot+ PI/2))*-1
-			var targetangle = shooting_vector.angle_to(weaponvec)
-			#var weaponvec = Vector2(sin(weaponrot), cos(weaponrot))
-			#var targetangle = weaponvec.angle_to(shooting_vector)
-
-			var shoot = false
-
-			# weapon adjustment
-			if (abs(targetangle) < parent.get_property(global.properties.clearance_rotation) and
-				ownpos.distance_to(targetpos) < bulletrange) :
-
-				# shoot only when there is no other enemy in between
-				# In code, for 2D spacestate, this code must be used:
-				var space_state = parent.get_world_2d().get_direct_space_state()
-				# use global coordinates, not local to node
-				# 7 .. layer 1, 2 and 3 (binary 1+2+4)
-
-				var collision_settings = global.collision_layer_masks[parent.main_group]
-				var raycast_hits = space_state.intersect_ray( ownpos, targetpos, [parent], collision_settings[1])
-
-				#draw_line.update_line(parent, ownpos, targetpos)
-
-				if not raycast_hits.empty():
-					#print ("raycasts ", raycast_hits)
-
-					#if not raycast_hits.collider.is_in_group(global.groups.npc) :
-					if raycast_hits.collider.is_in_group(global.groups.player) :
+			if weapon: 
+				
+				var weaponrot = weapon.get_weapon_rotation()
+	
+				var weaponvec = Vector2(cos(weaponrot + PI/2), sin(weaponrot+ PI/2))*-1
+				var targetangle = shooting_vector.angle_to(weaponvec)
+				#var weaponvec = Vector2(sin(weaponrot), cos(weaponrot))
+				#var targetangle = weaponvec.angle_to(shooting_vector)
+	
+				var shoot = false
+		
+				# weapon adjustment
+				if (abs(targetangle) < parent.get_property(global.properties.clearance_rotation) and
+					ownpos.distance_to(targetpos) < bulletrange) :
+	
+					# shoot only when there is no other enemy in between
+					# In code, for 2D spacestate, this code must be used:
+					var space_state = parent.get_world_2d().get_direct_space_state()
+					# use global coordinates, not local to node
+					# 7 .. layer 1, 2 and 3 (binary 1+2+4)
+	
+					var collision_settings = global.collision_layer_masks[parent.main_group]
+					var raycast_hits = space_state.intersect_ray( ownpos, targetpos, [parent], collision_settings[1])
+	
+					#draw_line.update_line(parent, ownpos, targetpos)
+	
+					if not raycast_hits.empty():
+						#print ("raycasts ", raycast_hits)
+	
+						#if not raycast_hits.collider.is_in_group(global.groups.npc) :
+						if raycast_hits.collider.is_in_group(global.groups.player) :
+							shoot = true
+						#print ("raycast from ", parent.get_name(), " would hit ", raycast_hits.collider.get_name(), " in groups ", raycast_hits.collider.get_groups(), " shoot ", shoot)
+					else:
 						shoot = true
-					#print ("raycast from ", parent.get_name(), " would hit ", raycast_hits.collider.get_name(), " in groups ", raycast_hits.collider.get_groups(), " shoot ", shoot)
-				else:
-					shoot = true
 
-			if shoot :
-				shootable.handle_action( global.actions.fire, true)
-			else:
-				shootable.handle_action( global.actions.fire, false )
+				if shoot :
+					shootable.handle_action( global.actions.fire, true)
+				else:
+					shootable.handle_action( global.actions.fire, false )
 
 		elif shootable:
 			shootable.handle_action( global.actions.target_left, false )

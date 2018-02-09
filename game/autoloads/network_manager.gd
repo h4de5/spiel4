@@ -23,7 +23,29 @@ func _ready():
 	get_tree().connect("connection_failed", self, "_connected_fail")
 	get_tree().connect("server_disconnected", self, "_server_disconnected")
 	
-	
+func network_activated():
+	if get_tree().has_meta("network_peer"):
+		return true
+	else :
+		return false
+		
+func is_server():
+	if network_activated() and get_tree().is_network_server():
+		return true
+	else :
+		return false
+		
+func is_master(node):
+	if network_activated() and node.is_network_master():
+		return true
+	else :
+		return false
+
+func is_slave(node):
+	if network_activated() and not node.is_network_master():
+		return true
+	else :
+		return false
 
 	# Called every time the node is added to the scene.
 #	network_manager.connect("connection_failed", self, "_on_connection_failed")
@@ -62,17 +84,18 @@ func _player_disconnected(id):
 
 func _connected_ok():
 	print ("_connected_ok")
+	
 	# Only called on clients, not server. Send my ID and info to all the other peers
 	rpc("register_player", get_tree().get_network_unique_id(), my_info)
 
 func _server_disconnected():
 	print ("_server_disconnected")
-	get_tree().set_meta(null)
+	get_tree().set_meta("network_peer", null)
 	pass # Server kicked us, show error and abort
 
 func _connected_fail():
-	print ("connnection failed")
-	get_tree().set_meta(null)
+	print ("connection failed")
+	get_tree().set_meta("network_peer", null)
 	pass # Could not even connect to server, abort
 
 func split_path(path):
