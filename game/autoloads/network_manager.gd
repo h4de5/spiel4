@@ -7,7 +7,22 @@ var SERVER_PORT = 32112
 var MAX_PLAYERS = 512
 
 # Signals to let lobby GUI know what's going on
-#signal player_list_changed()
+
+#  when a player has been added, or removed
+signal peer_list_changed(player_pool_size, networkid, add_or_remove) # server only signal
+
+# when the game is switched to client mode
+signal start_client()
+# when the game is switched to server mode
+signal start_server()
+# when the game is switched to offline mode
+signal start_offline()
+
+# when the client is connected to the server
+signal connected_as_client()
+
+
+
 #signal connection_failed()
 #signal connection_succeeded()
 #signal game_ended()
@@ -17,11 +32,20 @@ var MAX_PLAYERS = 512
 # Connect all functions
 func _ready():
 	
-	get_tree().connect("network_peer_connected", self, "_player_connected")
-	get_tree().connect("network_peer_disconnected", self, "_player_disconnected")
-	get_tree().connect("connected_to_server", self, "_connected_ok")
-	get_tree().connect("connection_failed", self, "_connected_fail")
-	get_tree().connect("server_disconnected", self, "_server_disconnected")
+	get_tree().connect("network_peer_connected", self, "network_peer_connected")
+	get_tree().connect("network_peer_disconnected", self, "network_peer_disconnected")
+	get_tree().connect("connected_to_server", self, "connected_to_server")
+	get_tree().connect("connection_failed", self, "connection_failed")
+	get_tree().connect("server_disconnected", self, "server_disconnected")
+	
+	set_physics_process(false)
+	
+	# Called every time the node is added to the scene.
+#	network_manager.connect("connection_failed", self, "_on_connection_failed")
+#	network_manager.connect("connection_succeeded", self, "_on_connection_success")
+#	network_manager.connect("player_list_changed", self, "refresh_lobby")
+#	network_manager.connect("game_ended", self, "_on_game_ended")
+#	network_manager.connect("game_error", self, "_on_game_error")
 	
 func network_activated():
 	if get_tree().has_meta("network_peer"):
@@ -47,12 +71,6 @@ func is_slave(node):
 	else :
 		return false
 
-	# Called every time the node is added to the scene.
-#	network_manager.connect("connection_failed", self, "_on_connection_failed")
-#	network_manager.connect("connection_succeeded", self, "_on_connection_success")
-#	network_manager.connect("player_list_changed", self, "refresh_lobby")
-#	network_manager.connect("game_ended", self, "_on_game_ended")
-#	network_manager.connect("game_error", self, "_on_game_error")
 
 func _physics_process(delta):
 	_single_process() 
@@ -74,29 +92,35 @@ var my_info = { name = "Johnson Magenta", favorite_color = Color8(255, 0, 255) }
 var players_done = []
 	
 
-func _player_connected(id):
-	print ("_player_connected")
-	pass # Will go unused, not useful here
+# Will go unused, not useful here
+func network_peer_connected(id):
+	print ("network_peer_connected")
+	emit_signal("peer_list_changed", player_info.size(), id, 1)
+	
+func network_peer_disconnected(id):
+	print ("network_peer_disconnected")
+	# Erase player from info
+	player_info.erase(id)
+	emit_signal("peer_list_changed", player_info.size(), id, -1)
 
-func _player_disconnected(id):
-	print ("_player_disconnected")
-	player_info.erase(id) # Erase player from info
-
-func _connected_ok():
-	print ("_connected_ok")
+func connected_to_server():
+	print ("connected_to_server")
+	emit_signal("connected_as_client")
 	
 	# Only called on clients, not server. Send my ID and info to all the other peers
 	rpc("register_player", get_tree().get_network_unique_id(), my_info)
 
-func _server_disconnected():
-	print ("_server_disconnected")
+# Server kicked us, show error and abort
+func server_disconnected():
+	print ("server_disconnected")
 	get_tree().set_meta("network_peer", null)
-	pass # Server kicked us, show error and abort
+	emit_signal("start_offline")
 
-func _connected_fail():
-	print ("connection failed")
+# Could not even connect to server, abort
+func connection_failed():
+	print ("connection_failed")
 	get_tree().set_meta("network_peer", null)
-	pass # Could not even connect to server, abort
+	emit_signal("start_offline")
 
 func split_path(path):
 	# /root/game/objects/Asteroid2
@@ -114,53 +138,36 @@ remote func register_player(id, info):
 	if (get_tree().is_network_server()):
 		# Send my info to new player
 		rpc_id(id, "register_player", 1, my_info)
-		#rpc_id(id, "init_objects", object_locator.objects_registered)
 		
+		emit_signal("peer_list_changed", player_info.size(), id, -1)
+		
+		# go through all game objects, and spawn them accordingly on the new peer
 		for group in object_locator.objects_registered:
 			for obj in object_locator.objects_registered[group]:
 				get_node(global.scene_tree_game).rpc_id(id, "spawn_object", obj.scene_path, split_path(obj.get_path()))
 		
-		
 		# Send the info of existing players
+		# no in use
 		for peer_id in player_info:
 			rpc_id(id, "register_player", peer_id, player_info[peer_id])
+			
 		# Call function to update lobby UI here
-		
-		rpc("pre_configure_game")
+		# called on all peers
+		rpc("pre_configure_game")	
 
-remote func init_objects(objects) :
-	print ("init_objects")
-	object_locator.objects_registered = objects
-	
-	
-	
 remote func pre_configure_game():
 	print ("pre_configure_game")
 	
+	# game is paused for now
 	get_tree().set_pause(true) # Pre-pause
 	# The rest is the same as in the code in the previous section (look above)
-	
 	var selfPeerID = get_tree().get_network_unique_id()
-	
-	# Load world
-	#var world = load(which_level).instance()
-	#get_node("/root").add_child(world)
-	
-	# Load my player
-	#var my_player = preload("res://player.tscn").instance()
-	#my_player.set_name(str(selfPeerID))
-	#my_player.set_network_master(selfPeerID) # Will be explained later
-	#get_node("/root/world/players").add_child(my_player)
-	
-	# Load other players
-#	for p in player_info:
-#		var player_node = get_node(global.scene_tree_game).spawn_player("Network", [p, player_info[p]])
-#		player_node.set_name(player_node.get_name() +" "+ str(p))
 	
 	# Tell server (remember, server is always ID=1) that this peer is done pre-configuring
 	rpc_id(1, "done_preconfiguring", selfPeerID)
 
 
+# waits until all clients sent "done"
 remote func done_preconfiguring(who):
 	print ("done_preconfiguring")
 	
@@ -174,14 +181,13 @@ remote func done_preconfiguring(who):
 	if (players_done.size() == player_info.size()):
 		rpc("post_configure_game")
 
+# .. then continues the game
 remote func post_configure_game():
 	print ("post_configure_game")
-	
 	get_tree().set_pause(false)
 	# Game starts now!
 
-
-
+# 
 func start_server():
 	print ("start server")
 	var peer = NetworkedMultiplayerENet.new()
@@ -191,6 +197,8 @@ func start_server():
 	
 	set_physics_process(true)
 	
+	emit_signal("start_server")
+	
 	
 func start_client():
 	print ("connect to server..")
@@ -199,5 +207,8 @@ func start_client():
 	get_tree().set_network_peer(peer)
 	get_tree().set_meta("network_peer", peer)
 	
-	get_node(global.scene_tree_game).clear_game()
+	set_physics_process(false)
+	
+	# clearing is done via signals now - because cool
+	emit_signal("start_client")
 	

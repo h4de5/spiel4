@@ -3,9 +3,9 @@
 [ext_resource path="res://game/main/game.gd" type="Script" id=1]
 [ext_resource path="res://game/main/board.tscn" type="PackedScene" id=2]
 [ext_resource path="res://game/main/player_manager.gd" type="Script" id=3]
-[ext_resource path="res://game/main/gui.gd" type="Script" id=4]
+[ext_resource path="res://game/main/gui.tscn" type="PackedScene" id=4]
 
-[node name="game" type="Node2D" index="0"]
+[node name="game" type="Node2D"]
 
 script = ExtResource( 1 )
 
@@ -48,107 +48,7 @@ script = ExtResource( 3 )
 
 [node name="objects" type="Node" parent="." index="4"]
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." index="5"]
-
-editor/display_folded = true
-layer = 1
-offset = Vector2( 0, 0 )
-rotation = 0.0
-scale = Vector2( 1, 1 )
-transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-
-[node name="Control" type="Control" parent="CanvasLayer" index="0"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_right = 40.0
-margin_bottom = 40.0
-rect_pivot_offset = Vector2( 0, 0 )
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-script = ExtResource( 4 )
-
-[node name="BtnConnect" type="Button" parent="CanvasLayer/Control" index="0"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 40.0
-margin_top = 47.0
-margin_right = 127.0
-margin_bottom = 76.0
-rect_pivot_offset = Vector2( 0, 0 )
-focus_mode = 2
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-group = null
-text = "Connect"
-flat = false
-align = 1
-
-[node name="BtnServer" type="Button" parent="CanvasLayer/Control" index="1"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 43.0
-margin_top = 84.0
-margin_right = 108.0
-margin_bottom = 113.0
-rect_pivot_offset = Vector2( 0, 0 )
-focus_mode = 2
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-group = null
-text = "Start Server"
-flat = false
-align = 1
-
-[node name="update" type="Button" parent="CanvasLayer/Control" index="2"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 46.0
-margin_top = 124.0
-margin_right = 128.0
-margin_bottom = 153.0
-rect_pivot_offset = Vector2( 0, 0 )
-focus_mode = 2
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-group = null
-text = "Update"
-flat = false
-align = 1
-
-[connection signal="pressed" from="CanvasLayer/Control/BtnConnect" to="CanvasLayer/Control" method="_on_BtnConnect_pressed"]
-
-[connection signal="pressed" from="CanvasLayer/Control/BtnServer" to="CanvasLayer/Control" method="_on_BtnServer_pressed"]
-
-[connection signal="pressed" from="CanvasLayer/Control/update" to="CanvasLayer/Control" method="_on_update_pressed"]
+[node name="Gui" parent="." index="5" instance=ExtResource( 4 )]
 
 
 [editable path="board"]

@@ -9,6 +9,11 @@ func _ready():
 	add_child(camera_node, true)
 
 	call_deferred("initialize")
+	
+	# when client starts, clear the game
+	network_manager.connect("connected_as_client", self , "clear_game")
+	
+	#get_node(global.scene_tree_game).clear_game()
 
 func initialize():
 	for i in range(1): spawn_enemy()
