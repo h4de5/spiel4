@@ -156,7 +156,10 @@ func _physics_process(delta) :
 					# use global coordinates, not local to node
 					# 7 .. layer 1, 2 and 3 (binary 1+2+4)
 	
-					var collision_settings = global.collision_layer_masks[parent.main_group]
+					# use collision setting from bullet
+					#var collision_settings = global.collision_layer_masks[parent.main_group]
+					var collision_settings = global.collision_layer_masks["bullet"]
+					
 					var raycast_hits = space_state.intersect_ray( ownpos, targetpos, [parent], collision_settings[1])
 	
 					#draw_line.update_line(parent, ownpos, targetpos)

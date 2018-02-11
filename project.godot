@@ -102,4 +102,5 @@ ui_weapon_right=[ Object(InputEventJoypadMotion,"resource_local_to_scene":false,
 quality/intended_usage/framebuffer_allocation=0
 quality/intended_usage/framebuffer_allocation.mobile=0
 quality/2d/use_pixel_snap=true
+vram_compression/import_etc2=false
 viewport/default_clear_color=Color( 0, 0, 0, 1 )

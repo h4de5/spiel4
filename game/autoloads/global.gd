@@ -38,6 +38,7 @@ var collision_layer_masks = {
 	pickup 		= [8, 1+2],
 	bullet 		= [16, 1+2+4+32],
 	missle 		= [32, 1+2+4+16+32],
+	explosion	= [64, 1+2+4+32]
 }
 
 
