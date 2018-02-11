@@ -20,42 +20,9 @@ texture = ExtResource( 3 )
 
 editor/display_folded = true
 
-[node name="moveable" parent="." index="3"]
-
-editor/display_folded = true
-
 [node name="particle_forward" parent="moveable" index="0"]
 
 position = Vector2( 0, 65.0113 )
-emitting = true
-amount = 8
-lifetime = 1.0
-one_shot = false
-preprocess = 0.0
-speed_scale = 1.0
-explosiveness = 0.0
-randomness = 0.0
-fixed_fps = 0
-fract_delta = true
-visibility_rect = Rect2( -100, -100, 200, 200 )
-local_coords = true
-draw_order = 0
-process_material = null
-texture = null
-normal_map = null
-h_frames = 1
-v_frames = 1
-
-[node name="Light2D" parent="moveable/particle_forward" index="0"]
-
-scale = Vector2( 1, 1 )
-texture_scale = 1.0
-range_layer_min = 0
-range_item_cull_mask = 1
-shadow_gradient_length = 0.0
-shadow_filter = 0
-shadow_filter_smooth = 0.0
-shadow_item_cull_mask = 1
 
 [node name="dualcannon" parent="shootable" index="0"]
 
@@ -70,7 +37,7 @@ position = Vector2( -30, 26 )
 
 position = Vector2( 30, 26 )
 
-[node name="Collision" parent="." index="6"]
+[node name="Collision" parent="." index="7"]
 
 polygon = PoolVector2Array( 5.48351, -48.7932, 15.16, 1.18334, 38.5192, 25.1264, 48.4468, 51.1135, -1.26912, 51.7018, -47.9096, 50.5295, -37.0183, 26.2801, -15.4988, 1.47533, -5.24124, -48.7932 )
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://game/ship/baseship.gd" type="Script" id=1]
 [ext_resource path="res://art/models/icon.png" type="Texture" id=2]
@@ -6,7 +6,8 @@
 [ext_resource path="res://game/interfaces/destroyable.tscn" type="PackedScene" id=4]
 [ext_resource path="res://game/interfaces/moveable.tscn" type="PackedScene" id=5]
 [ext_resource path="res://game/interfaces/shootable.tscn" type="PackedScene" id=6]
-[ext_resource path="res://game/processor/processor_selector.tscn" type="PackedScene" id=7]
+[ext_resource path="res://game/interfaces/explodeable.tscn" type="PackedScene" id=7]
+[ext_resource path="res://game/processor/processor_selector.tscn" type="PackedScene" id=8]
 
 [sub_resource type="GDScript" id=1]
 
@@ -87,10 +88,12 @@ linear_damp = -1.0
 angular_velocity = 0.0
 angular_damp = -1.0
 script = ExtResource( 1 )
+_sections_unfolded = [ "Material", "Transform", "Visibility", "Z Index" ]
 
 [node name="Sprite" type="Sprite" parent="." index="0"]
 
 texture = ExtResource( 2 )
+_sections_unfolded = [ "Offset" ]
 
 [node name="resizeable" parent="." index="1" instance=ExtResource( 3 )]
 
@@ -100,14 +103,18 @@ texture = ExtResource( 2 )
 
 [node name="shootable" parent="." index="4" instance=ExtResource( 6 )]
 
-[node name="processor_selector" parent="." index="5" instance=ExtResource( 7 )]
+editor/display_folded = true
 
-[node name="Collision" type="CollisionPolygon2D" parent="." index="6"]
+[node name="explodeable" parent="." index="5" instance=ExtResource( 7 )]
+
+[node name="processor_selector" parent="." index="6" instance=ExtResource( 8 )]
+
+[node name="Collision" type="CollisionPolygon2D" parent="." index="7"]
 
 build_mode = 0
 polygon = PoolVector2Array( -31.327, -31.6235, 30.274, -31.0832, 30.8144, 31.0582, -30.2462, 31.5985 )
 
-[node name="debug" type="Label" parent="." index="7"]
+[node name="debug" type="Label" parent="." index="8"]
 
 anchor_left = 0.0
 anchor_top = 0.0

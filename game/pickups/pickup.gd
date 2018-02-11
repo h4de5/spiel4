@@ -30,8 +30,7 @@ func initialize() :
 	collectable = interface.is_collectable(self)
 
 func collected(reason):
-	#get_node("destroyable").destroy(destroyer)
-	object_locator.free_object(self)
+	.collected(reason)
 	# free is called in collectable
 	# spawn another pickup
 	#get_node(global.scene_tree_game).spawn_pickup()

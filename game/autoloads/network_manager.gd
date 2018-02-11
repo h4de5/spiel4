@@ -47,29 +47,30 @@ func _ready():
 #	network_manager.connect("game_ended", self, "_on_game_ended")
 #	network_manager.connect("game_error", self, "_on_game_error")
 	
-func network_activated():
-	if get_tree().has_meta("network_peer"):
-		return true
-	else :
-		return false
-		
+func is_network_activated():
+	return get_tree().has_meta("network_peer")
+
+func is_offline():
+	return not is_network_activated()
+	
 func is_server():
-	if network_activated() and get_tree().is_network_server():
+	if is_network_activated() and get_tree().is_network_server():
 		return true
 	else :
 		return false
 		
 func is_master(node):
-	if network_activated() and node.is_network_master():
+	if is_network_activated() and node.is_network_master():
 		return true
 	else :
 		return false
 
 func is_slave(node):
-	if network_activated() and not node.is_network_master():
+	if is_network_activated() and not node.is_network_master():
 		return true
 	else :
 		return false
+		
 
 
 func _physics_process(delta):
@@ -119,6 +120,16 @@ func server_disconnected():
 # Could not even connect to server, abort
 func connection_failed():
 	print ("connection_failed")
+	get_tree().set_meta("network_peer", null)
+	emit_signal("start_offline")
+	
+func disconnect_game():
+	print ("disconnect_game")
+	
+	var peer = get_tree().get_meta("network_peer")
+	if peer:
+		peer.close_connection()
+	
 	get_tree().set_meta("network_peer", null)
 	emit_signal("start_offline")
 

@@ -1,66 +1,112 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://game/interfaces/moveable.gd" type="Script" id=1]
 [ext_resource path="res://art/models/SmokeParticle.png" type="Texture" id=2]
 
-[sub_resource type="Gradient" id=1]
+[sub_resource type="Gradient" id=2]
 
-offsets = PoolRealArray( 0, 0.19883, 0.643275, 1 )
-colors = PoolColorArray( 0.765625, 0.972534, 1, 1, 1, 0.867188, 0, 1, 0, 0, 0, 1, 0.0351562, 0.0351562, 0.0351562, 0 )
+offsets = PoolRealArray( 0.00591716, 0.0769231, 0.846154, 0.988166, 1 )
+colors = PoolColorArray( 0.764706, 0.968627, 1, 0.71651, 1, 0.866667, 0, 0.608235, 0, 0, 0, 0.618549, 0.0313726, 0.0313726, 0.0313726, 0, 0.1, 0.0827148, 0.0308594, 0 )
+_sections_unfolded = [ "Resource" ]
+
+[sub_resource type="GradientTexture" id=3]
+
+flags = 4
+gradient = SubResource( 2 )
+width = 200
+_sections_unfolded = [ "Resource" ]
+
+[sub_resource type="ParticlesMaterial" id=4]
+
+render_priority = 0
+trail_divisor = 2
+emission_shape = 2
+emission_box_extents = Vector3( 15, 1, 1 )
+flag_align_y = false
+flag_rotate_y = false
+flag_disable_z = true
+spread = 2.0
+flatness = 0.0
+gravity = Vector3( 0, 98, 0 )
+initial_velocity = 0.0
+initial_velocity_random = 0.0
+angular_velocity = 40.0
+angular_velocity_random = 1.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = 66.0
+linear_accel_random = 0.0
+radial_accel = 40.0
+radial_accel_random = 1.0
+tangential_accel = 0.0
+tangential_accel_random = 0.0
+damping = 0.0
+damping_random = 0.0
+angle = 0.0
+angle_random = 0.0
+scale = 0.3
+scale_random = 0.0
+color_ramp = SubResource( 3 )
+hue_variation = 0.0
+hue_variation_random = 0.0
+anim_speed = 0.0
+anim_speed_random = 0.0
+anim_offset = 0.0
+anim_offset_random = 0.0
+anim_loop = false
+_sections_unfolded = [ "Angle", "Angular Velocity", "Color", "Damping", "Emission Shape", "Flags", "Gravity", "Initial Velocity", "Linear Accel", "Orbit Velocity", "Radial Accel", "Resource", "Scale", "Spread", "Tangential Accel", "Trail" ]
 
 [node name="moveable" type="Node2D"]
 
 script = ExtResource( 1 )
 activated = false
 
-[node name="particle_forward" type="Particles2D" parent="."]
+[node name="particle_forward" type="Particles2D" parent="." index="0"]
 
 position = Vector2( 0, 30 )
-config/amount = 32
-config/lifetime = 0.4
-config/process_mode = 1
-config/half_extents = Vector2( 5, 0 )
-config/local_space = false
-config/texture = ExtResource( 2 )
-params/direction = 0.0
-params/spread = 22.3
-params/linear_velocity = 18.0
-params/spin_velocity = 0.0
-params/orbit_velocity = 0.0
-params/gravity_direction = 0.0
-params/gravity_strength = 9.8
-params/radial_accel = 0.0
-params/tangential_accel = 0.0
-params/damping = 0.0
-params/initial_angle = 0.0
-params/initial_size = 0.1
-params/final_size = 0.3
-params/hue_variation = 1.0
-params/anim_speed_scale = 1.0
-params/anim_initial_pos = 0.0
-randomness/spread = 1.0
-color/color = Color( 1, 0.84375, 0, 1 )
-color/color_ramp = SubResource( 1 )
+emitting = true
+amount = 20
+lifetime = 0.8
+one_shot = false
+preprocess = 0.0
+speed_scale = 1.0
+explosiveness = 0.0
+randomness = 1.0
+fixed_fps = 0
+fract_delta = true
+visibility_rect = Rect2( -100, -100, 200, 200 )
+local_coords = true
+draw_order = 1
+process_material = SubResource( 4 )
+texture = ExtResource( 2 )
+normal_map = null
+h_frames = 1
+v_frames = 1
+_sections_unfolded = [ "Drawing", "Material", "Process Material", "Textures", "Time", "Transform", "Visibility", "Z Index" ]
 
-[node name="Light2D" type="Light2D" parent="particle_forward"]
+[node name="Light2D" type="Light2D" parent="particle_forward" index="0"]
 
-position = Vector2( 0, 96 )
+position = Vector2( 0, 100 )
 enabled = true
 editor_only = false
 texture = ExtResource( 2 )
 offset = Vector2( 0, 0 )
-scale = 2.0
+texture_scale = 1.0
 color = Color( 0.988281, 0.902265, 0.509583, 1 )
 energy = 2.0
 mode = 2
 range_height = 0.0
 range_z_min = -1024
 range_z_max = 1024
-range/layer_min = 0
+range_layer_min = 0
 range_layer_max = 0
-range/item_mask = 1
+range_item_cull_mask = 1
 shadow_enabled = false
 shadow_color = Color( 0, 0, 0, 0 )
 shadow_buffer_size = 2048
-shadow/esm_multiplier = 80.0
-shadow/item_mask = 1
+shadow_gradient_length = 0.0
+shadow_filter = 0
+shadow_filter_smooth = 0.0
+shadow_item_cull_mask = 1
+
+

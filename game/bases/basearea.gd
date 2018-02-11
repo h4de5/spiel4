@@ -41,9 +41,10 @@ func register_object(group):
 #	set_layer_mask(collision_settings[0])
 
 func destroy(destroyer):
-	pass
+	object_locator.free_object(self)
+	
 func collected(reason):
-	pass
+	object_locator.free_object(self)
 
 # get all different properties from this ship
 func get_property(type) :

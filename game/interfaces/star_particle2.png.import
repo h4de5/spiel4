@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/SmokeParticle.png-99db1718d09df85715b9d22510525661.stex"
+path="res://.import/star_particle2.png-3369d0d756c4c42b5b904ca700733a93.stex"
 
 [deps]
 
-source_file="res://art/models/SmokeParticle.png"
-source_md5="376d995e45121b56cdb425e1a9ad1cbf"
+source_file="res://game/interfaces/star_particle2.png"
+source_md5="abda225ee949145efb7cb1c5dbea0912"
 
-dest_files=[ "res://.import/SmokeParticle.png-99db1718d09df85715b9d22510525661.stex" ]
-dest_md5="91b257a744a0327902d4944a22decac5"
+dest_files=[ "res://.import/star_particle2.png-3369d0d756c4c42b5b904ca700733a93.stex" ]
+dest_md5="2fce09c8790c7d8e512794c5b4a8d722"
 
 [params]
 
@@ -27,6 +27,6 @@ process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 stream=false
-size_limit=128
+size_limit=0
 detect_3d=true
 svg/scale=1.0

@@ -3,6 +3,9 @@ extends "res://game/interfaces/isable.gd"
 
 var health_node = null
 
+signal been_destroyed(by_whom)
+signal been_hit(power, by_whom)
+
 func is_destroyable():
 	if activated:
 		return self
@@ -21,6 +24,11 @@ func initialize():
 	# Health bar
 	if not is_destroyable():
 		return
+		
+	if parent.has_method("destroy"): 
+		self.connect("been_destroyed", parent, "destroy")
+	if parent.has_method("hit"): 
+		self.connect("been_hit", parent, "hit")
 
 	#var health_scn = load(global.scene_path_healthbar)
 	#health_node = health_scn.instance()
@@ -58,11 +66,12 @@ func _process(delta):
 					progressbar.set_max(health_max)
 					progressbar.set_value(health)
 
-func destroy(destroyer):
-	# health_node is destroying itself
+func destroy(by_whom):
 
-	if parent.has_method("destroy") :
-		parent.destroy(destroyer)
+	emit_signal("been_destroyed", by_whom)
+	
+	#if parent.has_method("destroy") :
+	#	parent.destroy(by_whom)
 
 	parent.queue_free()
 
@@ -76,15 +85,18 @@ func heal(power, healer):
 	parent.set_property(global.properties.health, health)
 
 
-func hit(power, hitter):
-	if parent.has_method("hit") :
-		parent.hit(power, hitter)
+func hit(power, by_whom):
+	
+	emit_signal("been_hit", power, by_whom)
+	
+	#if parent.has_method("hit") :
+	#	parent.hit(power, by_whom)
 
 	var health
 	health = parent.get_property(global.properties.health) - power
 	parent.set_property(global.properties.health, health)
 
 	if (health <= 0):
-		destroy(hitter)
+		destroy(by_whom)
 		#get_node("anim").play("explode")
 		#destroyed=true

@@ -2,7 +2,7 @@
 
 [ext_resource path="res://game/main/gui.gd" type="Script" id=1]
 
-[node name="Gui" type="CanvasLayer" index="0"]
+[node name="Gui" type="CanvasLayer"]
 
 layer = 1
 offset = Vector2( 0, 0 )
@@ -25,16 +25,48 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 
-[node name="BtnConnect" type="Button" parent="Control" index="0"]
+[node name="MarginContainer" type="MarginContainer" parent="Control" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 40.0
-margin_top = 47.0
-margin_right = 127.0
-margin_bottom = 76.0
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 93.0
+margin_bottom = 92.0
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+_sections_unfolded = [ "Grow Direction", "Margin", "Rect" ]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 8.0
+margin_right = 93.0
+margin_bottom = 82.0
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+alignment = 0
+_sections_unfolded = [ "Margin" ]
+
+[node name="BtnConnect" type="Button" parent="Control/MarginContainer/VBoxContainer" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 85.0
+margin_bottom = 20.0
 rect_pivot_offset = Vector2( 0, 0 )
 focus_mode = 2
 mouse_filter = 0
@@ -48,17 +80,17 @@ group = null
 text = "Connect"
 flat = false
 align = 1
+_sections_unfolded = [ "custom_colors", "custom_styles" ]
 
-[node name="BtnServer" type="Button" parent="Control" index="1"]
+[node name="BtnServer" type="Button" parent="Control/MarginContainer/VBoxContainer" index="1"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 43.0
-margin_top = 84.0
-margin_right = 108.0
-margin_bottom = 113.0
+margin_top = 24.0
+margin_right = 85.0
+margin_bottom = 44.0
 rect_pivot_offset = Vector2( 0, 0 )
 focus_mode = 2
 mouse_filter = 0
@@ -73,17 +105,40 @@ text = "Start Server"
 flat = false
 align = 1
 
-[node name="update" type="Button" parent="Control" index="2"]
+[node name="BtnDisconnect" type="Button" parent="Control/MarginContainer/VBoxContainer" index="2"]
 
 visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 46.0
-margin_top = 124.0
-margin_right = 128.0
-margin_bottom = 153.0
+margin_top = 48.0
+margin_right = 85.0
+margin_bottom = 68.0
+rect_pivot_offset = Vector2( 0, 0 )
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+text = "Disconnect"
+flat = false
+align = 1
+
+[node name="BtnUpdate" type="Button" parent="Control/MarginContainer/VBoxContainer" index="3"]
+
+visible = false
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 72.0
+margin_right = 85.0
+margin_bottom = 92.0
 rect_pivot_offset = Vector2( 0, 0 )
 focus_mode = 2
 mouse_filter = 0
@@ -98,10 +153,12 @@ text = "Update"
 flat = false
 align = 1
 
-[connection signal="pressed" from="Control/BtnConnect" to="." method="_on_BtnConnect_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/BtnConnect" to="." method="_on_BtnConnect_pressed"]
 
-[connection signal="pressed" from="Control/BtnServer" to="." method="_on_BtnServer_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/BtnServer" to="." method="_on_BtnServer_pressed"]
 
-[connection signal="pressed" from="Control/update" to="." method="_on_update_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/BtnDisconnect" to="." method="_on_BtnDisconnect_pressed"]
+
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/BtnUpdate" to="." method="_on_BtnUpdate_pressed"]
 
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/SmokeParticle.png-99db1718d09df85715b9d22510525661.stex"
+path="res://.import/explosions_2.png-2420a5e0dd8dc7b5ed8f3c772cc18f66.stex"
 
 [deps]
 
-source_file="res://art/models/SmokeParticle.png"
-source_md5="376d995e45121b56cdb425e1a9ad1cbf"
+source_file="res://art/models/explosions_2.png"
+source_md5="36b947cf5d4d32fc43f4f65dd3eb31b0"
 
-dest_files=[ "res://.import/SmokeParticle.png-99db1718d09df85715b9d22510525661.stex" ]
-dest_md5="91b257a744a0327902d4944a22decac5"
+dest_files=[ "res://.import/explosions_2.png-2420a5e0dd8dc7b5ed8f3c772cc18f66.stex" ]
+dest_md5="dacedbdf837c06c4bd876ba4c320f7fb"
 
 [params]
 
@@ -27,6 +27,6 @@ process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 stream=false
-size_limit=128
+size_limit=0
 detect_3d=true
 svg/scale=1.0

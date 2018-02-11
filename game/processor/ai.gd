@@ -18,7 +18,7 @@ func _ready() :
 func initialize():
 	.initialize()
 	
-	if not network_manager.network_activated() or network_manager.is_server():
+	if not network_manager.is_network_activated() or network_manager.is_server():
 		set_physics_process(true)
 	else:
 		set_physics_process(false)

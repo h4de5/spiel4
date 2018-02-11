@@ -20,7 +20,7 @@ func initialize():
 
 	#for i in range(1): spawn_tower()
 
-	#for i in range(2): spawn_pickup()
+	for i in range(2): spawn_pickup()
 
 	for i in range(2): spawn_object(global.scene_path_asteroid, "objects")
 	
@@ -73,13 +73,14 @@ remote func spawn_object(scnpath, group, name = "", propagate = true):
 	print ("spawn_object ", scnpath, " in " , group)
 	var scn = load(scnpath)
 	var node = scn.instance()
+	# name should only be set, when propagete is false
 	if name != "":
 		node.set_name(name)
 	get_node(group).add_child(node, true)
 	node.scene_path = scnpath
 	
 	if(propagate):
-		if get_tree().has_meta("network_peer") and get_tree().is_network_server():
+		if network_manager.is_server():
 			rpc("spawn_object", scnpath, group, node.get_name())
 		
 	return node

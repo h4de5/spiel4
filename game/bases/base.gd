@@ -21,7 +21,8 @@ func _ready():
 func initialize() :
 	#print("initialize base")
 	set_max_contacts_reported(4)
-	connect("body_entered", self, "process_collision")
+	#connect("body_entered", self, "process_collision")
+	
 	reset_position()
 
 # called to reset a position, usually after initialize
@@ -47,13 +48,15 @@ func register_object(group):
 #	set_collision_mask(collision_settings[1])
 #	set_layer_mask(collision_settings[0])
 
-func destroy(destroyer):
-	pass
+func destroy(by_whom):
+	object_locator.free_object(self)
+	
 func collected(reason):
-	pass
+	object_locator.free_object(self)
+	
 func heal(power, healer):
 	pass
-func hit(power, hitter):
+func hit(power, by_whom):
 	pass
 
 # get all different properties from this ship

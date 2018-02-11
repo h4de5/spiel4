@@ -14,6 +14,9 @@ func initialize() :
 	# make the AI stear it
 	#get_node('processor_selector').set_processor("AI")
 
-func destroy(destroyer):
-	.destroy(destroyer)
-	#get_node(global.scene_tree_game).spawn_enemy()
+func destroy(by_whom):
+	.destroy(by_whom)
+
+	if network_manager.is_offline() or network_manager.is_server():
+		#get_node(global.scene_tree_game).spawn_object(scene_path, main_group)
+		get_node(global.scene_tree_game).spawn_enemy()
