@@ -1,16 +1,21 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://game/npc/asteroid.gd" type="Script" id=1]
 [ext_resource path="res://game/interfaces/destroyable.tscn" type="PackedScene" id=2]
-[ext_resource path="res://game/npc/asteroid-icon.png" type="Texture" id=3]
+[ext_resource path="res://art/models/Asteroid/asteroid-icon_top.png" type="Texture" id=3]
 [ext_resource path="res://game/interfaces/spawner.gd" type="Script" id=4]
-[ext_resource path="res://game/npc/asteroid_top.tscn" type="PackedScene" id=5]
-[ext_resource path="res://game/npc/asteroid_bottom.tscn" type="PackedScene" id=6]
+[ext_resource path="res://game/npc/asteroid_top_left.tscn" type="PackedScene" id=5]
+[ext_resource path="res://game/npc/asteroid_top_right.tscn" type="PackedScene" id=6]
 
 [sub_resource type="CircleShape2D" id=1]
 
 custom_solver_bias = 0.0
-radius = 107.785
+radius = 38.9302
+
+[sub_resource type="CircleShape2D" id=2]
+
+custom_solver_bias = 0.0
+radius = 60.274
 
 [node name="Asteroid" type="RigidBody2D"]
 
@@ -47,9 +52,20 @@ texture = ExtResource( 3 )
 
 [node name="Collision" type="CollisionShape2D" parent="." index="2"]
 
+position = Vector2( -36.9706, -58.0967 )
 shape = SubResource( 1 )
 
-[node name="spawner" type="Node" parent="." index="3"]
+[node name="Collision3" type="CollisionShape2D" parent="." index="3"]
+
+position = Vector2( 67.3394, -10.563 )
+shape = SubResource( 1 )
+
+[node name="Collision4" type="CollisionShape2D" parent="." index="4"]
+
+position = Vector2( 26.8477, -41.3719 )
+shape = SubResource( 2 )
+
+[node name="spawner" type="Node" parent="." index="5"]
 
 script = ExtResource( 4 )
 left_part = ExtResource( 5 )
