@@ -22,6 +22,7 @@ global="*res://game/autoloads/global.gd"
 interface="*res://game/autoloads/interface.gd"
 object_locator="*res://game/autoloads/object_locator.gd"
 network_manager="*res://game/autoloads/network_manager.gd"
+http="*res://game/autoloads/http.gd"
 
 [debug]
 
@@ -35,6 +36,10 @@ window/energy_saving/keep_screen_on=false
 window/stretch/aspect="keep"
 stretch/aspect="keep"
 window/height=0
+
+[editor]
+
+certificates="res://ca-certificates.crt"
 
 [input]
 
@@ -92,6 +97,10 @@ ui_weapon_left=[ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"
 ui_weapon_right=[ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":2,"axis_value":-1.0,"script":null)
 , Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":2,"axis_value":-1.0,"script":null)
  ]
+
+[network]
+
+ssl/certificates="res://ca-certificates.crt"
 
 [physics]
 

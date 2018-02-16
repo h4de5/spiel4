@@ -2,7 +2,7 @@
 
 [ext_resource path="res://game/main/gui.gd" type="Script" id=1]
 
-[node name="Gui" type="CanvasLayer"]
+[node name="Gui" type="CanvasLayer" index="0"]
 
 layer = 1
 offset = Vector2( 0, 0 )
