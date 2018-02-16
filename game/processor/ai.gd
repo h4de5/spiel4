@@ -17,20 +17,20 @@ func _ready() :
 
 func initialize():
 	.initialize()
-	
+
 	if not network_manager.is_network_activated() or network_manager.is_server():
 		set_physics_process(true)
 	else:
 		set_physics_process(false)
-		
+
 	if shootable :
 		weapon = shootable.get_active_weapon()
 
 func _physics_process(delta) :
-	
+
 	delta_count += delta
 	if delta_count > delta_max :
-		
+
 		# generate input only in single player or on server
 		#if get_tree().has_meta("network_peer") and not get_tree().is_network_server():
 		#	pass
@@ -68,16 +68,16 @@ func _physics_process(delta) :
 			# own position to target vector2
 			# if set,
 			moving_vector = (targetpos - ownpos).normalized()
-			
+
 			# hier gehört die differenz ziwschen eigenem looking at und ziel winkel
-			
+
 			var movingangle =  wrapf(moving_vector.angle() + PI/2, -PI, PI)
-			
+
 			var targetangle
-			
+
 			targetangle = wrapf(movingangle - ownrot, -PI, PI)
-			
-			
+
+
 			#print("ai movment angle", angle)
 			if (targetangle > parent.get_property(global.properties.clearance_rotation)) :
 				moveable.handle_action( global.actions.right, true )
@@ -135,38 +135,38 @@ func _physics_process(delta) :
 
 			#var weapon = parent.get_node("weapons_selector").get_active_weapon()
 
-			if weapon: 
-				
+			if weapon:
+
 				var weaponrot = weapon.get_weapon_rotation()
-	
+
 				var weaponvec = Vector2(cos(weaponrot + PI/2), sin(weaponrot+ PI/2))*-1
 				var targetangle = shooting_vector.angle_to(weaponvec)
 				#var weaponvec = Vector2(sin(weaponrot), cos(weaponrot))
 				#var targetangle = weaponvec.angle_to(shooting_vector)
-	
+
 				var shoot = false
-		
+
 				# weapon adjustment
 				if (abs(targetangle) < parent.get_property(global.properties.clearance_rotation) and
 					ownpos.distance_to(targetpos) < bulletrange) :
-	
+
 					# shoot only when there is no other enemy in between
 					# In code, for 2D spacestate, this code must be used:
 					var space_state = parent.get_world_2d().get_direct_space_state()
 					# use global coordinates, not local to node
 					# 7 .. layer 1, 2 and 3 (binary 1+2+4)
-	
+
 					# use collision setting from bullet
 					#var collision_settings = global.collision_layer_masks[parent.main_group]
 					var collision_settings = global.collision_layer_masks["bullet"]
-					
+
 					var raycast_hits = space_state.intersect_ray( ownpos, targetpos, [parent], collision_settings[1])
-	
+
 					#draw_line.update_line(parent, ownpos, targetpos)
-	
+
 					if not raycast_hits.empty():
 						#print ("raycasts ", raycast_hits)
-	
+
 						#if not raycast_hits.collider.is_in_group(global.groups.npc) :
 						if raycast_hits.collider.is_in_group(global.groups.player) :
 							shoot = true

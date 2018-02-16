@@ -32,7 +32,7 @@ func collect_properties(node, level = 0):
 			if properties.has(global.properties.modifier_add) :
 				for key in properties[global.properties.modifier_add]:
 					if properties.has(key):
-						
+
 						properties[key] += float( properties[global.properties.modifier_add][key] )
 					else :
 						properties[key] = float( properties[global.properties.modifier_add][key] )

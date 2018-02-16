@@ -30,7 +30,7 @@ export(String, "", "modifier_add", "modifier_multi") var modifier_type
 #export var modifier_names = StringArray()
 #export var modifier_values = FloatArray()
 export var modifier_exports = PoolStringArray()
-export (float) var modifier_timer 
+export (float) var modifier_timer
 
 var properties_base = {
 	global.properties.modifier_add: {},

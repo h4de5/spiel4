@@ -17,7 +17,7 @@ func initialize():
 	# add to group bullet
 	add_to_group(global.groups.bullet)
 	connect("body_entered", self, "process_collision")
-	
+
 	#set_mass(0)
 	#set_inertia(0)
 

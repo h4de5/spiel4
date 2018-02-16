@@ -22,7 +22,7 @@ func initialize() :
 	#print("initialize base")
 	set_max_contacts_reported(4)
 	#connect("body_entered", self, "process_collision")
-	
+
 	reset_position()
 
 # called to reset a position, usually after initialize
@@ -50,10 +50,10 @@ func register_object(group):
 
 func destroy(by_whom):
 	object_locator.free_object(self)
-	
+
 func collected(reason):
 	object_locator.free_object(self)
-	
+
 func heal(power, healer):
 	pass
 func hit(power, by_whom):
@@ -104,7 +104,7 @@ func process_collision(obstacle):
 # see https://github.com/godotengine/godot/issues/2314
 # and . https://github.com/godotengine/godot/issues/8103
 func fix_collision_shape():
-	
+
 	pass
 #	for shape in get_children():
 #		#if not shape extends CollisionShape2D and not shape extends CollisionPolygon2D:
@@ -132,19 +132,19 @@ func fix_collision_shape():
 
 remote func get_network_update():
 	var packet = [
-		get_position(), 
-		get_rotation(), 
-		get_linear_velocity(), 
+		get_position(),
+		get_rotation(),
+		get_linear_velocity(),
 		get_angular_velocity(),
 		properties
 		]
 	if interface.is_shootable(self) and interface.is_shootable(self).get_active_weapon():
 		packet.append(interface.is_shootable(self).get_active_weapon().get_weapon_rotation())
-	else: 
+	else:
 		packet.append(0)
-		
+
 	return packet
-	
+
 
 remote func set_network_update(packet):
 	set_position(packet[0])

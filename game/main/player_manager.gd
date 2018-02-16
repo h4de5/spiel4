@@ -33,7 +33,7 @@ func _unhandled_input ( event ) :
 	#print("InputEventMouseButton: ", InputEventMouseButton)
 	#print("get_class: ", InputEventMouseButton.get_class())
 	#print("typeof: ", typeof(InputEventMouseButton))
-	
+
 	if (event.device != null && event.is_action_type()):
 		print("device input ", event.device, " with type ", event.is_action_type())
 		var inputtype = null

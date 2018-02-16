@@ -24,7 +24,7 @@ func _ready():
 	set_process_input(true)
 	moveable = interface.is_moveable(parent)
 	shootable = interface.is_shootable(parent)
-	
+
 	connect("tree_exiting", self, "_on_input_tree_exiting")
 
 func set_processor_details(device_details):
@@ -37,7 +37,7 @@ func reset_processor_details():
 	device_id = 0
 	device_types = []
 #		InputEvent.NONE
-	
+
 func _input(event):
 	# FIXME - check with: shootable = interface.is_shootable()
 

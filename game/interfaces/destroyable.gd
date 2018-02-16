@@ -24,10 +24,10 @@ func initialize():
 	# Health bar
 	if not is_destroyable():
 		return
-		
-	if parent.has_method("destroy"): 
+
+	if parent.has_method("destroy"):
 		self.connect("been_destroyed", parent, "destroy")
-	if parent.has_method("hit"): 
+	if parent.has_method("hit"):
 		self.connect("been_hit", parent, "hit")
 
 	#var health_scn = load(global.scene_path_healthbar)
@@ -69,7 +69,7 @@ func _process(delta):
 func destroy(by_whom):
 
 	emit_signal("been_destroyed", by_whom)
-	
+
 	#if parent.has_method("destroy") :
 	#	parent.destroy(by_whom)
 
@@ -86,9 +86,9 @@ func heal(power, healer):
 
 
 func hit(power, by_whom):
-	
+
 	emit_signal("been_hit", power, by_whom)
-	
+
 	#if parent.has_method("hit") :
 	#	parent.hit(power, by_whom)
 

@@ -9,10 +9,10 @@ func _ready():
 	add_child(camera_node, true)
 
 	call_deferred("initialize")
-	
+
 	# when client starts, clear the game
 	network_manager.connect("connected_as_client", self , "clear_game")
-	
+
 	#get_node(global.scene_tree_game).clear_game()
 
 func initialize():
@@ -23,29 +23,29 @@ func initialize():
 	for i in range(2): spawn_pickup()
 
 	for i in range(2): spawn_object(global.scene_path_asteroid, "objects")
-	
+
 
 	# Background node
 	# player_manager node
 
-# client > spawn_player(input) > spawn_object > rpc spawn_player(network) 
+# client > spawn_player(input) > spawn_object > rpc spawn_player(network)
 #												 server spawn_object > rpc spawn_object
 #																		client spawn_object
-				
+
 
 remote func spawn_player(processor, device_details):
 	print ("game > spawn_player > ", processor)
 #	if get_tree().has_meta("network_peer") and processor == "Network" and device_details[0] == get_tree().get_network_unique_id():
 #		print("skip this? processor: ", processor , " networkid: ", get_tree().get_network_unique_id())
-	
+
 	var player_node = spawn_object(global.scene_path_player, "ships", "", processor != "Network")
-	
+
 	print ("playername ", player_node.get_name())
-	
+
 	player_node.get_node("processor_selector").set_processor(processor)
 	player_node.get_node("processor_selector").set_processor_details(device_details)
-	
-	
+
+
 	if get_tree().has_meta("network_peer"):
 		# only local players are net_work_masters
 		if processor == 'Input':
@@ -57,7 +57,7 @@ remote func spawn_player(processor, device_details):
 				rpc("spawn_player", "Network", [selfPeerID, player_node.get_name()])
 		elif processor == 'Network':
 			player_node.set_network_master(device_details[0]) # Will be explained later
-	
+
 	return player_node
 
 func spawn_enemy():
@@ -78,14 +78,14 @@ remote func spawn_object(scnpath, group, name = "", propagate = true):
 		node.set_name(name)
 	get_node(group).add_child(node, true)
 	node.scene_path = scnpath
-	
+
 	if(propagate):
 		if network_manager.is_server():
 			rpc("spawn_object", scnpath, group, node.get_name())
-		
+
 	return node
 
-	
+
 func clear_game():
 	for group in object_locator.objects_registered:
 		for i in range(object_locator.objects_registered[group].size()-1, -1, -1):
@@ -100,7 +100,7 @@ func clear_game():
 			else:
 				object_locator.free_object(obj)
 				obj.queue_free()
-		
+
 
 	# http://www.gamefromscratch.com/post/2015/02/23/Godot-Engine-Tutorial-Part-6-Multiple-Scenes-and-Global-Variables.aspx
 #

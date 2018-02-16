@@ -39,13 +39,13 @@ func shoot(parent, target = null):
 
 
 remote func send_bullet(muzzle_pos, starting_rot):
-	
+
 	if network_manager.is_master(parent):
 		rpc("send_bullet", muzzle_pos, starting_rot)
-		
+
 	var newbullet = bullet.duplicate(false)
 	newbullet.set_script(bullet.get_script())
-	
+
 	get_node(global.scene_tree_bullets).add_child(newbullet)
 	newbullet.set_parent(parent)
 
@@ -61,5 +61,5 @@ remote func send_bullet(muzzle_pos, starting_rot):
 	# very slow bullets if shooting behind
 	#newbullet.set_linear_velocity(v2 * parent.properties[global.properties.bullet_speed] + parent.get_linear_velocity());
 	newbullet.set_linear_velocity(v2 * parent.properties[global.properties.bullet_speed]);
-	
-	
+
+

@@ -80,9 +80,9 @@ func _physics_process(delta) :
 
 	# calculate vector from current rotation, if speed is set
 	if velocity != 0 :
-		
+
 		var direction = Vector2(cos(parent.get_rotation()+ PI/2), sin(parent.get_rotation()+ PI/2) )
-		
+
 		#print("moving with ", direction * velocity * -1, " velocity: ", velocity)
 		parent.apply_impulse(Vector2(0,0), direction * velocity * delta * -1)
 		#parent.add_force( Vector2(0,0), direction * velocity * -1)
@@ -108,8 +108,8 @@ func _physics_process(delta) :
 	if zoom_speed != 0:
 		object_locator.set_camera_zoom(zoom)
 		zoom_speed = 0
-		
+
 	if (get_tree().has_meta("network_peer") and parent.is_network_master()):
-		
+
 		parent.rpc_unreliable("set_network_update", parent.get_network_update())
 

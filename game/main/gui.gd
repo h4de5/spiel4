@@ -7,17 +7,17 @@ extends Node
 func _ready():
 	# Called every time the node is added to the scene.
 	# Initialization here
-	
-	
+
+
 	network_manager.connect("start_client", get_node("Control/MarginContainer/VBoxContainer/BtnConnect"), "hide")
 	network_manager.connect("start_client", get_node("Control/MarginContainer/VBoxContainer/BtnServer"), "hide")
 	network_manager.connect("start_client", get_node("Control/MarginContainer/VBoxContainer/BtnDisconnect"), "show")
-	
+
 	network_manager.connect("start_server", get_node("Control/MarginContainer/VBoxContainer/BtnConnect"), "hide")
 	network_manager.connect("start_server", get_node("Control/MarginContainer/VBoxContainer/BtnServer"), "hide")
 	network_manager.connect("start_server", get_node("Control/MarginContainer/VBoxContainer/BtnUpdate"), "show")
 	network_manager.connect("start_server", get_node("Control/MarginContainer/VBoxContainer/BtnDisconnect"), "show")
-	
+
 	network_manager.connect("start_offline", get_node("Control/MarginContainer/VBoxContainer/BtnConnect"), "show")
 	network_manager.connect("start_offline", get_node("Control/MarginContainer/VBoxContainer/BtnServer"), "show")
 	network_manager.connect("start_offline", get_node("Control/MarginContainer/VBoxContainer/BtnDisconnect"), "hide")

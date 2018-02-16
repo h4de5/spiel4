@@ -62,17 +62,17 @@ func handle_mousemove(pos) :
 	if weapon:
 		scope_pos = weapon.get_weapon_position()
 		scope_rot = weapon.get_weapon_rotation()
-		
+
 		# godot 3.0
 		var target_direction = (shoot_last_target_pos - scope_pos).normalized()
 		target_rot =  wrapf(target_direction.angle() + PI/2, -PI, PI)
-		
+
 		# godot 2.1.4
 		#target_rot = scope_pos.angle_to_point(shoot_last_target_pos)
-		
+
 		var diff = target_rot - scope_rot;
 		#print (" target_rot ", target_rot, " scope_rot ", scope_rot, " diff ", diff)
-		
+
 
 		if (scope_rot > target_rot) :
 			if diff < PI and diff > -PI:
@@ -131,18 +131,18 @@ func _physics_process(delta) :
 		# to stop moving weapon towards target_pos
 
 		if shoot_last_target_pos != null:
-			
-			
+
+
 			var scope_rot = weapon.get_weapon_rotation()
 			var scope_pos = weapon.get_weapon_position()
-			
+
 			# godot 2.1.4
 			#var target_rot =  scope_pos.angle_to_point(shoot_last_target_pos)
-			
+
 			# godot 3.0
 			var target_direction = (shoot_last_target_pos - scope_pos).normalized()
 			var target_rot =  wrapf(target_direction.angle() + PI/2, -PI, PI)
-			
+
 			var clearance = parent.get_property(global.properties.clearance_rotation)
 
 			var diff = target_rot - scope_rot;
