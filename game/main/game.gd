@@ -23,6 +23,8 @@ func initialize():
 	for i in range(2): spawn_pickup()
 
 	for i in range(2): spawn_object(global.scene_path_asteroid, "objects")
+	for i in range(2): spawn_object(global.scene_path_comet, "objects")
+
 
 
 	# Background node
