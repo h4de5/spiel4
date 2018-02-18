@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/starfield.png-f69f8d96c80ed64970d3f43dfd852f7e.stex"
+path="res://.import/stars_sprite.png-714baeedbec09d057d403750a09d5875.stex"
 
 [deps]
 
-source_file="res://art/background/starfield.png"
-source_md5="242c912bb78589c99ba1e17bff20ee0f"
+source_file="res://art/background/stars_sprite.png"
+source_md5="abd1fc2cf1c590241e3e2b9d0cdb7556"
 
-dest_files=[ "res://.import/starfield.png-f69f8d96c80ed64970d3f43dfd852f7e.stex" ]
-dest_md5="6dfa919a8715dc22539951d6d09e8835"
+dest_files=[ "res://.import/stars_sprite.png-714baeedbec09d057d403750a09d5875.stex" ]
+dest_md5="bdfee31593107ecf33be066fe6a66553"
 
 [params]
 
