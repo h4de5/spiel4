@@ -3,7 +3,7 @@
 [ext_resource path="res://game/npc/asteroid.gd" type="Script" id=1]
 [ext_resource path="res://game/interfaces/destroyable.tscn" type="PackedScene" id=2]
 [ext_resource path="res://art/models/Asteroid/asteroid-icon_top.png" type="Texture" id=3]
-[ext_resource path="res://game/interfaces/spawner.gd" type="Script" id=4]
+[ext_resource path="res://game/interfaces/splitable.tscn" type="PackedScene" id=4]
 [ext_resource path="res://game/npc/asteroid_top_left.tscn" type="PackedScene" id=5]
 [ext_resource path="res://game/npc/asteroid_top_right.tscn" type="PackedScene" id=6]
 
@@ -65,9 +65,8 @@ shape = SubResource( 1 )
 position = Vector2( 26.8477, -41.3719 )
 shape = SubResource( 2 )
 
-[node name="spawner" type="Node" parent="." index="5"]
+[node name="splitable" parent="." index="5" instance=ExtResource( 4 )]
 
-script = ExtResource( 4 )
 left_part = ExtResource( 5 )
 right_part = ExtResource( 6 )
 

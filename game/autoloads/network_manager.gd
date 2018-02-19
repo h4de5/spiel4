@@ -18,6 +18,9 @@ signal start_server()
 # when the game is switched to offline mode
 signal start_offline()
 
+# when external ip address has been determined
+signal determined_external_ip(ip)
+
 # when the client is connected to the server
 signal connected_as_client()
 
@@ -101,6 +104,8 @@ func resolved_external_address(result, response_code, headers, body, params = []
 		my_info['ip'].append(response.body)
 		# my_info['ip'] += ','+ response.body
 		print("added external IP to my info: ", my_info.ip)
+		emit_signal("determined_external_ip", my_info.ip)
+
 
 func resolve_external_address():
 	http.send("http://ip.icb.at", "", "", "resolved_external_address", self)

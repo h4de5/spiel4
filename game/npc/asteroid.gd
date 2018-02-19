@@ -9,8 +9,8 @@ func _ready():
 func initialize() :
 	.initialize()
 	properties_base = {
-		global.properties.health_max: 2000,
-		global.properties.health: 2000
+		global.properties.health_max: 200,
+		global.properties.health: 200
 	}
 
 	set_mass(5000)

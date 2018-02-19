@@ -3,7 +3,7 @@
 [ext_resource path="res://game/npc/asteroid.gd" type="Script" id=1]
 [ext_resource path="res://game/interfaces/destroyable.tscn" type="PackedScene" id=2]
 [ext_resource path="res://art/models/Asteroid/asteroid-icon_bottom.png" type="Texture" id=3]
-[ext_resource path="res://game/interfaces/spawner.gd" type="Script" id=4]
+[ext_resource path="res://game/interfaces/splitable.tscn" type="PackedScene" id=4]
 [ext_resource path="res://game/npc/asteroid_bottom_left.tscn" type="PackedScene" id=5]
 [ext_resource path="res://game/npc/asteroid_bottom_right.tscn" type="PackedScene" id=6]
 
@@ -27,7 +27,7 @@ radius = 25.5013
 custom_solver_bias = 0.0
 radius = 50.1714
 
-[node name="Asteroid" type="RigidBody2D" index="0"]
+[node name="Asteroid" type="RigidBody2D"]
 
 input_pickable = false
 collision_layer = 2
@@ -80,9 +80,8 @@ shape = SubResource( 3 )
 position = Vector2( -38.7312, 40.0515 )
 shape = SubResource( 4 )
 
-[node name="spawner" type="Node" parent="." index="6"]
+[node name="splitable" parent="." index="6" instance=ExtResource( 4 )]
 
-script = ExtResource( 4 )
 left_part = ExtResource( 5 )
 right_part = ExtResource( 6 )
 
