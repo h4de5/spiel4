@@ -1,20 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://game/npc/asteroid.gd" type="Script" id=1]
 [ext_resource path="res://game/interfaces/destroyable.tscn" type="PackedScene" id=2]
 [ext_resource path="res://art/models/Asteroid/asteroid-icon_top_left.png" type="Texture" id=3]
 
-[sub_resource type="CircleShape2D" id=1]
-
-custom_solver_bias = 0.0
-radius = 38.9302
-
-[sub_resource type="CircleShape2D" id=2]
-
-custom_solver_bias = 0.0
-radius = 26.4724
-
-[node name="Asteroid" type="RigidBody2D" index="0"]
+[node name="Asteroid" type="RigidBody2D"]
 
 input_pickable = false
 collision_layer = 2
@@ -41,31 +31,17 @@ script = ExtResource( 1 )
 [node name="progress_health" parent="destroyable" index="0"]
 
 visible = false
+rect_clip_content = false
 
 [node name="Sprite" type="Sprite" parent="." index="1"]
 
 scale = Vector2( 1.34653, 1.34653 )
 texture = ExtResource( 3 )
 
-[node name="Collision" type="CollisionShape2D" parent="." index="2"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." index="2"]
 
-position = Vector2( -36.9706, -58.0967 )
-shape = SubResource( 1 )
-
-[node name="Collision3" type="CollisionShape2D" parent="." index="3"]
-
-position = Vector2( -14.2261, -29.8466 )
-shape = SubResource( 2 )
-
-[node name="Collision4" type="CollisionShape2D" parent="." index="4"]
-
-position = Vector2( 7.0891, -51.1619 )
-shape = SubResource( 2 )
-
-[node name="Collision5" type="CollisionShape2D" parent="." index="5"]
-
-position = Vector2( 21.1046, -76.5649 )
-shape = SubResource( 2 )
+build_mode = 0
+polygon = PoolVector2Array( 62.9221, -98.2915, 47.1488, -72.122, 35.6772, -44.5186, 24.9227, -28.7453, 0.545662, -9.02858, -5.1901, 6.02782, -25.9823, -1.1419, -85.1324, -53.1223, -58.6044, -92.5557, -38.8877, -101.876, -20.9635, -94.7066, 3.77203, -97.5745, 15.9605, -96.8575, 33.5263, -103.669 )
 
 
 [editable path="destroyable"]

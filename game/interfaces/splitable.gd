@@ -10,6 +10,9 @@ func is_splitable():
 	else:
 		return null
 
+func _ready():
+	call_deferred("initialize")
+
 func initialize():
 
 	if not is_splitable():

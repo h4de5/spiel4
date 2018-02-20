@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://game/npc/asteroid.gd" type="Script" id=1]
 [ext_resource path="res://game/interfaces/destroyable.tscn" type="PackedScene" id=2]
@@ -7,27 +7,7 @@
 [ext_resource path="res://game/npc/asteroid_bottom_left.tscn" type="PackedScene" id=5]
 [ext_resource path="res://game/npc/asteroid_bottom_right.tscn" type="PackedScene" id=6]
 
-[sub_resource type="CircleShape2D" id=1]
-
-custom_solver_bias = 0.0
-radius = 36.5363
-
-[sub_resource type="CircleShape2D" id=2]
-
-custom_solver_bias = 0.0
-radius = 43.1059
-
-[sub_resource type="CircleShape2D" id=3]
-
-custom_solver_bias = 0.0
-radius = 25.5013
-
-[sub_resource type="CircleShape2D" id=4]
-
-custom_solver_bias = 0.0
-radius = 50.1714
-
-[node name="Asteroid" type="RigidBody2D"]
+[node name="Asteroid" type="RigidBody2D" index="0"]
 
 input_pickable = false
 collision_layer = 2
@@ -54,36 +34,22 @@ script = ExtResource( 1 )
 [node name="progress_health" parent="destroyable" index="0"]
 
 visible = false
+rect_clip_content = false
 
 [node name="Sprite" type="Sprite" parent="." index="1"]
 
 scale = Vector2( 1.34653, 1.34653 )
 texture = ExtResource( 3 )
 
-[node name="Collision" type="CollisionShape2D" parent="." index="2"]
-
-position = Vector2( -76.1419, -3.52101 )
-shape = SubResource( 1 )
-
-[node name="Collision3" type="CollisionShape2D" parent="." index="3"]
-
-position = Vector2( 13.6439, 56.7763 )
-shape = SubResource( 2 )
-
-[node name="Collision5" type="CollisionShape2D" parent="." index="4"]
-
-position = Vector2( 57.2165, 50.6146 )
-shape = SubResource( 3 )
-
-[node name="Collision4" type="CollisionShape2D" parent="." index="5"]
-
-position = Vector2( -38.7312, 40.0515 )
-shape = SubResource( 4 )
-
-[node name="splitable" parent="." index="6" instance=ExtResource( 4 )]
+[node name="splitable" parent="." index="2" instance=ExtResource( 4 )]
 
 left_part = ExtResource( 5 )
 right_part = ExtResource( 6 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." index="3"]
+
+build_mode = 0
+polygon = PoolVector2Array( -84.0853, -53.9821, -47.3409, -24.2624, -21.4037, -1.56731, 25.6075, 20.047, 49.3833, 22.7488, 80.1837, 31.9349, 93.1523, 44.3632, 62.3519, 83.269, 47.7622, 95.6972, 2.37207, 101.101, -32.7512, 94.0761, -43.5584, 87.5918, -82.4642, 73.0022, -97.0539, 42.7421, -98.675, 33.0156, -114.886, 8.15915 )
 
 
 [editable path="destroyable"]

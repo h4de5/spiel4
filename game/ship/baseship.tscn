@@ -99,6 +99,10 @@ _sections_unfolded = [ "Offset" ]
 
 [node name="destroyable" parent="." index="2" instance=ExtResource( 4 )]
 
+[node name="progress_health" parent="destroyable" index="0"]
+
+rect_clip_content = false
+
 [node name="moveable" parent="." index="3" instance=ExtResource( 5 )]
 
 [node name="shootable" parent="." index="4" instance=ExtResource( 6 )]
@@ -106,6 +110,8 @@ _sections_unfolded = [ "Offset" ]
 editor/display_folded = true
 
 [node name="explodeable" parent="." index="5" instance=ExtResource( 7 )]
+
+explosion_type = "multible"
 
 [node name="processor_selector" parent="." index="6" instance=ExtResource( 8 )]
 
@@ -125,6 +131,7 @@ margin_top = 44.0
 margin_right = 89.0
 margin_bottom = 130.0
 rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
 mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 2

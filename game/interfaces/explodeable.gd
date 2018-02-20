@@ -1,7 +1,9 @@
 # interface extends parent with explode particles/animation, area of destruction
 extends "res://game/interfaces/isable.gd"
 
+export(String, "multible", "single", "smoke") var explosion_type
 var collision_settings = []
+
 func is_explodeable():
 	if activated:
 		return self
@@ -11,13 +13,16 @@ func is_explodeable():
 func _ready():
 	collision_settings = global.collision_layer_masks["explosion"]
 
-	get_node("explosion/blastradius").collision_layer = collision_settings[0]
-	get_node("explosion/blastradius").collision_mask = collision_settings[1]
+
 	call_deferred("initialize")
 
 func initialize():
 	if not is_explodeable():
 		return
+
+	if explosion_type and get_node(explosion_type):
+		get_node(explosion_type + "/blastradius").collision_layer = collision_settings[0]
+		get_node(explosion_type + "/blastradius").collision_mask = collision_settings[1]
 
 	var destroy_able = interface.is_destroyable(parent)
 
@@ -26,15 +31,23 @@ func initialize():
 	else:
 		print("somethings wrong")
 
-func explode(by_whom):
-	print ("exploding...")
-	var explosion = get_node("explosion")
-	remove_child(explosion)
-	parent.get_parent().add_child(explosion)
-	explosion.position = parent.position
 
-	explosion.get_node("Particles2D").emitting = 1
-	explosion.get_node("Particles2D").restart()
+func set_explosion_type(type):
+	explosion_type = type
+
+func explode(by_whom):
+	print (explosion_type + "explosion...")
+
+	if explosion_type and get_node(explosion_type):
+		var explosion = get_node(explosion_type)
+		remove_child(explosion)
+		parent.get_parent().add_child(explosion)
+		explosion.position = parent.position
+
+		explosion.get_node("particles").emitting = 1
+		explosion.get_node("particles").restart()
+	else:
+		print (explosion_type + "not found...")
 
 
 #	var particles = get_node("explosion/Particles2D")
