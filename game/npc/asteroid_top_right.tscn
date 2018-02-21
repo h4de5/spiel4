@@ -1,47 +1,18 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://game/npc/asteroid.gd" type="Script" id=1]
-[ext_resource path="res://game/interfaces/destroyable.tscn" type="PackedScene" id=2]
-[ext_resource path="res://art/models/Asteroid/asteroid-icon_top_right.png" type="Texture" id=3]
+[ext_resource path="res://game/npc/asteroid.tscn" type="PackedScene" id=1]
+[ext_resource path="res://art/models/Asteroid/asteroid-icon_top_right.png" type="Texture" id=2]
 
-[node name="Asteroid" type="RigidBody2D" index="0"]
+[node name="Asteroid" index="0" instance=ExtResource( 1 )]
 
-input_pickable = false
-collision_layer = 2
-collision_mask = 15
-mode = 0
-mass = 1.0
-friction = 1.0
-bounce = 0.0
-gravity_scale = 0.0
-custom_integrator = false
-continuous_cd = 0
-contacts_reported = 0
-contact_monitor = true
-sleeping = false
-can_sleep = true
-linear_velocity = Vector2( 0, 0 )
-linear_damp = -1.0
-angular_velocity = 0.0
-angular_damp = -1.0
-script = ExtResource( 1 )
+[node name="Sprite" parent="." index="1"]
 
-[node name="destroyable" parent="." index="0" instance=ExtResource( 2 )]
+texture = ExtResource( 2 )
 
-[node name="progress_health" parent="destroyable" index="0"]
-
-visible = false
-rect_clip_content = false
-
-[node name="Sprite" type="Sprite" parent="." index="1"]
-
-scale = Vector2( 1.34653, 1.34653 )
-texture = ExtResource( 3 )
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." index="2"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." index="4"]
 
 build_mode = 0
-polygon = PoolVector2Array( 65.0731, -99.7254, 72.6012, -98.2915, 76.1861, -81.4427, 85.1482, -69.2542, 92.318, -59.2166, 95.1858, -38.0659, 108.808, -23.368, 112.393, -8.31161, 105.223, 8.17873, 106.657, 18.5748, 92.318, 46.8952, 82.6388, 36.4991, 43.2054, 23.9521, 34.6018, 25.7445, 16.6775, 19.2918, -7.34102, 8.17873, 5.20598, -14.7644, 29.583, -35.915, 44.2809, -71.4051 )
+polygon = PoolVector2Array( 54.2665, -72.0255, 57.1783, -59.4078, 62.3548, -52.9371, 63.9725, -48.0841, 69.7961, -41.937, 71.0902, -27.7015, 83.0609, -13.7896, 81.1198, -1.49537, 78.2079, 6.26942, 79.5021, 13.0636, 68.8255, 33.1227, 60.4136, 26.9755, 32.2663, 18.2401, 24.1779, 19.2107, -3.96941, 6.91649, -3.32234, -3.11304, 19.972, -23.4956, 36.1487, -60.0548, 47.4723, -75.5844 )
 
 
 [editable path="destroyable"]

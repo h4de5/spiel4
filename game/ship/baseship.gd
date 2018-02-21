@@ -33,9 +33,3 @@ func initialize() :
 func reset_position() :
 	.reset_position()
 	set_rotation(PI * rand_range(1,3)/2)
-
-# used for resizing object :\
-func _integrate_forces(state):
-	var resizeable = get_node("resizeable")
-	if resizeable.is_resizeable():
-		resizeable._integrate_forces(state)

@@ -1,7 +1,10 @@
 extends "res://game/interfaces/isable.gd"
 
-var body_scale
-var body_scale_base
+#export(float, 0.1, 20, 0.1) var body_scale = 1
+#export(float, 0.1, 20, 0.1) var body_scale_base = 1
+
+export(Vector2) var body_scale 
+export(Vector2) var body_scale_base 
 
 func is_resizeable():
 	if activated:
@@ -24,8 +27,10 @@ func initialize():
 	body_scale_base = parent.get_scale()
 
 	if not parent.has_method('_integrate_forces'):
-		print_error("function", "_integrate_forces")
+		print("Object " , parent, " is missing function _integrate_forces to enable ", self)
 		activated = false
+	else:
+		resize_body_to(body_scale)
 
 
 func _integrate_forces(state):
@@ -42,9 +47,13 @@ func resize_body_to( new_scale ):
 
 # resizing objects includeing collision shape .. does not work well
 func resize_body( factor ) :
-	# somehow works well
-	for i in range(parent.get_shape_count()):
-		var shape = parent.get_shape(i)
+	#print("count: ", parent.shape_owner_get_shape_count(0))
+	# somehow works well in 2.1.4
+	#for i in range(parent.get_shape_count()):
+	for i in range(parent.shape_owner_get_shape_count(0)):
+		 
+		#var shape = parent.get_shape(i)
+		var shape = parent.shape_owner_get_shape(0, i)
 		var shape_new = null
 
 		# first we only support circleshaps
@@ -53,11 +62,11 @@ func resize_body( factor ) :
 			shape_new = CircleShape2D.new()
 			# get radius from current shape
 			# add scale factor
-			shape_new.set_radius(shape.get_radius() * factor)
+			shape_new.set_radius(shape.get_radius() * factor.x)
 		elif shape is CapsuleShape2D:
 			shape_new = CapsuleShape2D.new()
-			shape_new.set_radius(shape.get_radius() * factor)
-			shape_new.set_height(shape.get_height() * factor)
+			shape_new.set_radius(shape.get_radius() * factor.x)
+			shape_new.set_height(shape.get_height() * factor.y)
 		elif shape is RectangleShape2D:
 			shape_new = RectangleShape2D.new()
 			shape_new.set_extents(shape.get_extents() * factor)
@@ -80,11 +89,16 @@ func resize_body( factor ) :
 		if shape_new != null:
 			shape_new.set_custom_solver_bias(shape.get_custom_solver_bias())
 			# get transformation from current shape
-			var shape_transform = parent.get_shape_transform(i)
+			#var shape_transform = parent.get_shape_transform(i)
+			var shape_transform = parent.shape_owner_get_transform(0)
+			
 			# remove current shape
-			parent.remove_shape(i)
+			#parent.remove_shape(i)
+			parent.shape_owner_remove_shape(0, i)
 			# add new shape with transformation
-			parent.add_shape(shape_new, shape_transform)
+			#parent.add_shape(shape_new, shape_transform)
+			parent.shape_owner_add_shape(0, shape_new)
+			parent.shape_owner_set_transform(0, shape_transform)
 
 	# works fine for centered shapes
 	# but does not go recursive through all sprites

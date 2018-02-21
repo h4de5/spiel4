@@ -1,19 +1,12 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://game/npc/asteroid.gd" type="Script" id=1]
 [ext_resource path="res://game/interfaces/destroyable.tscn" type="PackedScene" id=2]
 [ext_resource path="res://game/npc/asteroid-icon.png" type="Texture" id=3]
-[ext_resource path="res://game/interfaces/splitable.tscn" type="PackedScene" id=4]
-[ext_resource path="res://game/npc/asteroid_top.tscn" type="PackedScene" id=5]
-[ext_resource path="res://game/npc/asteroid_bottom.tscn" type="PackedScene" id=6]
-[ext_resource path="res://game/interfaces/explodeable.tscn" type="PackedScene" id=7]
+[ext_resource path="res://game/interfaces/resizeable.tscn" type="PackedScene" id=4]
+[ext_resource path="res://game/interfaces/explodeable.tscn" type="PackedScene" id=5]
 
-[sub_resource type="CircleShape2D" id=1]
-
-custom_solver_bias = 0.0
-radius = 107.785
-
-[node name="Asteroid" type="RigidBody2D"]
+[node name="Asteroid" type="RigidBody2D" index="0"]
 
 input_pickable = false
 collision_layer = 2
@@ -44,19 +37,12 @@ rect_clip_content = false
 
 [node name="Sprite" type="Sprite" parent="." index="1"]
 
-scale = Vector2( 1.34653, 1.34653 )
 texture = ExtResource( 3 )
+_sections_unfolded = [ "Transform" ]
 
-[node name="Collision" type="CollisionShape2D" parent="." index="2"]
+[node name="resizeable" parent="." index="2" instance=ExtResource( 4 )]
 
-shape = SubResource( 1 )
-
-[node name="splitable" parent="." index="3" instance=ExtResource( 4 )]
-
-left_part = ExtResource( 5 )
-right_part = ExtResource( 6 )
-
-[node name="explodeable" parent="." index="4" instance=ExtResource( 7 )]
+[node name="explodeable" parent="." index="3" instance=ExtResource( 5 )]
 
 explosion_type = "smoke"
 

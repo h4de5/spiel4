@@ -1,12 +1,14 @@
 extends "res://game/bases/base.gd"
 
 func _ready():
+	print("ready asteroid")
 	# only to be called in inherited classes
 	fix_collision_shape()
 	# merges properties from all sub-nodes
 	properties = interface.collect_properties(self)
 
 func initialize() :
+	print("initialize asteroid")
 	.initialize()
 	properties_base = {
 		global.properties.health_max: 200,
@@ -27,15 +29,23 @@ func initialize() :
 	# make the AI stear it
 	#get_node('processor_selector').set_processor("AI")
 
-
 # called to reset a position, usually after initialize
 func reset_position() :
+	print("reset_position asteroid")
 	set_position(object_locator.get_random_pos(300, [self]))
 	var x = rand_range(-90, 90)
 	var y = rand_range(-90, 90)
 	var r = rand_range(-2, 2)
-	apply_impulse(Vector2(0,0), Vector2(x, y))
-	set_angular_velocity(r)
+	#apply_impulse(Vector2(0,0), Vector2(x, y))
+	#set_angular_velocity(r)
+	
+	call_deferred("randomize_size")
+
+func randomize_size():
+	var resizeable = interface.is_resizeable(self)
+	if resizeable: 
+		var x = rand_range(0.8, 3)
+		resizeable.resize_body_to(Vector2(x,x))
 
 func destroy(destroyer):
 	#get_node("destroyable").destroy(destroyer)
