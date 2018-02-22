@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/SmokeParticle.png-99db1718d09df85715b9d22510525661.stex"
+path="res://.import/explosion_7.png-6f3070d47f8558d7eb58c8b344d6b082.stex"
 
 [deps]
 
-source_file="res://art/models/SmokeParticle.png"
-source_md5="376d995e45121b56cdb425e1a9ad1cbf"
+source_file="res://art/models/explosion_7.png"
+source_md5="b10eaf076dc20f09799ad7959b59266e"
 
-dest_files=[ "res://.import/SmokeParticle.png-99db1718d09df85715b9d22510525661.stex" ]
-dest_md5="91b257a744a0327902d4944a22decac5"
+dest_files=[ "res://.import/explosion_7.png-6f3070d47f8558d7eb58c8b344d6b082.stex" ]
+dest_md5="f10928434d017ed73c0fc44645fff102"
 
 [params]
 
