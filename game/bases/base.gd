@@ -13,13 +13,13 @@ var scene_path
 # ready baseship
 # ready player
 func _ready():
-	print("ready base")
+#	print("ready base")
 	# merges properties from all sub-nodes
 	properties = interface.collect_properties(self)
 	initialize()
 
 func initialize() :
-	print("initialize base")
+#	print("initialize base")
 	set_max_contacts_reported(4)
 	#connect("body_entered", self, "process_collision")
 
@@ -27,7 +27,7 @@ func initialize() :
 
 # called to reset a position, usually after initialize
 func reset_position() :
-	print("reset_position base")
+#	print("reset_position base")
 	set_position(object_locator.get_random_pos(800, [self]))
 
 # adds object to specific group, add its to the object_locator

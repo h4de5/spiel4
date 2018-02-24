@@ -47,6 +47,8 @@ func create_part(part_scene, body_scale):
 	get_tree().current_scene.add_child(part)
 	part.position = parent.position
 	part.rotation = parent.rotation
+	part.linear_velocity = parent.linear_velocity
+	part.angular_velocity = parent.angular_velocity
 	call_deferred("resize_body_part", part, body_scale)
 
 func resize_body_part(part, body_scale):

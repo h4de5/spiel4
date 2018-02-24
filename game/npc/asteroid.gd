@@ -3,18 +3,18 @@ extends "res://game/bases/base.gd"
 var skip_reset_position = false
 
 func _ready():
-	print("ready asteroid")
+#	print("ready asteroid")
 	# only to be called in inherited classes
 	fix_collision_shape()
 	# merges properties from all sub-nodes
 	properties = interface.collect_properties(self)
 
 func initialize() :
-	print("initialize asteroid")
+#	print("initialize asteroid")
 	.initialize()
 	properties_base = {
-		global.properties.health_max: 200,
-		global.properties.health: 200,
+		global.properties.health_max: 500,
+		global.properties.health: 500,
 		global.properties.body_scale: get_scale(),
 		global.properties.body_scale_base: get_scale(), # Vector2(1,1),
 	}
@@ -24,7 +24,7 @@ func initialize() :
 	set_bounce(0.0)
 	set_friction(0)
 	set_gravity_scale(0)
-	set_linear_damp(0)
+	set_linear_damp(0.1)
 	set_angular_damp(0)
 
 	# register to locator
@@ -36,13 +36,13 @@ func initialize() :
 # called to reset a position, usually after initialize
 func reset_position() :
 	if !skip_reset_position: 
-		print("reset_position asteroid")
-		set_position(object_locator.get_random_pos(300, [self]))
+#		print("reset_position asteroid")
+		set_position(object_locator.get_random_pos(600, [self]))
 		var x = rand_range(-90, 90)
 		var y = rand_range(-90, 90)
 		var r = rand_range(-2, 2)
-		#apply_impulse(Vector2(0,0), Vector2(x, y))
-		#set_angular_velocity(r)
+		apply_impulse(Vector2(0,0), Vector2(x, y))
+		set_angular_velocity(r)
 		
 		call_deferred("randomize_size")
 
