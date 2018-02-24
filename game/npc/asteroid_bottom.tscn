@@ -6,7 +6,7 @@
 [ext_resource path="res://game/npc/asteroid_bottom_left.tscn" type="PackedScene" id=4]
 [ext_resource path="res://game/npc/asteroid_bottom_right.tscn" type="PackedScene" id=5]
 
-[node name="Asteroid" index="0" instance=ExtResource( 1 )]
+[node name="Asteroid" instance=ExtResource( 1 )]
 
 [node name="Sprite" parent="." index="1"]
 
@@ -15,7 +15,7 @@ texture = ExtResource( 2 )
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." index="4"]
 
 build_mode = 0
-polygon = PoolVector2Array( -63.7756, -42.1517, -44.2738, -23.8391, -21.4425, -1.72124, 23.7446, 18.0184, 44.4354, 20.1588, 67.0275, 31.8808, 59.1438, 43.5603, 37.5367, 70.4233, 0.454163, 76.847, -23.1969, 70.7153, -34.0005, 64.5835, -62.5864, 51.7897, -71.083, 35.3847, -77.3317, 18.494, -84.2286, 4.46225 )
+polygon = PoolVector2Array( -63.7756, -42.1517, -44.2738, -23.8391, -21.4425, -1.72124, 23.7446, 18.0184, 44.4354, 20.1588, 67.0275, 31.8808, 59.1438, 43.5603, 37.5367, 70.4233, 0.178726, 76.4276, -23.1969, 70.7153, -55.6311, 57.7752, -67.9982, 40.4138, -75.6087, 23.2902, -84.2286, 4.46225 )
 
 [node name="splitable" parent="." index="5" instance=ExtResource( 3 )]
 

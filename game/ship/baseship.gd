@@ -18,6 +18,7 @@ func initialize() :
 		global.properties.health_max: 1000,
 		global.properties.health: 1000,
 		global.properties.body_scale: get_scale(),
+		global.properties.body_scale_base: get_scale(), # Vector2(1,1),
 	}
 
 	set_mass(0.5)

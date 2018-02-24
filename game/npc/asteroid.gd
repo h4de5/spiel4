@@ -1,5 +1,7 @@
 extends "res://game/bases/base.gd"
 
+var skip_reset_position = false
+
 func _ready():
 	print("ready asteroid")
 	# only to be called in inherited classes
@@ -12,7 +14,9 @@ func initialize() :
 	.initialize()
 	properties_base = {
 		global.properties.health_max: 200,
-		global.properties.health: 200
+		global.properties.health: 200,
+		global.properties.body_scale: get_scale(),
+		global.properties.body_scale_base: get_scale(), # Vector2(1,1),
 	}
 
 	set_mass(5000)
@@ -31,15 +35,16 @@ func initialize() :
 
 # called to reset a position, usually after initialize
 func reset_position() :
-	print("reset_position asteroid")
-	set_position(object_locator.get_random_pos(300, [self]))
-	var x = rand_range(-90, 90)
-	var y = rand_range(-90, 90)
-	var r = rand_range(-2, 2)
-	#apply_impulse(Vector2(0,0), Vector2(x, y))
-	#set_angular_velocity(r)
-	
-	call_deferred("randomize_size")
+	if !skip_reset_position: 
+		print("reset_position asteroid")
+		set_position(object_locator.get_random_pos(300, [self]))
+		var x = rand_range(-90, 90)
+		var y = rand_range(-90, 90)
+		var r = rand_range(-2, 2)
+		#apply_impulse(Vector2(0,0), Vector2(x, y))
+		#set_angular_velocity(r)
+		
+		call_deferred("randomize_size")
 
 func randomize_size():
 	var resizeable = interface.is_resizeable(self)

@@ -27,26 +27,29 @@ func _on_been_destroyed(by_whom):
 	var resizeable
 	var body_scale = Vector2(1,1)
 	
-	if left_part or right_part:
-		# check if parent is resized
-		resizeable = interface.is_resizeable(parent)
-		if resizeable and resizeable.body_scale != Vector2(1,1):
-			body_scale = resizeable.body_scale
+#
+#	if left_part or right_part:
+#		# check if parent is resized
+#		resizeable = interface.is_resizeable(parent)
+#		if resizeable and resizeable.body_scale != Vector2(1,1):
+#			body_scale = resizeable.body_scale
 		
 	if left_part:
-		var part = left_part.instance()
-		get_tree().current_scene.add_child(part)
-		part.position = parent.position
-		resizeable = interface.is_resizeable(part)
-		# TODO: resizeable is not yet initialized here
-		# need to wait a frame or solve it differently
-		if resizeable and body_scale != Vector2(1,1):
-			resizeable.resize_body_to(body_scale)
+		create_part(left_part, parent.get_property(global.properties.body_scale))
 
 	if right_part :
-		var part = right_part.instance()
-		get_tree().current_scene.add_child(part)
-		part.position = parent.position
-		resizeable = interface.is_resizeable(part)
-		if resizeable and body_scale != Vector2(1,1):
-			resizeable.resize_body_to(body_scale)
+		create_part(right_part, parent.get_property(global.properties.body_scale))
+		
+
+func create_part(part_scene, body_scale):
+	var part = part_scene.instance()
+	part.skip_reset_position = true
+	get_tree().current_scene.add_child(part)
+	part.position = parent.position
+	part.rotation = parent.rotation
+	call_deferred("resize_body_part", part, body_scale)
+
+func resize_body_part(part, body_scale):
+	var resizeable = interface.is_resizeable(part)
+	if resizeable and body_scale != Vector2(1,1):
+		resizeable.resize_body_to(body_scale)

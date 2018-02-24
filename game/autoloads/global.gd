@@ -75,7 +75,8 @@ var properties = {
 	modifier_multi = "modifier_multi",
 
 	# resizeable bodies
-	body_scale = "body_scale",
+	body_scale_base = "body_scale_base",
+	body_scale 		= "body_scale",
 	body_scale_max = "body_scale_max",
 	body_scale_min = "body_scale_min",
 }
