@@ -22,8 +22,8 @@ func initialize():
 
 	#for i in range(2): spawn_pickup()
 
-	for i in range(3): spawn_object(global.scene_path_asteroid, "objects")
-	#for i in range(2): spawn_object(global.scene_path_comet, "objects")
+	for i in range(2): spawn_object(global.scene_path_asteroid, "objects")
+	for i in range(4): spawn_object(global.scene_path_comet, "objects")
 
 
 

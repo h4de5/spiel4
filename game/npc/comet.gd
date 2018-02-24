@@ -9,16 +9,16 @@ func _ready():
 func initialize() :
 	.initialize()
 	properties_base = {
-		global.properties.health_max: 2000,
-		global.properties.health: 2000
+		global.properties.health_max: 400,
+		global.properties.health: 400
 	}
 
-	set_mass(5000)
-	set_weight(5000)
+	set_mass(2000)
+	set_weight(2000)
 	set_bounce(0.0)
 	set_friction(0)
 	set_gravity_scale(0)
-	set_linear_damp(0)
+	set_linear_damp(0.1)
 	set_angular_damp(0)
 
 	# register to locator
@@ -36,6 +36,13 @@ func reset_position() :
 	var r = rand_range(-2, 2)
 	apply_impulse(Vector2(0,0), Vector2(x, y))
 	set_angular_velocity(r)
+	call_deferred("randomize_size")
+
+func randomize_size():
+	var resizeable = interface.is_resizeable(self)
+	if resizeable: 
+		var x = rand_range(0.8, 3)
+		resizeable.resize_body_to(Vector2(x,x))
 
 func destroy(destroyer):
 	#get_node("destroyable").destroy(destroyer)

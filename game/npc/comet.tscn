@@ -1,10 +1,12 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://game/npc/asteroid.gd" type="Script" id=1]
 [ext_resource path="res://game/interfaces/destroyable.tscn" type="PackedScene" id=2]
 [ext_resource path="res://art/models/Asteroid/comet-big-sprite.png" type="Texture" id=3]
+[ext_resource path="res://game/interfaces/resizeable.tscn" type="PackedScene" id=4]
+[ext_resource path="res://game/interfaces/explodeable.tscn" type="PackedScene" id=5]
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=1]
 
 resource_name = "start"
 length = 2.0
@@ -22,26 +24,6 @@ tracks/0/keys = {
 "update": 0,
 "values": [ 0, 29 ]
 }
-
-[sub_resource type="CircleShape2D" id=1]
-
-custom_solver_bias = 0.0
-radius = 17.5544
-
-[sub_resource type="CircleShape2D" id=2]
-
-custom_solver_bias = 0.0
-radius = 28.3172
-
-[sub_resource type="CircleShape2D" id=3]
-
-custom_solver_bias = 0.0
-radius = 23.6617
-
-[sub_resource type="CircleShape2D" id=4]
-
-custom_solver_bias = 0.0
-radius = 16.2044
 
 [node name="Comet" type="RigidBody2D" index="0"]
 
@@ -70,6 +52,7 @@ script = ExtResource( 1 )
 [node name="progress_health" parent="destroyable" index="0"]
 
 visible = false
+rect_clip_content = false
 
 [node name="Sprite" type="Sprite" parent="." index="1"]
 
@@ -84,29 +67,20 @@ autoplay = "start"
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 1.0
-anims/start = SubResource( 5 )
+anims/start = SubResource( 1 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 
-[node name="Collision" type="CollisionShape2D" parent="." index="2"]
+[node name="resizeable" parent="." index="2" instance=ExtResource( 4 )]
 
-position = Vector2( -30.5052, 24.1922 )
-shape = SubResource( 1 )
+[node name="explodeable" parent="." index="3" instance=ExtResource( 5 )]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="3"]
+explosion_type = "smoke"
 
-position = Vector2( -6.48958, 2.53045 )
-shape = SubResource( 2 )
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." index="4"]
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="." index="4"]
-
-position = Vector2( 21.1161, -20.9343 )
-shape = SubResource( 3 )
-
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="." index="5"]
-
-position = Vector2( 22.3945, 1.81872 )
-shape = SubResource( 4 )
+build_mode = 0
+polygon = PoolVector2Array( 37.7879, 3.39341, 30.4093, 14.4613, 17.2333, 24.2115, -12.0175, 33.1712, -30.991, 41.6039, -35.9979, 41.3404, -42.3224, 44.5026, -47.5928, 40.0228, -36.5249, 8.13678, -32.5721, 4.18397, -23.6124, -15.5801, -1.21319, -27.702, 20.132, -45.0944, 26.193, -40.351, 32.2539, -32.9724, 32.5174, -27.702, 35.6797, -23.2222, 41.7407, -25.5939, 45.1664, -21.641, 44.9029, -14.7895 )
 
 
 [editable path="destroyable"]
