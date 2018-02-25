@@ -71,19 +71,31 @@ func spawn_tower():
 func spawn_pickup():
 	return spawn_object(global.scene_path_pickup, "objects")
 
-remote func spawn_object(scnpath, group, name = "", propagate = true):
-	print ("spawn_object ", scnpath, " in " , group)
-	var scn = load(scnpath)
-	var node = scn.instance()
+# spawns an object in to the game
+# can be path or packedScene
+remote func spawn_object(scn, group, name = "", propagate = true):
+	print ("spawn_object ", scn, " in " , group)
+	var scn_instance
+	var scn_path
+#	if not scn is PackedScene:
+	scn_instance = load(scn)
+	scn_path = scn
+#
+#	else:
+#		scn_instance = scn
+#		scn_path = scn.resource_path
+		
+	
+	var node = scn_instance.instance()
 	# name should only be set, when propagete is false
 	if name != "":
 		node.set_name(name)
 	get_node(group).add_child(node, true)
-	node.scene_path = scnpath
+	node.scene_path = scn_path
 
 	if(propagate):
 		if network_manager.is_server():
-			rpc("spawn_object", scnpath, group, node.get_name())
+			rpc("spawn_object", scn_path, group, node.get_name())
 
 	return node
 
@@ -96,11 +108,10 @@ func clear_game():
 			#var obj = object_locator.objects_registered[group][o]
 			#print ("objects_registered - group: ", group, " i ", i, " val ",  object_locator.objects_registered[group])
 			var destroyable = interface.is_destroyable(obj)
+			object_locator.free_object(obj)
 			if destroyable :
-				object_locator.free_object(obj)
-				destroyable.destroy(null)
+				destroyable.destroy(null, true)
 			else:
-				object_locator.free_object(obj)
 				obj.queue_free()
 
 

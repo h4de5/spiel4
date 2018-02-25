@@ -66,14 +66,18 @@ func _process(delta):
 					progressbar.set_max(health_max)
 					progressbar.set_value(health)
 
-func destroy(by_whom):
-
-	emit_signal("been_destroyed", by_whom)
-
-	#if parent.has_method("destroy") :
-	#	parent.destroy(by_whom)
-
-	parent.queue_free()
+remote func destroy(by_whom, force = false):
+	print("destroy called..")
+	if network_manager.is_offline() or network_manager.is_server() or force:
+		print(".. forced or server")
+		emit_signal("been_destroyed", by_whom)
+		parent.queue_free()
+	else:
+		print(".. ignored ..")
+		
+	if network_manager.is_server():
+		print(".. and forwarded")
+		rpc("destroy", by_whom, true)
 
 func heal(power, healer):
 	if parent.has_method("heal") :
