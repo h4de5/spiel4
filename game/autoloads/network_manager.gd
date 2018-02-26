@@ -3,7 +3,9 @@ extends Node
 var connection_id
 
 var SERVER_IP = "127.0.0.1"
-var SERVER_PORT = 32112
+#var SERVER_IP = "82.149.113.37"
+#var SERVER_IP = "192.168.0.10"
+var SERVER_PORT = 8910
 var MAX_PLAYERS = 512
 
 # Signals to let lobby GUI know what's going on
@@ -117,6 +119,7 @@ func init_local_information():
 	var ip_valid = []
 	# only add valid ones (no localhost, no ipv6, no ms fallback
 	for ip in ip_all:
+		print("Found local IP: ", ip)
 		if ip.find(':') != -1: continue
 		elif ip.substr(0,4) == '127.': continue
 		elif ip.substr(0,4) == '169.': continue
