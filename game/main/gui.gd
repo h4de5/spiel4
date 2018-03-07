@@ -9,19 +9,19 @@ func _ready():
 	# Initialization here
 
 
-	network_manager.connect("start_client", get_node("Control/MarginContainer/VBoxContainer/BtnConnect"), "hide")
-	network_manager.connect("start_client", get_node("Control/MarginContainer/VBoxContainer/BtnServer"), "hide")
-	network_manager.connect("start_client", get_node("Control/MarginContainer/VBoxContainer/BtnDisconnect"), "show")
+	network_manager.connect("start_client", find_node("BtnConnect"), "hide")
+	network_manager.connect("start_client", find_node("BtnServer"), "hide")
+	network_manager.connect("start_client", find_node("BtnDisconnect"), "show")
 
-	network_manager.connect("start_server", get_node("Control/MarginContainer/VBoxContainer/BtnConnect"), "hide")
-	network_manager.connect("start_server", get_node("Control/MarginContainer/VBoxContainer/BtnServer"), "hide")
-	network_manager.connect("start_server", get_node("Control/MarginContainer/VBoxContainer/BtnUpdate"), "show")
-	network_manager.connect("start_server", get_node("Control/MarginContainer/VBoxContainer/BtnDisconnect"), "show")
+	network_manager.connect("start_server", find_node("BtnConnect"), "hide")
+	network_manager.connect("start_server", find_node("BtnServer"), "hide")
+	network_manager.connect("start_server", find_node("BtnUpdate"), "show")
+	network_manager.connect("start_server", find_node("BtnDisconnect"), "show")
 
-	network_manager.connect("start_offline", get_node("Control/MarginContainer/VBoxContainer/BtnConnect"), "show")
-	network_manager.connect("start_offline", get_node("Control/MarginContainer/VBoxContainer/BtnServer"), "show")
-	network_manager.connect("start_offline", get_node("Control/MarginContainer/VBoxContainer/BtnDisconnect"), "hide")
-	network_manager.connect("start_offline", get_node("Control/MarginContainer/VBoxContainer/BtnUpdate"), "hide")
+	network_manager.connect("start_offline", find_node("BtnConnect"), "show")
+	network_manager.connect("start_offline", find_node("BtnServer"), "show")
+	network_manager.connect("start_offline", find_node("BtnDisconnect"), "hide")
+	network_manager.connect("start_offline", find_node("BtnUpdate"), "hide")
 
 #func _process(delta):
 #	# Called every frame. Delta is time since last frame.

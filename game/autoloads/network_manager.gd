@@ -2,9 +2,9 @@ extends Node
 
 var connection_id
 
-var SERVER_IP = "127.0.0.1"
+#var SERVER_IP = "127.0.0.1"
 #var SERVER_IP = "82.149.113.37"
-#var SERVER_IP = "192.168.0.10"
+var SERVER_IP = "172.17.0.2"
 var SERVER_PORT = 8910
 var MAX_PLAYERS = 512
 
@@ -129,6 +129,7 @@ func init_local_information():
 	my_info["ip"] = ip_valid
 	call_deferred("resolve_external_address")
 
+	my_info["port"] = SERVER_PORT
 	my_info["os"] = OS.get_name()
 	my_info["device"] = OS.get_model_name()
 	var username = OS.get_user_data_dir()

@@ -24,7 +24,6 @@ func _ready():
 	set_process_input(true)
 	moveable = interface.is_moveable(parent)
 	shootable = interface.is_shootable(parent)
-
 	connect("tree_exiting", self, "_on_input_tree_exiting")
 
 func set_processor_details(device_details):
@@ -44,10 +43,10 @@ func _input(event):
 	#var moveable = interface.is_moveable(parent)
 	#var shootable = interface.is_shootable(parent)
 	if (event.device == device_id && device_types.has(event.get_class())):
-		#if (event.type == InputEvent.MOUSE_MOTION):
 		if (event is InputEventMouseMotion):
+			# do not set mouse input as handled
+			# otherwise gui buttons cannot be clicked
 			#get_tree().set_input_as_handled()
-			#parent.handle_mousemove(event.pos)
 			# TODO - check if global_mouse_pos is realy the best way to do this
 
 			if shootable :
@@ -58,7 +57,6 @@ func _input(event):
 				if event.is_action(e) :
 					if (not event is InputEventMouseButton):
 						get_tree().set_input_as_handled()
-					#parent.handle_action(input_actions[e], event.is_pressed(event))
 					if moveable:
 						moveable.handle_action(input_actions[e], Input.is_action_pressed(e))
 					if shootable:
