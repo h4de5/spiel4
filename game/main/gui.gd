@@ -38,7 +38,6 @@ func _on_BtnServer_pressed():
 func _on_BtnUpdate_pressed():
 	network_manager._single_process()
 
-
 func _on_BtnDisconnect_pressed():
 	network_manager.disconnect_game()
 

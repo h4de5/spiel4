@@ -1,6 +1,7 @@
 extends HTTPRequest
 
 func _ready():
+	print("http node created..")
 	max_redirects = 5
 	use_threads = true
 	body_size_limit = 1024*1024*2
@@ -25,6 +26,7 @@ func send(url, query = '', data = '', callback = null, parent = null, callbackpa
 	# check if connection to signal is still available
 	if !is_connected("request_completed", parent, callback):
 		connect("request_completed", parent, callback, callbackparams, CONNECT_ONESHOT)
+		connect("request_completed", self, "_remove_node", callbackparams, CONNECT_ONESHOT | CONNECT_DEFERRED)
 	else :
 		printerr("Connecting to signal: request_completed on parent: ", parent, " with method ", callback, " failed. already connected..")
 
@@ -81,29 +83,6 @@ func buildquery(url, query):
 			result = '&' + result
 	return result
 
-# general request completion information
-# use this func signature for callback methods
-# call this func to get response
-func on_request_completed(result, response_code, headers, body, params = []):
-	#disconnect("request_completed", self, "_on_request_completed")
-	if result == HTTPRequest.RESULT_SUCCESS and response_code == HTTPClient.RESPONSE_OK:
-
-		# TODO: check for Content-Type: text/html; charset=UTF-8
-		# to automatically convert from json and get_string from utf8
-
-		#var dict = parse_json(body.get_string_from_ascii())
-
-		# body is a PoolByteArray
-		# body = body.get_string_from_ascii()
-		body = body.get_string_from_utf8()
-
-		#print("Request succeeded - body: ", body, " headers: ", headers)
-
-		return {"headers": headers, "body": body, "params": params}
-	else:
-		printerr("Request failed - Code: ", result, " HTTP Status: ", response_code)
-		return false
-
 # Cancels the current request.
 func cancel():
 	cancel_request()
@@ -111,3 +90,8 @@ func cancel():
 # Returns the current status of the underlying HTTPClient. See STATUS_* enum on HTTPClient.
 func get_status():
 	return get_http_client_status()
+	
+# removes self from tree
+func _remove_node(result, response_code, headers, body):
+	print("http node removed..")
+	queue_free()

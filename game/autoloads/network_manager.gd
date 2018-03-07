@@ -101,7 +101,7 @@ var my_info = { }
 var players_done = []
 
 func resolved_external_address(result, response_code, headers, body, params = []):
-	var response = http.on_request_completed(result, response_code, headers, body, params)
+	var response = http_manager.on_request_completed(result, response_code, headers, body, params)
 	if response and response.body:
 		my_info['ip'].append(response.body)
 		# my_info['ip'] += ','+ response.body
@@ -110,7 +110,7 @@ func resolved_external_address(result, response_code, headers, body, params = []
 
 
 func resolve_external_address():
-	http.send("http://ip.icb.at", "", "", "resolved_external_address", self)
+	http_manager.send("http://ip.icb.at", "", "", "resolved_external_address", self)
 
 func init_local_information():
 
@@ -274,7 +274,7 @@ func start_server():
 		set_physics_process(true)
 
 		emit_signal("start_server")
-		http.send("https://dev.pauschenwein.net/spiel4/lobby.php",
+		http_manager.send("https://dev.pauschenwein.net/spiel4/lobby.php",
 			{"server": "start"}, my_info, "registered_server", self)
 
 	else :
@@ -298,6 +298,6 @@ func start_client():
 func registered_server(result, response_code, headers, body, params = []):
 	print("registered_server: ", result)
 
-	var response = http.on_request_completed(result, response_code, headers, body, params)
+	var response = http_manager.on_request_completed(result, response_code, headers, body, params)
 	if response and response.body:
 		print("response Body: ", response.body)
