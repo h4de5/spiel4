@@ -276,6 +276,8 @@ func start_server():
 		emit_signal("start_server")
 		http_manager.send("https://dev.pauschenwein.net/spiel4/lobby.php",
 			{"server": "start"}, my_info, "registered_server", self)
+		
+		
 
 	else :
 		print ("Starting Server failed: ", status)
