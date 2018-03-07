@@ -132,5 +132,5 @@ func _buildquery(url, query):
 func _remove_node(result, response_code, headers, body, request):
 	if request:
 		print("http node removed..", "code: ", response_code, " ", request)
-		requests.remove(request)
+		requests.remove(requests.find(request))
 		request.queue_free()
