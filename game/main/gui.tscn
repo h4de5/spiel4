@@ -270,4 +270,6 @@ align = 1
 
 [connection signal="pressed" from="Control/MarginButtons/VBoxContainer/BtnUpdate" to="." method="_on_BtnUpdate_pressed"]
 
+[connection signal="pressed" from="Control/MarginList/VBoxContainer/BtnConnectTo" to="." method="_on_BtnConnectTo_pressed"]
+
 

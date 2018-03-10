@@ -16,12 +16,13 @@ const scene_path_camera 	= "res://game/main/camera.tscn"
 #const scene_path_bullet 	= "res://game/weapons/bullet.tscn"
 
 const scene_tree_game 			= "/root/game"
-const scene_tree_ships 			= "/root/game/ships"
-const scene_tree_bullets 		= "/root/game/bullets"
+const scene_tree_set 			= "/root/game/set"
+const scene_tree_ships 			= "/root/game/set/ships"
+const scene_tree_bullets 		= "/root/game/set/bullets"
+const scene_tree_objects 		= "/root/game/set/objects"
 #const scene_tree_ship_locator 	= "/root/game/object_locator"
-const scene_tree_player_manager = "/root/game/player_manager"
+#const scene_tree_player_manager = "/root/game/player_manager"
 const scene_tree_camera 		= "/root/game/Camera"
-
 
 var groups = {
 	player		= "player",
@@ -41,8 +42,6 @@ var collision_layer_masks = {
 	missle 		= [32, 1+2+4+16+32],
 	explosion	= [64, 1+2+4+32]
 }
-
-
 
 var properties = {
 	# moveable

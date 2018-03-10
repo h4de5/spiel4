@@ -30,7 +30,9 @@ func _ready():
 
 
 func _on_BtnConnect_pressed():
-	network_manager.start_client()
+	find_node("MarginList").show()
+	get_node(global.scene_tree_set).set_pause_mode(PAUSE_MODE_PROCESS)
+	# get_node(global.scene_tree_set).pause()
 
 func _on_BtnServer_pressed():
 	network_manager.start_server()
@@ -41,3 +43,13 @@ func _on_BtnUpdate_pressed():
 func _on_BtnDisconnect_pressed():
 	network_manager.disconnect_game()
 
+func _on_BtnConnectTo_pressed():
+#	find_node("ServerList")
+	var selindex = get_node("Control/MarginList/VBoxContainer/Serverlist").get_selected_items()
+	var selitem = get_node("Control/MarginList/VBoxContainer/Serverlist").get_item_text(selindex[0])
+	print("sel item: ", selitem)
+	
+	find_node("MarginList").hide()
+	# get_node(global.scene_tree_set).pause(false)
+	get_node(global.scene_tree_set).set_pause_mode(PAUSE_MODE_STOP)
+	network_manager.start_client()

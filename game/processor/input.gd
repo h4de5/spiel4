@@ -65,6 +65,5 @@ func _input(event):
 
 func _on_input_tree_exiting():
 	if input_group:
-		var player_manager = get_node(global.scene_tree_player_manager)
 		player_manager.unregister_device(input_group, device_id)
 	reset_processor_details()

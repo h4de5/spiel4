@@ -90,7 +90,7 @@ remote func spawn_object(scn, group, name = "", propagate = true):
 	# name should only be set, when propagete is false
 	if name != "":
 		node.set_name(name)
-	get_node(group).add_child(node, true)
+	get_node("set/" + group).add_child(node, true)
 	node.scene_path = scn_path
 
 	if(propagate):
