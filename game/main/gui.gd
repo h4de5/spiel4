@@ -29,9 +29,22 @@ func _ready():
 #	pass
 
 
+func serverlist_returned(result, response_code, headers, body, params = []):
+	print("serverlist_returned: ", result)
+
+	var response = http_manager.on_request_completed(result, response_code, headers, body, params)
+	if response and response.body:
+		print("response Body: ", response.body)
+
+
 func _on_BtnConnect_pressed():
 	find_node("MarginList").show()
-	get_node(global.scene_tree_set).set_pause_mode(PAUSE_MODE_PROCESS)
+	http_manager.send(global.lobby_server_url,
+		{"server": "list"}, "", "serverlist_returned", self)
+			
+	#get_node(global.scene_tree_set).set_pause_mode(PAUSE_MODE_PROCESS)
+	get_node("/root/game/gui").set_pause_mode(PAUSE_MODE_PROCESS)
+	get_tree().paused = true
 	# get_node(global.scene_tree_set).pause()
 
 func _on_BtnServer_pressed():
@@ -51,5 +64,8 @@ func _on_BtnConnectTo_pressed():
 	
 	find_node("MarginList").hide()
 	# get_node(global.scene_tree_set).pause(false)
-	get_node(global.scene_tree_set).set_pause_mode(PAUSE_MODE_STOP)
+	#get_node(global.scene_tree_set).set_pause_mode(PAUSE_MODE_STOP)
+	get_node("/root/game/gui").set_pause_mode(PAUSE_MODE_INHERIT)
+	get_tree().paused = false
+	
 	network_manager.start_client()

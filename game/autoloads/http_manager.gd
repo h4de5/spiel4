@@ -36,16 +36,16 @@ func on_request_completed(result, response_code, headers, body, params = []):
 
 		# TODO: check for Content-Type: text/html; charset=UTF-8
 		# to automatically convert from json and get_string from utf8
-
-		#var dict = parse_json(body.get_string_from_ascii())
-
+		
+		var body_parsed = parse_json(body.get_string_from_ascii())
 		# body is a PoolByteArray
 		# body = body.get_string_from_ascii()
 		body = body.get_string_from_utf8()
+		
 
 		#print("Request succeeded - body: ", body, " headers: ", headers)
 
-		return {"headers": headers, "body": body, "params": params}
+		return {"headers": headers, "body": body, "body_parsed": body_parsed, "params": params}
 	else:
 		printerr("Request failed - Code: ", result, " HTTP Status: ", response_code)
 		return false
