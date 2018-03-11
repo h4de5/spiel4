@@ -17,12 +17,21 @@ func _ready():
 	# once server is offline, stop timer
 	network_manager.connect("start_offline", self, "unregister_server")
 
+	# make own quit function	
+	get_tree().set_auto_accept_quit(false)
+
+
 # when quit request is send to game
 func _notification(what):
 	if what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
+		print ("Got quit request")
 		# unregister from lobby - if registered 
 		unregister_server()
-		get_tree().quit() # default behavior
+		call_deferred("quit")
+
+func quit():
+	print ("Good Bye!")
+	get_tree().quit() # default behavior
 
 func register_server():
 	http_manager.send(global.lobby_server_url,
@@ -52,15 +61,17 @@ func registered_server(result, response_code, headers, body, params = []):
 		heartbeat_timer.start()
 
 func unregister_server():
-	
-	if own_lobby_ids: 
+	if heartbeat_timer:
+		print ("Stopping heartbeat..")
+		heartbeat_timer.stop()
+		heartbeat_timer = null
+		
+	if own_lobby_ids:
+		print ("Closing servers..")
 		http_manager.send(global.lobby_server_url,
 			{"server": "close"}, {"id": own_lobby_ids})
 		own_lobby_ids = []
 		
-	if heartbeat_timer:
-		heartbeat_timer.stop()
-		heartbeat_timer = null
 		
 func send_heartbeat():
 	http_manager.send(global.lobby_server_url,

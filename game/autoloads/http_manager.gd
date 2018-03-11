@@ -17,7 +17,8 @@ func send (url, query = '', data = '', callback = null, parent = null, callbackp
 	request.use_threads = true
 	request.body_size_limit = 1024*1024*2
 	
-	get_tree().get_root().add_child(request)
+	#get_tree().get_root().add_child(request)
+	add_child(request)
 	
 	_send (request, url, query, data, callback, parent, callbackparams)
 	requests.append(request)
