@@ -2,7 +2,7 @@
 
 [ext_resource path="res://game/main/gui.gd" type="Script" id=1]
 
-[node name="Gui" type="CanvasLayer" index="0"]
+[node name="Gui" type="CanvasLayer"]
 
 layer = 1
 offset = Vector2( 0, 0 )
@@ -214,12 +214,78 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 alignment = 0
 
-[node name="Serverlist" type="ItemList" parent="Control/MarginList/VBoxContainer" index="0"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginList/VBoxContainer" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
+margin_right = 392.0
+margin_bottom = 20.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+alignment = 0
+
+[node name="BtnRefresh" type="Button" parent="Control/MarginList/VBoxContainer/HBoxContainer" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 60.0
+margin_bottom = 20.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+text = "Refresh"
+flat = false
+align = 1
+_sections_unfolded = [ "Anchor" ]
+
+[node name="BtnCancel" type="Button" parent="Control/MarginList/VBoxContainer/HBoxContainer" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 64.0
+margin_right = 118.0
+margin_bottom = 20.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+text = "Cancel"
+flat = false
+align = 1
+_sections_unfolded = [ "Anchor" ]
+
+[node name="Serverlist" type="ItemList" parent="Control/MarginList/VBoxContainer" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 24.0
 margin_right = 392.0
 margin_bottom = 276.0
 rect_pivot_offset = Vector2( 0, 0 )
@@ -233,12 +299,11 @@ items = [ "Item 0", null, false, "Item 1", null, false, "Item 2", null, false ]
 select_mode = 0
 allow_reselect = false
 max_text_lines = 10
-fixed_column_width = 5
 icon_mode = 1
 fixed_icon_size = Vector2( 0, 0 )
-_sections_unfolded = [ "Columns", "Size Flags" ]
+_sections_unfolded = [ "Anchor", "Columns", "Size Flags" ]
 
-[node name="BtnConnectTo" type="Button" parent="Control/MarginList/VBoxContainer" index="1"]
+[node name="BtnConnectTo" type="Button" parent="Control/MarginList/VBoxContainer" index="2"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -261,6 +326,7 @@ group = null
 text = "connect"
 flat = false
 align = 1
+_sections_unfolded = [ "Anchor", "Margin" ]
 
 [connection signal="pressed" from="Control/MarginButtons/VBoxContainer/BtnConnect" to="." method="_on_BtnConnect_pressed"]
 
@@ -269,6 +335,10 @@ align = 1
 [connection signal="pressed" from="Control/MarginButtons/VBoxContainer/BtnDisconnect" to="." method="_on_BtnDisconnect_pressed"]
 
 [connection signal="pressed" from="Control/MarginButtons/VBoxContainer/BtnUpdate" to="." method="_on_BtnUpdate_pressed"]
+
+[connection signal="pressed" from="Control/MarginList/VBoxContainer/HBoxContainer/BtnRefresh" to="." method="_on_BtnRefresh_pressed"]
+
+[connection signal="pressed" from="Control/MarginList/VBoxContainer/HBoxContainer/BtnCancel" to="." method="_on_BtnCancel_pressed"]
 
 [connection signal="pressed" from="Control/MarginList/VBoxContainer/BtnConnectTo" to="." method="_on_BtnConnectTo_pressed"]
 

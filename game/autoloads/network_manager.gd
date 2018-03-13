@@ -2,10 +2,6 @@ extends Node
 
 var connection_id
 
-#var SERVER_IP = "127.0.0.1"
-#var SERVER_IP = "82.149.113.37"
-var SERVER_IP = "172.17.0.2"
-var SERVER_PORT = 8910
 var MAX_PLAYERS = 512
 
 # Player info, associate ID to data
@@ -124,11 +120,11 @@ func init_local_information():
 	my_info["ip"] = ip_valid
 	call_deferred("resolve_external_address")
 
-	my_info["port"] = SERVER_PORT
+	my_info["port"] = settings.game['server_default_port']
 	my_info["os"] = OS.get_name()
 	my_info["device"] = OS.get_model_name()
 	var username = "User"
-	
+
 	# load username from environment
 	if OS.has_environment( "LOGNAME" ):
 		username = OS.get_environment( "LOGNAME" )
@@ -145,7 +141,7 @@ func init_local_information():
 		# remove everything after next slash
 		if username.find("/") > 0:
 			username = username.substr(0, username.find("/"))
-		
+
 	my_info["username"] = username
 
 	print("my infos: ", my_info)
@@ -229,7 +225,7 @@ remote func pre_configure_game():
 	print ("pre_configure_game")
 
 	# game is paused for now
-	get_tree().paused = true # 
+	get_tree().paused = true #
 	# get_tree().set_pause(true) # Pre-pause
 	# The rest is the same as in the code in the previous section (look above)
 	var selfPeerID = get_tree().get_network_unique_id()
@@ -262,7 +258,7 @@ remote func post_configure_game():
 func start_server():
 	print ("starting server...")
 	var peer = NetworkedMultiplayerENet.new()
-	var status = peer.create_server(SERVER_PORT, MAX_PLAYERS)
+	var status = peer.create_server(settings.game['server_default_port'], MAX_PLAYERS)
 
 	print ("status: ", status)
 

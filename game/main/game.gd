@@ -4,11 +4,18 @@ extends Node2D
 func _ready():
 	print ("reset everything - new game")
 
+	# set screen width
+	# this is strange
+	# get_tree().get_root().size = Vector2(settings.game['display_width'], settings.game['display_height'])
+
+	# add camera
 	var camera_scn = load(global.scene_path_camera)
 	var camera_node = camera_scn.instance()
 	add_child(camera_node, true)
 
 	call_deferred("initialize")
+
+
 
 	# when client starts, clear the game
 	network_manager.connect("connected_as_client", self , "clear_game")
@@ -84,8 +91,8 @@ remote func spawn_object(scn, group, name = "", propagate = true):
 #	else:
 #		scn_instance = scn
 #		scn_path = scn.resource_path
-		
-	
+
+
 	var node = scn_instance.instance()
 	# name should only be set, when propagete is false
 	if name != "":

@@ -4,29 +4,29 @@ var requests = []
 
 func _ready():
 	requests = []
-	
+
 func send (url, query = '', data = '', callback = null, parent = null, callbackparams = []):
-	
+
 	print("http node created..")
-	
+
 	var request = HTTPRequest.new()
 	#request.set_script(preload("res://game/autoloads/http.gd"))
-	
+
 	# default for HTTP Request
 	request.max_redirects = 5
 	request.use_threads = true
 	request.body_size_limit = 1024*1024*2
-	
+
 	#get_tree().get_root().add_child(request)
 	add_child(request)
-	
+
 	_send (request, url, query, data, callback, parent, callbackparams)
 	requests.append(request)
 	return request
 
 func cancle(request):
 	request.cancel()
-	
+
 
 # general request completion information
 # use this func signature for callback methods
@@ -37,12 +37,12 @@ func on_request_completed(result, response_code, headers, body, params = []):
 
 		# TODO: check for Content-Type: text/html; charset=UTF-8
 		# to automatically convert from json and get_string from utf8
-		
+
 		var body_parsed = parse_json(body.get_string_from_ascii())
 		# body is a PoolByteArray
 		# body = body.get_string_from_ascii()
 		body = body.get_string_from_utf8()
-		
+
 
 		#print("Request succeeded - body: ", body, " headers: ", headers)
 
@@ -50,7 +50,7 @@ func on_request_completed(result, response_code, headers, body, params = []):
 	else:
 		printerr("Request failed - Code: ", result, " HTTP Status: ", response_code)
 		return false
-		
+
 
 # send query to url with parameters query and postdata data
 # on completion call callback on parent

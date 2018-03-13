@@ -13,11 +13,11 @@ signal registered_server()
 func _ready():
 	# when server is startet, register it to the lobby
 	network_manager.connect("start_server", self, "register_server")
-	
+
 	# once server is offline, stop timer
 	network_manager.connect("start_offline", self, "unregister_server")
 
-	# make own quit function	
+	# make own quit function
 	get_tree().set_auto_accept_quit(false)
 
 
@@ -25,7 +25,7 @@ func _ready():
 func _notification(what):
 	if what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
 		print ("Got quit request")
-		# unregister from lobby - if registered 
+		# unregister from lobby - if registered
 		unregister_server()
 		call_deferred("quit")
 
@@ -34,7 +34,7 @@ func quit():
 	get_tree().quit() # default behavior
 
 func register_server():
-	http_manager.send(global.lobby_server_url,
+	http_manager.send(settings.game['client_lobby_url'],
 		{"server": "start"}, network_manager.my_info, "registered_server", self)
 
 func registered_server(result, response_code, headers, body, params = []):
@@ -44,10 +44,10 @@ func registered_server(result, response_code, headers, body, params = []):
 	if response and response.body_parsed:
 		print("response Body: ", response.body_parsed)
 		own_lobby_ids = response.body_parsed
-		
+
 		# server is now successfully registered to the lobby server
 		emit_signal("registered_server")
-		
+
 		# Create a timer node
 		heartbeat_timer = Timer.new()
 		# Set timer interval
@@ -65,15 +65,15 @@ func unregister_server():
 		print ("Stopping heartbeat..")
 		heartbeat_timer.stop()
 		heartbeat_timer = null
-		
+
 	if own_lobby_ids:
 		print ("Closing servers..")
-		http_manager.send(global.lobby_server_url,
+		http_manager.send(settings.game['client_lobby_url'],
 			{"server": "close"}, {"id": own_lobby_ids})
 		own_lobby_ids = []
-		
-		
+
+
 func send_heartbeat():
-	http_manager.send(global.lobby_server_url,
+	http_manager.send(settings.game['client_lobby_url'],
 		{"server": "ping"}, {"id": own_lobby_ids})
 
