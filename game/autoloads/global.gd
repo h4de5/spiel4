@@ -24,8 +24,6 @@ const scene_tree_objects 		= "/root/game/set/objects"
 #const scene_tree_player_manager = "/root/game/player_manager"
 const scene_tree_camera 		= "/root/game/Camera"
 
-#const lobby_server_url			= "https://dev.pauschenwein.net/spiel4/lobby.php"
-
 var groups = {
 	player		= "player",
 	npc			= "npc",
