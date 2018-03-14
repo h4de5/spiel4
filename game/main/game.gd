@@ -5,8 +5,7 @@ func _ready():
 	print ("reset everything - new game")
 
 	# set screen width
-	# this is strange
-	# get_tree().get_root().size = Vector2(settings.game['display_width'], settings.game['display_height'])
+	OS.window_size = Vector2(settings.game['display_width'], settings.game['display_height'])
 
 	# add camera
 	var camera_scn = load(global.scene_path_camera)
