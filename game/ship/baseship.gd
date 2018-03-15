@@ -11,9 +11,9 @@ func initialize() :
 	#print("initialize baseship")
 	.initialize()
 	properties_base = {
-		global.properties.movement_speed_forward: 300,
-		global.properties.movement_speed_back: 200,
-		global.properties.ship_rotation_speed: 2,
+		global.properties.movement_speed_forward: 600,
+		global.properties.movement_speed_back: 500,
+		global.properties.ship_rotation_speed: 3,
 		global.properties.zoom_speed: 0.2,
 		global.properties.health_max: 1000,
 		global.properties.health: 1000,
@@ -25,7 +25,7 @@ func initialize() :
 	#set_inertia(0)
 	#set_weight(500)
 	set_friction(1)
-	set_bounce(0.5)
+	set_bounce(0.1)
 	set_gravity_scale(0)
 	set_linear_damp(2)
 	set_angular_damp(4)

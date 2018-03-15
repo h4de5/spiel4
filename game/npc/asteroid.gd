@@ -1,6 +1,7 @@
 extends "res://game/bases/base.gd"
 
 var skip_reset_position = false
+var object_group = global.groups.obstacle
 
 func _ready():
 #	print("ready asteroid")
@@ -29,7 +30,7 @@ func initialize() :
 
 	# register to locator
 	# add to group enemy
-	register_object(global.groups.obstacle)
+	register_object(object_group)
 	# make the AI stear it
 	#get_node('processor_selector').set_processor("AI")
 

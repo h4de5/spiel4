@@ -1,6 +1,6 @@
 extends "res://game/bases/basearea.gd"
 
-
+var object_group = global.groups.pickup
 var collectable = null
 
 func _ready():
@@ -25,7 +25,7 @@ func initialize() :
 
 	# register to locator
 	# add to group enemy
-	register_object(global.groups.pickup)
+	register_object(object_group)
 
 	collectable = interface.is_collectable(self)
 
@@ -33,7 +33,7 @@ func collected(reason):
 	.collected(reason)
 	# free is called in collectable
 	# spawn another pickup
-	#get_node(global.scene_tree_game).spawn_pickup()
+	get_node(global.scene_tree_game).spawn_pickup()
 
 func set_random_modifier():
 	randomize()

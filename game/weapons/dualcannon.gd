@@ -1,18 +1,13 @@
 # default weapon for shootable ships
 extends "res://game/weapons/weapon.gd"
 
-#var tmp_count
-
 func _ready():
-
-	#tmp_count = 0
-
 	properties_base = {
-		global.properties.bullet_speed: 900,
+		global.properties.bullet_speed: 1100,
 		global.properties.bullet_strength: 40,
-		global.properties.bullet_wait: 0.6,
+		global.properties.bullet_wait: 0.4,
 		global.properties.bullet_range: 800,
-		global.properties.weapon_rotation_speed: 3,
+		global.properties.weapon_rotation_speed: 5,
 		global.properties.clearance_rotation: 0.02,
 	}
 

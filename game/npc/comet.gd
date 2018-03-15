@@ -1,5 +1,7 @@
 extends "res://game/bases/base.gd"
 
+var object_group = global.groups.obstacle
+
 func _ready():
 	# only to be called in inherited classes
 	fix_collision_shape()
@@ -23,7 +25,7 @@ func initialize() :
 
 	# register to locator
 	# add to group enemy
-	register_object(global.groups.obstacle)
+	register_object(object_group)
 	# make the AI stear it
 	#get_node('processor_selector').set_processor("AI")
 

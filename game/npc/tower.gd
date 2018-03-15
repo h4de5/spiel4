@@ -1,5 +1,7 @@
 extends "res://game/bases/base.gd"
 
+var object_group = global.groups.npc
+
 # baseship._ready > player.init > baseship.init > player._ready
 func _ready():
 	# only to be called in inherited classes
@@ -24,7 +26,7 @@ func initialize() :
 
 	# register to locator
 	# add to group enemy
-	register_object(global.groups.npc)
+	register_object(object_group)
 	# make the AI stear it
 	# is set in the inspector
 	#get_node('processor_selector').set_processor("AI")

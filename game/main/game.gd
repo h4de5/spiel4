@@ -7,12 +7,19 @@ func _ready():
 	# set screen width
 	OS.window_size = Vector2(settings.game['display_width'], settings.game['display_height'])
 
+	
+	for group in global.groups:
+		var node = Node.new()
+		node.name = group
+		get_node("set").add_child(node)
 	# add camera
-	var camera_scn = load(global.scene_path_camera)
-	var camera_node = camera_scn.instance()
-	add_child(camera_node, true)
+#	var camera_scn = load(global.scene_path_camera)
+#	var camera_node = camera_scn.instance()
+#	add_child(camera_node, true)
 
 	call_deferred("initialize")
+	
+		
 
 
 
@@ -22,14 +29,14 @@ func _ready():
 	#get_node(global.scene_tree_game).clear_game()
 
 func initialize():
-	for i in range(1): spawn_enemy()
+	for i in range(5): spawn_enemy()
 
-	#for i in range(1): spawn_tower()
+	for i in range(2): spawn_tower()
 
-	#for i in range(2): spawn_pickup()
+	for i in range(2): spawn_pickup()
 
-	for i in range(2): spawn_object(global.scene_path_asteroid, "objects")
-	for i in range(4): spawn_object(global.scene_path_comet, "objects")
+	for i in range(2): spawn_object(global.scene_path_asteroid)
+	for i in range(4): spawn_object(global.scene_path_comet)
 
 
 
@@ -46,7 +53,7 @@ remote func spawn_player(processor, device_details):
 #	if get_tree().has_meta("network_peer") and processor == "Network" and device_details[0] == get_tree().get_network_unique_id():
 #		print("skip this? processor: ", processor , " networkid: ", get_tree().get_network_unique_id())
 
-	var player_node = spawn_object(global.scene_path_player, "ships", "", processor != "Network")
+	var player_node = spawn_object(global.scene_path_player, "", processor != "Network")
 
 	print ("playername ", player_node.get_name())
 
@@ -69,30 +76,32 @@ remote func spawn_player(processor, device_details):
 	return player_node
 
 func spawn_enemy():
-	return spawn_object(global.scene_path_enemy, "ships")
+	return spawn_object(global.scene_path_enemy)
 
 func spawn_tower():
-	return spawn_object(global.scene_path_tower, "ships")
+	return spawn_object(global.scene_path_tower)
 
 func spawn_pickup():
-	return spawn_object(global.scene_path_pickup, "objects")
+	return spawn_object(global.scene_path_pickup)
 
 # spawns an object in to the game
 # can be path or packedScene
-remote func spawn_object(scn, group, name = "", propagate = true):
-	print ("spawn_object ", scn, " in " , group)
+remote func spawn_object(scn, name = "", propagate = true):
+	
 	var scn_instance
 	var scn_path
 #	if not scn is PackedScene:
 	scn_instance = load(scn)
 	scn_path = scn
-#
 #	else:
 #		scn_instance = scn
 #		scn_path = scn.resource_path
 
 
 	var node = scn_instance.instance()
+	var group = node.object_group
+	print ("spawn_object ", scn, " in " , group)
+	
 	# name should only be set, when propagete is false
 	if name != "":
 		node.set_name(name)
@@ -101,7 +110,7 @@ remote func spawn_object(scn, group, name = "", propagate = true):
 
 	if(propagate):
 		if network_manager.is_server():
-			rpc("spawn_object", scn_path, group, node.get_name())
+			rpc("spawn_object", scn_path, node.get_name())
 
 	return node
 

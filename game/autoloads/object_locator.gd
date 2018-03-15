@@ -75,14 +75,15 @@ func get_bounding_box(group, excludes = []) :
 	var objectv
 	var box
 
-	for object in objects_registered[group]:
-		if excludes.has(object):
-			continue
-		objectv = object.get_position();
-		if box != null:
-			box = box.expand(objectv)
-		else :
-			box = Rect2(objectv, Vector2(1,1))
+	if objects_registered.has(group): 
+		for object in objects_registered[group]:
+			if excludes.has(object):
+				continue
+			objectv = object.get_position();
+			if box != null:
+				box = box.expand(objectv)
+			else :
+				box = Rect2(objectv, Vector2(1,1))
 	return box
 
 # Return a bound box that includes all objects_registered
@@ -102,7 +103,8 @@ func get_bounding_box_all(excludes = []) :
 	return box
 
 func set_camera(excludes = []):
-	var bounding_box = get_bounding_box_all(excludes)
+	#var bounding_box = get_bounding_box_all(excludes)
+	var bounding_box = get_bounding_box(global.groups.player, excludes)
 
 	if bounding_box != null :
 		# set camera in the middle (*0.5) of the bounding box
