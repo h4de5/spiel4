@@ -183,19 +183,26 @@ anim_offset_random = 0.0
 anim_loop = false
 _sections_unfolded = [ "Angle", "Angular Velocity", "Animation", "Damping", "Emission Shape", "Linear Accel", "Radial Accel", "Resource", "Scale", "Trail" ]
 
-[node name="explodeable" type="Node2D"]
+[node name="explodeable" type="Node2D" index="0"]
 
 script = ExtResource( 1 )
 activated = false
 explosion_type = null
 
-[node name="multiple" type="Node2D" parent="." index="0"]
+[node name="Timer" type="Timer" parent="." index="0"]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = true
+autostart = false
+
+[node name="multiple" type="Node2D" parent="." index="1"]
 
 [node name="particles" type="Particles2D" parent="multiple" index="0"]
 
 emitting = false
 amount = 30
-lifetime = 1.0
+lifetime = 1.38
 one_shot = true
 preprocess = 0.0
 speed_scale = 1.0
@@ -230,7 +237,7 @@ visible = false
 shape = SubResource( 2 )
 _sections_unfolded = [ "Material", "Visibility", "Z Index" ]
 
-[node name="single" type="Node2D" parent="." index="1"]
+[node name="single" type="Node2D" parent="." index="2"]
 
 [node name="particles" type="Particles2D" parent="single" index="0"]
 
@@ -272,7 +279,7 @@ rotation = 1.5708
 shape = SubResource( 4 )
 _sections_unfolded = [ "Material", "Transform", "Visibility", "Z Index" ]
 
-[node name="smoke" type="Node2D" parent="." index="2"]
+[node name="smoke" type="Node2D" parent="." index="3"]
 
 [node name="particles" type="Particles2D" parent="smoke" index="0"]
 
@@ -313,8 +320,9 @@ visible = false
 shape = SubResource( 6 )
 _sections_unfolded = [ "Material", "Visibility", "Z Index" ]
 
-[node name="not_in_use" type="Node2D" parent="." index="3"]
+[node name="not_in_use" type="Node2D" parent="." index="4"]
 
+editor/display_folded = true
 visible = false
 
 [node name="Particles2D" type="Particles2D" parent="not_in_use" index="0"]
@@ -362,5 +370,7 @@ normal_map = null
 h_frames = 8
 v_frames = 8
 _sections_unfolded = [ "Drawing", "Process Material", "Textures", "Time" ]
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 
 

@@ -32,7 +32,6 @@ func initialize():
 		print("Parent ", parent, " of explodeable ", self, " is not destroyable - this is not right")
 		return
 	
-	
 	if explosion_type:
 		set_explosion_type(explosion_type)
 	else:
@@ -70,12 +69,22 @@ func explode(by_whom):
 
 	if explosion_type and get_node(explosion_type):
 		var explosion = get_node(explosion_type)
+		# move explosion to parent node
 		remove_child(explosion)
 		parent.get_parent().add_child(explosion)
 		explosion.position = parent.position
 
+		# start explosion
 		explosion.get_node("particles").emitting = 1
 		explosion.get_node("particles").restart()
+		
+		# start timer to finally remove explodable from scene
+		var timer = get_node("Timer")
+		timer.one_shot = 1
+		timer.wait_time = explosion.get_node("particles").lifetime / explosion.get_node("particles").speed_scale
+		timer.start()
+		print("timer started for ", timer.wait_time, " seconds.")
+		
 	else:
 		print (explosion_type + "not found...")
 
@@ -90,3 +99,9 @@ func explode(by_whom):
 #	particles.emitting = 1
 #	particles.restart()
 
+
+
+func _on_Timer_timeout():
+	# remove explodeable node
+	print("Remove explosion node")
+	queue_free()
