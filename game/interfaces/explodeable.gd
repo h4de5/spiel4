@@ -65,12 +65,13 @@ func set_explosion_type(type):
 		
 
 func explode(by_whom):
-	print (explosion_type + "explosion...")
+	print("starting ", explosion_type, " explosion")
 
 	if explosion_type and get_node(explosion_type):
 		var explosion = get_node(explosion_type)
 		# move explosion to parent node
 		remove_child(explosion)
+		explosion.name = explosion_type + " explosion of " + get_parent().name
 		parent.get_parent().add_child(explosion)
 		explosion.position = parent.position
 
@@ -78,10 +79,18 @@ func explode(by_whom):
 		explosion.get_node("particles").emitting = 1
 		explosion.get_node("particles").restart()
 		
+		# aktivate collision
+		explosion.get_node("blastradius/collision").disabled = false
+		explosion.get_node("blastradius/collision").visible = true
+				
 		# start timer to finally remove explodable from scene
 		var timer = get_node("Timer")
+		# move timer to separate explosion
+		remove_child(timer)
+		explosion.add_child(timer)
 		timer.one_shot = 1
 		timer.wait_time = explosion.get_node("particles").lifetime / explosion.get_node("particles").speed_scale
+		timer.connect("timeout", self, "_on_Timer_timeout")
 		timer.start()
 		print("timer started for ", timer.wait_time, " seconds.")
 		
@@ -99,9 +108,21 @@ func explode(by_whom):
 #	particles.emitting = 1
 #	particles.restart()
 
+func _physics_process(delta):
+	pass
 
+func _collision_process(obstacle):
+	print("obstacle in explosion: ", obstacle)
+	
+	if(obstacle.is_in_group(global.groups.npc) or 
+		obstacle.is_in_group(global.groups.player) or 
+		obstacle.is_in_group(global.groups.obstacle)) :
+		print("obstacle in explosion: ", obstacle)
+		
+		var obstacle_vel = obstacle.get_linear_velocity()
+		var impact = get_linear_velocity().dot(obstacle_vel);
 
 func _on_Timer_timeout():
 	# remove explodeable node
-	print("Remove explosion node")
+	print("Remove explosion node ", self)
 	queue_free()

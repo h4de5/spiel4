@@ -50,7 +50,7 @@ _sections_unfolded = [ "Angle", "Angular Velocity", "Animation", "Damping", "Emi
 [sub_resource type="CircleShape2D" id=2]
 
 custom_solver_bias = 0.0
-radius = 80.0
+radius = 100.0
 _sections_unfolded = [ "Resource" ]
 
 [sub_resource type="ParticlesMaterial" id=3]
@@ -95,8 +95,8 @@ _sections_unfolded = [ "Angle", "Angular Velocity", "Animation", "Color", "Dampi
 [sub_resource type="CapsuleShape2D" id=4]
 
 custom_solver_bias = 0.0
-radius = 50.0
-height = 100.0
+radius = 69.9998
+height = 120.0
 
 [sub_resource type="ParticlesMaterial" id=5]
 
@@ -371,6 +371,10 @@ h_frames = 8
 v_frames = 8
 _sections_unfolded = [ "Drawing", "Process Material", "Textures", "Time" ]
 
-[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="body_entered" from="multiple/blastradius" to="." method="_collision_process"]
+
+[connection signal="body_entered" from="single/blastradius" to="." method="_collision_process"]
+
+[connection signal="body_entered" from="smoke/blastradius" to="." method="_collision_process"]
 
 

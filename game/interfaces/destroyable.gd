@@ -30,12 +30,6 @@ func initialize():
 	if parent.has_method("hit"):
 		self.connect("been_hit", parent, "hit")
 
-	#var health_scn = load(global.scene_path_healthbar)
-	#health_node = health_scn.instance()
-#	parent.get_parent().add_child(health_node)
-#	#parent.get_parent().call_deferred("add_child", health_node, true)
-#	health_node.set_owner(parent)
-
 func _process(delta):
 	#if target != "" and get_node(target) != null:
 	#	set_pos(get_node(target).get_pos());
@@ -47,7 +41,7 @@ func _process(delta):
 			set_rotation(parent.get_global_rotation() * -1)
 
 			if not parent.has_method("get_property"):
-				# BUG - bei vielen gegner tritt hier immer wieder ei nfehler auf
+				# BUG - bei vielen gegner tritt hier immer wieder ein fehler auf
 				# owner ist eine bullet (?) oder eine Progressbar (?)
 				# Invalid call. Nonexistent function 'get_property' in base 'RigidBody2D (bullet.gd)'.
 				#get_tree().set_pause(true)
