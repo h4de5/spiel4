@@ -68,13 +68,21 @@ func explode(by_whom):
 	print("starting ", explosion_type, " explosion")
 
 	if explosion_type and get_node(explosion_type):
-		var explosion = get_node(explosion_type)
-		# move explosion to parent node
-		remove_child(explosion)
-		explosion.name = explosion_type + " explosion of " + get_parent().name
-		parent.get_parent().add_child(explosion)
-		explosion.position = parent.position
+#		var explosion = get_node(explosion_type)
+#		# move explosion to parent node
+#		remove_child(explosion)
+#
+#		explosion.name = explosion_type + " explosion of " + get_parent().name
+#		parent.get_parent().add_child(explosion)
+#		explosion.position = parent.position
 
+		var explodeable = self
+		get_parent().remove_child(explodeable)
+		parent.get_parent().add_child(explodeable)
+		explodeable.position = parent.position
+		explodeable.name = explosion_type + " explosion of " + get_parent().name
+		var explosion = explodeable.get_node(explosion_type)
+		
 		# start explosion
 		explosion.get_node("particles").emitting = 1
 		explosion.get_node("particles").restart()
@@ -117,11 +125,23 @@ func _collision_process(obstacle):
 	if(obstacle.is_in_group(global.groups.npc) or 
 		obstacle.is_in_group(global.groups.player) or 
 		obstacle.is_in_group(global.groups.obstacle)) :
-		print("obstacle in explosion: ", obstacle)
-		
-		var obstacle_vel = obstacle.get_linear_velocity()
-		var impact = get_linear_velocity().dot(obstacle_vel);
-
+		print("obstacle in explosion: ", obstacle, " name: ", obstacle.name)
+		if obstacle == parent:
+			print("skipping parent..")
+		else:
+			var target_vec = obstacle.position - self.position
+			
+			var rect = self.get_viewport_rect()
+			var maxpower = rect.size.x
+			
+			var hitpower = maxpower - self.position.distance_to(obstacle.position)
+			hitpower = hitpower / 500
+			
+			obstacle.apply_impulse(Vector2(0,0), target_vec * hitpower)
+			var destroyable = interface.is_destroyable(obstacle)
+			if destroyable:
+				destroyable.hit(hitpower * 100, parent )
+			
 func _on_Timer_timeout():
 	# remove explodeable node
 	print("Remove explosion node ", self)

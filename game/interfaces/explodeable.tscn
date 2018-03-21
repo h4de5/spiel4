@@ -186,6 +186,7 @@ _sections_unfolded = [ "Angle", "Angular Velocity", "Animation", "Damping", "Emi
 [node name="explodeable" type="Node2D" index="0"]
 
 script = ExtResource( 1 )
+_sections_unfolded = [ "Material", "Transform", "Visibility" ]
 activated = false
 explosion_type = null
 
@@ -197,6 +198,8 @@ one_shot = true
 autostart = false
 
 [node name="multiple" type="Node2D" parent="." index="1"]
+
+_sections_unfolded = [ "Pause" ]
 
 [node name="particles" type="Particles2D" parent="multiple" index="0"]
 
