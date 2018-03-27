@@ -33,8 +33,8 @@ func initialize():
 
 	for i in range(0): spawn_tower()
 
-	for i in range(2): spawn_pickup()
-
+	for i in range(2): spawn_object(global.scene_path_pickup)
+	for i in range(2): spawn_object(global.scene_path_repairkit)
 	for i in range(2): spawn_object(global.scene_path_asteroid)
 	for i in range(4): spawn_object(global.scene_path_comet)
 
@@ -80,9 +80,6 @@ func spawn_enemy():
 
 func spawn_tower():
 	return spawn_object(global.scene_path_tower)
-
-func spawn_pickup():
-	return spawn_object(global.scene_path_pickup)
 
 # spawns an object in to the game
 # can be path or packedScene

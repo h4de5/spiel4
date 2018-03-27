@@ -2,14 +2,14 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/pickup-icon.png-08fe66a6122e5fe72812cefc752b5d1b.stex"
+path="res://.import/pickup-icon.png-7e5a4020f3f75437fe5aad1f1ac04ba7.stex"
 
 [deps]
 
-source_file="res://game/pickups/pickup-icon.png"
+source_file="res://art/models/pickup-icon.png"
 source_md5="bd691655ff2e11f412ddbe6bd9713467"
 
-dest_files=[ "res://.import/pickup-icon.png-08fe66a6122e5fe72812cefc752b5d1b.stex" ]
+dest_files=[ "res://.import/pickup-icon.png-7e5a4020f3f75437fe5aad1f1ac04ba7.stex" ]
 dest_md5="ee8b711ed5542f5cb44d2d5bfe312084"
 
 [params]

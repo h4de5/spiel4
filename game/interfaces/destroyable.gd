@@ -78,9 +78,18 @@ func heal(power, healer):
 		parent.heal(power, healer)
 
 	var health
-	health = parent.get_property(global.properties.health) - power
+	health = parent.get_property(global.properties.health) + power
 	health = min(health, parent.get_property(global.properties.health_max))
 	parent.set_property(global.properties.health, health)
+	
+func life_up(power):
+	if parent.has_method("life_up") :
+		parent.life_up(power)
+
+	var health_max
+	health_max = parent.get_property(global.properties.health_max) + power
+	#health = min(health, parent.get_property(global.properties.health_max))
+	parent.set_property(global.properties.health_max, health_max)
 
 
 func hit(power, by_whom):
