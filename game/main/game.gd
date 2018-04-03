@@ -7,7 +7,7 @@ func _ready():
 	# set screen width
 	OS.window_size = Vector2(settings.game['display_width'], settings.game['display_height'])
 
-	
+
 	for group in global.groups:
 		var node = Node.new()
 		node.name = group
@@ -18,8 +18,8 @@ func _ready():
 #	add_child(camera_node, true)
 
 	call_deferred("initialize")
-	
-		
+
+
 
 
 
@@ -84,7 +84,7 @@ func spawn_tower():
 # spawns an object in to the game
 # can be path or packedScene
 remote func spawn_object(scn, name = "", propagate = true):
-	
+
 	var scn_instance
 	var scn_path
 #	if not scn is PackedScene:
@@ -98,7 +98,7 @@ remote func spawn_object(scn, name = "", propagate = true):
 	var node = scn_instance.instance()
 	var group = node.object_group
 	print ("spawn_object ", scn, " in " , group)
-	
+
 	# name should only be set, when propagete is false
 	if name != "":
 		node.set_name(name)

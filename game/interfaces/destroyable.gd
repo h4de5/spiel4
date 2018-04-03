@@ -68,7 +68,7 @@ remote func destroy(by_whom, force = false):
 		parent.queue_free()
 	else:
 		print(".. ignored ..")
-		
+
 	if network_manager.is_server():
 		print(".. and forwarded")
 		rpc("destroy", by_whom, true)
@@ -81,7 +81,7 @@ func heal(power, healer):
 	health = parent.get_property(global.properties.health) + power
 	health = min(health, parent.get_property(global.properties.health_max))
 	parent.set_property(global.properties.health, health)
-	
+
 func life_up(power):
 	if parent.has_method("life_up") :
 		parent.life_up(power)

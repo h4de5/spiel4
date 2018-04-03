@@ -51,7 +51,7 @@ func set_random_modifier():
 
 	var value;
 	# randomize between 50 and 200
-	value = (randi() % 4 + 1) * 50 
+	value = (randi() % 4 + 1) * 50
 
 	properties_base[property_modifier_pool[m_index]] = {
 		property_pool[p_index]: value

@@ -62,7 +62,7 @@ func _handle_goods(pickup_properties, payload, body):
 
 	# merges properties from all sub-nodes
 	body.properties = interface.collect_properties(body)
-	
+
 func _handle_modifier(pickup_properties, payload, body):
 	if pickup_properties.has(global.properties.modifier_multi) :
 		payload.set_property(global.properties.modifier_multi, pickup_properties[global.properties.modifier_multi])

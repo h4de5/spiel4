@@ -75,7 +75,7 @@ func get_bounding_box(group, excludes = []) :
 	var objectv
 	var box
 
-	if objects_registered.has(group): 
+	if objects_registered.has(group):
 		for object in objects_registered[group]:
 			if excludes.has(object):
 				continue
