@@ -24,7 +24,7 @@ func send (url, query = '', data = '', callback = null, parent = null, callbackp
 	requests.append(request)
 	return request
 
-func cancle(request):
+func cancel(request):
 	request.cancel()
 
 

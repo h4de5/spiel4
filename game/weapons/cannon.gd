@@ -12,3 +12,7 @@ func _ready():
 	}
 
 	#activated = true
+
+func shoot(parent, target = null):
+	sound_manager.play( preload("res://art/sounds/shot2.wav"), get_global_position())
+	.shoot(parent, target)

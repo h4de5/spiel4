@@ -46,6 +46,7 @@ remote func send_bullet(muzzle_pos, starting_rot):
 	var newbullet = bullet.duplicate(false)
 	newbullet.set_script(bullet.get_script())
 
+	# make sound
 	get_node(global.scene_tree_bullets).add_child(newbullet)
 	newbullet.set_parent(parent)
 

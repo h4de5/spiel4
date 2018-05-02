@@ -7,10 +7,7 @@ path="res://.import/stars_sprite.png-630890c2e1fe0c96e226046418936980.stex"
 [deps]
 
 source_file="res://art/models/stars_sprite.png"
-source_md5="f942b92bc02af1a56b1999829cdd23d6"
-
 dest_files=[ "res://.import/stars_sprite.png-630890c2e1fe0c96e226046418936980.stex" ]
-dest_md5="edc40c21553d5f0ea7e96b3c68672410"
 
 [params]
 

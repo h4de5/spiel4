@@ -7,10 +7,7 @@ path="res://.import/EnemyShip.svg-56bdbefea3cf1995a612564091ac2e77.stex"
 [deps]
 
 source_file="res://art/models/EnemyShip.svg"
-source_md5="8d9bfe2ea6abe5720cf0a20cb3c44616"
-
 dest_files=[ "res://.import/EnemyShip.svg-56bdbefea3cf1995a612564091ac2e77.stex" ]
-dest_md5="8251f4ddb448d2b117af0098247aa7b9"
 
 [params]
 

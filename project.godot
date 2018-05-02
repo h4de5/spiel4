@@ -26,6 +26,7 @@ network_manager="*res://game/autoloads/network_manager.gd"
 http_manager="*res://game/autoloads/http_manager.gd"
 player_manager="*res://game/autoloads/player_manager.gd"
 lobby_handler="*res://game/autoloads/lobby_handler.gd"
+sound_manager="*res://game/autoloads/sound_manager.gd"
 
 [debug]
 

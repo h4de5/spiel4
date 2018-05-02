@@ -7,10 +7,7 @@ path="res://.import/shot.png-057bd3ee2fac95bec41cb68afe3acc14.stex"
 [deps]
 
 source_file="res://art/models/shot.png"
-source_md5="30501404df3908515ea86d168a6d71b2"
-
 dest_files=[ "res://.import/shot.png-057bd3ee2fac95bec41cb68afe3acc14.stex" ]
-dest_md5="2fbe0da487a115d4e2d68adcec5e46b1"
 
 [params]
 

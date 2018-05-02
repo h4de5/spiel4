@@ -7,10 +7,7 @@ path="res://.import/smoke.png-4413f64677b70e36deb0c3a8a1aea4e2.stex"
 [deps]
 
 source_file="res://game/artefacts/smoke.png"
-source_md5="5167b7d302a81e23f43d96398478fe28"
-
 dest_files=[ "res://.import/smoke.png-4413f64677b70e36deb0c3a8a1aea4e2.stex" ]
-dest_md5="c28f297c0c3498b18fed019c11755fe3"
 
 [params]
 

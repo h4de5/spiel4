@@ -46,5 +46,7 @@ func get_weapon_position():
 	return get_global_position()
 
 func shoot(parent, target = null):
+	sound_manager.play( preload("res://art/sounds/shot1.wav"), get_global_position())
+	
 	send_bullet(get_node("Sprite/muzzle").get_global_position(), get_node("Sprite").get_global_rotation())
 	send_bullet(get_node("Sprite2/muzzle").get_global_position(), get_node("Sprite2").get_global_rotation())

@@ -7,10 +7,7 @@ path="res://.import/star_particle2.png-3369d0d756c4c42b5b904ca700733a93.stex"
 [deps]
 
 source_file="res://game/interfaces/star_particle2.png"
-source_md5="abda225ee949145efb7cb1c5dbea0912"
-
 dest_files=[ "res://.import/star_particle2.png-3369d0d756c4c42b5b904ca700733a93.stex" ]
-dest_md5="2fce09c8790c7d8e512794c5b4a8d722"
 
 [params]
 

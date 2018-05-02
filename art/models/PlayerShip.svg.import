@@ -7,10 +7,7 @@ path="res://.import/PlayerShip.svg-f3997053a4e8f1cb006c5d7b19e2c050.stex"
 [deps]
 
 source_file="res://art/models/PlayerShip.svg"
-source_md5="bb499dc25ffc9531915a0a2867aa298d"
-
 dest_files=[ "res://.import/PlayerShip.svg-f3997053a4e8f1cb006c5d7b19e2c050.stex" ]
-dest_md5="4c05c20b8c37c74d780f6cb2f2bc0d9c"
 
 [params]
 

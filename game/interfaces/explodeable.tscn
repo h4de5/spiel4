@@ -184,25 +184,21 @@ anim_loop = false
 _sections_unfolded = [ "Angle", "Angular Velocity", "Animation", "Damping", "Emission Shape", "Linear Accel", "Radial Accel", "Resource", "Scale", "Trail" ]
 
 [node name="explodeable" type="Node2D" index="0"]
-
 script = ExtResource( 1 )
 _sections_unfolded = [ "Material", "Transform", "Visibility" ]
 activated = false
 explosion_type = null
 
 [node name="Timer" type="Timer" parent="." index="0"]
-
 process_mode = 1
 wait_time = 1.0
 one_shot = true
 autostart = false
 
 [node name="multiple" type="Node2D" parent="." index="1"]
-
 _sections_unfolded = [ "Pause" ]
 
 [node name="particles" type="Particles2D" parent="multiple" index="0"]
-
 emitting = false
 amount = 30
 lifetime = 1.38
@@ -224,7 +220,6 @@ v_frames = 4
 _sections_unfolded = [ "Drawing", "Process Material", "Textures", "Time" ]
 
 [node name="blastradius" type="Area2D" parent="multiple" index="1"]
-
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -235,7 +230,6 @@ audio_bus_name = "Master"
 _sections_unfolded = [ "Audio Bus", "Collision", "Material", "Pickable", "Transform", "Visibility", "Z Index" ]
 
 [node name="collision" type="CollisionShape2D" parent="multiple/blastradius" index="0"]
-
 visible = false
 shape = SubResource( 2 )
 _sections_unfolded = [ "Material", "Visibility", "Z Index" ]
@@ -243,7 +237,6 @@ _sections_unfolded = [ "Material", "Visibility", "Z Index" ]
 [node name="single" type="Node2D" parent="." index="2"]
 
 [node name="particles" type="Particles2D" parent="single" index="0"]
-
 emitting = false
 amount = 1
 lifetime = 1.5
@@ -265,7 +258,6 @@ v_frames = 4
 _sections_unfolded = [ "Drawing", "Process Material", "Textures", "Time" ]
 
 [node name="blastradius" type="Area2D" parent="single" index="1"]
-
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -276,7 +268,6 @@ audio_bus_name = "Master"
 _sections_unfolded = [ "Audio Bus", "Collision", "Material", "Pickable", "Transform", "Visibility", "Z Index" ]
 
 [node name="collision" type="CollisionShape2D" parent="single/blastradius" index="0"]
-
 visible = false
 rotation = 1.5708
 shape = SubResource( 4 )
@@ -285,7 +276,6 @@ _sections_unfolded = [ "Material", "Transform", "Visibility", "Z Index" ]
 [node name="smoke" type="Node2D" parent="." index="3"]
 
 [node name="particles" type="Particles2D" parent="smoke" index="0"]
-
 emitting = false
 amount = 1
 lifetime = 1.0
@@ -307,7 +297,6 @@ v_frames = 8
 _sections_unfolded = [ "Drawing", "Process Material", "Textures", "Time", "Transform" ]
 
 [node name="blastradius" type="Area2D" parent="smoke" index="1"]
-
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -318,18 +307,15 @@ audio_bus_name = "Master"
 _sections_unfolded = [ "Audio Bus", "Collision", "Material", "Pickable", "Transform", "Visibility", "Z Index" ]
 
 [node name="collision" type="CollisionShape2D" parent="smoke/blastradius" index="0"]
-
 visible = false
 shape = SubResource( 6 )
 _sections_unfolded = [ "Material", "Visibility", "Z Index" ]
 
 [node name="not_in_use" type="Node2D" parent="." index="4"]
-
 editor/display_folded = true
 visible = false
 
 [node name="Particles2D" type="Particles2D" parent="not_in_use" index="0"]
-
 visible = false
 emitting = true
 amount = 2
@@ -352,7 +338,6 @@ v_frames = 9
 _sections_unfolded = [ "Drawing", "Process Material", "Textures", "Time" ]
 
 [node name="Particles2D4" type="Particles2D" parent="not_in_use" index="1"]
-
 visible = false
 emitting = true
 amount = 4
@@ -375,9 +360,5 @@ v_frames = 8
 _sections_unfolded = [ "Drawing", "Process Material", "Textures", "Time" ]
 
 [connection signal="body_entered" from="multiple/blastradius" to="." method="_collision_process"]
-
 [connection signal="body_entered" from="single/blastradius" to="." method="_collision_process"]
-
 [connection signal="body_entered" from="smoke/blastradius" to="." method="_collision_process"]
-
-

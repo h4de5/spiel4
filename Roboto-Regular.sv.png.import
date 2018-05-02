@@ -7,10 +7,7 @@ path="res://.import/Roboto-Regular.sv.png-65a29d9345546e9cdb5634c1571a4c49.stex"
 [deps]
 
 source_file="res://Roboto-Regular.sv.png"
-source_md5="02acda9853c34ac2289ec376b0020b9e"
-
 dest_files=[ "res://.import/Roboto-Regular.sv.png-65a29d9345546e9cdb5634c1571a4c49.stex" ]
-dest_md5="7c588e2285223b2ed4907348e964fabe"
 
 [params]
 

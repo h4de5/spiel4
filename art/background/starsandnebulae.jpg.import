@@ -7,10 +7,7 @@ path="res://.import/starsandnebulae.jpg-d2d1f6d31e74fe048b9d3e4b10c0d057.stex"
 [deps]
 
 source_file="res://art/background/starsandnebulae.jpg"
-source_md5="ede5d409facd4ff931de297b0523a2b6"
-
 dest_files=[ "res://.import/starsandnebulae.jpg-d2d1f6d31e74fe048b9d3e4b10c0d057.stex" ]
-dest_md5="6641b0034a4244fa3169392c26fe2456"
 
 [params]
 

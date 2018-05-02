@@ -7,10 +7,7 @@ path="res://.import/particlefx_07.png-4823a491dd58ae4378cd34b847fe627f.stex"
 [deps]
 
 source_file="res://art/models/particlefx_07.png"
-source_md5="c9d74afd766fc2ecbfefbc61fe2e85aa"
-
 dest_files=[ "res://.import/particlefx_07.png-4823a491dd58ae4378cd34b847fe627f.stex" ]
-dest_md5="6052825ce5cd3ab3402909921664971c"
 
 [params]
 

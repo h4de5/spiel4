@@ -29,7 +29,7 @@ func _ready():
 	#get_node(global.scene_tree_game).clear_game()
 
 func initialize():
-	for i in range(1): spawn_enemy()
+	for i in range(0): spawn_enemy()
 
 	for i in range(0): spawn_tower()
 
@@ -149,3 +149,4 @@ func clear_game():
 #	   # add scene to root
 #	   get_tree().get_root().add_child(currentScene)
 #
+

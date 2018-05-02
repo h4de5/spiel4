@@ -7,10 +7,7 @@ path="res://.import/comet-big-sprite.png-55d1ccc7f6268fcee2588a6b353e3bd7.stex"
 [deps]
 
 source_file="res://art/models/Asteroid/comet-big-sprite.png"
-source_md5="8207f1f6771c928df8317bfea49aa848"
-
 dest_files=[ "res://.import/comet-big-sprite.png-55d1ccc7f6268fcee2588a6b353e3bd7.stex" ]
-dest_md5="4d8aa1acc47063c82ad46681c179e79f"
 
 [params]
 

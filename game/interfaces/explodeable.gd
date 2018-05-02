@@ -93,14 +93,18 @@ func explode(by_whom):
 				
 		# start timer to finally remove explodable from scene
 		var timer = get_node("Timer")
+		if timer:
 		# move timer to separate explosion
-		remove_child(timer)
-		explosion.add_child(timer)
-		timer.one_shot = 1
-		timer.wait_time = explosion.get_node("particles").lifetime / explosion.get_node("particles").speed_scale
-		timer.connect("timeout", self, "_on_Timer_timeout")
-		timer.start()
-		print("timer started for ", timer.wait_time, " seconds.")
+			remove_child(timer)
+			explosion.add_child(timer)
+			timer.one_shot = 1
+			timer.wait_time = explosion.get_node("particles").lifetime / explosion.get_node("particles").speed_scale
+			timer.connect("timeout", self, "_on_Timer_timeout")
+			timer.start()
+			print("timer started for ", timer.wait_time, " seconds.")
+		else:
+			print("error - no timer in explosion", self)
+			
 		
 	else:
 		print (explosion_type + "not found...")
