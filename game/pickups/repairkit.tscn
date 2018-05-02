@@ -1,15 +1,15 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://game/pickups/pickup.gd" type="Script" id=1]
+[ext_resource path="res://game/pickups/repairkit.gd" type="Script" id=1]
 [ext_resource path="res://art/models/pickup-icon.png" type="Texture" id=2]
 [ext_resource path="res://game/interfaces/collectable.tscn" type="PackedScene" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
-extents = Vector2( 28.9237, 31.0246 )
+extents = Vector2( 30, 30 )
 
-[node name="pickup" type="Area2D"]
+[node name="repairkit" type="Area2D"]
 
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
@@ -22,10 +22,11 @@ script = ExtResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="." index="0"]
 
-self_modulate = Color( 0.851563, 0.701536, 0.0166321, 1 )
+modulate = Color( 0.042572, 0.726563, 0.357849, 1 )
+self_modulate = Color( 0, 1.32, 0.0113983, 1 )
 scale = Vector2( 0.25, 0.25 )
 texture = ExtResource( 2 )
-_sections_unfolded = [ "Transform" ]
+_sections_unfolded = [ "Material", "Transform", "Visibility" ]
 
 [node name="collectable" parent="." index="1" instance=ExtResource( 3 )]
 

@@ -42,12 +42,26 @@ func collect(body):
 
 		if pickup_properties[global.properties.pickup_type] == global.pickup_types.modifier :
 			_handle_modifier(pickup_properties, payload, body)
+		if pickup_properties[global.properties.pickup_type] == global.pickup_types.goods :
+			_handle_goods(pickup_properties, payload, body)
 	else:
 		print ("pickup has no payload ..?!")
 
 	call_deferred("collected", "collected")
 
 
+func _handle_goods(pickup_properties, payload, body):
+
+	var destroyable = interface.is_destroyable(body)
+	if destroyable:
+		for prop in pickup_properties.modifier_add:
+			if prop == global.properties.health:
+				destroyable.heal(pickup_properties.modifier_add[prop], self)
+			if prop == global.properties.health_max:
+				destroyable.life_up(pickup_properties.modifier_add[prop])
+
+	# merges properties from all sub-nodes
+	body.properties = interface.collect_properties(body)
 
 func _handle_modifier(pickup_properties, payload, body):
 	if pickup_properties.has(global.properties.modifier_multi) :
@@ -62,7 +76,6 @@ func _handle_modifier(pickup_properties, payload, body):
 	var timer_modifier = pickup_properties[global.properties.pickup_modifier_duration]
 	if timer_modifier > 0 :
 		payload.start_modifier_timeout(timer_modifier)
-
 
 	# merges properties from all sub-nodes
 	body.properties = interface.collect_properties(body)

@@ -4,18 +4,18 @@
 [ext_resource path="res://art/models/stars_sprite.png" type="Texture" id=2]
 [ext_resource path="res://game/interfaces/collectable_payload.tscn" type="PackedScene" id=3]
 
-[sub_resource type="Gradient" id=2]
+[sub_resource type="Gradient" id=1]
 
 offsets = PoolRealArray( 0, 0.414201, 0.769231, 0.976331, 1 )
 colors = PoolColorArray( 0.457031, 0.707306, 1, 1, 0.525284, 0.688282, 0.878906, 0.717671, 1, 1, 1, 0.541216, 0.963717, 0.980292, 0.999676, 0, 1, 1, 1, 0.257725 )
 
-[sub_resource type="GradientTexture" id=3]
+[sub_resource type="GradientTexture" id=2]
 
 flags = 4
-gradient = SubResource( 2 )
+gradient = SubResource( 1 )
 width = 2048
 
-[sub_resource type="ParticlesMaterial" id=1]
+[sub_resource type="ParticlesMaterial" id=3]
 
 render_priority = 0
 trail_divisor = 1
@@ -45,7 +45,7 @@ angle = 0.0
 angle_random = 0.0
 scale = 0.1
 scale_random = 0.1
-color_ramp = SubResource( 3 )
+color_ramp = SubResource( 2 )
 hue_variation = -1.0
 hue_variation_random = 0.0
 anim_speed = 0.1
@@ -83,7 +83,7 @@ fract_delta = true
 visibility_rect = Rect2( -100, -100, 200, 200 )
 local_coords = true
 draw_order = 0
-process_material = SubResource( 1 )
+process_material = SubResource( 3 )
 texture = ExtResource( 2 )
 normal_map = null
 h_frames = 18
@@ -99,6 +99,7 @@ anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
 mouse_filter = 0
 mouse_default_cursor_shape = 0
 

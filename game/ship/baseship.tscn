@@ -48,8 +48,8 @@ func _input(event):
 
 func _physics_process(delta):
 	if show_debug:
-		set_global_pos(get_parent().get_global_pos() + Vector2(-100, 100))
-		set_rotation(-get_parent().get_global_rot());
+		set_global_position(get_parent().get_global_position() + Vector2(-100, 100))
+		set_rotation(-get_parent().get_global_rotation());
 		set_text(var_dump(get_parent().get_property(null)))
 
 func var_dump(dict, indent=\"\"):
@@ -140,7 +140,7 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 script = SubResource( 1 )
-show_debug = false
+show_debug = true
 
 
 [editable path="destroyable"]

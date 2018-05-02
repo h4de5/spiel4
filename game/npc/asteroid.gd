@@ -36,7 +36,7 @@ func initialize() :
 
 # called to reset a position, usually after initialize
 func reset_position() :
-	if !skip_reset_position: 
+	if !skip_reset_position:
 #		print("reset_position asteroid")
 		set_position(object_locator.get_random_pos(600, [self]))
 		var x = rand_range(-90, 90)
@@ -44,12 +44,12 @@ func reset_position() :
 		var r = rand_range(-2, 2)
 		apply_impulse(Vector2(0,0), Vector2(x, y))
 		set_angular_velocity(r)
-		
+
 		call_deferred("randomize_size")
 
 func randomize_size():
 	var resizeable = interface.is_resizeable(self)
-	if resizeable: 
+	if resizeable:
 		var x = rand_range(0.8, 3)
 		resizeable.resize_body_to(Vector2(x,x))
 

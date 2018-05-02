@@ -7,7 +7,7 @@ func _ready():
 	# set screen width
 	OS.window_size = Vector2(settings.game['display_width'], settings.game['display_height'])
 
-	
+
 	for group in global.groups:
 		var node = Node.new()
 		node.name = group
@@ -18,8 +18,8 @@ func _ready():
 #	add_child(camera_node, true)
 
 	call_deferred("initialize")
-	
-		
+
+
 
 
 
@@ -33,8 +33,8 @@ func initialize():
 
 	for i in range(0): spawn_tower()
 
-	for i in range(2): spawn_pickup()
-
+	for i in range(2): spawn_object(global.scene_path_pickup)
+	for i in range(2): spawn_object(global.scene_path_repairkit)
 	for i in range(2): spawn_object(global.scene_path_asteroid)
 	for i in range(4): spawn_object(global.scene_path_comet)
 
@@ -81,13 +81,10 @@ func spawn_enemy():
 func spawn_tower():
 	return spawn_object(global.scene_path_tower)
 
-func spawn_pickup():
-	return spawn_object(global.scene_path_pickup)
-
 # spawns an object in to the game
 # can be path or packedScene
 remote func spawn_object(scn, name = "", propagate = true):
-	
+
 	var scn_instance
 	var scn_path
 #	if not scn is PackedScene:
@@ -101,7 +98,7 @@ remote func spawn_object(scn, name = "", propagate = true):
 	var node = scn_instance.instance()
 	var group = node.object_group
 	print ("spawn_object ", scn, " in " , group)
-	
+
 	# name should only be set, when propagete is false
 	if name != "":
 		node.set_name(name)

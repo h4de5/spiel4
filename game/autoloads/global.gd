@@ -8,6 +8,8 @@ const scene_path_tower 		= "res://game/npc/tower.tscn"
 const scene_path_asteroid	= "res://game/npc/asteroid_full.tscn"
 const scene_path_comet		= "res://game/npc/comet.tscn"
 const scene_path_pickup		= "res://game/pickups/pickup.tscn"
+const scene_path_repairkit	= "res://game/pickups/repairkit.tscn"
+
 const scene_path_game 		= "res://game/main/game.tscn"
 #const scene_path_gameover 	= "res://game/scenes/gameover.tscn"
 const scene_path_healthbar 	= "res://game/gui/health.tscn"
@@ -84,6 +86,7 @@ var properties = {
 # the following properties should not be reset on collecting
 var properties_fixed = [
 	properties.health,
+	properties.health_max,
 ]
 
 enum pickup_types {

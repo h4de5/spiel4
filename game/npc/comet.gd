@@ -42,7 +42,7 @@ func reset_position() :
 
 func randomize_size():
 	var resizeable = interface.is_resizeable(self)
-	if resizeable: 
+	if resizeable:
 		var x = rand_range(0.8, 3)
 		resizeable.resize_body_to(Vector2(x,x))
 

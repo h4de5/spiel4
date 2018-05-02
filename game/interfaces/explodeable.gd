@@ -24,20 +24,20 @@ func _ready():
 func initialize():
 	if not is_explodeable():
 		return
-		
+
 	var destroy_able = interface.is_destroyable(parent)
 	if destroy_able:
 		destroy_able.connect("been_destroyed", self, "explode")
 	else:
 		print("Parent ", parent, " of explodeable ", self, " is not destroyable - this is not right")
 		return
-	
+
 	if explosion_type:
 		set_explosion_type(explosion_type)
 	else:
 		remove_explosions()
 
-	
+
 # remove all explosion nodes
 func remove_explosions():
 	for explosion_node in explosion_nodes:
@@ -47,22 +47,22 @@ func remove_explosions():
 
 func set_explosion_type(type):
 	explosion_type = type
-	
+
 	remove_explosions()
-	
+
 	if explosion_type:
-		
+
 		# add only correct explosion type
 		add_child(explosion_nodes[explosion_type])
-		
+
 		# set collision options correctly
 		get_node(explosion_type + "/blastradius").collision_layer = collision_settings[0]
 		get_node(explosion_type + "/blastradius").collision_mask = collision_settings[1]
-		
+
 		# hide collision at start
 		get_node(explosion_type + "/blastradius/collision").disabled = true
 		get_node(explosion_type + "/blastradius/collision").visible = false
-		
+
 
 func explode(by_whom):
 	print("starting ", explosion_type, " explosion")
@@ -82,15 +82,15 @@ func explode(by_whom):
 		explodeable.position = parent.position
 		explodeable.name = explosion_type + " explosion of " + get_parent().name
 		var explosion = explodeable.get_node(explosion_type)
-		
+
 		# start explosion
 		explosion.get_node("particles").emitting = 1
 		explosion.get_node("particles").restart()
-		
+
 		# aktivate collision
 		explosion.get_node("blastradius/collision").disabled = false
 		explosion.get_node("blastradius/collision").visible = true
-				
+
 		# start timer to finally remove explodable from scene
 		var timer = get_node("Timer")
 		if timer:
@@ -104,8 +104,6 @@ func explode(by_whom):
 			print("timer started for ", timer.wait_time, " seconds.")
 		else:
 			print("error - no timer in explosion", self)
-			
-		
 	else:
 		print (explosion_type + "not found...")
 
@@ -125,27 +123,27 @@ func _physics_process(delta):
 
 func _collision_process(obstacle):
 	print("obstacle in explosion: ", obstacle)
-	
-	if(obstacle.is_in_group(global.groups.npc) or 
-		obstacle.is_in_group(global.groups.player) or 
+
+	if(obstacle.is_in_group(global.groups.npc) or
+		obstacle.is_in_group(global.groups.player) or
 		obstacle.is_in_group(global.groups.obstacle)) :
 		print("obstacle in explosion: ", obstacle, " name: ", obstacle.name)
 		if obstacle == parent:
 			print("skipping parent..")
 		else:
 			var target_vec = obstacle.position - self.position
-			
+
 			var rect = self.get_viewport_rect()
 			var maxpower = rect.size.x
-			
+
 			var hitpower = maxpower - self.position.distance_to(obstacle.position)
 			hitpower = hitpower / 500
-			
+
 			obstacle.apply_impulse(Vector2(0,0), target_vec * hitpower)
 			var destroyable = interface.is_destroyable(obstacle)
 			if destroyable:
 				destroyable.hit(hitpower * 100, parent )
-			
+
 func _on_Timer_timeout():
 	# remove explodeable node
 	print("Remove explosion node ", self)
