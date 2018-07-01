@@ -38,9 +38,12 @@ func serverlist_returned(result, response_code, headers, body, params = []):
 		#var serverlist = get_node("Control/MarginList/VBoxContainer/Serverlist")
 
 		var server_string = ""
-		for server in response.body_parsed:
-			server_string = str(server.IP, ":", server.PORT, " (", server.ADDRESS_TYPE ,") - by ", server.USERNAME)
-			serverlist.add_item(server_string)
+		if response.body_parsed:
+			for server in response.body_parsed:
+				server_string = str(server.IP, ":", server.PORT, " (", server.ADDRESS_TYPE ,") - by ", server.USERNAME)
+				serverlist.add_item(server_string)
+		else:
+			find_node("Serverlist").add_item("Could not find any active server :(", null, false)
 	else:
 		find_node("Serverlist").add_item("Connection to lobby server failed!", null, false)
 
