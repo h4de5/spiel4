@@ -1,5 +1,5 @@
 # enemy baseship, controlled by AI processor
-extends "res://game/ship/baseship.gd"
+extends "res://game/ships/baseship.gd"
 
 var object_group = global.groups.npc
 

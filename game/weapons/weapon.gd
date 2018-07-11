@@ -60,7 +60,9 @@ remote func send_bullet(muzzle_pos, starting_rot):
 	# it would be more correct, if we add parents velocity ..
 	# but the game would not be better through it ->
 	# very slow bullets if shooting behind
-	#newbullet.set_linear_velocity(v2 * parent.properties[global.properties.bullet_speed] + parent.get_linear_velocity());
+	#newbullet.set_linear_velocity(
+	#	v2 * parent.properties[global.properties.bullet_speed] + 
+	#	parent.get_linear_velocity());
 	newbullet.set_linear_velocity(v2 * parent.properties[global.properties.bullet_speed]);
 
 

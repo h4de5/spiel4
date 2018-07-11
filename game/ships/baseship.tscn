@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://game/ship/baseship.gd" type="Script" id=1]
+[ext_resource path="res://game/ships/baseship.gd" type="Script" id=1]
 [ext_resource path="res://art/models/icon.png" type="Texture" id=2]
 [ext_resource path="res://game/interfaces/resizeable.tscn" type="PackedScene" id=3]
 [ext_resource path="res://game/interfaces/destroyable.tscn" type="PackedScene" id=4]
@@ -8,6 +8,7 @@
 [ext_resource path="res://game/interfaces/shootable.tscn" type="PackedScene" id=6]
 [ext_resource path="res://game/interfaces/explodeable.tscn" type="PackedScene" id=7]
 [ext_resource path="res://game/processor/processor_selector.tscn" type="PackedScene" id=8]
+
 
 [sub_resource type="GDScript" id=1]
 
@@ -67,7 +68,7 @@ func var_dump(dict, indent=\"\"):
 	return retstring
 "
 
-[node name="Baseship" type="RigidBody2D" index="0"]
+[node name="Baseship" type="RigidBody2D"]
 
 input_pickable = false
 collision_layer = 1
