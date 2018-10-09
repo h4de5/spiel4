@@ -3,7 +3,7 @@ extends "res://game/weapons/weapon.gd"
 
 func _ready():
 	properties_base = {
-		global.properties.bullet_speed: 950,
+		global.properties.bullet_speed: 1950,
 		global.properties.bullet_strength: 50,
 		global.properties.bullet_wait: 0.3,
 		global.properties.bullet_range: 1000,

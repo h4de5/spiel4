@@ -2,8 +2,8 @@
 extends Node
 
 # scene paths
-const scene_path_player 	= "res://game/player/player.tscn"
-const scene_path_enemy 		= "res://game/npc/enemy.tscn"
+const scene_path_player 	= "res://game/ships/player.tscn"
+const scene_path_enemy 		= "res://game/ships/enemy.tscn"
 const scene_path_tower 		= "res://game/npc/tower.tscn"
 const scene_path_asteroid	= "res://game/npc/asteroid_full.tscn"
 const scene_path_comet		= "res://game/npc/comet.tscn"

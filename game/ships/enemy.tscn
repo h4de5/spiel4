@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://game/ship/baseship.tscn" type="PackedScene" id=1]
-[ext_resource path="res://game/npc/enemy.gd" type="Script" id=2]
+[ext_resource path="res://game/ships/baseship.tscn" type="PackedScene" id=1]
+[ext_resource path="res://game/ships/enemy.gd" type="Script" id=2]
 [ext_resource path="res://art/models/EnemyShip.png" type="Texture" id=3]
 
 [node name="Baseship - Enemy" index="0" instance=ExtResource( 1 )]
@@ -40,11 +40,11 @@ position = Vector2( 30, 18 )
 
 activated = true
 
-[node name="processor_selector" parent="." index="5"]
+[node name="processor_selector" parent="." index="6"]
 
 use_processor = "AI"
 
-[node name="Collision" parent="." index="6"]
+[node name="Collision" parent="." index="7"]
 
 position = Vector2( 0.193718, 0 )
 polygon = PoolVector2Array( -0.602623, -51.4763, 17.2189, -13.1213, 53.2493, 32.0136, 2.10935, 45.186, -52.9049, 31.8199, -17.0681, -10.9905 )
