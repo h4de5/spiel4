@@ -1,3 +1,4 @@
+# manager node to handle lobby requests
 extends Node
 
 

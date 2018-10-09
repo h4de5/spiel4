@@ -1,5 +1,5 @@
 # default weapon for shootable ships
-extends Node
+extends Node2D
 
 var properties_base = {}
 #= {
@@ -11,12 +11,14 @@ export var activated = false
 var parent
 
 func _ready():
-	#properties_base[global.properties.clearance_rotation] = 0.02
+	# properties_base[global.properties.clearance_rotation] = 0.02
 
 	bullet = get_node("bullet")
 	remove_child(bullet)
-	hide()
-	#activated = false
+
+	# FIXME - does no longer work?!
+	# hide()
+	# activated = false
 
 func set_parent(p):
 	parent = p
@@ -32,7 +34,6 @@ func get_weapon_rotation():
 
 func get_weapon_position():
 	return get_global_position()
-
 
 func shoot(parent, target = null):
 	send_bullet(get_node("Sprite/muzzle").get_global_position(), get_weapon_rotation())

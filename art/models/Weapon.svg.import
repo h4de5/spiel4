@@ -7,7 +7,10 @@ path="res://.import/Weapon.svg-ff70380e3b5c18092b8b4225b7c9645e.stex"
 [deps]
 
 source_file="res://art/models/Weapon.svg"
+source_md5="bed24f447dd68f09c7d05421771f270f"
+
 dest_files=[ "res://.import/Weapon.svg-ff70380e3b5c18092b8b4225b7c9645e.stex" ]
+dest_md5="7a71a786e9b24c9536df237d0a49dbaa"
 
 [params]
 

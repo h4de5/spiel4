@@ -7,7 +7,10 @@ path="res://.import/shot2.wav-0ed216243dead67f1574ff9255a4ae81.sample"
 [deps]
 
 source_file="res://art/sounds/shot2.wav"
+source_md5="53a31255a523c372d6a04b55511aaa44"
+
 dest_files=[ "res://.import/shot2.wav-0ed216243dead67f1574ff9255a4ae81.sample" ]
+dest_md5="d60d131f31b0bd24a2b0c70c3375c9b8"
 
 [params]
 

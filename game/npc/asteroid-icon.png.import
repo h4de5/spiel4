@@ -7,7 +7,10 @@ path="res://.import/asteroid-icon.png-b67e6365207f194aa41f834686746fc8.stex"
 [deps]
 
 source_file="res://game/npc/asteroid-icon.png"
+source_md5="22e22f23775a49ae699c2c8d3d999f70"
+
 dest_files=[ "res://.import/asteroid-icon.png-b67e6365207f194aa41f834686746fc8.stex" ]
+dest_md5="4739067e80e8e41aed226a9c79212957"
 
 [params]
 

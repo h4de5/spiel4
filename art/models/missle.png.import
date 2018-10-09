@@ -7,7 +7,10 @@ path="res://.import/missle.png-441ee3fefdd8c693f7e1ac53ce8802ec.stex"
 [deps]
 
 source_file="res://art/models/missle.png"
+source_md5="825d90482a69f62caa538cf806948fd2"
+
 dest_files=[ "res://.import/missle.png-441ee3fefdd8c693f7e1ac53ce8802ec.stex" ]
+dest_md5="8dcf7157c790c0ac91e8b174970879e7"
 
 [params]
 

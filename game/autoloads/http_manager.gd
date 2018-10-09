@@ -1,3 +1,6 @@
+# HTTP Manager is ued to send HTTP GET or POST Requests to a server
+# supports asynchronous calls with callback function see: on_request_completed
+
 extends Node
 
 var requests = []

@@ -7,7 +7,10 @@ path="res://.import/SmokeParticle.png-99db1718d09df85715b9d22510525661.stex"
 [deps]
 
 source_file="res://art/models/SmokeParticle.png"
+source_md5="376d995e45121b56cdb425e1a9ad1cbf"
+
 dest_files=[ "res://.import/SmokeParticle.png-99db1718d09df85715b9d22510525661.stex" ]
+dest_md5="91b257a744a0327902d4944a22decac5"
 
 [params]
 

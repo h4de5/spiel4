@@ -7,7 +7,10 @@ path="res://.import/asteroid-icon_bottom_left.png-ba2b26ac89b37f99525990cf661ef8
 [deps]
 
 source_file="res://art/models/Asteroid/asteroid-icon_bottom_left.png"
+source_md5="240d6006e1cae6ed89d8394b765d746e"
+
 dest_files=[ "res://.import/asteroid-icon_bottom_left.png-ba2b26ac89b37f99525990cf661ef83e.stex" ]
+dest_md5="718c007ed73016860aaa9ea83ec56908"
 
 [params]
 

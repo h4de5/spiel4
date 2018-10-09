@@ -7,7 +7,10 @@ path="res://.import/star_particle.svg-2ecc6ff1a3ac0af353d5faec3da02af6.stex"
 [deps]
 
 source_file="res://art/models/star_particle.svg"
+source_md5="8296cc33f422f3eb569c13f9ecfdfac0"
+
 dest_files=[ "res://.import/star_particle.svg-2ecc6ff1a3ac0af353d5faec3da02af6.stex" ]
+dest_md5="03bd2ebc348453f55706031eadc7cdc5"
 
 [params]
 

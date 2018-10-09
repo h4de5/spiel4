@@ -1,22 +1,26 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://game/weapons/weapon.gd" type="Script" id=1]
 [ext_resource path="res://art/models/icon.png" type="Texture" id=2]
 [ext_resource path="res://game/weapons/bullet.tscn" type="PackedScene" id=3]
 
-[node name="weapon" type="Node2D"]
+[sub_resource type="PhysicsMaterial" id=1]
 
-z = 1
+friction = 0.0
+rough = false
+bounce = 0.0
+absorbent = false
+
+[node name="weapon" type="Node2D"]
 script = ExtResource( 1 )
 activated = false
 
 [node name="Sprite" type="Sprite" parent="."]
-
 texture = ExtResource( 2 )
 
 [node name="muzzle" type="Position2D" parent="Sprite"]
-
 position = Vector2( 0, -45.9938 )
 
 [node name="bullet" parent="." instance=ExtResource( 3 )]
+physics_material_override = SubResource( 1 )
 

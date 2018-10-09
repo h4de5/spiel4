@@ -7,7 +7,10 @@ path="res://.import/friend.png-dba5131cf0bd3fe91b8bc0e9e74759d5.stex"
 [deps]
 
 source_file="res://art/models/friend.png"
+source_md5="7d3e41d2d870d42bd3e2b303e1743ec3"
+
 dest_files=[ "res://.import/friend.png-dba5131cf0bd3fe91b8bc0e9e74759d5.stex" ]
+dest_md5="4b7193e512e1dd1bc8da6c964187adbc"
 
 [params]
 

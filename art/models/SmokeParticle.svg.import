@@ -7,7 +7,10 @@ path="res://.import/SmokeParticle.svg-74264e1b8a2888a873e8ca5bdba58065.stex"
 [deps]
 
 source_file="res://art/models/SmokeParticle.svg"
+source_md5="0babfb809be01c7672c7b4bb4915d3c5"
+
 dest_files=[ "res://.import/SmokeParticle.svg-74264e1b8a2888a873e8ca5bdba58065.stex" ]
+dest_md5="44b836cc4bff208ecb05f5354fd0d8dd"
 
 [params]
 
