@@ -44,11 +44,15 @@ func _process(delta):
 				trackables[trackable].hide()
 			else:
 
+				print("original pos: ", pos)
+
 				pos = get_viewport_transform().xform(pos)
 				#pos = get_viewport_transform().affine_inverse()
 				#pos = camera.get_viewport().get_final_transform().xform(pos)
 
-				print("pos: ", pos)
+				# FIXME - this does not work with camera
+
+				print("transform pos: ", pos)
 
 				pos.x = clamp(pos.x, 0, current_viewport.size.x) - current_viewport.size.x * 0.5
 				pos.y = clamp(pos.y, 0, current_viewport.size.y) - current_viewport.size.y * 0.5
