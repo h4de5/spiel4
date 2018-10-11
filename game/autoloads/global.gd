@@ -56,6 +56,7 @@ var properties = {
 
 	# shootable
 	weapon_rotation_speed = "weapon_rotation_speed",
+	weapon_rotateable = "weapon_rotateable",
 	bullet_speed = "bullet_speed",
 	bullet_strength = "bullet_strength",
 	bullet_wait = "bullet_wait",
@@ -75,6 +76,7 @@ var properties = {
 	# modifier
 	modifier_add = "modifier_add",
 	modifier_multi = "modifier_multi",
+	modifier_set = "modifier_set",
 
 	# resizeable bodies
 	body_scale_base = "body_scale_base",

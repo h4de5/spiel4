@@ -6,6 +6,8 @@ extends "res://game/processor/processor.gd"
 var input_group
 var device_id = 0
 var device_types = []
+const controller_stick_deadzone = 0.1
+var left_stick_direction = Vector2()
 
 var input_actions = {
 	"ui_left": 		global.actions.left,
@@ -35,26 +37,70 @@ func reset_processor_details():
 	input_group = null
 	device_id = 0
 	device_types = []
-#		InputEvent.NONE
+	# InputEvent.NONE
+
+# func setup_input_map():
+	#for old_event in InputMap.get_action_list(action_name):
+	#	if old_event is InputEventKey:
+	#		InputMap.action_erase_event(action_name, old_event)
+
+
 
 func _input(event):
 	# FIXME - check with: shootable = interface.is_shootable()
+
+	if event.is_echo():
+		return
 
 	#var moveable = interface.is_moveable(parent)
 	#var shootable = interface.is_shootable(parent)
 	if (event.device == device_id && device_types.has(event.get_class())):
 		if (event is InputEventMouseMotion):
-			# do not set mouse input as handled
-			# otherwise gui buttons cannot be clicked
-			#get_tree().set_input_as_handled()
-			# TODO - check if global_mouse_pos is realy the best way to do this
 
+			get_tree().set_input_as_handled()
+			# TODO - check if global_mouse_pos is realy the best way to do this
 			if shootable :
 				shootable.handle_mousemove(parent.get_global_mouse_position())
+		elif (event is InputEventJoypadMotion):
+			match event.axis:
+				0,1: # left stick x-axis
+					get_tree().set_input_as_handled()
+					var axis_value = abs(event.axis_value)
+					var axis_value_sign = sign(event.axis_value)
+
+					if axis_value < controller_stick_deadzone:
+						axis_value = 0
+					else:
+						axis_value = range_lerp(axis_value, controller_stick_deadzone, 1, 0, 1)
+
+					axis_value = axis_value * axis_value_sign
+					if event.axis == 0:
+						left_stick_direction.x = axis_value
+					elif event.axis == 1:
+						left_stick_direction.y = axis_value
+
+					if moveable:
+						# moveable.handle_action(global.actions.left, axis_value)
+						moveable.handle_direction(left_stick_direction)
+
+				6: # left trigger
+					get_tree().set_input_as_handled()
+					# ship.handle_action(Action.Accelerate, event.axis_value)
+					if moveable:
+						moveable.handle_action(global.actions.fire, event.axis_value)
+
+				7: # right trigger
+					get_tree().set_input_as_handled()
+					if moveable:
+						moveable.handle_action(global.actions.accelerate, event.axis_value)
+				_:
+					print("print unknown controller axis: ", event.axis)
 		else:
 			#print ("got event ", event)
 			for e in input_actions :
 				if event.is_action(e) :
+					# do not set mouse input as handled
+					# otherwise gui buttons cannot be clicked
 					if (not event is InputEventMouseButton):
 						get_tree().set_input_as_handled()
 					if moveable:
@@ -63,6 +109,7 @@ func _input(event):
 						shootable.handle_action(input_actions[e], Input.is_action_pressed(e))
 
 
+# if player is removed, remove from device list in player_manager
 func _on_input_tree_exiting():
 	if input_group:
 		player_manager.unregister_device(input_group, device_id)

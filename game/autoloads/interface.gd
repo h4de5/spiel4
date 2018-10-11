@@ -29,6 +29,10 @@ func collect_properties(node, level = 0):
 				for key in properties_fixed:
 					properties[key] = properties_fixed[key]
 
+			if properties.has(global.properties.modifier_set) :
+				for key in properties[global.properties.modifier_set]:
+					properties[key] = float( properties[global.properties.modifier_set][key] )
+
 			if properties.has(global.properties.modifier_add) :
 				for key in properties[global.properties.modifier_add]:
 					if properties.has(key):

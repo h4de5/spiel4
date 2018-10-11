@@ -6,6 +6,10 @@ extends "res://game/interfaces/isable.gd"
 var velocity = 0
 # torque.x = ship, torque.y = canon
 var torque = 0
+# for movement intentions
+var intended_direction = Vector2()
+# for movement target positions
+var intended_target = Vector2()
 var zoom = 1
 var zoom_speed = 0
 
@@ -16,7 +20,6 @@ func is_moveable():
 		return null
 
 func _ready():
-
 	required_properties = [
 		global.properties.movement_speed_forward,
 		global.properties.movement_speed_back,
@@ -32,11 +35,32 @@ func _ready():
 
 # resets all values to default or off
 func reset():
-	velocity = Vector2()
-	torque = Vector2()
+	velocity = 0
+	torque = 0
+	intended_direction = Vector2()
+	intended_target = Vector2()
 	zoom = 1
 	zoom_speed = 0
 
+# set a position where the shop should turn to
+func handle_target(target_position):
+	intended_target = target_position
+
+# set a direction where the shop should turn to
+func handle_direction(target_direction):
+	# if intended_direction.length_squared() > 0.2:
+	# move dead zone to input
+	if target_direction != Vector2(0,0):
+		# TODO range lerp
+		intended_direction = target_direction
+	else:
+		intended_direction = Vector2(0,0)
+		velocity = 0
+		torque = 0
+
+# handle input, like turn actions
+# pressed = false/0 ... means set torque and velocity to 0
+# pressed = true/!=0 ... means set
 func handle_action(action, pressed):
 	#if self.is_in_group("player"):
 		#print ("new action: ", action, " ", pressed, " zoom speed: ", zoom_speed)
@@ -45,18 +69,25 @@ func handle_action(action, pressed):
 		reset()
 		return
 
-	if pressed :
-		if action == global.actions.left: torque = -parent.get_property(global.properties.ship_rotation_speed)
-		elif action == global.actions.right: torque = parent.get_property(global.properties.ship_rotation_speed)
+	# if event is just pressed, set it to 1
+	if pressed is bool:
+		if pressed == true:
+			pressed = 1
+		elif pressed == false:
+			pressed = 0
+
+	if pressed != 0:
+		if action == global.actions.left: torque = -parent.get_property(global.properties.ship_rotation_speed) * pressed
+		elif action == global.actions.right: torque = parent.get_property(global.properties.ship_rotation_speed) * pressed
 
 		#elif action == global.actions.target_left: torque.y = -parent.get_property(global.properties.weapon_rotation_speed)
 		#elif action == global.actions.target_right: torque.y = parent.get_property(global.properties.weapon_rotation_speed)
 
-		elif action == global.actions.accelerate: velocity = parent.get_property(global.properties.movement_speed_forward)
-		elif action == global.actions.back: velocity = -parent.get_property(global.properties.movement_speed_back)
+		elif action == global.actions.accelerate: velocity = parent.get_property(global.properties.movement_speed_forward) * pressed
+		elif action == global.actions.back: velocity = -parent.get_property(global.properties.movement_speed_back) * pressed
 
-		elif action == global.actions.zoom_in: zoom_speed = -parent.get_property(global.properties.zoom_speed)
-		elif action == global.actions.zoom_out: zoom_speed = parent.get_property(global.properties.zoom_speed)
+		elif action == global.actions.zoom_in: zoom_speed = -parent.get_property(global.properties.zoom_speed) * pressed
+		elif action == global.actions.zoom_out: zoom_speed = parent.get_property(global.properties.zoom_speed) * pressed
 
 	else :
 		#print("action ", action, " unpressed")
@@ -68,11 +99,51 @@ func handle_action(action, pressed):
 
 		elif action == global.actions.zoom_in: pass
 
+	# cap zoom to >1
 	if zoom_speed != 0:
 		zoom = zoom + (zoom_speed if (zoom+zoom_speed) >= 1 else 0)
 
+# check current rotation, and set torque and velocity accordingly
+func process_direction():
+
+	var object_rot = parent.global_rotation
+
+	var model_modifier = -PI/2 # alles verdreht
+	model_modifier = PI # oben, unten: ok, link,rechts vetauscht
+	model_modifier = 0 # oben, unten: vertauscht, link,rechts ok
+
+	var current_look_dir = Vector2(sin(object_rot + model_modifier + PI), cos(object_rot + model_modifier)).normalized()
+	#print("current_look_dir: ", current_look_dir)
+	var angle_diff = intended_direction.angle_to(current_look_dir)
+	#print("angle_diff: ", angle_diff)
+
+	#var perfect_rotation = atan2(intended_direction.y, intended_direction.x) - model_modifier
+	#print("perfect_rotation: ", perfect_rotation)
+
+	# we do not set rotation, we set rotation speed
+	#torque = clamp(angle_diff, -parent.get_property(global.properties.ship_rotation_speed), parent.get_property(global.properties.ship_rotation_speed))
+	# multiply torque with length, to allow smoother turns
+	if angle_diff > 0:
+		torque = parent.get_property(global.properties.ship_rotation_speed) * intended_direction.length()
+	elif angle_diff < 0:
+		torque = -parent.get_property(global.properties.ship_rotation_speed) * intended_direction.length()
+	else:
+		torque = 0
+	#print("current_look_dir: ", current_look_dir," angle_diff: ", angle_diff, " intended_direction: ", intended_direction, " torque: ", torque)
+
+	# if set, here, we can move the ship with the direction, so we can not do backwards
+	# otherwise, we need a separate button for accelerating
+	velocity = parent.get_property(global.properties.movement_speed_forward) * intended_direction.length()
+
+# check current rotation and position, and set torque and velocity accordingly
+func process_target():
+	pass
 
 func _physics_process(delta) :
+	if intended_target != Vector2(0,0):
+		process_target()
+	elif intended_direction != Vector2(0,0):
+		process_direction()
 
 	# turning vehicle
 	if torque != 0 :

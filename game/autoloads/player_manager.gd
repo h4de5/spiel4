@@ -8,8 +8,11 @@ var registered_devices = {
 }
 
 var device_groups = {
-	"InputEventKey": ["InputEventKey", "InputEventMouseMotion", "InputEventMouseButton" ],
+	# all event types for keyboard player
+	"InputEventKey": ["InputEventKey", "InputEventWithModifiers", "InputEventMouseMotion", "InputEventMouseButton" ],
+	# event types for controller player
 	"InputEventJoypadButton": ["InputEventJoypadButton", "InputEventJoypadMotion"],
+	# event types for phone player
 	"InputEventScreenTouch": ["InputEventScreenTouch", "InputEventScreenDrag"],
 }
 

@@ -16,7 +16,7 @@ func _ready():
 	bullet = get_node("bullet")
 	remove_child(bullet)
 
-	# FIXME - does no longer work?!
+	# FIXME - hide does no longer work?!
 	# hide()
 	# activated = false
 

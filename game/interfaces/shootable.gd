@@ -31,6 +31,7 @@ func _ready():
 		global.properties.bullet_range,
 		# TODO check if necessary?
 		global.properties.weapon_rotation_speed,
+		global.properties.weapon_rotateable,
 		global.properties.clearance_rotation,
 	]
 	reset()
@@ -126,12 +127,13 @@ func _physics_process(delta) :
 	# TODO - cache weapon
 	#var weapon = parent.get_node("weapons_selector").get_active_weapon()
 
-	if torque_weapon != 0 and weapon:
+	# FIXME - removed weapon rotation here
+	if (parent.get_property(global.properties.weapon_rotateable) != 0 and
+		torque_weapon != 0 and weapon):
 
 		# to stop moving weapon towards target_pos
 
 		if shoot_last_target_pos != null:
-
 
 			var scope_rot = weapon.get_weapon_rotation()
 			var scope_pos = weapon.get_weapon_position()

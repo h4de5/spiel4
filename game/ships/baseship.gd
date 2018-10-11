@@ -12,8 +12,8 @@ func initialize() :
 	.initialize()
 	properties_base = {
 		global.properties.movement_speed_forward: 1000,
-		global.properties.movement_speed_back: 500,
-		global.properties.ship_rotation_speed: 4,
+		global.properties.movement_speed_back: 850,
+		global.properties.ship_rotation_speed: 7,
 		global.properties.zoom_speed: 0.2,
 		global.properties.health_max: 1000,
 		global.properties.health: 1000,

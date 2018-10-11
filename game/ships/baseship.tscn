@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://game/ships/baseship.gd" type="Script" id=1]
 [ext_resource path="res://art/models/icon.png" type="Texture" id=2]
@@ -9,8 +9,14 @@
 [ext_resource path="res://game/interfaces/explodeable.tscn" type="PackedScene" id=7]
 [ext_resource path="res://game/processor/processor_selector.tscn" type="PackedScene" id=8]
 
+[sub_resource type="PhysicsMaterial" id=1]
 
-[sub_resource type="GDScript" id=1]
+friction = 1.0
+rough = false
+bounce = 0.5
+absorbent = false
+
+[sub_resource type="GDScript" id=2]
 
 script/source = "extends Label
 
@@ -69,14 +75,12 @@ func var_dump(dict, indent=\"\"):
 "
 
 [node name="Baseship" type="RigidBody2D"]
-
 input_pickable = false
 collision_layer = 1
 collision_mask = 15
 mode = 0
 mass = 0.000102041
-friction = 1.0
-bounce = 0.5
+physics_material_override = SubResource( 1 )
 gravity_scale = 0.0
 custom_integrator = false
 continuous_cd = 2
@@ -91,38 +95,35 @@ angular_damp = -1.0
 script = ExtResource( 1 )
 _sections_unfolded = [ "Material", "Transform", "Visibility", "Z Index" ]
 
-[node name="Sprite" type="Sprite" parent="." index="0"]
-
+[node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
 _sections_unfolded = [ "Offset" ]
 
-[node name="resizeable" parent="." index="1" instance=ExtResource( 3 )]
+[node name="resizeable" parent="." instance=ExtResource( 3 )]
 
-[node name="destroyable" parent="." index="2" instance=ExtResource( 4 )]
+[node name="destroyable" parent="." instance=ExtResource( 4 )]
 
 [node name="progress_health" parent="destroyable" index="0"]
-
 rect_clip_content = false
+allow_greater = false
+allow_lesser = false
 
-[node name="moveable" parent="." index="3" instance=ExtResource( 5 )]
+[node name="moveable" parent="." instance=ExtResource( 5 )]
 
-[node name="shootable" parent="." index="4" instance=ExtResource( 6 )]
-
+[node name="shootable" parent="." instance=ExtResource( 6 )]
 editor/display_folded = true
 
-[node name="explodeable" parent="." index="5" instance=ExtResource( 7 )]
-
+[node name="explodeable" parent="." instance=ExtResource( 7 )]
 explosion_type = "multiple"
 
-[node name="processor_selector" parent="." index="6" instance=ExtResource( 8 )]
+[node name="processor_selector" parent="." instance=ExtResource( 8 )]
 
-[node name="Collision" type="CollisionPolygon2D" parent="." index="7"]
-
+[node name="Collision" type="CollisionPolygon2D" parent="."]
 build_mode = 0
 polygon = PoolVector2Array( -31.327, -31.6235, 30.274, -31.0832, 30.8144, 31.0582, -30.2462, 31.5985 )
 
-[node name="debug" type="Label" parent="." index="8"]
-
+[node name="debug" type="Label" parent="."]
+visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -140,9 +141,10 @@ size_flags_vertical = 2
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-script = SubResource( 1 )
+script = SubResource( 2 )
 show_debug = true
 
 
 [editable path="destroyable"]
+
 [editable path="shootable"]

@@ -26,7 +26,7 @@ extends Node2D
 # geht ned
 #export(Array, String) var modifier_add
 
-export(String, "", "modifier_add", "modifier_multi") var modifier_type
+export(String, "", "modifier_add", "modifier_multi", "modifier_set") var modifier_type
 #export var modifier_names = StringArray()
 #export var modifier_values = FloatArray()
 export var modifier_exports = PoolStringArray()
@@ -34,7 +34,8 @@ export (float) var modifier_timer
 
 var properties_base = {
 	global.properties.modifier_add: {},
-	global.properties.modifier_multi: {}
+	global.properties.modifier_multi: {},
+	global.properties.modifier_set: {},
 }
 
 func _ready():
