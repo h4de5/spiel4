@@ -104,7 +104,7 @@ func handle_action(action, pressed):
 		zoom = zoom + (zoom_speed if (zoom+zoom_speed) >= 1 else 0)
 
 # check current rotation, and set torque and velocity accordingly
-func process_direction():
+func process_direction(direction, power):
 
 	var object_rot = parent.global_rotation
 
@@ -114,36 +114,38 @@ func process_direction():
 
 	var current_look_dir = Vector2(sin(object_rot + model_modifier + PI), cos(object_rot + model_modifier)).normalized()
 	#print("current_look_dir: ", current_look_dir)
-	var angle_diff = intended_direction.angle_to(current_look_dir)
+	var angle_diff = direction.angle_to(current_look_dir)
 	#print("angle_diff: ", angle_diff)
 
-	#var perfect_rotation = atan2(intended_direction.y, intended_direction.x) - model_modifier
+	#var perfect_rotation = atan2(direction.y, direction.x) - model_modifier
 	#print("perfect_rotation: ", perfect_rotation)
 
 	# we do not set rotation, we set rotation speed
 	#torque = clamp(angle_diff, -parent.get_property(global.properties.ship_rotation_speed), parent.get_property(global.properties.ship_rotation_speed))
 	# multiply torque with length, to allow smoother turns
 	if angle_diff > 0:
-		torque = parent.get_property(global.properties.ship_rotation_speed) * intended_direction.length()
+		torque = parent.get_property(global.properties.ship_rotation_speed) * direction.length()
 	elif angle_diff < 0:
-		torque = -parent.get_property(global.properties.ship_rotation_speed) * intended_direction.length()
+		torque = -parent.get_property(global.properties.ship_rotation_speed) * direction.length()
 	else:
 		torque = 0
-	#print("current_look_dir: ", current_look_dir," angle_diff: ", angle_diff, " intended_direction: ", intended_direction, " torque: ", torque)
+	#print("current_look_dir: ", current_look_dir," angle_diff: ", angle_diff, " direction: ", direction, " torque: ", torque)
 
 	# if set, here, we can move the ship with the direction, so we can not do backwards
 	# otherwise, we need a separate button for accelerating
-	velocity = parent.get_property(global.properties.movement_speed_forward) * intended_direction.length()
+	if power != Vector2(0,0):
+		velocity = parent.get_property(global.properties.movement_speed_forward) * power.length()
 
 # check current rotation and position, and set torque and velocity accordingly
-func process_target():
-	pass
+func process_target(target, power):
+	process_direction(target, power)
+
 
 func _physics_process(delta) :
 	if intended_target != Vector2(0,0):
-		process_target()
+		process_target(intended_target, intended_target)
 	elif intended_direction != Vector2(0,0):
-		process_direction()
+		process_direction(intended_direction, intended_direction)
 
 	# turning vehicle
 	if torque != 0 :

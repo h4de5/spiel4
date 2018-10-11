@@ -190,7 +190,7 @@ func find_target_moveto( ownpos, ownrot ):
 	pickup = object_locator.get_next_object( global.groups.pickup, ownpos, ownrot )
 
 	# if there is a pickup nearby, go there
-	if pickup and ownpos.distance_to(pickup.get_global_position()) < 400:
+	if pickup and ownpos.distance_to(pickup.get_global_position()) < 350:
 		return pickup
 
 	var player
@@ -203,5 +203,6 @@ func find_target_shootat( ownpos, ownrot ):
 	var player
 	# only go for players in range
 	player = object_locator.get_next_player( ownpos, ownrot )
-	if player and ownpos.distance_to(player.get_position()) < 1500:
+	# if player and ownpos.distance_to(player.get_position()) < 1500:
+	if player and ownpos.distance_to(player.get_position()) <= parent.get_property(global.properties.bullet_range) * 1.2:
 		return player

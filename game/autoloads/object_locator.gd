@@ -56,8 +56,8 @@ func get_next_object( group, pos, rot):
 		var dist = null
 		var closest
 		for object in objects_registered[group]:
-			if dist == null or dist > pos-object.get_position():
-				dist = pos-object.get_position()
+			if dist == null or dist > pos.distance_to(object.get_global_position()):
+				dist = pos.distance_to(object.get_global_position())
 				closest = object
 
 		return closest #objects_registered[group].front()
