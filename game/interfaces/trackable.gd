@@ -16,10 +16,10 @@ func _ready():
 	call_deferred("initialize")
 
 func initialize():
-	pass
+	indicator_manager.register_trackable(parent)
 
 func _enter_tree():
-	indicator_manager.register_trackable(parent)
+	pass
 
 func _exit_tree():
 	indicator_manager.unregister_trackable(parent)

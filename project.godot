@@ -32,6 +32,7 @@ http_manager="*res://game/autoloads/http_manager.gd"
 player_manager="*res://game/autoloads/player_manager.gd"
 lobby_handler="*res://game/autoloads/lobby_handler.gd"
 sound_manager="*res://game/autoloads/sound_manager.gd"
+indicator_manager="*res://game/autoloads/indicator_manager.tscn"
 
 [debug]
 
