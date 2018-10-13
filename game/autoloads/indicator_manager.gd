@@ -46,8 +46,9 @@ func _process(delta):
 		#print("camera.zoom: ", camera.zoom)
 		# print("camera offset: ", camera.offset, camera.offset_v, camera.offset_h)
 
-		camera_pos = camera.get_camera_position()
-		#print("camera_pos: ", camera_pos, " vs position: ", camera.position)
+		#camera_pos = camera.get_camera_position()
+		camera_pos = camera.get_camera_screen_center()
+		#print("camera_pos: ", camera_pos, " vs position: ", camera.position, " screen center: ", camera.get_camera_screen_center())
 
 		camera_rect.size *= camera.zoom
 		camera_rect_zoomed = camera_rect

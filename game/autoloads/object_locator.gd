@@ -117,6 +117,23 @@ func set_camera(excludes =  []):
 
 		var zoom = bounding_box.size / window_size
 		var zoom_max = max(max(zoom.x, zoom.y), 1)
+
+
+		# check if bounding box (with all players) is visible in the camera screen,
+		# if not - zoom out
+		#print("zoom_max new: ", zoom_max, " window_size * zoom_max /2: ", window_size * zoom_max /2)
+		# move camera screen center have of window size
+		var camera_view_window = Rect2( camera.get_camera_screen_center() - window_size * zoom_max /2 , window_size * zoom_max )
+
+		if !camera_view_window.has_point(bounding_box.position):
+			#print("bounding_box: ", bounding_box, " camera_view_window: ", camera_view_window, " zoom_max: ", zoom_max)
+
+			zoom_max *= camera_view_window.expand(bounding_box.position).size.length() / camera_view_window.size.length()
+
+			#print("zoom_max new: ", zoom_max)
+		#else:
+		#	print("bounding_box: ", bounding_box, " camera_view_window: ", camera_view_window, " zoom_max: ", zoom_max)
+
 		zoom_max *= 1.8
 
 		# TODO - there is a zoom variable in moveable, that is not reset if zoom is set via set_camera
