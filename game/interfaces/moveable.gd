@@ -12,6 +12,7 @@ var intended_direction = Vector2()
 var intended_target = Vector2()
 var zoom = 1
 var zoom_speed = 0
+var handbreak = 2
 
 func is_moveable():
 	if activated:
@@ -85,6 +86,7 @@ func handle_action(action, pressed):
 
 		elif action == global.actions.accelerate: velocity = parent.get_property(global.properties.movement_speed_forward) * pressed
 		elif action == global.actions.back: velocity = -parent.get_property(global.properties.movement_speed_back) * pressed
+		elif action == global.actions.stop: handbreak = 100
 
 		elif action == global.actions.zoom_in: zoom_speed = -parent.get_property(global.properties.zoom_speed) * pressed
 		elif action == global.actions.zoom_out: zoom_speed = parent.get_property(global.properties.zoom_speed) * pressed
@@ -96,12 +98,13 @@ func handle_action(action, pressed):
 
 		elif action == global.actions.accelerate: velocity = 0
 		elif action == global.actions.back: velocity = 0
+		elif action == global.actions.stop: handbreak = 2
 
 		elif action == global.actions.zoom_in: pass
 
 	# cap zoom to >1
 	if zoom_speed != 0:
-		zoom = zoom + (zoom_speed if (zoom+zoom_speed) >= 1 else 0)
+		zoom = zoom + (zoom_speed if (zoom+zoom_speed) >= 0.99 else 0)
 
 # check current rotation, and set torque and velocity accordingly
 func process_direction(direction, power):
@@ -149,7 +152,10 @@ func _physics_process(delta) :
 
 	# turning vehicle
 	if torque != 0 :
+		# TODO check why not use apply_torque_impulse instead of set_angular_velocity
 		parent.set_angular_velocity(torque)
+
+	parent.set_linear_damp(handbreak)
 
 	# calculate vector from current rotation, if speed is set
 	if velocity != 0 :

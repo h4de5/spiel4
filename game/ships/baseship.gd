@@ -27,6 +27,7 @@ func initialize() :
 	set_friction(1)
 	set_bounce(0.1)
 	set_gravity_scale(0)
+	# see moveable - will be reset on each frame
 	set_linear_damp(2)
 	set_angular_damp(20)
 

@@ -120,7 +120,6 @@ explosion_type = "multiple"
 [node name="processor_selector" parent="." instance=ExtResource( 8 )]
 
 [node name="trackable" parent="." instance=ExtResource( 9 )]
-activated = false
 
 [node name="Collision" type="CollisionPolygon2D" parent="."]
 build_mode = 0

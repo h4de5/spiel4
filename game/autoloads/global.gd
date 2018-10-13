@@ -112,6 +112,7 @@ enum actions {
 	target_right,
 	accelerate,
 	back,
+	stop,
 	fire,
 	use,
 	zoom_in,

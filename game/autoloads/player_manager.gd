@@ -38,7 +38,7 @@ func _unhandled_input ( event ) :
 	#print("typeof: ", typeof(InputEventMouseButton))
 
 	if (event.device != null && event.is_action_type()):
-		print("device input ", event.device, " with type ", event.is_action_type())
+		print("unhandled input - device ", event.device, " with type ", event.is_action_type(), " event: ", event)
 		var inputtype = null
 		# see if we already have this device_group registered
 		for device_group in device_groups :

@@ -6,7 +6,7 @@ func _ready():
 
 	# set screen width
 	OS.window_size = Vector2(settings.game['display_width'], settings.game['display_height'])
-
+	OS.center_window()
 
 	for group in global.groups:
 		var node = Node.new()
@@ -19,24 +19,18 @@ func _ready():
 
 	call_deferred("initialize")
 
-
-
-
-
 	# when client starts, clear the game
 	network_manager.connect("connected_as_client", self , "clear_game")
 
 	#get_node(global.scene_tree_game).clear_game()
 
 func initialize():
-	#for i in range(2): spawn_enemy()
+	for i in range(1): spawn_enemy()
 	#for i in range(1): spawn_tower()
 	for i in range(2): spawn_object(global.scene_path_pickup)
 	for i in range(2): spawn_object(global.scene_path_repairkit)
 	for i in range(2): spawn_object(global.scene_path_asteroid)
 	for i in range(4): spawn_object(global.scene_path_comet)
-
-
 
 	# Background node
 	# player_manager node

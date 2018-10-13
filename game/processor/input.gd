@@ -14,6 +14,7 @@ var input_actions = {
 	"ui_right": 	global.actions.right,
 	"ui_up": 		global.actions.accelerate,
 	"ui_down": 		global.actions.back,
+	"ui_home": 		global.actions.stop,
 	"ui_accept": 	global.actions.fire,
 	#"ui_accept": 	global.actions.use,
 	#"ui_page_up": 	global.actions.zoom_in,
@@ -50,6 +51,7 @@ func _input(event):
 	# FIXME - check with: shootable = interface.is_shootable()
 
 	if event.is_echo():
+		get_tree().set_input_as_handled()
 		return
 
 	#var moveable = interface.is_moveable(parent)
@@ -93,7 +95,7 @@ func _input(event):
 					get_tree().set_input_as_handled()
 					if moveable:
 						moveable.handle_action(global.actions.accelerate, event.axis_value)
-				_:
+				_: # default
 					print("print unknown controller axis: ", event.axis)
 		else:
 			#print ("got event ", event)
@@ -107,6 +109,23 @@ func _input(event):
 						moveable.handle_action(input_actions[e], Input.is_action_pressed(e))
 					if shootable:
 						shootable.handle_action(input_actions[e], Input.is_action_pressed(e))
+			if event is InputEventKey:
+				var camera = get_node(global.scene_tree_camera)
+				match event.scancode:
+					KEY_I:
+						get_tree().set_input_as_handled()
+						camera.position.y -= 20
+					KEY_J:
+						get_tree().set_input_as_handled()
+						camera.position.x -= 20
+					KEY_K:
+						get_tree().set_input_as_handled()
+						camera.position.y += 20
+					KEY_L:
+						get_tree().set_input_as_handled()
+						camera.position.x += 20
+
+
 
 
 # if player is removed, remove from device list in player_manager

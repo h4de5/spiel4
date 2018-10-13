@@ -67,7 +67,8 @@ func get_next_object( group, pos, rot):
 
 	# return players[0]
 
-func _physics_process(delta):
+# todo - check if we move it in _process or _physics_process
+func _process(delta):
 	set_camera()
 
 # Return a bound box that includes all objects_registered
@@ -102,7 +103,8 @@ func get_bounding_box_all(excludes = []) :
 					box = newbox
 	return box
 
-func set_camera(excludes = []):
+
+func set_camera(excludes =  []):
 	#var bounding_box = get_bounding_box_all(excludes)
 	var bounding_box = get_bounding_box(global.groups.player, excludes)
 
@@ -116,6 +118,9 @@ func set_camera(excludes = []):
 		var zoom = bounding_box.size / window_size
 		var zoom_max = max(max(zoom.x, zoom.y), 1)
 		zoom_max *= 1.8
+
+		# TODO - there is a zoom variable in moveable, that is not reset if zoom is set via set_camera
+		# therefor its possible to use zoom keys and increase this variable, even zoom does not change
 
 		#print("width ", d_width, " box size ", bounding_box.size, " zoomx ", zoomx, " zoomy ", zoomy)
 		camera.set_zoom(Vector2(zoom_max, zoom_max))
