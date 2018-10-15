@@ -44,20 +44,30 @@ func free_object(object) :
 			break
 
 
-func get_next_player( pos, rot) :
+func get_next_player( pos, rot ) :
 	return get_next_ship(global.groups.player, pos, rot)
 
-func get_next_ship( group, pos, rot):
+func get_next_ship( group, pos, rot ):
 	return get_next_object( group, pos, rot)
 
-func get_next_object( group, pos, rot):
+func get_next_object( group, pos, rot ):
 	# return first object of given group
 	if (objects_registered.has(group)) and objects_registered[group].size() > 0:
 		var dist = null
 		var closest
+		# where am i currently locking at
+		var current_look_dir = Vector2(sin(rot + PI), cos(rot)).normalized()
+
 		for object in objects_registered[group]:
-			if dist == null or dist > pos.distance_to(object.get_global_position()):
-				dist = pos.distance_to(object.get_global_position())
+
+			var direction_of_object = object.get_global_position() - pos
+			# where should i look at
+			var angle_diff = current_look_dir.angle_to(direction_of_object)
+			#  the more the angle differs, the farer the target object is away ..
+			var estimated_distance_for_turn = abs(angle_diff) * 0.1
+
+			if dist == null or dist > pos.distance_to(object.get_global_position()) + estimated_distance_for_turn:
+				dist = pos.distance_to(object.get_global_position()) + estimated_distance_for_turn
 				closest = object
 
 		return closest #objects_registered[group].front()

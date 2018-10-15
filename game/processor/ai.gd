@@ -65,36 +65,45 @@ func _physics_process(delta) :
 
 			# get target position
 			targetpos = target_moveto.get_global_position()
+
+			print("found target at: ", targetpos)
+
+			moveable.handle_target( targetpos )
+
+
 			# own position to target vector2
 			# if set,
-			moving_vector = (targetpos - ownpos).normalized()
-
-			# hier gehört die differenz ziwschen eigenem looking at und ziel winkel
-
-			var movingangle =  wrapf(moving_vector.angle() + PI/2, -PI, PI)
-
-			var targetangle
-
-			targetangle = wrapf(movingangle - ownrot, -PI, PI)
-
+#			moving_vector = (targetpos - ownpos).normalized()
+#
+#			# hier gehört die differenz ziwschen eigenem looking at und ziel winkel
+#
+#			var movingangle =  wrapf(moving_vector.angle() + PI/2, -PI, PI)
+#
+#			var targetangle
+#
+#			targetangle = wrapf(movingangle - ownrot, -PI, PI)
 
 			#print("ai movment angle", angle)
-			if (targetangle > parent.get_property(global.properties.clearance_rotation)) :
-				moveable.handle_action( global.actions.right, true )
-			elif (targetangle < -parent.get_property(global.properties.clearance_rotation)) :
-				moveable.handle_action( global.actions.left, true )
-			else :
-				moveable.handle_action( global.actions.right, false )
-				moveable.handle_action( global.actions.left, false )
-				# only accelerate if ship is directed towards user,
-				# prevent never ending spiral
-				moveable.handle_action( global.actions.accelerate, true )
+#			if (targetangle > parent.get_property(global.properties.clearance_rotation)) :
+#				moveable.handle_action( global.actions.right, true )
+#			elif (targetangle < -parent.get_property(global.properties.clearance_rotation)) :
+#				moveable.handle_action( global.actions.left, true )
+#			else :
+#				moveable.handle_action( global.actions.right, false )
+#				moveable.handle_action( global.actions.left, false )
+#				# only accelerate if ship is directed towards user,
+#				# prevent never ending spiral
+#				moveable.handle_action( global.actions.accelerate, true )
+
 
 		elif moveable:
-			moveable.handle_action( global.actions.accelerate, false )
-			moveable.handle_action( global.actions.back, false )
-			moveable.handle_action( global.actions.left, false )
-			moveable.handle_action( global.actions.right, false )
+			print("reset target for AI - position: ", parent.position)
+
+			moveable.handle_target( Vector2(0,0) )
+#			moveable.handle_action( global.actions.accelerate, false )
+#			moveable.handle_action( global.actions.back, false )
+#			moveable.handle_action( global.actions.left, false )
+#			moveable.handle_action( global.actions.right, false )
 
 		if target_shootat :
 

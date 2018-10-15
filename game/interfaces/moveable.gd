@@ -45,7 +45,14 @@ func reset():
 
 # set a position where the shop should turn to
 func handle_target(target_position):
-	intended_target = target_position
+	# move dead zone to input
+	if target_position != Vector2(0,0):
+		# TODO range lerp
+		intended_target = target_position
+	else:
+		intended_target = Vector2(0,0)
+		velocity = 0
+		torque = 0
 
 # set a direction where the shop should turn to
 func handle_direction(target_direction):
@@ -115,7 +122,8 @@ func process_direction(direction, power):
 	model_modifier = PI # oben, unten: ok, link,rechts vetauscht
 	model_modifier = 0 # oben, unten: vertauscht, link,rechts ok
 
-	var current_look_dir = Vector2(sin(object_rot + model_modifier + PI), cos(object_rot + model_modifier)).normalized()
+	# var current_look_dir = Vector2(sin(object_rot + model_modifier + PI), cos(object_rot + model_modifier)).normalized()
+	var current_look_dir = Vector2(cos(parent.get_global_rotation()+ PI/2), sin(parent.get_global_rotation()+ PI/2) )
 	#print("current_look_dir: ", current_look_dir)
 	var angle_diff = direction.angle_to(current_look_dir)
 	#print("angle_diff: ", angle_diff)
@@ -141,8 +149,14 @@ func process_direction(direction, power):
 
 # check current rotation and position, and set torque and velocity accordingly
 func process_target(target, power):
-	process_direction(target, power)
 
+	print("get_global_position(): ", get_global_position(), " target: ", target, " length: ", ((parent.get_global_position() - target).length()) )
+	if( (parent.get_global_position() - target).length() > 10):
+		print ("moving to:", target.normalized(), " power: ", power.normalized())
+		process_direction(target.normalized(), power.normalized())
+	else:
+		print ("Reset target")
+		handle_target(Vector2(0,0))
 
 func _physics_process(delta) :
 	if intended_target != Vector2(0,0):
@@ -160,7 +174,7 @@ func _physics_process(delta) :
 	# calculate vector from current rotation, if speed is set
 	if velocity != 0 :
 
-		var direction = Vector2(cos(parent.get_rotation()+ PI/2), sin(parent.get_rotation()+ PI/2) )
+		var direction = Vector2(cos(parent.get_global_rotation()+ PI/2), sin(parent.get_global_rotation()+ PI/2) )
 
 		#print("moving with ", direction * velocity * -1, " velocity: ", velocity)
 		parent.apply_impulse(Vector2(0,0), direction * velocity * delta * -1)

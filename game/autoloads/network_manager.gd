@@ -37,15 +37,16 @@ signal connected_as_client()
 # Connect all functions
 func _ready():
 
-	get_tree().connect("network_peer_connected", self, "network_peer_connected")
-	get_tree().connect("network_peer_disconnected", self, "network_peer_disconnected")
-	#get_tree().connect("peer_connected", self, "peer_connected")
-	#get_tree().connect("peer_disconnected", self, "peer_disconnected")
-	get_tree().connect("connected_to_server", self, "connected_to_server")
-	get_tree().connect("connection_failed", self, "connection_failed")
-	#get_tree().connect("connection_succeeded", self, "connection_succeeded")
+	var conn_ret
+	conn_ret = get_tree().connect("network_peer_connected", self, "network_peer_connected")
+	conn_ret = get_tree().connect("network_peer_disconnected", self, "network_peer_disconnected")
+	#conn_ret = get_tree().connect("peer_connected", self, "peer_connected")
+	#conn_ret = get_tree().connect("peer_disconnected", self, "peer_disconnected")
+	conn_ret = get_tree().connect("connected_to_server", self, "connected_to_server")
+	conn_ret = get_tree().connect("connection_failed", self, "connection_failed")
+	#conn_ret = get_tree().connect("connection_succeeded", self, "connection_succeeded")
 
-	get_tree().connect("server_disconnected", self, "server_disconnected")
+	conn_ret = get_tree().connect("server_disconnected", self, "server_disconnected")
 
 	set_physics_process(false)
 

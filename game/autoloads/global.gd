@@ -119,4 +119,15 @@ enum actions {
 	zoom_out
 }
 
+func _ready():
+	if(!groups):
+		pass
+	if(!collision_layer_masks):
+		pass
+	if(!properties):
+		pass
+	if(!pickup_types):
+		pass
+	if(!actions):
+		pass
 
