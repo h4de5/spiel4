@@ -52,7 +52,6 @@ remote func spawn_player(processor, device_details):
 	player_node.get_node("processor_selector").set_processor(processor)
 	player_node.get_node("processor_selector").set_processor_details(device_details)
 
-
 	if get_tree().has_meta("network_peer"):
 		# only local players are net_work_masters
 		if processor == 'Input':

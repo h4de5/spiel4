@@ -45,6 +45,7 @@ func reset():
 
 # set a position where the shop should turn to
 func handle_target(target_position):
+	print("Set new target: ", target_position)
 	# move dead zone to input
 	if target_position != Vector2(0,0):
 		# TODO range lerp
@@ -125,7 +126,7 @@ func process_direction(direction, power):
 	# var current_look_dir = Vector2(sin(object_rot + model_modifier + PI), cos(object_rot + model_modifier)).normalized()
 	var current_look_dir = Vector2(cos(parent.get_global_rotation()+ PI/2), sin(parent.get_global_rotation()+ PI/2) )
 	#print("current_look_dir: ", current_look_dir)
-	var angle_diff = direction.angle_to(current_look_dir)
+	var angle_diff = current_look_dir.angle_to(direction)
 	#print("angle_diff: ", angle_diff)
 
 	#var perfect_rotation = atan2(direction.y, direction.x) - model_modifier
@@ -152,17 +153,17 @@ func process_target(target, power):
 
 	print("get_global_position(): ", get_global_position(), " target: ", target, " length: ", ((parent.get_global_position() - target).length()) )
 	if( (parent.get_global_position() - target).length() > 10):
-		print ("moving to:", target.normalized(), " power: ", power.normalized())
-		process_direction(target.normalized(), power.normalized())
+		print ("moving to:", target, " power: ", power)
+		process_direction(target.clamped(1), power)
 	else:
 		print ("Reset target")
 		handle_target(Vector2(0,0))
 
 func _physics_process(delta) :
 	if intended_target != Vector2(0,0):
-		process_target(intended_target, intended_target)
+		process_target(intended_target, intended_target.clamped(1))
 	elif intended_direction != Vector2(0,0):
-		process_direction(intended_direction, intended_direction)
+		process_direction(intended_direction.clamped(1), intended_direction.clamped(1))
 
 	# turning vehicle
 	if torque != 0 :
@@ -176,9 +177,9 @@ func _physics_process(delta) :
 
 		var direction = Vector2(cos(parent.get_global_rotation()+ PI/2), sin(parent.get_global_rotation()+ PI/2) )
 
-		#print("moving with ", direction * velocity * -1, " velocity: ", velocity)
+		# print("moving to ", direction * velocity * -1, " velocity: ", velocity)
 		parent.apply_impulse(Vector2(0,0), direction * velocity * delta * -1)
-		#parent.add_force( Vector2(0,0), direction * velocity * -1)
+		# parent.add_force( Vector2(0,0), direction * velocity * -1)
 
 		# particles only work when they are available
 		if velocity > 0 and has_node("particle_forward") :

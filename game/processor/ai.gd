@@ -97,9 +97,9 @@ func _physics_process(delta) :
 
 
 		elif moveable:
-			print("reset target for AI - position: ", parent.position)
-
-			moveable.handle_target( Vector2(0,0) )
+			if moveable.intended_target != Vector2(0,0):
+				print("reset target for AI - position: ", parent.position)
+				moveable.handle_target( Vector2(0,0) )
 #			moveable.handle_action( global.actions.accelerate, false )
 #			moveable.handle_action( global.actions.back, false )
 #			moveable.handle_action( global.actions.left, false )
