@@ -63,6 +63,10 @@ func _input(event):
 			# TODO - check if global_mouse_pos is realy the best way to do this
 			if shootable :
 				shootable.handle_mousemove(parent.get_global_mouse_position())
+		elif (event is InputEventMouseButton):
+			if moveable:
+				print("clicked to: ", event.position)
+				moveable.handle_target(event.position)
 		elif (event is InputEventJoypadMotion):
 			match event.axis:
 				0,1: # left stick x-axis
@@ -82,7 +86,6 @@ func _input(event):
 						left_stick_direction.y = axis_value
 
 					if moveable:
-						# moveable.handle_action(global.actions.left, axis_value)
 						moveable.handle_direction(left_stick_direction)
 
 				6: # left trigger

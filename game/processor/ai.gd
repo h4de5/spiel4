@@ -66,7 +66,7 @@ func _physics_process(delta) :
 			# get target position
 			targetpos = target_moveto.get_global_position()
 
-			print("found target at: ", targetpos)
+			# print("found target at: ", targetpos)
 
 			moveable.handle_target( targetpos )
 

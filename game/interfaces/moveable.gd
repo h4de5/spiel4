@@ -45,7 +45,7 @@ func reset():
 
 # set a position where the shop should turn to
 func handle_target(target_position):
-	print("Set new target: ", target_position)
+	# print("Set new target: ", target_position)
 	# move dead zone to input
 	if target_position != Vector2(0,0):
 		# TODO range lerp
@@ -119,14 +119,11 @@ func process_direction(direction, power):
 
 	var object_rot = parent.global_rotation
 
-	var model_modifier = -PI/2 # alles verdreht
-	model_modifier = PI # oben, unten: ok, link,rechts vetauscht
-	model_modifier = 0 # oben, unten: vertauscht, link,rechts ok
-
 	# var current_look_dir = Vector2(sin(object_rot + model_modifier + PI), cos(object_rot + model_modifier)).normalized()
-	var current_look_dir = Vector2(cos(parent.get_global_rotation()+ PI/2), sin(parent.get_global_rotation()+ PI/2) )
-	#print("current_look_dir: ", current_look_dir)
+	var current_look_dir = Vector2(cos(parent.get_global_rotation() + 2*PI/2), sin(parent.get_global_rotation() + 2*PI/2) )
+
 	var angle_diff = current_look_dir.angle_to(direction)
+
 	#print("angle_diff: ", angle_diff)
 
 	#var perfect_rotation = atan2(direction.y, direction.x) - model_modifier
@@ -136,11 +133,14 @@ func process_direction(direction, power):
 	#torque = clamp(angle_diff, -parent.get_property(global.properties.ship_rotation_speed), parent.get_property(global.properties.ship_rotation_speed))
 	# multiply torque with length, to allow smoother turns
 	if angle_diff > 0:
-		torque = parent.get_property(global.properties.ship_rotation_speed) * direction.length()
-	elif angle_diff < 0:
 		torque = -parent.get_property(global.properties.ship_rotation_speed) * direction.length()
+	elif angle_diff < 0:
+		torque = parent.get_property(global.properties.ship_rotation_speed) * direction.length()
 	else:
 		torque = 0
+
+	print("current_look_dir: ", current_look_dir, " angle_diff: ", angle_diff, " torque: ", torque )
+
 	#print("current_look_dir: ", current_look_dir," angle_diff: ", angle_diff, " direction: ", direction, " torque: ", torque)
 
 	# if set, here, we can move the ship with the direction, so we can not do backwards
@@ -153,7 +153,7 @@ func process_target(target, power):
 
 	print("get_global_position(): ", get_global_position(), " target: ", target, " length: ", ((parent.get_global_position() - target).length()) )
 	if( (parent.get_global_position() - target).length() > 10):
-		print ("moving to:", target, " power: ", power)
+		print ("moving to: ", target, " power: ", power)
 		process_direction(target.clamped(1), power)
 	else:
 		print ("Reset target")
