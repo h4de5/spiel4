@@ -28,8 +28,8 @@ func initialize() :
 	set_bounce(0.1)
 	set_gravity_scale(0)
 	# see moveable - will be reset on each frame
-	set_linear_damp(2)
-	set_angular_damp(20)
+	set_linear_damp(3)
+	set_angular_damp(30)
 
 # called to reset a position, usually after initialize
 func reset_position() :

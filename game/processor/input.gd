@@ -66,7 +66,10 @@ func _input(event):
 		elif (event is InputEventMouseButton):
 			if moveable:
 				print("clicked to: ", event.position)
-				moveable.handle_target(event.position)
+				if event.button_index == BUTTON_LEFT:
+					moveable.handle_target(event.position)
+				elif event.button_index == BUTTON_RIGHT:
+					moveable.handle_target(Vector2(0,0))
 		elif (event is InputEventJoypadMotion):
 			match event.axis:
 				0,1: # left stick x-axis

@@ -94,7 +94,7 @@ linear_damp = -1.0
 angular_velocity = 0.0
 angular_damp = -1.0
 script = ExtResource( 1 )
-_sections_unfolded = [ "Material", "Transform", "Visibility", "Z Index" ]
+_sections_unfolded = [ "Material", "Transform", "Visibility", "Z Index", "physics_material_override" ]
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )

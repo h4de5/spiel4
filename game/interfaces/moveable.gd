@@ -120,7 +120,7 @@ func process_direction(direction, power):
 	var object_rot = parent.global_rotation
 
 	# var current_look_dir = Vector2(sin(object_rot + model_modifier + PI), cos(object_rot + model_modifier)).normalized()
-	var current_look_dir = Vector2(cos(parent.get_global_rotation() + 2*PI/2), sin(parent.get_global_rotation() + 2*PI/2) )
+	var current_look_dir = Vector2(cos(parent.get_global_rotation() + PI/2), sin(parent.get_global_rotation() + PI/2) )
 
 	var angle_diff = current_look_dir.angle_to(direction)
 
@@ -170,7 +170,8 @@ func _physics_process(delta) :
 		# TODO check why not use apply_torque_impulse instead of set_angular_velocity
 		parent.set_angular_velocity(torque)
 
-	parent.set_linear_damp(handbreak)
+	# debug - remove
+	# parent.set_linear_damp(handbreak)
 
 	# calculate vector from current rotation, if speed is set
 	if velocity != 0 :
