@@ -13,7 +13,8 @@ func initialize() :
 	.initialize()
 	properties_base = {
 		global.properties.health_max: 2000,
-		global.properties.health: 2000
+		global.properties.health: 2000,
+		global.properties.ship_rotation_speed: 7,
 	}
 
 	set_mass(500)

@@ -13,6 +13,7 @@ var intended_target = Vector2()
 var zoom = 1
 var zoom_speed = 0
 var handbreak = 2
+var shootable
 
 func is_moveable():
 	if activated:
@@ -34,6 +35,10 @@ func _ready():
 
 	set_physics_process(true)
 
+func check_requirements():
+	.check_requirements()
+	shootable = interface.is_shootable(parent)
+
 # resets all values to default or off
 func reset():
 	velocity = 0
@@ -49,11 +54,12 @@ func handle_target(target_position):
 	# move dead zone to input
 	if target_position != Vector2(0,0):
 		# TODO range lerp
+		print("handle_target: ", target_position)
 		intended_target = target_position
 	else:
 		intended_target = Vector2(0,0)
-		velocity = 0
-		torque = 0
+		#velocity = 0
+		#torque = 0
 
 # set a direction where the shop should turn to
 func handle_direction(target_direction):
@@ -61,6 +67,7 @@ func handle_direction(target_direction):
 	# move dead zone to input
 	if target_direction != Vector2(0,0):
 		# TODO range lerp
+		print("handle_direction: ", target_direction)
 		intended_direction = target_direction
 	else:
 		intended_direction = Vector2(0,0)
@@ -129,17 +136,19 @@ func process_direction(direction, power):
 	#var perfect_rotation = atan2(direction.y, direction.x) - model_modifier
 	#print("perfect_rotation: ", perfect_rotation)
 
+
 	# we do not set rotation, we set rotation speed
 	#torque = clamp(angle_diff, -parent.get_property(global.properties.ship_rotation_speed), parent.get_property(global.properties.ship_rotation_speed))
 	# multiply torque with length, to allow smoother turns
-	if angle_diff > 0:
+	print("stop when rotation ",  angle_diff, " within " , -parent.get_property(global.properties.clearance_rotation), " and ", parent.get_property(global.properties.clearance_rotation))
+
+	if angle_diff > parent.get_property(global.properties.clearance_rotation):
 		torque = -parent.get_property(global.properties.ship_rotation_speed) * direction.length()
-	elif angle_diff < 0:
+	elif angle_diff < -parent.get_property(global.properties.clearance_rotation):
 		torque = parent.get_property(global.properties.ship_rotation_speed) * direction.length()
 	else:
-		torque = 0
 
-	print("current_look_dir: ", current_look_dir, " angle_diff: ", angle_diff, " torque: ", torque )
+		torque = 0
 
 	#print("current_look_dir: ", current_look_dir," angle_diff: ", angle_diff, " direction: ", direction, " torque: ", torque)
 
@@ -147,24 +156,48 @@ func process_direction(direction, power):
 	# otherwise, we need a separate button for accelerating
 	if power != Vector2(0,0):
 		velocity = parent.get_property(global.properties.movement_speed_forward) * power.length()
+	else:
+		#print("stop at speed: ", parent.get_property(global.properties.movement_speed_forward))
+		velocity = 0
+
+	# reset direction and target
+	if velocity == 0 && torque == 0:
+		intended_direction = Vector2(0,0)
+		intended_target = Vector2(0,0)
 
 # check current rotation and position, and set torque and velocity accordingly
 func process_target(target, power):
+	# create corrected target direction from current position
+	var target_corr = target - parent.get_global_position()
+	var stop_at_distance
 
-	print("get_global_position(): ", get_global_position(), " target: ", target, " length: ", ((parent.get_global_position() - target).length()) )
-	if( (parent.get_global_position() - target).length() > 10):
-		print ("moving to: ", target, " power: ", power)
-		process_direction(target.clamped(1), power)
+	# stop at a certain distance
+	if shootable:
+		# either within bullet range
+		stop_at_distance = parent.get_property(global.properties.bullet_range)
 	else:
-		print ("Reset target")
-		handle_target(Vector2(0,0))
+		# or within forward speed - magic number --
+		stop_at_distance = parent.get_property(global.properties.movement_speed_forward) / 2
+
+	if(target_corr.length() > stop_at_distance):
+		process_direction(target_corr.clamped(1), target_corr.clamped(1))
+	else:
+		#print("stopping at distance: ", target_corr.length(), " target distance: ", stop_at_distance)
+		# reset target
+		# handle_target(Vector2(0,0))
+		# still need to turn to the correct direction
+		process_direction(target_corr.clamped(1), Vector2(0,0))
+
 
 func _physics_process(delta) :
+	# if target position is set, go for that target
 	if intended_target != Vector2(0,0):
-		process_target(intended_target, intended_target.clamped(1))
+		process_target(intended_target, intended_target)
+	# if direction is set, go in that direction
 	elif intended_direction != Vector2(0,0):
 		process_direction(intended_direction.clamped(1), intended_direction.clamped(1))
 
+	# otherwise go for currently set velocity and torque
 	# turning vehicle
 	if torque != 0 :
 		# TODO check why not use apply_torque_impulse instead of set_angular_velocity

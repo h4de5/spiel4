@@ -6,7 +6,7 @@
 [ext_resource path="res://art/models/icon.png" type="Texture" id=4]
 [ext_resource path="res://game/interfaces/collectable_payload.tscn" type="PackedScene" id=5]
 
-[node name="Baseship - Player" instance=ExtResource( 1 )]
+[node name="Baseship - Player" index="0" instance=ExtResource( 1 )]
 collision_layer = 2
 script = ExtResource( 2 )
 

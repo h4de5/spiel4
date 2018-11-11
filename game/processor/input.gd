@@ -65,11 +65,18 @@ func _input(event):
 				shootable.handle_mousemove(parent.get_global_mouse_position())
 		elif (event is InputEventMouseButton):
 			if moveable:
-				print("clicked to: ", event.position)
+				# FIXME - debug target on mouse click
+				# print("clicked to: ", event.position)
+				# print("clicked to: ", get_viewport().get_mouse_position())
+				print("clicked to: ", moveable.get_global_mouse_position())
 				if event.button_index == BUTTON_LEFT:
-					moveable.handle_target(event.position)
+					# moveable.handle_target(event.position)
+					# moveable.handle_target(get_viewport().get_mouse_position())
+					moveable.handle_target(moveable.get_global_mouse_position())
 				elif event.button_index == BUTTON_RIGHT:
 					moveable.handle_target(Vector2(0,0))
+				elif event.button_index == BUTTON_MIDDLE:
+					moveable.get_parent().position = Vector2(0,0)
 		elif (event is InputEventJoypadMotion):
 			match event.axis:
 				0,1: # left stick x-axis

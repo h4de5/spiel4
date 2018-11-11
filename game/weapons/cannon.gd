@@ -10,7 +10,8 @@ func _ready():
 		global.properties.weapon_rotation_speed: 4,
 		# FIXME - disabled weapon rotation
 		global.properties.weapon_rotateable: 0,
-		global.properties.clearance_rotation: 0.02,
+		# global.properties.clearance_rotation: 0.02,
+		global.properties.clearance_rotation: 0.4,
 	}
 
 	#activated = true
