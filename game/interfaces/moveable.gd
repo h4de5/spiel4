@@ -58,8 +58,8 @@ func handle_target(target_position):
 		intended_target = target_position
 	else:
 		intended_target = Vector2(0,0)
-		#velocity = 0
-		#torque = 0
+		velocity = 0
+		torque = 0
 
 # set a direction where the shop should turn to
 func handle_direction(target_direction):
