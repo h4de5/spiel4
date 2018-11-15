@@ -3,20 +3,20 @@
 [ext_resource path="res://game/interfaces/moveable.gd" type="Script" id=1]
 [ext_resource path="res://art/models/SmokeParticle.png" type="Texture" id=2]
 
-[sub_resource type="Gradient" id=2]
+[sub_resource type="Gradient" id=1]
 
 offsets = PoolRealArray( 0.00591716, 0.0769231, 0.846154, 0.988166, 1 )
 colors = PoolColorArray( 0.764706, 0.968627, 1, 0.71651, 1, 0.866667, 0, 0.608235, 0, 0, 0, 0.618549, 0.0313726, 0.0313726, 0.0313726, 0, 0.1, 0.0827148, 0.0308594, 0 )
 _sections_unfolded = [ "Resource" ]
 
-[sub_resource type="GradientTexture" id=3]
+[sub_resource type="GradientTexture" id=2]
 
 flags = 4
-gradient = SubResource( 2 )
+gradient = SubResource( 1 )
 width = 200
 _sections_unfolded = [ "Resource" ]
 
-[sub_resource type="ParticlesMaterial" id=4]
+[sub_resource type="ParticlesMaterial" id=3]
 
 render_priority = 0
 trail_divisor = 2
@@ -46,7 +46,7 @@ angle = 0.0
 angle_random = 0.0
 scale = 0.3
 scale_random = 0.0
-color_ramp = SubResource( 3 )
+color_ramp = SubResource( 2 )
 hue_variation = 0.0
 hue_variation_random = 0.0
 anim_speed = 0.0
@@ -57,12 +57,10 @@ anim_loop = false
 _sections_unfolded = [ "Angle", "Angular Velocity", "Color", "Damping", "Emission Shape", "Flags", "Gravity", "Initial Velocity", "Linear Accel", "Orbit Velocity", "Radial Accel", "Resource", "Scale", "Spread", "Tangential Accel", "Trail" ]
 
 [node name="moveable" type="Node2D"]
-
 script = ExtResource( 1 )
 activated = false
 
-[node name="particle_forward" type="Particles2D" parent="." index="0"]
-
+[node name="particle_forward" type="Particles2D" parent="."]
 position = Vector2( 0, 30 )
 emitting = true
 amount = 20
@@ -77,15 +75,14 @@ fract_delta = true
 visibility_rect = Rect2( -100, -100, 200, 200 )
 local_coords = true
 draw_order = 1
-process_material = SubResource( 4 )
+process_material = SubResource( 3 )
 texture = ExtResource( 2 )
 normal_map = null
 h_frames = 1
 v_frames = 1
 _sections_unfolded = [ "Drawing", "Material", "Process Material", "Textures", "Time", "Transform", "Visibility", "Z Index" ]
 
-[node name="Light2D" type="Light2D" parent="particle_forward" index="0"]
-
+[node name="Light2D" type="Light2D" parent="particle_forward"]
 position = Vector2( 0, 100 )
 enabled = true
 editor_only = false
@@ -108,5 +105,4 @@ shadow_gradient_length = 0.0
 shadow_filter = 0
 shadow_filter_smooth = 0.0
 shadow_item_cull_mask = 1
-
 

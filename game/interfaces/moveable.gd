@@ -147,7 +147,6 @@ func process_direction(direction, power):
 	elif angle_diff < -parent.get_property(global.properties.clearance_rotation):
 		torque = parent.get_property(global.properties.ship_rotation_speed) * direction.length()
 	else:
-
 		torque = 0
 
 	#print("current_look_dir: ", current_look_dir," angle_diff: ", angle_diff, " direction: ", direction, " torque: ", torque)

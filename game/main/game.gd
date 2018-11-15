@@ -26,10 +26,10 @@ func _ready():
 
 func initialize():
 
-	# for i in range(1): spawn_enemy()
+	#for i in range(1): spawn_enemy()
 	#for i in range(1): spawn_tower()
-	# for i in range(2): spawn_object(global.scene_path_pickup)
-	# for i in range(2): spawn_object(global.scene_path_repairkit)
+	#for i in range(2): spawn_object(global.scene_path_pickup)
+	#for i in range(2): spawn_object(global.scene_path_repairkit)
 	for i in range(2): spawn_object(global.scene_path_asteroid)
 	for i in range(4): spawn_object(global.scene_path_comet)
 

@@ -5,20 +5,17 @@
 [ext_resource path="res://game/weapons/cannon.tscn" type="PackedScene" id=3]
 
 [node name="shootable" type="Node2D"]
-
 script = ExtResource( 1 )
 activated = false
 
 [node name="dualcannon" parent="." instance=ExtResource( 2 )]
 
-editor/display_folded = true
-
 [node name="cannon" parent="." instance=ExtResource( 3 )]
 
-editor/display_folded = true
-
-[node name="Sprite" parent="cannon"]
-
+[node name="Sprite" parent="cannon" index="0"]
 position = Vector2( -0.256599, -15.1095 )
+
+
 [editable path="dualcannon"]
+
 [editable path="cannon"]
