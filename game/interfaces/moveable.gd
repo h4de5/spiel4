@@ -140,14 +140,25 @@ func process_direction(direction, power):
 	# we do not set rotation, we set rotation speed
 	#torque = clamp(angle_diff, -parent.get_property(global.properties.ship_rotation_speed), parent.get_property(global.properties.ship_rotation_speed))
 	# multiply torque with length, to allow smoother turns
-	print("stop when rotation ",  angle_diff, " within " , -parent.get_property(global.properties.clearance_rotation), " and ", parent.get_property(global.properties.clearance_rotation))
+
+	# define max torque
+	var torque_max = parent.get_property(global.properties.ship_rotation_speed) * direction.length()
+	# angle_diff will be close to PI if looking correclty
+
+	# muahah .. finally .. fixed turning
+	if (PI - abs(angle_diff))*2*PI < torque_max:
+		torque_max = (PI - abs(angle_diff))*2*PI
 
 	if angle_diff > parent.get_property(global.properties.clearance_rotation):
-		torque = -parent.get_property(global.properties.ship_rotation_speed) * direction.length()
+		torque = -torque_max
+#		torque = -parent.get_property(global.properties.ship_rotation_speed) * direction.length()
 	elif angle_diff < -parent.get_property(global.properties.clearance_rotation):
-		torque = parent.get_property(global.properties.ship_rotation_speed) * direction.length()
+		torque = torque_max
+#		torque = parent.get_property(global.properties.ship_rotation_speed) * direction.length()
 	else:
 		torque = 0
+
+	print("current rotation diff: ",  angle_diff, " clearance: " , -parent.get_property(global.properties.clearance_rotation), " and ", parent.get_property(global.properties.clearance_rotation), " torque: ", torque)
 
 	#print("current_look_dir: ", current_look_dir," angle_diff: ", angle_diff, " direction: ", direction, " torque: ", torque)
 
