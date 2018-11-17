@@ -10,6 +10,7 @@ var torque = 0
 var intended_direction = Vector2()
 # for movement target positions
 var intended_target = Vector2()
+
 var zoom = 1
 var zoom_speed = 0
 var handbreak = 2
@@ -93,6 +94,11 @@ func handle_action(action, pressed):
 			pressed = 0
 
 	if pressed != 0:
+		if intended_target != Vector2(0,0):
+			handle_target(Vector2(0,0))
+		if intended_direction != Vector2(0,0):
+			handle_direction(Vector2(0,0))
+
 		if action == global.actions.left: torque = -parent.get_property(global.properties.ship_rotation_speed) * pressed
 		elif action == global.actions.right: torque = parent.get_property(global.properties.ship_rotation_speed) * pressed
 

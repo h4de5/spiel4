@@ -8,6 +8,8 @@ var device_id = 0
 var device_types = []
 const controller_stick_deadzone = 0.1
 var left_stick_direction = Vector2()
+var mouse_hold_left = false;
+var mouse_hold_right = false;
 
 var input_actions = {
 	"ui_left": 		global.actions.left,
@@ -60,23 +62,36 @@ func _input(event):
 		if (event is InputEventMouseMotion):
 
 			get_tree().set_input_as_handled()
+
+			# drag and move
+			if mouse_hold_left:
+				moveable.handle_target(moveable.get_global_mouse_position())
+
 			# TODO - check if global_mouse_pos is realy the best way to do this
 			if shootable :
 				shootable.handle_mousemove(parent.get_global_mouse_position())
 		elif (event is InputEventMouseButton):
 			if moveable:
-				# FIXME - debug target on mouse click
-				# print("clicked to: ", event.position)
-				# print("clicked to: ", get_viewport().get_mouse_position())
-				print("clicked to: ", moveable.get_global_mouse_position())
-				if event.button_index == BUTTON_LEFT:
-					# moveable.handle_target(event.position)
-					# moveable.handle_target(get_viewport().get_mouse_position())
-					moveable.handle_target(moveable.get_global_mouse_position())
-				elif event.button_index == BUTTON_RIGHT:
-					moveable.handle_target(Vector2(0,0))
-				elif event.button_index == BUTTON_MIDDLE:
-					moveable.get_parent().position = Vector2(0,0)
+				if event.is_pressed():
+
+					if event.button_index == BUTTON_LEFT:
+						moveable.handle_target(moveable.get_global_mouse_position())
+						mouse_hold_left = true
+
+					elif event.button_index == BUTTON_RIGHT:
+						# reset target on right click
+						moveable.handle_target(Vector2(0,0))
+						mouse_hold_right = true
+
+					elif event.button_index == BUTTON_MIDDLE:
+						moveable.get_parent().position = Vector2(0,0)
+				else:
+					if event.button_index == BUTTON_LEFT:
+						mouse_hold_left = false
+
+					elif event.button_index == BUTTON_RIGHT:
+						mouse_hold_right = false
+
 		elif (event is InputEventJoypadMotion):
 			match event.axis:
 				0,1: # left stick x-axis
@@ -112,31 +127,39 @@ func _input(event):
 					print("print unknown controller axis: ", event.axis)
 		else:
 			#print ("got event ", event)
-			for e in input_actions :
-				if event.is_action(e) :
+
+			# for e in input_actions :
+			for e in input_manager.input_map :
+				if InputMap.has_action(e) && event.is_action(e) :
 					# do not set mouse input as handled
 					# otherwise gui buttons cannot be clicked
 					if (not event is InputEventMouseButton):
 						get_tree().set_input_as_handled()
 					if moveable:
-						moveable.handle_action(input_actions[e], Input.is_action_pressed(e))
+						# moveable.handle_action(input_actions[e], Input.is_action_pressed(e))
+						moveable.handle_action(input_manager.input_map[e]["action"], Input.is_action_pressed(e))
 					if shootable:
-						shootable.handle_action(input_actions[e], Input.is_action_pressed(e))
-			if event is InputEventKey:
-				var camera = get_node(global.scene_tree_camera)
-				match event.scancode:
-					KEY_I:
-						get_tree().set_input_as_handled()
-						camera.position.y -= 20
-					KEY_J:
-						get_tree().set_input_as_handled()
-						camera.position.x -= 20
-					KEY_K:
-						get_tree().set_input_as_handled()
-						camera.position.y += 20
-					KEY_L:
-						get_tree().set_input_as_handled()
-						camera.position.x += 20
+						# shootable.handle_action(input_actions[e], Input.is_action_pressed(e))
+						shootable.handle_action(input_manager.input_map[e]["action"], Input.is_action_pressed(e))
+				elif !InputMap.has_action(e):
+					print("Action ", e, " is currently not in the input map, maybe somethings wrong with the initialization")
+
+
+#			if event is InputEventKey:
+#				var camera = get_node(global.scene_tree_camera)
+#				match event.scancode:
+#					KEY_I:
+#						get_tree().set_input_as_handled()
+#						camera.position.y -= 20
+#					KEY_J:
+#						get_tree().set_input_as_handled()
+#						camera.position.x -= 20
+#					KEY_K:
+#						get_tree().set_input_as_handled()
+#						camera.position.y += 20
+#					KEY_L:
+#						get_tree().set_input_as_handled()
+#						camera.position.x += 20
 
 
 
