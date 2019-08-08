@@ -3,20 +3,21 @@
 importer="texture"
 type="StreamTexture"
 path="res://.import/star_particle2.png-649753143166dcff0ba8e8632d484533.stex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://art/models/star_particle2.png"
-source_md5="abda225ee949145efb7cb1c5dbea0912"
-
 dest_files=[ "res://.import/star_particle2.png-649753143166dcff0ba8e8632d484533.stex" ]
-dest_md5="2fce09c8790c7d8e512794c5b4a8d722"
 
 [params]
 
 compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
+compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
 flags/filter=true
@@ -26,6 +27,7 @@ flags/srgb=2
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
+process/invert_color=false
 stream=false
 size_limit=0
 detect_3d=true

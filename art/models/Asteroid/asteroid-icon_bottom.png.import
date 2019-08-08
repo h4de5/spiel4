@@ -3,20 +3,21 @@
 importer="texture"
 type="StreamTexture"
 path="res://.import/asteroid-icon_bottom.png-8adc15fde23d73d61a2df20d4a6facad.stex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://art/models/Asteroid/asteroid-icon_bottom.png"
-source_md5="a896ab8a0746a2a35b29bdd0cb77853c"
-
 dest_files=[ "res://.import/asteroid-icon_bottom.png-8adc15fde23d73d61a2df20d4a6facad.stex" ]
-dest_md5="a208f9cf318ee184c9990f9f8fe37a86"
 
 [params]
 
 compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
+compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
 flags/filter=true
@@ -26,6 +27,7 @@ flags/srgb=2
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
+process/invert_color=false
 stream=false
 size_limit=0
 detect_3d=true

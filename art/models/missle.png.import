@@ -3,20 +3,21 @@
 importer="texture"
 type="StreamTexture"
 path="res://.import/missle.png-441ee3fefdd8c693f7e1ac53ce8802ec.stex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://art/models/missle.png"
-source_md5="825d90482a69f62caa538cf806948fd2"
-
 dest_files=[ "res://.import/missle.png-441ee3fefdd8c693f7e1ac53ce8802ec.stex" ]
-dest_md5="8dcf7157c790c0ac91e8b174970879e7"
 
 [params]
 
 compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
+compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
 flags/filter=true
@@ -26,6 +27,7 @@ flags/srgb=2
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
+process/invert_color=false
 stream=false
 size_limit=0
 detect_3d=true

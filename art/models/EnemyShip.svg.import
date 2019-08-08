@@ -3,20 +3,21 @@
 importer="texture"
 type="StreamTexture"
 path="res://.import/EnemyShip.svg-56bdbefea3cf1995a612564091ac2e77.stex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://art/models/EnemyShip.svg"
-source_md5="8d9bfe2ea6abe5720cf0a20cb3c44616"
-
 dest_files=[ "res://.import/EnemyShip.svg-56bdbefea3cf1995a612564091ac2e77.stex" ]
-dest_md5="8251f4ddb448d2b117af0098247aa7b9"
 
 [params]
 
 compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
+compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
 flags/filter=true
@@ -26,6 +27,7 @@ flags/srgb=2
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
+process/invert_color=false
 stream=false
 size_limit=0
 detect_3d=true

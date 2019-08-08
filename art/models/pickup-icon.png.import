@@ -3,20 +3,21 @@
 importer="texture"
 type="StreamTexture"
 path="res://.import/pickup-icon.png-7e5a4020f3f75437fe5aad1f1ac04ba7.stex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://art/models/pickup-icon.png"
-source_md5="bd691655ff2e11f412ddbe6bd9713467"
-
 dest_files=[ "res://.import/pickup-icon.png-7e5a4020f3f75437fe5aad1f1ac04ba7.stex" ]
-dest_md5="ee8b711ed5542f5cb44d2d5bfe312084"
 
 [params]
 
 compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
+compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
 flags/filter=true
@@ -26,6 +27,7 @@ flags/srgb=2
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
+process/invert_color=false
 stream=false
 size_limit=0
 detect_3d=true
