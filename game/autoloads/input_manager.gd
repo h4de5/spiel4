@@ -1,3 +1,4 @@
+# this autoload manager builds
 extends Node
 
 
@@ -45,6 +46,23 @@ var input_map = {
 #		"scancodes_dpad": [JOY_BUTTON_1],
 #		"scancodes_mouse": [BUTTON_MIDDLE],
 #	},
+
+	"ui_page_up": {
+		"action": global.actions.zoom_out,
+		"scancodes_key": [KEY_PAGEUP],
+		"scancodes_dpad": [],
+		"scancodes_mouse": [],
+	},
+	"ui_page_down": {
+		"action": global.actions.zoom_in,
+		"scancodes_key": [KEY_PAGEDOWN],
+		"scancodes_dpad": [],
+		"scancodes_mouse": [],
+	},
+
+	#"ui_weapon_left": global.actions.target_left,
+	#"ui_weapon_right": global.actions.target_right,
+
 }
 
 func _ready():

@@ -36,6 +36,8 @@ var groups = {
 	missle 		= "missle"
 }
 
+# first number: unique id of group
+# second number: defines which groups can interact with them
 var collision_layer_masks = {
 	player		= [1, 1+2+4+8+16+32],
 	npc 		= [2, 1+2+4+8+16+32],

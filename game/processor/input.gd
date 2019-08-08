@@ -11,20 +11,6 @@ var left_stick_direction = Vector2()
 var mouse_hold_left = false;
 var mouse_hold_right = false;
 
-var input_actions = {
-	"ui_left": 		global.actions.left,
-	"ui_right": 	global.actions.right,
-	"ui_up": 		global.actions.accelerate,
-	"ui_down": 		global.actions.back,
-	"ui_home": 		global.actions.stop,
-	"ui_accept": 	global.actions.fire,
-	#"ui_accept": 	global.actions.use,
-	#"ui_page_up": 	global.actions.zoom_in,
-	#"ui_page_down": global.actions.zoom_out,
-	"ui_weapon_left": global.actions.target_left,
-	"ui_weapon_right": global.actions.target_right,
-}
-
 func _ready():
 	set_process_input(true)
 	moveable = interface.is_moveable(parent)
@@ -128,7 +114,6 @@ func _input(event):
 		else:
 			#print ("got event ", event)
 
-			# for e in input_actions :
 			for e in input_manager.input_map :
 				if InputMap.has_action(e) && event.is_action(e) :
 					# do not set mouse input as handled
@@ -136,10 +121,8 @@ func _input(event):
 					if (not event is InputEventMouseButton):
 						get_tree().set_input_as_handled()
 					if moveable:
-						# moveable.handle_action(input_actions[e], Input.is_action_pressed(e))
 						moveable.handle_action(input_manager.input_map[e]["action"], Input.is_action_pressed(e))
 					if shootable:
-						# shootable.handle_action(input_actions[e], Input.is_action_pressed(e))
 						shootable.handle_action(input_manager.input_map[e]["action"], Input.is_action_pressed(e))
 				elif !InputMap.has_action(e):
 					print("Action ", e, " is currently not in the input map, maybe somethings wrong with the initialization")
